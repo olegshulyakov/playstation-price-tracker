@@ -45,7 +45,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/playstation-theme.scss"
             ],
             "scripts": []
           },
