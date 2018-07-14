@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<!--<mat-toolbar color="primary">
   <h1 fxFlex="20%">
     {{title}}
   </h1>
@@ -11,4 +11,11 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-</mat-toolbar>
+</mat-toolbar>-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">{{title}}</a>
+  <form class="col-lg-10">
+    <input class="form-control" type="search" placeholder="Search game" [formControl]="autoCompleteControl"
+           (keyup)="updateOptions()">
+  </form>
+</nav>
