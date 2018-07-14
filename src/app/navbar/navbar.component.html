@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <h1 fxFlex="20%">
+    {{title}}
+  </h1>
+  <mat-form-field fxFlex="80%" appearance="standard" floatLabel="never" style="width: 100%;">
+    <input matInput type="search" placeholder="Search game" [formControl]="autoCompleteControl" [matAutocomplete]="auto"
+           (keyup)="updateOptions()">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of options" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-toolbar>
