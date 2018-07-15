@@ -17,13 +17,15 @@ import {
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {GameCardComponent} from './game-card/game-card.component';
 import {GridComponent} from './grid/grid.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     GameCardComponent,
-    GridComponent
+    GridComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
