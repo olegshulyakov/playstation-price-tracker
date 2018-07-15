@@ -15,11 +15,13 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { GameCardComponent } from './game-card/game-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    GameCardComponent
   ],
   imports: [
     BrowserModule,
