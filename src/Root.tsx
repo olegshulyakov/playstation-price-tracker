@@ -5,12 +5,12 @@ import Routes from "./routes";
 import { CssBaseline } from "@material-ui/core";
 
 const Root: React.FC = () => {
-  return (
-    <BrowserRouter>
-      <CssBaseline />
-      <Routes />
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <CssBaseline />
+            <Routes />
+        </BrowserRouter>
+    );
 };
 
 export default Root;
