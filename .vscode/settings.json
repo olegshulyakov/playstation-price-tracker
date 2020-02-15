@@ -1,19 +1,30 @@
 {
-  "files.autoSave": "onFocusChange",
-  "files.exclude": {
-    "**/build": true,
-    "**/node_modules": true
-  },
-  "editor.wordWrapColumn": 120,
-  "search.exclude": {
-    "**/build": true,
-    "**/node_modules": true
-  },
-  "git.fetchOnPull": true,
-  "git.rebaseWhenSync": true,
-  "editor.formatOnPaste": true,
-  "workbench.editor.enablePreview": false,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "workbench.editor.enablePreviewFromQuickOpen": false
+    "files.autoSave": "onFocusChange",
+    "files.exclude": {
+        "**/build": true,
+        "**/node_modules": true
+    },
+    "editor.wordWrapColumn": 120,
+    "search.exclude": {
+        "**/build": true,
+        "**/node_modules": true
+    },
+    "git.fetchOnPull": true,
+    "git.rebaseWhenSync": true,
+    "editor.formatOnPaste": true,
+    "workbench.editor.enablePreview": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+
+    // Toggle from command palette as needed.
+    "gitlens.codeLens.enabled": false,
+    "gitlens.currentLine.enabled": false,
+
+    // Keep source control tools in same view.
+    "gitlens.views.compare.location": "scm",
+    "gitlens.views.fileHistory.location": "scm",
+    "gitlens.views.lineHistory.location": "scm",
+    "gitlens.views.repositories.location": "scm",
+    "gitlens.views.search.location": "scm"
 }
