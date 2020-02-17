@@ -1,4 +1,4 @@
-import { Avatar, Button, Container, Icon, Snackbar, TextField, Typography, CircularProgress } from "@material-ui/core";
+import { Avatar, Button, Container, Icon, Snackbar, TextField, CircularProgress } from "@material-ui/core";
 import React, { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useLoginStyles } from "./styles";

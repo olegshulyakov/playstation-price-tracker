@@ -5,6 +5,7 @@ import FirebaseAuth from "../services/FirebaseAuth";
 import Loading from "../components/Loading";
 
 const Login = lazy(() => import("../pages/login"));
+const Profile = lazy(() => import("../pages/profile"));
 
 const App = lazy(() => import("../pages/App"));
 
@@ -21,7 +22,8 @@ const Routes: React.FC = () => {
         <Suspense fallback={<Loading />}>
             <Switch>
                 <Route path="/login" exact component={Login} />
-                <PrivateRoute condition={isAuth} redirectPath="/login" path="/" component={App} />
+                <PrivateRoute condition={isAuth} redirectPath="/login" path="/profile" exact component={Profile} />
+                <Route path="/" exact component={App} />
             </Switch>
         </Suspense>
     );
