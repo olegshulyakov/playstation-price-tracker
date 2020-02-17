@@ -53,18 +53,18 @@
         ]
     },
     "prettier": {
-      "printWidth": 120,
-      "tabWidth": 4,
-      "useTabs": false,
-      "semi": true,
-      "singleQuote": false,
-      "jsxSingleQuote": false,
-      "trailingComma": "all",
-      "bracketSpacing": true,
-      "jsxBracketSameLine": false,
-      "arrowParens": "always",
-      "vueIndentScriptAndStyle": true,
-      "endOfLine": "auto"
+        "printWidth": 120,
+        "tabWidth": 4,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": false,
+        "jsxSingleQuote": false,
+        "trailingComma": "all",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": false,
+        "arrowParens": "always",
+        "vueIndentScriptAndStyle": true,
+        "endOfLine": "auto"
     },
     "devDependencies": {
         "prettier": "1.19.1"
