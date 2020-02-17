@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-export const useLoginStyles = makeStyles(theme => ({
+export const useLoginStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
         display: "flex",

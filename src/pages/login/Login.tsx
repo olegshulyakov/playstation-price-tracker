@@ -35,7 +35,7 @@ const Login: React.FC = () => {
     );
 
     useEffect(() => {
-        FirebaseAuth.onAuthStateChanged(userState => {
+        FirebaseAuth.onAuthStateChanged((userState) => {
             if (userState !== null) {
                 history.push("/");
             }

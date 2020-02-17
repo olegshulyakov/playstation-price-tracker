@@ -11,14 +11,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/olegshulyakov/game-price-monitor-server.git"
+        "url": "git+https://github.com/olegshulyakov/game-price-tracker.git"
     },
     "author": "Oleg Shulyakov",
     "license": "Apache-2.0",
     "bugs": {
-        "url": "https://github.com/olegshulyakov/game-price-monitor-server/issues"
+        "url": "https://github.com/olegshulyakov/game-price-tracker/issues"
     },
-    "homepage": "https://github.com/olegshulyakov/game-price-monitor-server#readme",
+    "homepage": "https://github.com/olegshulyakov/game-price-tracker#readme",
     "dependencies": {
         "@material-ui/core": "^4.9.1",
         "@testing-library/jest-dom": "^4.2.4",
@@ -51,6 +51,20 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "prettier": {
+      "printWidth": 120,
+      "tabWidth": 4,
+      "useTabs": false,
+      "semi": true,
+      "singleQuote": false,
+      "jsxSingleQuote": false,
+      "trailingComma": "all",
+      "bracketSpacing": true,
+      "jsxBracketSameLine": false,
+      "arrowParens": "always",
+      "vueIndentScriptAndStyle": true,
+      "endOfLine": "auto"
     },
     "devDependencies": {
         "prettier": "1.19.1"

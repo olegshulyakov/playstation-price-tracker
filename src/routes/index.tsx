@@ -12,7 +12,7 @@ const Routes: React.FC = () => {
     const [isAuth, setIsAuth] = useState(false);
 
     useEffect(() => {
-        FirebaseAuth.onAuthStateChanged(userState => {
+        FirebaseAuth.onAuthStateChanged((userState) => {
             setIsAuth(userState !== null);
         });
     }, []);

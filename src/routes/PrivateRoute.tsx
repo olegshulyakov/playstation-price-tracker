@@ -16,7 +16,7 @@ const PrivateRoute: React.FC<PrivateRouteProps | any> = ({
     return (
         <Route
             {...rest}
-            render={props => {
+            render={(props) => {
                 if (condition) {
                     return <Component {...props} />;
                 }
