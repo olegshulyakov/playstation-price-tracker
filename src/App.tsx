@@ -19,6 +19,11 @@ function App() {
                 </p>
             </header>
             <Store language="ru" country="ru" />
+            <footer className="App-footer">
+                <p>
+                    Version <b>{process.env.REACT_APP_VERSION}</b>
+                </p>
+            </footer>
         </div>
     );
 }
