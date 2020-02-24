@@ -1,0 +1,12 @@
+.game-list {
+    clear: both;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 1px;
+    justify-content: center;
+}
+
+.game-list-loader {
+    text-align: center;
+}

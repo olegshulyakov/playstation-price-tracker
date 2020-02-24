@@ -1,5 +1,7 @@
 import React from "react";
+import "./Store.css";
 import PlayStationService from "../services/PlayStationService";
+import GamePreview from "../components/GamePreview";
 
 interface StoreProps {
     language: string;
@@ -37,10 +39,13 @@ export default class Store extends React.Component<StoreProps, StoreState> {
     render() {
         if (!this.state.isLoaded)
             return (
-                <div>
+                <div className="game-list-loader">
                     Loading games list... {this.state.count ? `${this.state.games.length} / ${this.state.count}` : ""}
                 </div>
             );
-        return <div>We will display games here.</div>;
+        const games = this.state.games.slice().map((game) => {
+            return <GamePreview game={game} />;
+        });
+        return <div className="game-list">{games}</div>;
     }
 }
