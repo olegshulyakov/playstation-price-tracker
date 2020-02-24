@@ -1,8 +1,4 @@
-interface PlaystationFacet {
-    name: string;
-    count: number;
-    key: string;
-}
+import { Link, PlaystationObject } from "playstation";
 
 const SORT_FIELD = Object.freeze({ RELEASE_DATE: "release_date", TIMESTAMP: "timestamp" });
 const SORT_DIRECTION = Object.freeze({ ASC: "asc", DESC: "desc" });
@@ -26,7 +22,7 @@ export default class PlayStationService {
         return response;
     }
 
-    async getGameInfo(cusa: string) {
+    async getGameInfo(cusa: string): Promise<Link | null> {
         console.debug(`Loading game info ${cusa}`);
         const response = await this.query(cusa);
         const json = await response.json();
@@ -36,7 +32,7 @@ export default class PlayStationService {
         return json.links[0];
     }
 
-    async getStoreInfo() {
+    async getStoreInfo(): Promise<PlaystationObject> {
         console.debug("Loading games count");
         const response = await this.query(this.rootCusa, 0);
         const json = await response.json();
@@ -45,7 +41,7 @@ export default class PlayStationService {
         return this.storeInfo;
     }
 
-    async getGamesList() {
+    async getGamesList(): Promise<Link[]> {
         console.debug("Loading games");
         const response = await this.query(this.rootCusa, 10);
         const json = await response.json();
