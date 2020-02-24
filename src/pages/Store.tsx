@@ -25,8 +25,12 @@ export default class Store extends React.Component<StoreProps, StoreState> {
     }
 
     componentDidMount() {
-        this.playStationService.getCount().then((count) => {
-            this.setState({ count: count });
+        this.playStationService.getStoreInfo().then((storeInfo) => {
+            this.setState({ count: storeInfo.total_results });
+            this.playStationService.getGamesList().then((links) => {
+                this.setState({ games: links });
+                this.setState({ isLoaded: true });
+            });
         });
     }
 
