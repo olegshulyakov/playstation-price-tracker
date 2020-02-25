@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Store from "./pages/Store";
+import GameDetail from "./pages/GameDetail";
 
 function App() {
     return (
@@ -18,7 +20,12 @@ function App() {
                     tracker.
                 </p>
             </header>
-            <Store language="ru" country="ru" />
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/" exact component={() => <Store language="ru" country="ru" />} />
+                    <Route path="/game/:cusa" component={GameDetail} />
+                </Switch>
+            </BrowserRouter>
             <footer className="App-footer">
                 <p>
                     Version <b>{process.env.REACT_APP_VERSION}</b>

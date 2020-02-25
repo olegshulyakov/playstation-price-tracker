@@ -1,9 +1,10 @@
 import React from "react";
 import "./GamePreview.css";
-import { Link } from "playstation";
+import { PlaystationLink } from "playstation";
+import { Link } from "react-router-dom";
 
 export interface GamePreviewProps {
-    game: Link;
+    game: PlaystationLink;
 }
 
 export default class GamePreview extends React.Component<GamePreviewProps> {
@@ -17,9 +18,26 @@ export default class GamePreview extends React.Component<GamePreviewProps> {
                     loading="lazy"
                     placeholder={this.props.game.name}
                 ></img>
-                <a className="game-preview-link" href={this.props.game.url} target="_blank" rel="noopener noreferrer">
-                    {this.props.game.name}
-                </a>
+                <p>
+                    <Link
+                        to={"/game/" + this.props.game.id}
+                        className="game-details-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {this.props.game.name}
+                    </Link>
+                </p>
+                <p>
+                    <a
+                        className="game-preview-link"
+                        href={this.props.game.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {this.props.game.default_sku.display_price}
+                    </a>
+                </p>
             </div>
         );
     }

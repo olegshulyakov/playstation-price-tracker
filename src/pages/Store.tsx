@@ -26,7 +26,7 @@ export default class Store extends React.Component<StoreProps, StoreState> {
         };
     }
 
-    componentDidMount() {
+    syncWithPsStore() {
         this.playStationService.getStoreInfo().then((storeInfo) => {
             this.setState({ count: storeInfo.total_results });
             this.playStationService.getGamesList().then((links) => {
@@ -36,6 +36,14 @@ export default class Store extends React.Component<StoreProps, StoreState> {
         });
     }
 
+    componentDidMount() {
+        if (!this.props.country || !this.props.language) {
+            console.error("No language or country specified.");
+            return;
+        }
+        this.syncWithPsStore();
+    }
+
     render() {
         if (!this.state.isLoaded)
             return (
@@ -43,6 +51,9 @@ export default class Store extends React.Component<StoreProps, StoreState> {
                     Loading games list... {this.state.count ? `${this.state.games.length} / ${this.state.count}` : ""}
                 </div>
             );
+        if (!this.state.games) {
+            return <div>Cannot load games.</div>;
+        }
         const games = this.state.games.slice().map((game) => {
             return <GamePreview game={game} />;
         });
