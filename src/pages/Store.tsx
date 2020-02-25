@@ -2,6 +2,7 @@ import React from "react";
 import "./Store.css";
 import PlayStationService from "../services/PlayStationService";
 import GamePreview from "../components/GamePreview";
+import { PlaystationLink } from "playstation";
 
 interface StoreProps {
     language: string;
@@ -11,7 +12,7 @@ interface StoreProps {
 interface StoreState {
     isLoaded: boolean;
     count: number | undefined;
-    games: any[];
+    games: PlaystationLink[];
 }
 
 export default class Store extends React.Component<StoreProps, StoreState> {
@@ -55,7 +56,7 @@ export default class Store extends React.Component<StoreProps, StoreState> {
             return <div>Cannot load games.</div>;
         }
         const games = this.state.games.slice().map((game) => {
-            return <GamePreview game={game} />;
+            return <GamePreview key={"game-preview-" + game.id} game={game} />;
         });
         return <div className="game-list">{games}</div>;
     }
