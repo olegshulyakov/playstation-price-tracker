@@ -1,8 +1,20 @@
 root = true
 
 [*]
+charset = utf-8
+trim_trailing_whitespace = true
+
+[{src/**.tsx, public/*.html}]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+
+[src/**.css]
 indent_style = space
 indent_size = 2
-charset = utf-8
-trim_trailing_whitespace = false
-end_of_line = lf
+insert_final_newline = true
+
+# Matches the exact files either package.json or .travis.yml
+[{*.json,.travis.yml}]
+indent_style = space
+indent_size = 2
