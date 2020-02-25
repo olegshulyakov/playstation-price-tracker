@@ -1,38 +1,46 @@
 import React from "react";
 import "./App.css";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Region } from "./react-app-env";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Store from "./pages/Store";
 import GameDetail from "./pages/GameDetail";
+import SelectRegion from "./pages/SelectRegion";
 
-function App() {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <p>
-                    <a
-                        className="App-link"
-                        href="https://store.playstation.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        PS Store
-                    </a>{" "}
-                    tracker.
-                </p>
-            </header>
-            <BrowserRouter>
-                <Switch>
-                    <Route path="/" exact component={() => <Store language="ru" country="ru" />} />
-                    <Route path="/game/:cusa" component={GameDetail} />
-                </Switch>
-            </BrowserRouter>
-            <footer className="App-footer">
-                <p>
-                    Version <b>{process.env.REACT_APP_VERSION}</b>
-                </p>
-            </footer>
-        </div>
-    );
+interface AppState {
+    region: Region | undefined;
 }
 
-export default App;
+export default class App extends React.Component<any, AppState> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            region: undefined,
+        };
+    }
+
+    render() {
+        if (!this.state.region) {
+            return (
+                <div className="App">
+                    <Header />
+                    <SelectRegion />
+                    <Footer />
+                </div>
+            );
+        }
+        return (
+            <div className="App">
+                <Header />
+                <BrowserRouter>
+                    <Switch>
+                        <Route path="/" exact component={() => <Store language="ru" country="ru" />} />
+                        <Route path="/game/:cusa" component={GameDetail} />
+                    </Switch>
+                </BrowserRouter>
+                <Footer />
+            </div>
+        );
+    }
+}
