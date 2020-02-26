@@ -2,11 +2,10 @@ import React from "react";
 import "./Store.css";
 import PlayStationService from "../services/PlayStationService";
 import GamePreview from "../components/GamePreview";
-import { PlaystationLink } from "playstation";
+import { PlaystationLink, PlaystationRegion } from "playstation";
 
 interface StoreProps {
-    language: string;
-    country: string;
+    region: PlaystationRegion;
 }
 
 interface StoreState {
@@ -19,7 +18,7 @@ export default class Store extends React.Component<StoreProps, StoreState> {
     private readonly playStationService: PlayStationService;
     constructor(props: StoreProps) {
         super(props);
-        this.playStationService = new PlayStationService(this.props.language, this.props.country);
+        this.playStationService = new PlayStationService(this.props.region.language, this.props.region.country);
         this.state = {
             isLoaded: false,
             count: undefined,
@@ -28,18 +27,21 @@ export default class Store extends React.Component<StoreProps, StoreState> {
     }
 
     syncWithPsStore() {
-        this.playStationService.getStoreInfo().then((storeInfo) => {
-            this.setState({ count: storeInfo.total_results });
-            this.playStationService.getGamesList().then((links) => {
+        this.playStationService
+            .getStoreInfo()
+            .then((storeInfo) => {
+                this.setState({ count: storeInfo.total_results });
+            })
+            .then(() => this.playStationService.getGamesList())
+            .then((links) => {
                 this.setState({ games: links });
                 this.setState({ isLoaded: true });
             });
-        });
     }
 
     componentDidMount() {
-        if (!this.props.country || !this.props.language) {
-            console.error("No language or country specified.");
+        if (!this.props.region) {
+            console.error("No region specified.");
             return;
         }
         this.syncWithPsStore();

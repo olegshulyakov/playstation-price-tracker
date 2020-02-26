@@ -1,20 +1,27 @@
 import React from "react";
+import { PlaystationRegion } from "playstation";
+import { playstationRegionList } from "../services/PlayStationService";
 
-export default class SelectRegion extends React.Component {
+export interface SelectRegionProps {
+    onSelectRegion: any;
+}
+
+export default class SelectRegion extends React.Component<SelectRegionProps> {
+    constructor(props: SelectRegionProps) {
+        super(props);
+        this.renderRegion = this.renderRegion.bind(this);
+    }
+
+    renderRegion(region: PlaystationRegion) {
+        return (
+            <button key={"region-" + region.name} onClick={() => this.props.onSelectRegion(region)}>
+                {region.name}
+            </button>
+        );
+    }
+
     render() {
-        // TODO parse regions from https://www.playstation.com/country-selector/index.html
-        fetch("https://www.playstation.com/country-selector/index.html", {
-            mode: "cors",
-            cache: "reload",
-            credentials: "omit",
-        })
-            .then((response) => {
-                return response.text();
-            })
-            .then((text) => {
-                console.debug(text);
-            });
-
+        const regions = playstationRegionList.map((region) => this.renderRegion(region));
         return (
             <div className="select-region">
                 <img
@@ -25,6 +32,7 @@ export default class SelectRegion extends React.Component {
                     placeholder="Playstation logo"
                 ></img>
                 <h1>Please select your country / region</h1>
+                <div>{regions}</div>
             </div>
         );
     }

@@ -1,7 +1,75 @@
-import { PlaystationLink, PlaystationObject } from "playstation";
+import { PlaystationLink, PlaystationObject, PlaystationRegion } from "playstation";
 
 const SORT_FIELD = Object.freeze({ RELEASE_DATE: "release_date", TIMESTAMP: "timestamp" });
 const SORT_DIRECTION = Object.freeze({ ASC: "asc", DESC: "desc" });
+
+// Parsed from https://www.playstation.com/country-selector/index.html using regexp "<a href="https:\/\/www\.playstation\.com\/([a-z]{2})-([a-z]{2})\/">([^<]+)<\/a>"
+export const playstationRegionList: PlaystationRegion[] = [
+    { name: "Argentina", language: "es", country: "ar" },
+    { name: "Australia", language: "en", country: "au" },
+    { name: "Austria (Österreich)", language: "de", country: "at" },
+    { name: "Bahrain (English)", language: "en", country: "ae" },
+    { name: "Belgium (Français)", language: "fr", country: "be" },
+    { name: "Belgium (Nederlands)", language: "nl", country: "be" },
+    { name: "Brasil", language: "pt", country: "br" },
+    { name: "Bulgaria (България)", language: "bg", country: "bg" },
+    { name: "Canada", language: "en", country: "ca" },
+    { name: "Canada (French)", language: "fr", country: "ca" },
+    { name: "Chile", language: "es", country: "cl" },
+    { name: "Colombia", language: "es", country: "co" },
+    { name: "Costa Rica", language: "es", country: "cr" },
+    { name: "Croatia (Hrvatska)", language: "hr", country: "hr" },
+    { name: "Cyprus", language: "en", country: "cy" },
+    { name: "Czech Republic (Ceská Republika)", language: "cs", country: "cz" },
+    { name: "Denmark (Danmark)", language: "da", country: "dk" },
+    { name: "Ecuador", language: "es", country: "ec" },
+    { name: "El Salvador", language: "es", country: "sv" },
+    { name: "Finland (Suomi)", language: "fi", country: "fi" },
+    { name: "France", language: "fr", country: "fr" },
+    { name: "Germany (Deutschland)", language: "de", country: "de" },
+    { name: "Greece (Ελλαδα)", language: "el", country: "gr" },
+    { name: "Guatemala", language: "es", country: "gt" },
+    { name: "Honduras", language: "es", country: "hn" },
+    { name: "Hungary (Magyarország)", language: "hu", country: "hu" },
+    { name: "Iceland (Ísland)", language: "is", country: "is" },
+    { name: "India", language: "en", country: "in" },
+    { name: "Ireland", language: "en", country: "ie" },
+    { name: "Italy", language: "it", country: "it" },
+    { name: "Kuwait (English)", language: "en", country: "ae" },
+    { name: "Lebanon (English)", language: "en", country: "ae" },
+    { name: "Luxembourg (Deutsch)", language: "de", country: "lu" },
+    { name: "Luxembourg (Français)", language: "fr", country: "lu" },
+    { name: "Malta", language: "en", country: "mt" },
+    { name: "Mexico (México)", language: "es", country: "mx" },
+    { name: "Nederland", language: "nl", country: "nl" },
+    { name: "New Zealand", language: "en", country: "nz" },
+    { name: "Nicaragua", language: "es", country: "ni" },
+    { name: "Norway (Norge)", language: "no", country: "no" },
+    { name: "Oman (English)", language: "en", country: "ae" },
+    { name: "Panama (Panamá)", language: "es", country: "pa" },
+    { name: "Paraguay", language: "es", country: "py" },
+    { name: "Peru (Perú)", language: "es", country: "pe" },
+    { name: "Poland (Polska)", language: "pl", country: "pl" },
+    { name: "Portugal", language: "pt", country: "pt" },
+    { name: "Qatar (English)", language: "en", country: "ae" },
+    { name: "Romania (România)", language: "ro", country: "ro" },
+    { name: "Russia (Россия)", language: "ru", country: "ru" },
+    { name: "Saudi Arabia (Arabic)", language: "ar", country: "sa" },
+    { name: "Slovenia (Slovenija)", language: "sl", country: "si" },
+    { name: "Slovakia (Slovenská Republika)", language: "sk", country: "sk" },
+    { name: "South Africa", language: "en", country: "za" },
+    { name: "Spain (España)", language: "es", country: "es" },
+    { name: "Sweden (Sverige)", language: "sv", country: "se" },
+    { name: "Switzerland (Deutsch)", language: "de", country: "ch" },
+    { name: "Switzerland (Français)", language: "fr", country: "ch" },
+    { name: "Switzerland (Italiano)", language: "it", country: "ch" },
+    { name: "Turkey (Türkiye)", language: "tr", country: "tr" },
+    { name: "Ukraine (Україна)", language: "uk", country: "ua" },
+    { name: "United Arab Emirates/ Middle East", language: "en", country: "ae" },
+    { name: "United States", language: "en", country: "us" },
+    { name: "United Kingdom", language: "en", country: "gb" },
+    { name: "Uruguay", language: "es", country: "uy" },
+];
 
 export default class PlayStationService {
     private readonly baseUrl = "https://store.playstation.com/store/api/chihiro/00_09_000";
@@ -11,6 +79,7 @@ export default class PlayStationService {
     private storeInfo: any;
 
     constructor(language: string, country: string) {
+        console.debug(`Creating PlayStationService for [${language}, ${country}]`);
         this.language = language;
         this.country = country;
     }
