@@ -15,12 +15,15 @@
  */
 
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 
 export default class Header extends React.Component {
     render() {
         return (
             <header className="App-header">
                 <p>
+                    <FontAwesomeIcon icon={faPlaystation} size="2x" />
                     <a
                         className="App-link"
                         href="https://store.playstation.com"

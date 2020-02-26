@@ -40,13 +40,6 @@ export default class SelectRegion extends React.Component<SelectRegionProps> {
         const regions = playstationRegionList.map((region) => this.renderRegion(region));
         return (
             <div className="select-region">
-                <img
-                    className="select-region-logo"
-                    src="https://www.playstation.com/country-selector/img/logotype/logo_PS.svg"
-                    alt="PS logo"
-                    loading="lazy"
-                    placeholder="Playstation logo"
-                ></img>
                 <h1>Please select your country / region</h1>
                 <div>{regions}</div>
             </div>
