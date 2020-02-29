@@ -16,7 +16,7 @@
 
 import React from "react";
 import PlayStationService from "../services/PlayStationService";
-import { PlaystationObject } from "playstation";
+import { PlaystationObject, PlaystationRegion } from "playstation";
 import { Grid, Card, CardContent, Typography, Hidden } from "@material-ui/core";
 import GameDetailMediaCard from "../components/GameDetailMediaCard";
 import GameDetailPlatformsCard from "../components/GameDetailPlatformsCard";
@@ -24,7 +24,9 @@ import GameDetailVoiceCard from "../components/GameDetailVoiceCard";
 import GameDetailSubtitleCard from "../components/GameDetailSubtitleCard";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
-interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {}
+interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
+    region: PlaystationRegion;
+}
 
 interface GameDetailState {
     isLoaded: boolean;
@@ -37,7 +39,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
     constructor(props: any) {
         super(props);
         this.cusa = this.props.match.params.cusa;
-        this.playStationService = new PlayStationService("ru", "ru");
+        this.playStationService = new PlayStationService(this.props.region.language, this.props.region.country);
         this.state = {
             isLoaded: false,
             game: undefined,

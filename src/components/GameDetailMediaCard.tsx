@@ -19,10 +19,12 @@ import { PlaystationObject } from "playstation";
 import PlayStationService from "../services/PlayStationService";
 import { Card, CardMedia, CardActions } from "@material-ui/core";
 
-export default class GameDetailMediaCard extends React.Component<{
+interface GameDetailMediaCardProps {
     playStationService: PlayStationService;
     game: PlaystationObject;
-}> {
+}
+
+export default class GameDetailMediaCard extends React.Component<GameDetailMediaCardProps> {
     render() {
         let price = <></>;
         if (

@@ -75,7 +75,7 @@ export default class App extends React.Component<any, AppState> {
                         <Header onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
                         <Switch>
                             <Route path="/" exact component={() => <Store region={region} />} />
-                            <Route path="/game/:cusa" component={GameDetail} />
+                            <Route path="/game/:cusa" component={() => <GameDetail region={region} />} />
                         </Switch>
                         <Footer />
                     </BrowserRouter>
