@@ -84,6 +84,12 @@ declare module "playstation" {
         key: string;
     }
 
+    export interface ContentRating {
+        description: string;
+        rating_system: string;
+        url: string;
+    }
+
     export interface Facets {
         game_content_type: GameContentType[];
         subtitle_lang: SubtitleLang[];
@@ -293,6 +299,7 @@ declare module "playstation" {
         attributes: Attributes;
         container_type: string;
         content_origin: number;
+        content_rating?: ContentRating;
         dob_required: boolean;
         default_sku?: DefaultSku;
         id: string;

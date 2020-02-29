@@ -81,7 +81,20 @@ export default class GameDetail extends React.Component<any, GameDetailState> {
                         <CardContent>
                             <Grid container>
                                 <Grid item xs={12} sm={8} md={8} lg={9} xl={9}>
-                                    <Typography variant="h3">{this.state.game.name}</Typography>
+                                    <Typography variant="h3">
+                                        {this.state.game.name}
+                                        {this.state.game.content_rating?.url ? (
+                                            <img
+                                                src={this.state.game.content_rating?.url}
+                                                loading="lazy"
+                                                alt="rating"
+                                                height="45px"
+                                                width="45px"
+                                            />
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </Typography>
 
                                     <div
                                         className="game-detail-description"
