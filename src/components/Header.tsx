@@ -17,24 +17,32 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import LanguageMenu from "./LanguageMenu";
 
-export default class Header extends React.Component {
+interface HeaderProps {}
+
+class Header extends React.Component<HeaderProps> {
     render() {
         return (
-            <header className="App-header">
-                <p>
-                    <FontAwesomeIcon icon={faPlaystation} size="2x" />
-                    <a
-                        className="App-link"
-                        href="https://store.playstation.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        PS Store
-                    </a>{" "}
-                    tracker.
-                </p>
-            </header>
+            <AppBar position="static" style={{ backgroundColor: "#20232a" }}>
+                <Toolbar variant="dense" disableGutters={true}>
+                    <FontAwesomeIcon
+                        style={{
+                            marginLeft: "16px",
+                            marginRight: "16px",
+                        }}
+                        icon={faPlaystation}
+                        size="2x"
+                    />
+                    <Typography style={{ flexGrow: 1 }} variant="h6" color="inherit" noWrap>
+                        PSN tracker
+                    </Typography>
+                    <LanguageMenu />
+                </Toolbar>
+            </AppBar>
         );
     }
 }
+
+export default Header;

@@ -81,7 +81,7 @@ export const playstationRegionList: PlaystationRegion[] = [
     { name: "Switzerland (Italiano)", language: "it", country: "ch" },
     { name: "Turkey (Türkiye)", language: "tr", country: "tr" },
     { name: "Ukraine (Україна)", language: "uk", country: "ua" },
-    { name: "United Arab Emirates/ Middle East", language: "en", country: "ae" },
+    { name: "United Arab Emirates / Middle East", language: "en", country: "ae" },
     { name: "United States", language: "en", country: "us" },
     { name: "United Kingdom", language: "en", country: "gb" },
     { name: "Uruguay", language: "es", country: "uy" },
@@ -102,7 +102,7 @@ export default class PlayStationService {
 
     async getGeoInfo() {
         console.debug(`Quering geo info`);
-        const response = await fetch(`${this.baseUrl}//geo`);
+        const response = await fetch(`${this.baseUrl}/geo`);
         return response;
     }
 
@@ -132,7 +132,7 @@ export default class PlayStationService {
 
     async getGamesList(): Promise<PlaystationLink[]> {
         console.debug("Loading games");
-        const response = await this.query(this.rootCusa, 10);
+        const response = await this.query(this.rootCusa, 50);
         const json = await response.json();
         //console.debug(`Game list response: ${JSON.stringify(json)}`);
         return json.links;
@@ -145,5 +145,13 @@ export default class PlayStationService {
     getStoreGameLink(cusa: string): string {
         console.debug(`Generating game link ${cusa}`);
         return `https://store.playstation.com/${this.language}-${this.country}/product/${cusa}`;
+    }
+
+    search(query: string) {
+        return "https://store.playstation.com/store/api/chihiro/00_09_000/tumbler/SA/en/999/horizon?suggested_size=10&mode=game";
+    }
+
+    findView(cusa: string) {
+        return "https://store.playstation.com/chihiro-api/viewfinder/ru/ru/999/STORE-MSF75508-FULLGAMES?size=10&gkb=1&geoCountry=ru&start=0";
     }
 }

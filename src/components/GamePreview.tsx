@@ -15,46 +15,51 @@
  */
 
 import React from "react";
-import "./GamePreview.css";
 import { PlaystationLink } from "playstation";
-import { Link } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import { CardMedia, CardActionArea } from "@material-ui/core";
+import { GamePreviewBadge, GamePreviewCard } from "../theme";
 
-export interface GamePreviewProps {
+export interface GamePreviewProps extends RouteComponentProps {
     game: PlaystationLink;
 }
 
-export default class GamePreview extends React.Component<GamePreviewProps> {
+class GamePreview extends React.Component<GamePreviewProps> {
+    constructor(props: GamePreviewProps) {
+        super(props);
+        this.handleGameClick = this.handleGameClick.bind(this);
+    }
+
+    handleGameClick(id: string) {
+        this.props.history.push("/game/" + id);
+    }
+
     render() {
         return (
-            <div key={"game-preview-" + this.props.game.id} className="game-preview">
-                <img
-                    className="game-preview-image"
-                    src={this.props.game.images[0].url}
-                    alt={this.props.game.short_name}
-                    loading="lazy"
-                    placeholder={this.props.game.name}
-                ></img>
-                <p>
-                    <Link
-                        to={"/game/" + this.props.game.id}
-                        className="game-details-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {this.props.game.name}
-                    </Link>
-                </p>
-                <p>
-                    <a
-                        className="game-preview-link"
-                        href={this.props.game.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {this.props.game.default_sku.display_price}
-                    </a>
-                </p>
-            </div>
+            <GamePreviewBadge
+                badgeContent={this.props.game.default_sku.display_price}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                }}
+            >
+                <GamePreviewCard>
+                    <CardActionArea onClick={() => this.handleGameClick(this.props.game.id)}>
+                        <CardMedia
+                            component="img"
+                            alt={this.props.game.name}
+                            height="240"
+                            width="240"
+                            loading="lazy"
+                            image={this.props.game.images[0].url}
+                            title={this.props.game.name}
+                            placeholder={this.props.game.name}
+                        />
+                    </CardActionArea>
+                </GamePreviewCard>
+            </GamePreviewBadge>
         );
     }
 }
+
+export default withRouter(GamePreview);

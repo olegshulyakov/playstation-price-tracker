@@ -15,10 +15,11 @@
  */
 
 import React from "react";
-import "./Store.css";
 import PlayStationService from "../services/PlayStationService";
 import GamePreview from "../components/GamePreview";
 import { PlaystationLink, PlaystationRegion } from "playstation";
+import { Grid } from "@material-ui/core";
+import { StoreGridItem } from "../theme";
 
 interface StoreProps {
     region: PlaystationRegion;
@@ -74,8 +75,25 @@ export default class Store extends React.Component<StoreProps, StoreState> {
             return <div>Cannot load games.</div>;
         }
         const games = this.state.games.slice().map((game) => {
-            return <GamePreview key={"game-preview-" + game.id} game={game} />;
+            return (
+                <StoreGridItem
+                    key={"game-preview-" + game.id}
+                    item
+                    style={{ margin: "8px 8px 8px 8px", maxHeight: "240px", maxWidth: "240px" }}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={2}
+                    xl={3}
+                >
+                    <GamePreview game={game} />
+                </StoreGridItem>
+            );
         });
-        return <div className="game-list">{games}</div>;
+        return (
+            <Grid container justify="center">
+                {games}
+            </Grid>
+        );
     }
 }

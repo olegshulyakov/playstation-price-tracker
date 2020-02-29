@@ -23,6 +23,8 @@ import Footer from "./components/Footer";
 import Store from "./pages/Store";
 import GameDetail from "./pages/GameDetail";
 import SelectRegion from "./pages/SelectRegion";
+import { MuiThemeProvider } from "@material-ui/core";
+import { theme } from "./theme";
 
 interface AppState {
     region: PlaystationRegion | undefined;
@@ -31,39 +33,54 @@ interface AppState {
 export default class App extends React.Component<any, AppState> {
     constructor(props: any) {
         super(props);
+
+        let storedRegion: PlaystationRegion | undefined = undefined;
+        const storedRegionStr = localStorage.getItem("region");
+        if (storedRegionStr) {
+            try {
+                storedRegion = JSON.parse(storedRegionStr);
+            } catch (e) {
+                storedRegion = undefined;
+            }
+        }
         this.state = {
-            region: undefined,
+            region: storedRegion,
         };
         this.onSelectRegion = this.onSelectRegion.bind(this);
     }
 
     onSelectRegion(region: PlaystationRegion) {
         console.debug(`Changing region from ${this.state.region?.name} to ${region.name}`);
+        localStorage.setItem("region", JSON.stringify(region));
         this.setState({ region: region });
     }
 
     render() {
         if (!this.state.region) {
             return (
-                <div className="App">
-                    <Header />
-                    <SelectRegion onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
-                    <Footer />
-                </div>
+                <MuiThemeProvider theme={theme}>
+                    <div className="App">
+                        <Header />
+                        <SelectRegion onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
+                        <Footer />
+                    </div>
+                </MuiThemeProvider>
             );
         }
         const region = this.state.region;
         return (
-            <div className="App">
-                <Header />
-                <BrowserRouter>
-                    <Switch>
-                        <Route path="/" exact component={() => <Store region={region} />} />
-                        <Route path="/game/:cusa" component={GameDetail} />
-                    </Switch>
-                </BrowserRouter>
-                <Footer />
-            </div>
+            <MuiThemeProvider theme={theme}>
+                <div className="App">
+                    <Header />
+                    <BrowserRouter>
+                        <Switch>
+                            <Route path="/" exact component={() => <Store region={region} />} />
+                            <Route path="/game/:cusa" component={GameDetail} />
+                        </Switch>
+                    </BrowserRouter>
+                    <Footer />
+                </div>
+            </MuiThemeProvider>
         );
     }
 }

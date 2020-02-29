@@ -17,12 +17,13 @@
 import React from "react";
 import { PlaystationRegion } from "playstation";
 import { playstationRegionList } from "../services/PlayStationService";
+import { Grid, Card, CardActionArea, CardContent, Typography } from "@material-ui/core";
 
 export interface SelectRegionProps {
     onSelectRegion: any;
 }
 
-export default class SelectRegion extends React.Component<SelectRegionProps> {
+class SelectRegion extends React.Component<SelectRegionProps> {
     constructor(props: SelectRegionProps) {
         super(props);
         this.renderRegion = this.renderRegion.bind(this);
@@ -30,9 +31,27 @@ export default class SelectRegion extends React.Component<SelectRegionProps> {
 
     renderRegion(region: PlaystationRegion) {
         return (
-            <button key={"region-" + region.name} onClick={() => this.props.onSelectRegion(region)}>
-                {region.name}
-            </button>
+            <Grid
+                key={"region-" + region.name}
+                style={{ margin: "4px 8px 4px 8px" }}
+                item
+                xs={10}
+                sm={6}
+                md={4}
+                lg={2}
+                xl={3}
+            >
+                <Card
+                    style={{ height: "100%", display: "flex", flexDirection: "column" }}
+                    onClick={() => this.props.onSelectRegion(region)}
+                >
+                    <CardActionArea style={{ height: "100%" }}>
+                        <CardContent style={{ textAlign: "center" }}>
+                            <Typography gutterBottom>{region.name}</Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            </Grid>
         );
     }
 
@@ -40,9 +59,15 @@ export default class SelectRegion extends React.Component<SelectRegionProps> {
         const regions = playstationRegionList.map((region) => this.renderRegion(region));
         return (
             <div className="select-region">
-                <h1>Please select your country / region</h1>
-                <div>{regions}</div>
+                <h1 style={{ textAlign: "center" }}>Please select your country / region</h1>
+                <div>
+                    <Grid container justify="center">
+                        {regions}
+                    </Grid>
+                </div>
             </div>
         );
     }
 }
+
+export default SelectRegion;
