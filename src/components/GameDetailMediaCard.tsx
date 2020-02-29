@@ -1,7 +1,7 @@
 import React from "react";
 import { PlaystationObject } from "playstation";
 import PlayStationService from "../services/PlayStationService";
-import { Card, CardMedia, CardContent, Typography } from "@material-ui/core";
+import { Card, CardMedia, CardActions } from "@material-ui/core";
 
 export default class GameDetailMediaCard extends React.Component<{
     playStationService: PlayStationService;
@@ -9,7 +9,12 @@ export default class GameDetailMediaCard extends React.Component<{
 }> {
     render() {
         return (
-            <Card>
+            <Card
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                    window.open(this.props.playStationService.getStoreGameLink(this.props.game.id), "_blank");
+                }}
+            >
                 <CardMedia
                     component="img"
                     loading="lazy"
@@ -18,18 +23,23 @@ export default class GameDetailMediaCard extends React.Component<{
                     placeholder={this.props.game.name}
                 />
 
-                <CardContent>
-                    <Typography variant="h5">
-                        <a
-                            className="game-detail-price"
-                            href={this.props.playStationService.getStoreGameLink(this.props.game.id)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            {this.props.game.default_sku ? this.props.game.default_sku.display_price : ""}
-                        </a>
-                    </Typography>
-                </CardContent>
+                <CardActions>
+                    {this.props.game.default_sku?.rewards[0].display_price ? (
+                        <div className="game-detail-price">{this.props.game.default_sku?.rewards[0].display_price}</div>
+                    ) : this.props.game.default_sku ? (
+                        <div className="game-detail-price">{this.props.game.default_sku.display_price}</div>
+                    ) : (
+                        <></>
+                    )}
+
+                    {this.props.game.default_sku?.rewards[0].bonus_display_price ? (
+                        <div className="game-detail-ps-plus-price">
+                            {this.props.game.default_sku?.rewards[0].bonus_display_price}
+                        </div>
+                    ) : (
+                        <></>
+                    )}
+                </CardActions>
             </Card>
         );
     }

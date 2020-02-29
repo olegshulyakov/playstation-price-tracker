@@ -174,6 +174,8 @@ declare module "playstation" {
         end_date: Date;
         reward_source_type_id: number;
         start_date: Date;
+        bonus_display_price?: string;
+        bonus_discount?: number;
     }
 
     export interface DefaultSku {

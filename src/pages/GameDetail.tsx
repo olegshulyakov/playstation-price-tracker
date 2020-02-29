@@ -68,40 +68,49 @@ export default class GameDetail extends React.Component<any, GameDetailState> {
 
         return (
             <Grid key={"game-detail-" + this.state.game.id} container>
-                <Grid item lg={1} xl={1}></Grid>
-
                 <Hidden smUp>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sm={12}>
                         <GameDetailMediaCard playStationService={this.playStationService} game={this.state.game} />
                     </Grid>
                 </Hidden>
 
-                <Grid item xs={12} sm={8} md={8} lg={8} xl={8}>
+                <Grid item md={1} lg={1} xl={1}></Grid>
+
+                <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
                     <Card>
                         <CardContent>
-                            <Typography variant="h3">{this.state.game.name}</Typography>
+                            <Grid container>
+                                <Grid item xs={12} sm={8} md={8} lg={9} xl={9}>
+                                    <Typography variant="h3">{this.state.game.name}</Typography>
 
-                            <div
-                                className="game-detail-description"
-                                dangerouslySetInnerHTML={{ __html: this.state.game.long_desc }}
-                            ></div>
+                                    <div
+                                        className="game-detail-description"
+                                        dangerouslySetInnerHTML={{ __html: this.state.game.long_desc }}
+                                    ></div>
+                                </Grid>
+
+                                <Grid item lg={1} xl={1} />
+
+                                <Grid item sm={4} md={3} lg={2} xl={2}>
+                                    <Hidden xsDown>
+                                        <GameDetailMediaCard
+                                            playStationService={this.playStationService}
+                                            game={this.state.game}
+                                        />
+                                        <div style={{ height: "16px" }}></div>
+                                        <GameDetailPlatformsCard game={this.state.game} />
+                                        <div style={{ height: "16px" }}></div>
+                                        <GameDetailVoiceCard game={this.state.game} />
+                                        <div style={{ height: "16px" }}></div>
+                                        <GameDetailSubtitleCard game={this.state.game} />
+                                    </Hidden>
+                                </Grid>
+                            </Grid>
                         </CardContent>
                     </Card>
                 </Grid>
 
-                <Hidden xsDown>
-                    <Grid item sm={4} md={4} lg={2} xl={2} style={{ marginLeft: "0px" }}>
-                        <GameDetailMediaCard playStationService={this.playStationService} game={this.state.game} />
-                        <div style={{ height: "16px" }}></div>
-                        <GameDetailPlatformsCard game={this.state.game} />
-                        <div style={{ height: "16px" }}></div>
-                        <GameDetailVoiceCard game={this.state.game} />
-                        <div style={{ height: "16px" }}></div>
-                        <GameDetailSubtitleCard game={this.state.game} />
-                    </Grid>
-                </Hidden>
-
-                <Grid item lg={1} xl={1}></Grid>
+                <Grid item md={1} lg={1} xl={1}></Grid>
             </Grid>
         );
     }
