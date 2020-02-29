@@ -155,14 +155,14 @@ declare module "playstation" {
         metadata: Metadata;
         name: string;
         packageType: string;
-        packages: Package[];
+        packages?: Package[];
         preorder_placeholder_flag: boolean;
         size: number;
         subType: number;
-        subtitle_language_codes: string[];
+        subtitle_language_codes?: string[];
         type: number;
         use_count: number;
-        voice_language_codes: string[];
+        voice_language_codes?: string[];
     }
 
     export interface Reward {
@@ -201,7 +201,7 @@ declare module "playstation" {
         platforms: number[];
         playability_date: Date;
         price: number;
-        rewards: Reward[];
+        rewards?: Reward[];
         seasonPassExclusiveFlag: boolean;
         skuAvailabilityOverrideFlag: boolean;
         sku_type: number;

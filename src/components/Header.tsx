@@ -19,8 +19,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import LanguageMenu from "./LanguageMenu";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
-interface HeaderProps {}
+interface HeaderProps extends RouteComponentProps {}
 
 class Header extends React.Component<HeaderProps> {
     render() {
@@ -35,7 +36,15 @@ class Header extends React.Component<HeaderProps> {
                         icon={faPlaystation}
                         size="2x"
                     />
-                    <Typography style={{ flexGrow: 1 }} variant="h6" color="inherit" noWrap>
+                    <Typography
+                        style={{ flexGrow: 1, cursor: "pointer" }}
+                        variant="h6"
+                        color="inherit"
+                        noWrap
+                        onClick={() => {
+                            this.props.history.push("/");
+                        }}
+                    >
                         PSN tracker
                     </Typography>
                     <LanguageMenu />
@@ -45,4 +54,4 @@ class Header extends React.Component<HeaderProps> {
     }
 }
 
-export default Header;
+export default withRouter(Header);

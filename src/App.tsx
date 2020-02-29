@@ -71,14 +71,14 @@ export default class App extends React.Component<any, AppState> {
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="App">
-                    <Header />
                     <BrowserRouter>
+                        <Header />
                         <Switch>
                             <Route path="/" exact component={() => <Store region={region} />} />
                             <Route path="/game/:cusa" component={GameDetail} />
                         </Switch>
+                        <Footer />
                     </BrowserRouter>
-                    <Footer />
                 </div>
             </MuiThemeProvider>
         );

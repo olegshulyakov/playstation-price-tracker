@@ -20,11 +20,20 @@ import { Typography } from "@material-ui/core";
 
 export default class GameDetailSubtitleCard extends React.Component<{ game: PlaystationObject }> {
     render() {
+        if (
+            !this.props.game.default_sku?.entitlements ||
+            this.props.game.default_sku?.entitlements.length === 0 ||
+            !this.props.game.default_sku?.entitlements[0].subtitle_language_codes ||
+            this.props.game.default_sku?.entitlements[0].subtitle_language_codes.length === 0
+        ) {
+            return <></>;
+        }
+
         return (
             <>
                 <Typography variant="button">Subtitles</Typography>
                 <Typography variant="body2">
-                    {this.props.game.default_sku?.entitlements[0].subtitle_language_codes.map((voice: string) => {
+                    {this.props.game.default_sku?.entitlements[0].subtitle_language_codes?.map((voice: string) => {
                         return voice.toUpperCase() + " ";
                     })}
                 </Typography>

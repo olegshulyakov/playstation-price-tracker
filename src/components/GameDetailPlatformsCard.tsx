@@ -20,11 +20,20 @@ import { Typography } from "@material-ui/core";
 
 export default class GameDetailPlatformsCard extends React.Component<{ game: PlaystationObject }> {
     render() {
+        if (
+            !this.props.game.default_sku?.entitlements ||
+            this.props.game.default_sku?.entitlements.length === 0 ||
+            !this.props.game.default_sku?.entitlements[0].packages ||
+            this.props.game.default_sku?.entitlements[0].packages.length === 0
+        ) {
+            return <></>;
+        }
+
         return (
             <>
                 <Typography variant="button">Platforms</Typography>
                 <Typography variant="body2">
-                    {this.props.game.default_sku?.entitlements[0].packages.map((pkg: Package) => {
+                    {this.props.game.default_sku?.entitlements[0].packages?.map((pkg: Package) => {
                         return pkg.platformName.toUpperCase() + " ";
                     })}
                 </Typography>

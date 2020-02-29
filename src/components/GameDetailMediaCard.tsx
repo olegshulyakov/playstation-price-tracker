@@ -24,6 +24,29 @@ export default class GameDetailMediaCard extends React.Component<{
     game: PlaystationObject;
 }> {
     render() {
+        let price = <></>;
+        if (
+            this.props.game.default_sku?.rewards &&
+            this.props.game.default_sku?.rewards.length > 1 &&
+            this.props.game.default_sku?.rewards[0].display_price
+        ) {
+            price = <div className="game-detail-price">{this.props.game.default_sku.rewards[0].display_price}</div>;
+        } else if (this.props.game.default_sku) {
+            price = <div className="game-detail-price">{this.props.game.default_sku.display_price}</div>;
+        }
+
+        let psPlusPrice = <></>;
+        if (
+            this.props.game.default_sku?.rewards &&
+            this.props.game.default_sku?.rewards.length > 1 &&
+            this.props.game.default_sku?.rewards[0].bonus_display_price
+        ) {
+            psPlusPrice = (
+                <div className="game-detail-ps-plus-price">
+                    {this.props.game.default_sku.rewards[0].bonus_display_price}
+                </div>
+            );
+        }
         return (
             <Card
                 style={{ cursor: "pointer" }}
@@ -40,21 +63,9 @@ export default class GameDetailMediaCard extends React.Component<{
                 />
 
                 <CardActions>
-                    {this.props.game.default_sku?.rewards[0].display_price ? (
-                        <div className="game-detail-price">{this.props.game.default_sku?.rewards[0].display_price}</div>
-                    ) : this.props.game.default_sku ? (
-                        <div className="game-detail-price">{this.props.game.default_sku.display_price}</div>
-                    ) : (
-                        <></>
-                    )}
+                    {price}
 
-                    {this.props.game.default_sku?.rewards[0].bonus_display_price ? (
-                        <div className="game-detail-ps-plus-price">
-                            {this.props.game.default_sku?.rewards[0].bonus_display_price}
-                        </div>
-                    ) : (
-                        <></>
-                    )}
+                    {psPlusPrice}
                 </CardActions>
             </Card>
         );
