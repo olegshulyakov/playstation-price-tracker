@@ -21,7 +21,9 @@ import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { PlaystationRegion } from "playstation";
 import { playstationRegionList } from "../services/PlayStationService";
 
-interface LanguageMenuProps {}
+interface LanguageMenuProps {
+    onSelectRegion: any;
+}
 
 interface LanguageMenuState {
     anchorEl: null | HTMLElement;
@@ -49,7 +51,16 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
     }
 
     renderRegion(region: PlaystationRegion) {
-        return <MenuItem key={"dropdown-region-" + region.name}>{region.name}</MenuItem>;
+        return (
+            <MenuItem
+                key={"dropdown-region-" + region.name}
+                onClick={() => {
+                    this.props.onSelectRegion(region);
+                }}
+            >
+                {region.name}
+            </MenuItem>
+        );
     }
 
     render() {

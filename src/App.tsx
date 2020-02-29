@@ -60,7 +60,7 @@ export default class App extends React.Component<any, AppState> {
             return (
                 <MuiThemeProvider theme={theme}>
                     <div className="App">
-                        <Header />
+                        <Header onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
                         <SelectRegion onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
                         <Footer />
                     </div>
@@ -72,7 +72,7 @@ export default class App extends React.Component<any, AppState> {
             <MuiThemeProvider theme={theme}>
                 <div className="App">
                     <BrowserRouter>
-                        <Header />
+                        <Header onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
                         <Switch>
                             <Route path="/" exact component={() => <Store region={region} />} />
                             <Route path="/game/:cusa" component={GameDetail} />

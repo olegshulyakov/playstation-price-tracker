@@ -22,13 +22,16 @@ import GameDetailMediaCard from "../components/GameDetailMediaCard";
 import GameDetailPlatformsCard from "../components/GameDetailPlatformsCard";
 import GameDetailVoiceCard from "../components/GameDetailVoiceCard";
 import GameDetailSubtitleCard from "../components/GameDetailSubtitleCard";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+
+interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {}
 
 interface GameDetailState {
     isLoaded: boolean;
     game: PlaystationObject | undefined;
 }
 
-export default class GameDetail extends React.Component<any, GameDetailState> {
+class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
     private readonly playStationService: PlayStationService;
     private readonly cusa: string;
     constructor(props: any) {
@@ -59,6 +62,7 @@ export default class GameDetail extends React.Component<any, GameDetailState> {
             );
         }
         if (!this.state.game || !this.state.game.name || !this.state.game.images) {
+            this.props.history.push("/");
             return (
                 <Typography variant="h5" align="center">
                     Oops... Cannot load game information
@@ -136,3 +140,5 @@ export default class GameDetail extends React.Component<any, GameDetailState> {
         );
     }
 }
+
+export default withRouter(GameDetail);
