@@ -66,6 +66,8 @@ export default class GameDetail extends React.Component<any, GameDetailState> {
             );
         }
 
+        const gameLink = this.playStationService.getStoreGameLink(this.state.game.id);
+
         return (
             <Grid key={"game-detail-" + this.state.game.id} container>
                 <Hidden smUp>
@@ -81,12 +83,18 @@ export default class GameDetail extends React.Component<any, GameDetailState> {
                         <CardContent>
                             <Grid container>
                                 <Grid item xs={12} sm={8} md={8} lg={9} xl={9}>
-                                    <Typography variant="h3">
+                                    <Typography
+                                        style={{ cursor: "pointer" }}
+                                        variant="h3"
+                                        onClick={() => {
+                                            window.open(gameLink, "_blank");
+                                        }}
+                                    >
                                         {this.state.game.name}
                                         {this.state.game.content_rating?.url ? (
                                             <img
                                                 src={this.state.game.content_rating?.url}
-                                                loading="lazy"
+                                                loading="eager"
                                                 alt="rating"
                                                 height="45px"
                                                 width="45px"
