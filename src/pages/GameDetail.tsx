@@ -23,6 +23,7 @@ import GameDetailPlatformsCard from "../components/GameDetailPlatformsCard";
 import GameDetailVoiceCard from "../components/GameDetailVoiceCard";
 import GameDetailSubtitleCard from "../components/GameDetailSubtitleCard";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import PlayStationGameService from "../services/PlayStationGameService";
 
 interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
     region: PlaystationRegion;
@@ -35,11 +36,13 @@ interface GameDetailState {
 
 class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
     private readonly playStationService: PlayStationService;
+    private readonly playStationGameService: PlayStationGameService;
     private readonly cusa: string;
     constructor(props: any) {
         super(props);
         this.cusa = this.props.match.params.cusa;
         this.playStationService = new PlayStationService(this.props.region.language, this.props.region.country);
+        this.playStationGameService = new PlayStationGameService(this.props.region.language, this.props.region.country);
         this.state = {
             isLoaded: false,
             game: undefined,
@@ -72,13 +75,16 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
             );
         }
 
-        const gameLink = this.playStationService.getStoreGameLink(this.state.game.id);
+        const gameLink = this.playStationGameService.getStoreGameLink(this.state.game.id);
 
         return (
             <Grid key={"game-detail-" + this.state.game.id} container>
                 <Hidden smUp>
                     <Grid item xs={12} sm={12}>
-                        <GameDetailMediaCard playStationService={this.playStationService} game={this.state.game} />
+                        <GameDetailMediaCard
+                            playStationGameService={this.playStationGameService}
+                            game={this.state.game}
+                        />
                     </Grid>
                 </Hidden>
 
@@ -121,7 +127,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                                 <Grid item sm={4} md={3} lg={2} xl={2}>
                                     <Hidden xsDown>
                                         <GameDetailMediaCard
-                                            playStationService={this.playStationService}
+                                            playStationGameService={this.playStationGameService}
                                             game={this.state.game}
                                         />
                                         <div style={{ height: "16px" }}></div>

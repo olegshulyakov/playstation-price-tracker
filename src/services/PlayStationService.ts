@@ -142,11 +142,6 @@ export default class PlayStationService {
         return `${this.baseUrl}/titlecontainer/${this.country}/${this.language}/999/${cusa}/image?w=${width}&h=${height}`;
     }
 
-    getStoreGameLink(cusa: string): string {
-        console.debug(`Generating game link ${cusa}`);
-        return `https://store.playstation.com/${this.language}-${this.country}/product/${cusa}`;
-    }
-
     search(query: string) {
         return "https://store.playstation.com/store/api/chihiro/00_09_000/tumbler/SA/en/999/horizon?suggested_size=10&mode=game";
     }

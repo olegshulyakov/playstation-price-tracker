@@ -16,58 +16,37 @@
 
 import React from "react";
 import { PlaystationObject } from "playstation";
-import PlayStationService from "../services/PlayStationService";
+import PlayStationGameService from "../services/PlayStationGameService";
 import { Card, CardMedia, CardActions } from "@material-ui/core";
 
 interface GameDetailMediaCardProps {
-    playStationService: PlayStationService;
+    playStationGameService: PlayStationGameService;
     game: PlaystationObject;
 }
 
 export default class GameDetailMediaCard extends React.Component<GameDetailMediaCardProps> {
     render() {
-        let price = <></>;
-        if (
-            this.props.game.default_sku?.rewards &&
-            this.props.game.default_sku?.rewards.length > 1 &&
-            this.props.game.default_sku?.rewards[0].display_price
-        ) {
-            price = <div className="game-detail-price">{this.props.game.default_sku.rewards[0].display_price}</div>;
-        } else if (this.props.game.default_sku) {
-            price = <div className="game-detail-price">{this.props.game.default_sku.display_price}</div>;
-        }
+        const currentPrice = this.props.playStationGameService.getCurrentPrice(this.props.game);
+        const psPlusPrice = this.props.playStationGameService.getPsPlusPrice(this.props.game);
 
-        let psPlusPrice = <></>;
-        if (
-            this.props.game.default_sku?.rewards &&
-            this.props.game.default_sku?.rewards.length > 1 &&
-            this.props.game.default_sku?.rewards[0].bonus_display_price
-        ) {
-            psPlusPrice = (
-                <div className="game-detail-ps-plus-price">
-                    {this.props.game.default_sku.rewards[0].bonus_display_price}
-                </div>
-            );
-        }
         return (
             <Card
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                    window.open(this.props.playStationService.getStoreGameLink(this.props.game.id), "_blank");
+                    window.open(this.props.playStationGameService.getStoreGameLink(this.props.game.id), "_blank");
                 }}
             >
                 <CardMedia
                     component="img"
                     loading="lazy"
-                    image={this.props.game.images[0].url}
+                    image={this.props.playStationGameService.getPreviewImage(this.props.game)}
                     title={this.props.game.name}
                     placeholder={this.props.game.name}
                 />
 
                 <CardActions>
-                    {price}
-
-                    {psPlusPrice}
+                    {currentPrice ? <div className="game-detail-price">{currentPrice}</div> : <></>}
+                    {psPlusPrice ? <div className="game-detail-ps-plus-price">{psPlusPrice}</div> : <></>}
                 </CardActions>
             </Card>
         );
