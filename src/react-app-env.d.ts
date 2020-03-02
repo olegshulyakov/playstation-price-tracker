@@ -15,3 +15,17 @@
  */
 
 /// <reference types="react-scripts" />
+
+interface AppState {
+    region: PlaystationRegion | undefined;
+}
+
+interface StoreState {
+    count: number | undefined;
+    games: PlaystationLink[];
+}
+
+interface GameDetailState {
+    isLoaded: boolean;
+    game: PlaystationObject | undefined;
+}

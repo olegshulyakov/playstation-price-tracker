@@ -16,7 +16,7 @@
 
 import React from "react";
 import PlayStationService from "../services/PlayStationService";
-import { PlaystationObject, PlaystationRegion } from "playstation";
+import { PlaystationRegion } from "playstation";
 import { Grid, Card, CardContent, Typography, Hidden } from "@material-ui/core";
 import GameDetailMediaCard from "../components/GameDetailMediaCard";
 import GameDetailPlatformsCard from "../components/GameDetailPlatformsCard";
@@ -27,11 +27,6 @@ import PlayStationGameService from "../services/PlayStationGameService";
 
 interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
     region: PlaystationRegion;
-}
-
-interface GameDetailState {
-    isLoaded: boolean;
-    game: PlaystationObject | undefined;
 }
 
 class GameDetail extends React.Component<GameDetailProps, GameDetailState> {

@@ -25,10 +25,8 @@ import GameDetail from "./pages/GameDetail";
 import SelectRegion from "./pages/SelectRegion";
 import { MuiThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
-
-interface AppState {
-    region: PlaystationRegion | undefined;
-}
+import { Provider } from "react-redux";
+import store from "./store/configureStore";
 
 export default class App extends React.Component<any, AppState> {
     constructor(props: any) {
@@ -59,27 +57,35 @@ export default class App extends React.Component<any, AppState> {
         if (!this.state.region) {
             return (
                 <MuiThemeProvider theme={theme}>
-                    <div className="App">
-                        <Header onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
-                        <SelectRegion onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
-                        <Footer />
-                    </div>
+                    <Provider store={store}>
+                        <div className="App">
+                            <BrowserRouter>
+                                <Header onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
+                                <SelectRegion
+                                    onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)}
+                                />
+                                <Footer />
+                            </BrowserRouter>
+                        </div>
+                    </Provider>
                 </MuiThemeProvider>
             );
         }
         const region = this.state.region;
         return (
             <MuiThemeProvider theme={theme}>
-                <div className="App">
-                    <BrowserRouter>
-                        <Header onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
-                        <Switch>
-                            <Route path="/" exact component={() => <Store region={region} />} />
-                            <Route path="/game/:cusa" component={() => <GameDetail region={region} />} />
-                        </Switch>
-                        <Footer />
-                    </BrowserRouter>
-                </div>
+                <Provider store={store}>
+                    <div className="App">
+                        <BrowserRouter>
+                            <Header onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
+                            <Switch>
+                                <Route path="/" exact component={() => <Store region={region} />} />
+                                <Route path="/game/:cusa" component={() => <GameDetail region={region} />} />
+                            </Switch>
+                            <Footer />
+                        </BrowserRouter>
+                    </div>
+                </Provider>
             </MuiThemeProvider>
         );
     }

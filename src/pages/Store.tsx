@@ -15,66 +15,43 @@
  */
 
 import React from "react";
-import PlayStationService from "../services/PlayStationService";
+import { connect } from "react-redux";
+import { fetchGamesStore } from "../actions/gameActions";
 import GamePreview from "../components/GamePreview";
-import { PlaystationLink, PlaystationRegion } from "playstation";
 import { Grid } from "@material-ui/core";
 import { StoreGridItem } from "../theme";
+import { PlaystationRegion, PlaystationLink } from "playstation";
 
 interface StoreProps {
     region: PlaystationRegion;
-}
-
-interface StoreState {
-    isLoaded: boolean;
     count: number | undefined;
     games: PlaystationLink[];
+    fetchGames: Function;
 }
 
-export default class Store extends React.Component<StoreProps, StoreState> {
-    private readonly playStationService: PlayStationService;
-    constructor(props: StoreProps) {
-        super(props);
-        this.playStationService = new PlayStationService(this.props.region.language, this.props.region.country);
-        this.state = {
-            isLoaded: false,
-            count: undefined,
-            games: [],
-        };
-    }
-
-    syncWithPsStore() {
-        this.playStationService
-            .getStoreInfo()
-            .then((storeInfo) => {
-                this.setState({ count: storeInfo.total_results });
-            })
-            .then(() => this.playStationService.getGamesList())
-            .then((links) => {
-                this.setState({ games: links });
-                this.setState({ isLoaded: true });
-            });
-    }
-
+class Store extends React.Component<StoreProps> {
     componentDidMount() {
         if (!this.props.region) {
             console.error("No region specified.");
             return;
         }
-        this.syncWithPsStore();
+        const region = this.props.region;
+        if (!this.props.count && this.props.games.length === 0) {
+            this.props.fetchGames(region.language, region.country);
+        }
     }
 
     render() {
-        if (!this.state.isLoaded)
+        if (this.props.games.length === 0)
             return (
                 <div className="game-list-loader">
-                    Loading games list... {this.state.count ? `${this.state.games.length} / ${this.state.count}` : ""}
+                    Loading games list... {this.props.count ? `${this.props.games.length} / ${this.props.count}` : ""}
                 </div>
             );
-        if (!this.state.games) {
+        if (!this.props.games) {
             return <div>Cannot load games.</div>;
         }
-        const games = this.state.games.slice().map((game) => {
+        const games = this.props.games.slice().map((game) => {
             return (
                 <StoreGridItem
                     key={"game-preview-" + game.id}
@@ -97,3 +74,7 @@ export default class Store extends React.Component<StoreProps, StoreState> {
         );
     }
 }
+
+const mapStateToProps = (state: any) => ({ count: state.store.count, games: state.store.games } as StoreState);
+
+export default connect(mapStateToProps, { fetchGames: fetchGamesStore })(Store);
