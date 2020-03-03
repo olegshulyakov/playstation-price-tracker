@@ -71,18 +71,21 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
         }
 
         const gameLink = this.playStationGameService.getStoreGameLink(game.id);
-        const platforms: string[] = [];
-        const voices: string[] = [];
-        const subtitles: string[] = [];
+        const platforms = new Set<string>();
+        const voices = new Set<string>();
+        const subtitles = new Set<string>();
+        for (const platform of game.playable_platform) {
+            platforms.add(platform.substring(0, platform.indexOf("™")).toUpperCase());
+        }
         for (const entitlement of game.default_sku?.entitlements) {
             entitlement.packages?.map((pkg: Package) => {
-                platforms.push(pkg.platformName);
+                platforms.add(pkg.platformName.toUpperCase());
             });
             entitlement.voice_language_codes?.map((voice: string) => {
-                voices.push(voice);
+                voices.add(voice.toUpperCase());
             });
             entitlement.subtitle_language_codes?.map((subtitle: string) => {
-                subtitles.push(subtitle);
+                subtitles.add(subtitle.toUpperCase());
             });
         }
 
@@ -137,11 +140,11 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                                             game={game}
                                         />
                                         <div style={{ height: "16px" }}></div>
-                                        <GameDetailAttributeCard attribute="Platforms" values={platforms} />
+                                        <GameDetailAttributeCard attribute="Platforms" values={[...platforms.keys()]} />
                                         <div style={{ height: "16px" }}></div>
-                                        <GameDetailAttributeCard attribute="Audio" values={voices} />
+                                        <GameDetailAttributeCard attribute="Audio" values={[...voices.keys()]} />
                                         <div style={{ height: "16px" }}></div>
-                                        <GameDetailAttributeCard attribute="Subtitles" values={subtitles} />
+                                        <GameDetailAttributeCard attribute="Subtitles" values={[...subtitles.keys()]} />
                                     </Hidden>
                                 </Grid>
                             </Grid>

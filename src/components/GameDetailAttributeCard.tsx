@@ -33,7 +33,7 @@ export default class GameDetailAttributeCard extends React.Component<GameDetailA
                 <Typography variant="button">{this.props.attribute}</Typography>
                 <Typography variant="body2">
                     {this.props.values?.map((value: string) => {
-                        return value.toUpperCase() + " ";
+                        return value + " ";
                     })}
                 </Typography>
             </>
