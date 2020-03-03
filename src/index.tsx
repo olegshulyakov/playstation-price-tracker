@@ -25,7 +25,12 @@ import { MuiThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
 import { APP_VERSION } from "./store/keys";
 
-localStorage.setItem(APP_VERSION, `${process.env.REACT_APP_VERSION}`);
+const previousAppVersion = localStorage.getItem(APP_VERSION);
+const appVersion = `${process.env.REACT_APP_VERSION}`;
+if (previousAppVersion && previousAppVersion !== appVersion) {
+    localStorage.clear();
+}
+localStorage.setItem(APP_VERSION, appVersion);
 
 ReactDOM.render(
     <MuiThemeProvider theme={theme}>
