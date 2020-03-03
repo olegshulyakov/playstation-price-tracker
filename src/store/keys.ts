@@ -14,23 +14,7 @@
  * limitations under the License.
  */
 
-/// <reference types="react-scripts" />
-
-interface ReduxStoreState {
-    region?: PlaystationRegion;
-    store: StoreState;
-}
-
-interface RegionState {
-    region?: PlaystationRegion;
-}
-
-interface StoreState {
-    info?: PlaystationObject;
-    games?: PlaystationLink[];
-}
-
-interface GameDetailState {
-    isLoaded: boolean;
-    game?: PlaystationObject;
-}
+export const APP_VERSION = "persist:redux:app-version";
+export const REGION = "persist:redux:region";
+export const STORE = "persist:redux:store";
+export const GAMES = "persist:redux:games";

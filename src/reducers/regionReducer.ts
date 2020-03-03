@@ -16,6 +16,7 @@
 
 import { SELECT_REGION } from "../actions/types";
 import { PlaystationRegion } from "playstation";
+import { REGION } from "../store/keys";
 
 const initialState = {
     region: undefined,
@@ -24,6 +25,7 @@ const initialState = {
 export default (state = initialState, action: any) => {
     switch (action.type) {
         case SELECT_REGION:
+            localStorage.setItem(REGION, JSON.stringify(action.region));
             return action.region as PlaystationRegion;
         default:
             return state;

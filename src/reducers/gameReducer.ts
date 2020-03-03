@@ -15,6 +15,7 @@
  */
 
 import { FETCH_GAMES_COUNT, FETCH_GAMES_LIST, CLEAR_GAMES_STORE } from "../actions/types";
+import { STORE, GAMES } from "../store/keys";
 
 const initialState: StoreState = {
     info: undefined,
@@ -24,16 +25,20 @@ const initialState: StoreState = {
 export default (state = initialState, action: any) => {
     switch (action.type) {
         case FETCH_GAMES_COUNT:
+            localStorage.setItem(STORE, JSON.stringify(action.info));
             return {
                 ...state,
                 info: action.info,
             } as StoreState;
         case FETCH_GAMES_LIST:
+            localStorage.setItem(GAMES, JSON.stringify(action.games));
             return {
                 ...state,
                 games: action.games,
             } as StoreState;
         case CLEAR_GAMES_STORE:
+            localStorage.removeItem(STORE);
+            localStorage.removeItem(GAMES);
             return {
                 info: undefined,
                 games: undefined,

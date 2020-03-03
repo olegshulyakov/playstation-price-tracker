@@ -23,6 +23,9 @@ import { Provider } from "react-redux";
 import store from "./store/configureStore";
 import { MuiThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
+import { APP_VERSION } from "./store/keys";
+
+localStorage.setItem(APP_VERSION, `${process.env.REACT_APP_VERSION}`);
 
 ReactDOM.render(
     <MuiThemeProvider theme={theme}>
