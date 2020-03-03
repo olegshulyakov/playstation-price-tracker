@@ -38,7 +38,7 @@
             "label": "Build production",
             "type": "npm",
             "script": "build",
-            "problemMatcher": ["$eslint-stylish", "$tsc", "$tslint5"],
+            "problemMatcher": ["$eslint-stylish", "$tsc"],
             "group": {
                 "kind": "build",
                 "isDefault": true
