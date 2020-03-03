@@ -106,17 +106,22 @@ export default class PlayStationService {
         return response;
     }
 
-    async query(cusa: string, size: number = 1, start: number = 0) {
+    async query(cusa: string, size: number | undefined = 1, start: number | undefined = undefined) {
         console.debug(`Quering cusa=${cusa}, start=${start}, size=${size}`);
-        const response = await fetch(
-            `${this.baseUrl}/container/${this.language}/${this.country}/999/${cusa}?size=${size}&start=${start}&sort=${SORT_FIELD.TIMESTAMP}&direction=${SORT_DIRECTION.DESC}`,
-        );
+        let url = `${this.baseUrl}/container/${this.language}/${this.country}/999/${cusa}?&sort=${SORT_FIELD.TIMESTAMP}&direction=${SORT_DIRECTION.DESC}`;
+        if (size !== undefined) {
+            url += `&size=${size}`;
+        }
+        if (start !== undefined) {
+            url += `&start=${start}`;
+        }
+        const response = await fetch(url);
         return response;
     }
 
     async getGameInfo(cusa: string): Promise<PlaystationObject> {
         console.debug(`Loading game info ${cusa}`);
-        const response = await this.query(cusa);
+        const response = await this.query(cusa, 0);
         const json = await response.json();
         return json;
     }
