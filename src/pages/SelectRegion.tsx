@@ -18,9 +18,13 @@ import React from "react";
 import { PlaystationRegion } from "playstation";
 import { playstationRegionList } from "../services/PlayStationService";
 import { Grid, Card, CardActionArea, CardContent, Typography } from "@material-ui/core";
+import { connect } from "react-redux";
+import { selectRegion } from "../actions/regionActions";
+import { clearGamesStore } from "../actions/gameActions";
 
 export interface SelectRegionProps {
-    onSelectRegion: any;
+    selectRegion: Function;
+    clearGamesStore: Function;
 }
 
 class SelectRegion extends React.Component<SelectRegionProps> {
@@ -43,7 +47,10 @@ class SelectRegion extends React.Component<SelectRegionProps> {
             >
                 <Card
                     style={{ height: "100%", display: "flex", flexDirection: "column" }}
-                    onClick={() => this.props.onSelectRegion(region)}
+                    onClick={() => {
+                        this.props.clearGamesStore();
+                        this.props.selectRegion(region);
+                    }}
                 >
                     <CardActionArea style={{ height: "100%" }}>
                         <CardContent style={{ textAlign: "center" }}>
@@ -70,4 +77,4 @@ class SelectRegion extends React.Component<SelectRegionProps> {
     }
 }
 
-export default SelectRegion;
+export default connect(null, { selectRegion: selectRegion, clearGamesStore: clearGamesStore })(SelectRegion);

@@ -23,70 +23,69 @@ import Footer from "./components/Footer";
 import Store from "./pages/Store";
 import GameDetail from "./pages/GameDetail";
 import SelectRegion from "./pages/SelectRegion";
-import { MuiThemeProvider } from "@material-ui/core";
-import { theme } from "./theme";
-import { Provider } from "react-redux";
-import store from "./store/configureStore";
+import { connect } from "react-redux";
+import { fetchStoreInfo, fetchGamesList } from "./actions/gameActions";
 
-export default class App extends React.Component<any, AppState> {
-    constructor(props: any) {
-        super(props);
+interface AppProps {
+    region: PlaystationRegion;
+    store: StoreState;
+    fetchInfo: Function;
+    fetchGames: Function;
+}
 
-        let storedRegion: PlaystationRegion | undefined = undefined;
-        const storedRegionStr = localStorage.getItem("region");
-        if (storedRegionStr) {
-            try {
-                storedRegion = JSON.parse(storedRegionStr);
-            } catch (e) {
-                storedRegion = undefined;
-            }
+class App extends React.Component<AppProps> {
+    componentDidUpdate() {
+        if (this.props.region && !this.props.store.info) {
+            const region = this.props.region;
+            this.props.fetchInfo(region.language, region.country);
         }
-        this.state = {
-            region: storedRegion,
-        };
-        this.onSelectRegion = this.onSelectRegion.bind(this);
-    }
 
-    onSelectRegion(region: PlaystationRegion) {
-        console.debug(`Changing region from ${this.state.region?.name} to ${region.name}`);
-        localStorage.setItem("region", JSON.stringify(region));
-        this.setState({ region: region });
+        if (this.props.region && this.props.store.info && !this.props.store.games) {
+            const region = this.props.region;
+            this.props.fetchGames(region.language, region.country);
+        }
     }
 
     render() {
-        if (!this.state.region) {
+        if (!this.props.region || !this.props.region.name) {
             return (
-                <MuiThemeProvider theme={theme}>
-                    <Provider store={store}>
-                        <div className="App">
-                            <BrowserRouter>
-                                <Header onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
-                                <SelectRegion
-                                    onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)}
-                                />
-                                <Footer />
-                            </BrowserRouter>
-                        </div>
-                    </Provider>
-                </MuiThemeProvider>
+                <div className="App">
+                    <BrowserRouter>
+                        <Header />
+                        <SelectRegion />
+                        <Footer />
+                    </BrowserRouter>
+                </div>
             );
         }
-        const region = this.state.region;
+
+        if (!this.props.store.info || !this.props.store.games) {
+            return (
+                <div className="App">
+                    <BrowserRouter>
+                        <Header />
+                        <div className="game-list-loader">Loading games list...</div>
+                        <Footer />
+                    </BrowserRouter>
+                </div>
+            );
+        }
+
         return (
-            <MuiThemeProvider theme={theme}>
-                <Provider store={store}>
-                    <div className="App">
-                        <BrowserRouter>
-                            <Header onSelectRegion={(region: PlaystationRegion) => this.onSelectRegion(region)} />
-                            <Switch>
-                                <Route path="/" exact component={() => <Store region={region} />} />
-                                <Route path="/game/:cusa" component={() => <GameDetail region={region} />} />
-                            </Switch>
-                            <Footer />
-                        </BrowserRouter>
-                    </div>
-                </Provider>
-            </MuiThemeProvider>
+            <div className="App">
+                <BrowserRouter>
+                    <Header />
+                    <Switch>
+                        <Route path="/" exact component={() => <Store />} />
+                        <Route path="/game/:cusa" component={() => <GameDetail />} />
+                    </Switch>
+                    <Footer />
+                </BrowserRouter>
+            </div>
         );
     }
 }
+
+const mapStateToProps = (state: ReduxStoreState) => state;
+
+export default connect(mapStateToProps, { fetchInfo: fetchStoreInfo, fetchGames: fetchGamesList })(App);

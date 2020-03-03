@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-import { createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
-import rootReducer from "../reducers";
+import { SELECT_REGION } from "../actions/types";
+import { PlaystationRegion } from "playstation";
 
-const initialStoreState: StoreState = {
-    info: undefined,
-    games: undefined,
-};
-const initialState: ReduxStoreState = {
+const initialState = {
     region: undefined,
-    store: initialStoreState,
 };
 
-const middleWare = [thunk];
-
-const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(...middleWare)));
-
-export default store;
+export default (state = initialState, action: any) => {
+    switch (action.type) {
+        case SELECT_REGION:
+            return action.region as PlaystationRegion;
+        default:
+            return state;
+    }
+};

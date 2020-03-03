@@ -109,7 +109,7 @@ export default class PlayStationService {
     async query(cusa: string, size: number = 1, start: number = 0) {
         console.debug(`Quering cusa=${cusa}, start=${start}, size=${size}`);
         const response = await fetch(
-            `${this.baseUrl}/container/${this.language}/${this.country}/999/${cusa}?size=${size}&start=${start}&sort_default=${SORT_FIELD.TIMESTAMP}&sort_default_direction=${SORT_DIRECTION.DESC}`,
+            `${this.baseUrl}/container/${this.language}/${this.country}/999/${cusa}?size=${size}&start=${start}&sort=${SORT_FIELD.TIMESTAMP}&direction=${SORT_DIRECTION.DESC}`,
         );
         return response;
     }

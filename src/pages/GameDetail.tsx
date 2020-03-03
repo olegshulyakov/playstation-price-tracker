@@ -16,14 +16,13 @@
 
 import React from "react";
 import PlayStationService from "../services/PlayStationService";
-import { PlaystationRegion } from "playstation";
+import { PlaystationRegion, Package } from "playstation";
 import { Grid, Card, CardContent, Typography, Hidden } from "@material-ui/core";
 import GameDetailMediaCard from "../components/GameDetailMediaCard";
-import GameDetailPlatformsCard from "../components/GameDetailPlatformsCard";
-import GameDetailVoiceCard from "../components/GameDetailVoiceCard";
-import GameDetailSubtitleCard from "../components/GameDetailSubtitleCard";
+import GameDetailAttributeCard from "../components/GameDetailAttributeCard";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import PlayStationGameService from "../services/PlayStationGameService";
+import { connect } from "react-redux";
 
 interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
     region: PlaystationRegion;
@@ -61,7 +60,8 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                 </Typography>
             );
         }
-        if (!this.state.game || !this.state.game.name || !this.state.game.images) {
+        const game = this.state.game;
+        if (!game || !game.name || !game.images) {
             this.props.history.push("/");
             return (
                 <Typography variant="h5" align="center">
@@ -70,16 +70,27 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
             );
         }
 
-        const gameLink = this.playStationGameService.getStoreGameLink(this.state.game.id);
+        const gameLink = this.playStationGameService.getStoreGameLink(game.id);
+        const platforms: string[] = [];
+        const voices: string[] = [];
+        const subtitles: string[] = [];
+        for (const entitlement of game.default_sku?.entitlements) {
+            entitlement.packages?.map((pkg: Package) => {
+                platforms.push(pkg.platformName);
+            });
+            entitlement.voice_language_codes?.map((voice: string) => {
+                voices.push(voice);
+            });
+            entitlement.subtitle_language_codes?.map((subtitle: string) => {
+                subtitles.push(subtitle);
+            });
+        }
 
         return (
-            <Grid key={"game-detail-" + this.state.game.id} container>
+            <Grid key={"game-detail-" + game.id} container>
                 <Hidden smUp>
                     <Grid item xs={12} sm={12}>
-                        <GameDetailMediaCard
-                            playStationGameService={this.playStationGameService}
-                            game={this.state.game}
-                        />
+                        <GameDetailMediaCard playStationGameService={this.playStationGameService} game={game} />
                     </Grid>
                 </Hidden>
 
@@ -97,10 +108,10 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                                             window.open(gameLink, "_blank");
                                         }}
                                     >
-                                        {this.state.game.name}
-                                        {this.state.game.content_rating?.url ? (
+                                        {game.name}
+                                        {game.content_rating?.url ? (
                                             <img
-                                                src={this.state.game.content_rating?.url}
+                                                src={game.content_rating?.url}
                                                 loading="eager"
                                                 alt="rating"
                                                 height="45px"
@@ -113,7 +124,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
                                     <div
                                         className="game-detail-description"
-                                        dangerouslySetInnerHTML={{ __html: this.state.game.long_desc }}
+                                        dangerouslySetInnerHTML={{ __html: game.long_desc }}
                                     ></div>
                                 </Grid>
 
@@ -123,14 +134,14 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                                     <Hidden xsDown>
                                         <GameDetailMediaCard
                                             playStationGameService={this.playStationGameService}
-                                            game={this.state.game}
+                                            game={game}
                                         />
                                         <div style={{ height: "16px" }}></div>
-                                        <GameDetailPlatformsCard game={this.state.game} />
+                                        <GameDetailAttributeCard attribute="Platforms" values={platforms} />
                                         <div style={{ height: "16px" }}></div>
-                                        <GameDetailVoiceCard game={this.state.game} />
+                                        <GameDetailAttributeCard attribute="Audio" values={voices} />
                                         <div style={{ height: "16px" }}></div>
-                                        <GameDetailSubtitleCard game={this.state.game} />
+                                        <GameDetailAttributeCard attribute="Subtitles" values={subtitles} />
                                     </Hidden>
                                 </Grid>
                             </Grid>
@@ -144,4 +155,6 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
     }
 }
 
-export default withRouter(GameDetail);
+const mapStateToProps = (state: ReduxStoreState) => ({ region: state.region });
+
+export default connect(mapStateToProps)(withRouter(GameDetail));

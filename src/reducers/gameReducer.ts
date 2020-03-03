@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { FETCH_GAMES_COUNT, FETCH_GAMES_LIST } from "../actions/types";
+import { FETCH_GAMES_COUNT, FETCH_GAMES_LIST, CLEAR_GAMES_STORE } from "../actions/types";
 
 const initialState: StoreState = {
-    count: undefined,
-    games: [],
+    info: undefined,
+    games: undefined,
 };
 
 export default (state = initialState, action: any) => {
@@ -26,12 +26,17 @@ export default (state = initialState, action: any) => {
         case FETCH_GAMES_COUNT:
             return {
                 ...state,
-                count: action.count,
+                info: action.info,
             } as StoreState;
         case FETCH_GAMES_LIST:
             return {
                 ...state,
                 games: action.games,
+            } as StoreState;
+        case CLEAR_GAMES_STORE:
+            return {
+                info: undefined,
+                games: undefined,
             } as StoreState;
         default:
             return state;

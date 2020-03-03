@@ -16,5 +16,6 @@
 
 import { combineReducers } from "redux";
 import gameReducer from "./gameReducer";
+import regionReducer from "./regionReducer";
 
-export default combineReducers({ store: gameReducer });
+export default combineReducers({ region: regionReducer, store: gameReducer });

@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 export const SELECT_REGION = "SELECT_REGION";
+
 export const FETCH_GAMES_COUNT = "FETCH_GAMES_COUNT";
 export const FETCH_GAMES_LIST = "FETCH_GAMES_LIST";
+export const CLEAR_GAMES_STORE = "CLEAR_GAMES_STORE";

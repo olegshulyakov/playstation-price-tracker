@@ -16,42 +16,21 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { fetchGamesStore } from "../actions/gameActions";
 import GamePreview from "../components/GamePreview";
 import { Grid } from "@material-ui/core";
 import { StoreGridItem } from "../theme";
-import { PlaystationRegion, PlaystationLink } from "playstation";
 
 interface StoreProps {
-    region: PlaystationRegion;
-    count: number | undefined;
-    games: PlaystationLink[];
-    fetchGames: Function;
+    store: StoreState;
 }
 
 class Store extends React.Component<StoreProps> {
-    componentDidMount() {
-        if (!this.props.region) {
-            console.error("No region specified.");
+    render() {
+        if (!this.props.store || !this.props.store.games) {
             return;
         }
-        const region = this.props.region;
-        if (!this.props.count && this.props.games.length === 0) {
-            this.props.fetchGames(region.language, region.country);
-        }
-    }
 
-    render() {
-        if (this.props.games.length === 0)
-            return (
-                <div className="game-list-loader">
-                    Loading games list... {this.props.count ? `${this.props.games.length} / ${this.props.count}` : ""}
-                </div>
-            );
-        if (!this.props.games) {
-            return <div>Cannot load games.</div>;
-        }
-        const games = this.props.games.slice().map((game) => {
+        const games = this.props.store.games.slice().map((game) => {
             return (
                 <StoreGridItem
                     key={"game-preview-" + game.id}
@@ -75,6 +54,6 @@ class Store extends React.Component<StoreProps> {
     }
 }
 
-const mapStateToProps = (state: any) => ({ count: state.store.count, games: state.store.games } as StoreState);
+const mapStateToProps = (state: ReduxStoreState) => ({ store: state.store } as StoreProps);
 
-export default connect(mapStateToProps, { fetchGames: fetchGamesStore })(Store);
+export default connect(mapStateToProps)(Store);

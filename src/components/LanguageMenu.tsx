@@ -15,14 +15,18 @@
  */
 
 import React from "react";
+import { connect } from "react-redux";
 import { Button, MenuItem, Menu, Fade } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { PlaystationRegion } from "playstation";
 import { playstationRegionList } from "../services/PlayStationService";
+import { selectRegion } from "../actions/regionActions";
+import { clearGamesStore } from "../actions/gameActions";
 
 interface LanguageMenuProps {
-    onSelectRegion: any;
+    selectRegion: Function;
+    clearGamesStore: Function;
 }
 
 interface LanguageMenuState {
@@ -36,6 +40,12 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.renderRegion = this.renderRegion.bind(this);
+        this.onSelectRegion = this.onSelectRegion.bind(this);
+    }
+
+    onSelectRegion(region: PlaystationRegion) {
+        this.props.clearGamesStore();
+        this.props.selectRegion(region);
     }
 
     handleClick(event: React.MouseEvent<HTMLElement>) {
@@ -55,7 +65,7 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
             <MenuItem
                 key={"dropdown-region-" + region.name}
                 onClick={() => {
-                    this.props.onSelectRegion(region);
+                    this.onSelectRegion(region);
                 }}
             >
                 {region.name}
@@ -91,4 +101,4 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
     }
 }
 
-export default LanguageMenu;
+export default connect(null, { selectRegion: selectRegion, clearGamesStore: clearGamesStore })(LanguageMenu);

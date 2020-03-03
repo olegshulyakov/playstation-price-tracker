@@ -14,22 +14,7 @@
  * limitations under the License.
  */
 
-import { createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
-import rootReducer from "../reducers";
+import { schema } from "normalizr";
 
-const initialStoreState: StoreState = {
-    info: undefined,
-    games: undefined,
-};
-const initialState: ReduxStoreState = {
-    region: undefined,
-    store: initialStoreState,
-};
-
-const middleWare = [thunk];
-
-const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(...middleWare)));
-
-export default store;
+export const game = new schema.Entity("games", undefined, { idAttribute: "id" } as schema.EntityOptions);
+export const gamesArray = new schema.Array(game);

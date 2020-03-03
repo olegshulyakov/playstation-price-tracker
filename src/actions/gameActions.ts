@@ -14,19 +14,26 @@
  * limitations under the License.
  */
 
+import { FETCH_GAMES_COUNT, FETCH_GAMES_LIST, CLEAR_GAMES_STORE } from "./types";
 import PlayStationService from "../services/PlayStationService";
-import { FETCH_GAMES_COUNT, FETCH_GAMES_LIST } from "./types";
 
-export const fetchGamesStore = (language: string, country: string) => (dispatch: Function) => {
+export const fetchStoreInfo = (language: string, country: string) => (dispatch: Function) => {
+    console.debug(`Fetching store info for ${language}-${country}`);
     const service = new PlayStationService(language, country);
-    service
-        .getStoreInfo()
-        .then((storeInfo) => {
-            dispatch({ type: FETCH_GAMES_COUNT, count: storeInfo.total_results });
-        })
-        .then(() => {
-            service.getGamesList().then((links) => {
-                dispatch({ type: FETCH_GAMES_LIST, games: links });
-            });
-        });
+    service.getStoreInfo().then((storeInfo) => {
+        dispatch({ type: FETCH_GAMES_COUNT, info: storeInfo });
+    });
+};
+
+export const fetchGamesList = (language: string, country: string) => (dispatch: Function) => {
+    console.debug(`Fetching games for ${language}-${country}`);
+    const service = new PlayStationService(language, country);
+    service.getGamesList().then((links) => {
+        dispatch({ type: FETCH_GAMES_LIST, games: links });
+    });
+};
+
+export const clearGamesStore = () => (dispatch: Function) => {
+    console.debug("Clearing games store");
+    dispatch({ type: CLEAR_GAMES_STORE });
 };

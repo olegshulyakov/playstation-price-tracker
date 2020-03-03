@@ -20,11 +20,8 @@ import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import LanguageMenu from "./LanguageMenu";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { PlaystationRegion } from "playstation";
 
-interface HeaderProps extends RouteComponentProps {
-    onSelectRegion: any;
-}
+interface HeaderProps extends RouteComponentProps {}
 
 class Header extends React.Component<HeaderProps> {
     render() {
@@ -50,7 +47,7 @@ class Header extends React.Component<HeaderProps> {
                     >
                         PSN tracker
                     </Typography>
-                    <LanguageMenu onSelectRegion={(region: PlaystationRegion) => this.props.onSelectRegion(region)} />
+                    <LanguageMenu />
                 </Toolbar>
             </AppBar>
         );

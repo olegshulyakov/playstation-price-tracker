@@ -16,16 +16,17 @@
 
 /// <reference types="react-scripts" />
 
-interface AppState {
-    region: PlaystationRegion | undefined;
+interface ReduxStoreState {
+    region?: PlaystationRegion;
+    store: StoreState;
 }
 
 interface StoreState {
-    count: number | undefined;
-    games: PlaystationLink[];
+    info?: PlaystationObject;
+    games?: PlaystationLink[];
 }
 
 interface GameDetailState {
     isLoaded: boolean;
-    game: PlaystationObject | undefined;
+    game?: PlaystationObject;
 }

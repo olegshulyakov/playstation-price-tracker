@@ -15,26 +15,25 @@
  */
 
 import React from "react";
-import { PlaystationObject } from "playstation";
 import { Typography } from "@material-ui/core";
 
-export default class GameDetailSubtitleCard extends React.Component<{ game: PlaystationObject }> {
+interface GameDetailAttributeCardProps {
+    attribute: string;
+    values: string[];
+}
+
+export default class GameDetailAttributeCard extends React.Component<GameDetailAttributeCardProps> {
     render() {
-        if (
-            !this.props.game.default_sku?.entitlements ||
-            this.props.game.default_sku?.entitlements.length === 0 ||
-            !this.props.game.default_sku?.entitlements[0].subtitle_language_codes ||
-            this.props.game.default_sku?.entitlements[0].subtitle_language_codes.length === 0
-        ) {
+        if (!this.props.attribute || !this.props.values || this.props.values.length === 0) {
             return <></>;
         }
 
         return (
             <>
-                <Typography variant="button">Subtitles</Typography>
+                <Typography variant="button">{this.props.attribute}</Typography>
                 <Typography variant="body2">
-                    {this.props.game.default_sku?.entitlements[0].subtitle_language_codes?.map((voice: string) => {
-                        return voice.toUpperCase() + " ";
+                    {this.props.values?.map((value: string) => {
+                        return value.toUpperCase() + " ";
                     })}
                 </Typography>
             </>
