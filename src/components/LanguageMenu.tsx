@@ -79,7 +79,7 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
         return (
             <div>
                 <Button
-                    style={{ marginRight: "8px", color: "#FFF" }}
+                    className="LanguageMenu-logo"
                     aria-controls="fade-menu"
                     aria-haspopup="true"
                     onClick={this.handleClick}

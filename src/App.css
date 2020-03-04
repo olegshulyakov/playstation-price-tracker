@@ -14,12 +14,67 @@
  * limitations under the License.
  */
 
-.game-detail-description {
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.43;
+.App-loading-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -10vh;
+    margin-top: -10vh;
 }
 
-.game-detail-ps-plus-price {
-    color: orange !important;
+.App-loading-logo {
+    height: 20vh;
+    pointer-events: none;
+    animation-name: App-loading-logo-spin;
+    animation-duration: 0.9s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+@keyframes App-loading-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.App-header {
+    background-color: rgb(32, 35, 42) !important;
+}
+
+.App-header-toolbar {
+    min-height: 5vh !important;
+}
+
+.App-logo {
+    margin: 0px 8px 0px 8px !important;
+}
+
+.App-title {
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+.App-footer {
+    min-height: 1vh !important;
+    text-align: center !important;
+    margin-top: 1vh !important;
+    font-size: 1rem;
+}
+
+.App-clickable {
+    cursor: pointer;
+}
+
+.LanguageMenu-logo {
+    margin-right: 1vh !important;
+    color: #fff !important;
+}
+
+.Text-center {
+    text-align: center;
 }

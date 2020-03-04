@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 import React from "react";
-import { Typography } from "@material-ui/core";
 
 export default class Footer extends React.Component {
     render() {
         return (
-            <footer style={{ minHeight: "1vh", textAlign: "center", marginTop: "2vh" }}>
-                <Typography>
-                    Version <b>{process.env.REACT_APP_VERSION}</b>
-                </Typography>
+            <footer className="App-footer">
+                Version <b>{process.env.REACT_APP_VERSION}</b>
             </footer>
         );
     }

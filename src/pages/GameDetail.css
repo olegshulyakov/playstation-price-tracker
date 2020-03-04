@@ -1,0 +1,20 @@
+.Game-detail-description {
+    font-size: 0.9rem;
+}
+
+.Game-detail-price {
+    color: black !important;
+}
+
+.Game-detail-inactive-price {
+    color: black !important;
+    text-decoration: line-through;
+}
+
+.Game-detail-sale-price {
+    color: red !important;
+}
+
+.Game-detail-ps-plus-price {
+    color: orange !important;
+}

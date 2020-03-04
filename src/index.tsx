@@ -21,9 +21,10 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import store from "./store/configureStore";
-import { MuiThemeProvider } from "@material-ui/core";
-import { theme } from "./theme";
 import { APP_VERSION } from "./store/keys";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import About from "./pages/About";
+import GameDetail from "./pages/GameDetail";
 
 const previousAppVersion = localStorage.getItem(APP_VERSION);
 const appVersion = `${process.env.REACT_APP_VERSION}`;
@@ -33,11 +34,15 @@ if (previousAppVersion && previousAppVersion !== appVersion) {
 localStorage.setItem(APP_VERSION, appVersion);
 
 ReactDOM.render(
-    <MuiThemeProvider theme={theme}>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </MuiThemeProvider>,
+    <Provider store={store}>
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" exact component={() => <App />} />
+                <Route path="/about" exact component={() => <About />} />
+                <Route path="/game/:cusa" component={() => <GameDetail />} />
+            </Switch>
+        </BrowserRouter>
+    </Provider>,
     document.getElementById("root"),
 );
 

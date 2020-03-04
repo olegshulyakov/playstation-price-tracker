@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
+import "./GameDetail.css";
 import React from "react";
-import PlayStationService from "../services/PlayStationService";
-import { PlaystationRegion, Package } from "playstation";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { Grid, Card, CardContent, Typography, Hidden } from "@material-ui/core";
+import { PlaystationRegion, Package } from "playstation";
+import LoadingSpinner from "../components/LoadingSpinner";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import GameDetailMediaCard from "../components/GameDetailMediaCard";
 import GameDetailAttributeCard from "../components/GameDetailAttributeCard";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import PlayStationService from "../services/PlayStationService";
 import PlayStationGameService from "../services/PlayStationGameService";
-import { connect } from "react-redux";
 
 interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
     region: PlaystationRegion;
@@ -54,21 +58,23 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
     render() {
         if (!this.state.isLoaded) {
-            return (
-                <Typography variant="h5" align="center">
-                    Loading game information...
-                </Typography>
-            );
+            return <LoadingSpinner msg="Loading game information..." />;
         }
         const game = this.state.game;
         if (!game || !game.name || !game.images) {
             this.props.history.push("/");
             return (
-                <Typography variant="h5" align="center">
-                    Oops... Cannot load game information
-                </Typography>
+                <>
+                    <Header />
+                    <Typography variant="h5" align="center">
+                        Oops... Cannot load game information
+                    </Typography>
+                    <Footer />
+                </>
             );
         }
+
+        const spaceElement = <div style={{ height: "2vh" }}></div>;
 
         const gameLink = this.playStationGameService.getStoreGameLink(game.id);
         const platforms = new Set<string>();
@@ -90,70 +96,80 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
         }
 
         return (
-            <Grid key={"game-detail-" + game.id} container>
-                <Hidden smUp>
-                    <Grid item xs={12} sm={12}>
-                        <GameDetailMediaCard playStationGameService={this.playStationGameService} game={game} />
-                    </Grid>
-                </Hidden>
+            <>
+                <Header />
+                <Grid key={"game-detail-" + game.id} container>
+                    <Hidden smUp>
+                        <Grid item xs={12} sm={12}>
+                            <GameDetailMediaCard playStationGameService={this.playStationGameService} game={game} />
+                        </Grid>
+                    </Hidden>
 
-                <Grid item md={1} lg={1} xl={1}></Grid>
+                    <Grid item md={1} lg={1} xl={1}></Grid>
 
-                <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
-                    <Card>
-                        <CardContent>
-                            <Grid container>
-                                <Grid item xs={12} sm={8} md={8} lg={9} xl={9}>
-                                    <Typography
-                                        style={{ cursor: "pointer" }}
-                                        variant="h3"
-                                        onClick={() => {
-                                            window.open(gameLink, "_blank");
-                                        }}
-                                    >
-                                        {game.name}
-                                        {game.content_rating?.url ? (
-                                            <img
-                                                src={game.content_rating?.url}
-                                                loading="eager"
-                                                alt="rating"
-                                                height="45px"
-                                                width="45px"
+                    <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
+                        <Card>
+                            <CardContent>
+                                <Grid container>
+                                    <Grid item xs={12} sm={8} md={8} lg={9} xl={9}>
+                                        <Typography
+                                            className="App-clickable"
+                                            variant="h3"
+                                            onClick={() => {
+                                                window.open(gameLink, "_blank");
+                                            }}
+                                        >
+                                            {game.name}
+                                            {game.content_rating?.url ? (
+                                                <img
+                                                    src={game.content_rating?.url}
+                                                    loading="eager"
+                                                    alt="rating"
+                                                    height="45px"
+                                                    width="45px"
+                                                />
+                                            ) : (
+                                                <></>
+                                            )}
+                                        </Typography>
+
+                                        <div
+                                            className="Game-detail-description"
+                                            dangerouslySetInnerHTML={{ __html: game.long_desc }}
+                                        ></div>
+                                    </Grid>
+
+                                    <Grid item lg={1} xl={1} />
+
+                                    <Grid item sm={4} md={3} lg={2} xl={2}>
+                                        <Hidden xsDown>
+                                            <GameDetailMediaCard
+                                                playStationGameService={this.playStationGameService}
+                                                game={game}
                                             />
-                                        ) : (
-                                            <></>
-                                        )}
-                                    </Typography>
-
-                                    <div
-                                        className="game-detail-description"
-                                        dangerouslySetInnerHTML={{ __html: game.long_desc }}
-                                    ></div>
+                                            {spaceElement}
+                                            <GameDetailAttributeCard
+                                                attribute="Platforms"
+                                                values={[...platforms.keys()]}
+                                            />
+                                            {spaceElement}
+                                            <GameDetailAttributeCard attribute="Audio" values={[...voices.keys()]} />
+                                            {spaceElement}
+                                            <GameDetailAttributeCard
+                                                attribute="Subtitles"
+                                                values={[...subtitles.keys()]}
+                                            />
+                                        </Hidden>
+                                    </Grid>
                                 </Grid>
+                            </CardContent>
+                        </Card>
+                    </Grid>
 
-                                <Grid item lg={1} xl={1} />
-
-                                <Grid item sm={4} md={3} lg={2} xl={2}>
-                                    <Hidden xsDown>
-                                        <GameDetailMediaCard
-                                            playStationGameService={this.playStationGameService}
-                                            game={game}
-                                        />
-                                        <div style={{ height: "16px" }}></div>
-                                        <GameDetailAttributeCard attribute="Platforms" values={[...platforms.keys()]} />
-                                        <div style={{ height: "16px" }}></div>
-                                        <GameDetailAttributeCard attribute="Audio" values={[...voices.keys()]} />
-                                        <div style={{ height: "16px" }}></div>
-                                        <GameDetailAttributeCard attribute="Subtitles" values={[...subtitles.keys()]} />
-                                    </Hidden>
-                                </Grid>
-                            </Grid>
-                        </CardContent>
-                    </Card>
+                    <Grid item md={1} lg={1} xl={1}></Grid>
                 </Grid>
-
-                <Grid item md={1} lg={1} xl={1}></Grid>
-            </Grid>
+                <Footer />
+            </>
         );
     }
 }

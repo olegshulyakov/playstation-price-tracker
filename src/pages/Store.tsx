@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import "./Store.css";
 import React from "react";
 import { connect } from "react-redux";
 import GamePreview from "../components/GamePreview";
@@ -35,7 +36,7 @@ class Store extends React.Component<StoreProps> {
                 <StoreGridItem
                     key={"game-preview-" + game.id}
                     item
-                    style={{ margin: "8px 8px 8px 8px", maxHeight: "240px", maxWidth: "240px" }}
+                    className="Store-grid-item"
                     xs={12}
                     sm={6}
                     md={4}

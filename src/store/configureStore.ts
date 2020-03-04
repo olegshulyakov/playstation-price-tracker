@@ -19,13 +19,32 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import loggerMiddleware from "../middleware/logger";
 import rootReducer from "../reducers";
+import { REGION, STORE, GAMES } from "./keys";
+
+let persistedRegion = undefined;
+try {
+    const str = localStorage.getItem(REGION);
+    persistedRegion = JSON.parse(str!);
+} catch (e) {}
+
+let persistedStoreInfo = undefined;
+try {
+    const str = localStorage.getItem(STORE);
+    persistedStoreInfo = JSON.parse(str!);
+} catch (e) {}
+
+let persistedStoreGames = undefined;
+try {
+    const str = localStorage.getItem(GAMES);
+    persistedStoreGames = JSON.parse(str!);
+} catch (e) {}
 
 const initialStoreState: StoreState = {
-    info: undefined,
-    games: undefined,
+    info: persistedStoreInfo,
+    games: persistedStoreGames,
 };
 const initialState: ReduxStoreState = {
-    region: undefined,
+    region: persistedRegion,
     store: initialStoreState,
 };
 

@@ -15,9 +15,11 @@
  */
 
 import React from "react";
+import { Card, CardMedia, CardActions } from "@material-ui/core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { PlaystationObject } from "playstation";
 import PlayStationGameService from "../services/PlayStationGameService";
-import { Card, CardMedia, CardActions } from "@material-ui/core";
 
 interface GameDetailMediaCardProps {
     playStationGameService: PlayStationGameService;
@@ -26,12 +28,39 @@ interface GameDetailMediaCardProps {
 
 export default class GameDetailMediaCard extends React.Component<GameDetailMediaCardProps> {
     render() {
+        const initialPrice = this.props.playStationGameService.getInitialPrice(this.props.game);
         const currentPrice = this.props.playStationGameService.getCurrentPrice(this.props.game);
         const psPlusPrice = this.props.playStationGameService.getPsPlusPrice(this.props.game);
 
+        const price: JSX.Element[] = [
+            <FontAwesomeIcon key={"shopping-cart-" + this.props.game.id} icon={faShoppingCart} size="1x" />,
+        ];
+        if (initialPrice === currentPrice) {
+            price.push(
+                <div key={"detail-price-" + this.props.game.id} className="Game-detail-price">
+                    {currentPrice}
+                </div>,
+            );
+        } else {
+            // price.push(<div className="Game-detail-inactive-price">{initialPrice}</div>);
+            price.push(
+                <div key={"sale-price-" + this.props.game.id} className="Game-detail-sale-price">
+                    {currentPrice}
+                </div>,
+            );
+        }
+
+        if (psPlusPrice) {
+            price.push(
+                <div key={"ps-plus-price-" + this.props.game.id} className="Game-detail-ps-plus-price">
+                    {psPlusPrice}
+                </div>,
+            );
+        }
+
         return (
             <Card
-                style={{ cursor: "pointer" }}
+                className="App-clickable"
                 onClick={() => {
                     window.open(this.props.playStationGameService.getStoreGameLink(this.props.game.id), "_blank");
                 }}
@@ -44,10 +73,7 @@ export default class GameDetailMediaCard extends React.Component<GameDetailMedia
                     placeholder={this.props.game.name}
                 />
 
-                <CardActions>
-                    {currentPrice ? <div className="game-detail-price">{currentPrice}</div> : <></>}
-                    {psPlusPrice ? <div className="game-detail-ps-plus-price">{psPlusPrice}</div> : <></>}
-                </CardActions>
+                <CardActions>{price}</CardActions>
             </Card>
         );
     }

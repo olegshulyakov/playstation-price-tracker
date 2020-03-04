@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-import { Middleware, Dispatch, MiddlewareAPI } from "redux";
+import React from "react";
+import playstationClassicIcon from "../assets/playstation-classic.svg";
 
-const logger: Middleware = (store: MiddlewareAPI) => (next: Dispatch) => (action: any) => {
-    console.groupCollapsed(action.type);
-    console.debug("dispatching", action);
-    let result = next(action);
-    console.debug("next state", store.getState());
-    console.groupEnd();
-    return result;
-};
-export default logger;
+interface LoadingSpinnerProps {
+    msg?: string;
+}
+
+export default class LoadingSpinner extends React.Component<LoadingSpinnerProps> {
+    render() {
+        return (
+            <div className="App-loading-screen">
+                <img src={playstationClassicIcon} className="App-loading-logo" alt="Loading" />
+                <p>{this.props.msg ? this.props.msg : ""}</p>
+            </div>
+        );
+    }
+}

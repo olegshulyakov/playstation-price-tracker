@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import "./SelectRegion.css";
 import React from "react";
 import { PlaystationRegion } from "playstation";
 import { playstationRegionList } from "../services/PlayStationService";
@@ -35,25 +36,16 @@ class SelectRegion extends React.Component<SelectRegionProps> {
 
     renderRegion(region: PlaystationRegion) {
         return (
-            <Grid
-                key={"region-" + region.name}
-                style={{ margin: "4px 8px 4px 8px" }}
-                item
-                xs={10}
-                sm={6}
-                md={4}
-                lg={2}
-                xl={3}
-            >
+            <Grid key={"region-" + region.name} className="SelectRegion-item" item xs={10} sm={6} md={4} lg={2} xl={3}>
                 <Card
-                    style={{ height: "100%", display: "flex", flexDirection: "column" }}
+                    className="SelectRegion-card"
                     onClick={() => {
                         this.props.clearGamesStore();
                         this.props.selectRegion(region);
                     }}
                 >
-                    <CardActionArea style={{ height: "100%" }}>
-                        <CardContent style={{ textAlign: "center" }}>
+                    <CardActionArea>
+                        <CardContent className="Text-center">
                             <Typography gutterBottom>{region.name}</Typography>
                         </CardContent>
                     </CardActionArea>
@@ -66,7 +58,7 @@ class SelectRegion extends React.Component<SelectRegionProps> {
         const regions = playstationRegionList.map((region) => this.renderRegion(region));
         return (
             <div className="select-region">
-                <h1 style={{ textAlign: "center" }}>Please select your country / region</h1>
+                <h1 className="Text-center">Please select your country / region</h1>
                 <div>
                     <Grid container justify="center">
                         {regions}

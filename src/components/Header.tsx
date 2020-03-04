@@ -26,18 +26,11 @@ interface HeaderProps extends RouteComponentProps {}
 class Header extends React.Component<HeaderProps> {
     render() {
         return (
-            <AppBar position="static" style={{ backgroundColor: "#20232a" }}>
-                <Toolbar variant="dense" disableGutters={true}>
-                    <FontAwesomeIcon
-                        style={{
-                            marginLeft: "16px",
-                            marginRight: "16px",
-                        }}
-                        icon={faPlaystation}
-                        size="2x"
-                    />
+            <AppBar position="static" className="App-header">
+                <Toolbar variant="dense" disableGutters={true} className="App-header-toolbar">
+                    <FontAwesomeIcon className="App-logo" icon={faPlaystation} size="2x" />
                     <Typography
-                        style={{ flexGrow: 1, cursor: "pointer" }}
+                        className="App-title"
                         variant="h6"
                         color="inherit"
                         noWrap

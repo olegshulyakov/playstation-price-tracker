@@ -16,15 +16,15 @@
 
 import React from "react";
 import "./App.css";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { PlaystationRegion } from "playstation";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Store from "./pages/Store";
-import GameDetail from "./pages/GameDetail";
 import SelectRegion from "./pages/SelectRegion";
 import { connect } from "react-redux";
 import { fetchStoreInfo, fetchGamesList } from "./actions/gameActions";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 interface AppProps {
     region: PlaystationRegion;
@@ -34,7 +34,7 @@ interface AppProps {
 }
 
 class App extends React.Component<AppProps> {
-    componentDidUpdate() {
+    fetchInfo() {
         if (this.props.region && !this.props.store.info) {
             const region = this.props.region;
             this.props.fetchInfo(region.language, region.country);
@@ -46,15 +46,21 @@ class App extends React.Component<AppProps> {
         }
     }
 
+    componentDidMount() {
+        this.fetchInfo();
+    }
+
+    componentDidUpdate() {
+        this.fetchInfo();
+    }
+
     render() {
         if (!this.props.region || !this.props.region.name) {
             return (
                 <div className="App">
-                    <BrowserRouter>
-                        <Header />
-                        <SelectRegion />
-                        <Footer />
-                    </BrowserRouter>
+                    <Header />
+                    <SelectRegion />
+                    <Footer />
                 </div>
             );
         }
@@ -62,25 +68,18 @@ class App extends React.Component<AppProps> {
         if (!this.props.store.info || !this.props.store.games) {
             return (
                 <div className="App">
-                    <BrowserRouter>
-                        <Header />
-                        <div className="game-list-loader">Loading games list...</div>
-                        <Footer />
-                    </BrowserRouter>
+                    <LoadingSpinner msg="Loading games..." />
                 </div>
             );
         }
 
         return (
             <div className="App">
-                <BrowserRouter>
-                    <Header />
-                    <Switch>
-                        <Route path="/" exact component={() => <Store />} />
-                        <Route path="/game/:cusa" component={() => <GameDetail />} />
-                    </Switch>
-                    <Footer />
-                </BrowserRouter>
+                <Header />
+                <Switch>
+                    <Route path="/" exact component={() => <Store />} />
+                </Switch>
+                <Footer />
             </div>
         );
     }
