@@ -26,7 +26,7 @@ export default class LoadingSpinner extends React.Component<LoadingSpinnerProps>
         return (
             <div className="App-loading-screen">
                 <img src={playstationClassicIcon} className="App-loading-logo" alt="Loading" />
-                <p>{this.props.msg ? this.props.msg : ""}</p>
+                <p className="App-loading-progress">{this.props.msg ? this.props.msg : ""}</p>
             </div>
         );
     }
