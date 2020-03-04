@@ -19,7 +19,8 @@ import React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Grid, Card, CardContent, Typography, Hidden } from "@material-ui/core";
-import { PlaystationRegion, Package } from "playstation";
+import { PlaystationRegion, Package, PlaystationObject } from "playstation";
+import { GAME } from "../store/keys";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -33,50 +34,54 @@ interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
 }
 
 class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
-    private readonly playStationService: PlayStationService;
-    private readonly playStationGameService: PlayStationGameService;
     private readonly cusa: string;
     constructor(props: any) {
         super(props);
         this.cusa = this.props.match.params.cusa;
-        this.playStationService = new PlayStationService(this.props.region.language, this.props.region.country);
-        this.playStationGameService = new PlayStationGameService(this.props.region.language, this.props.region.country);
-        this.state = {
-            isLoaded: false,
-            game: undefined,
-        };
+
+        try {
+            const sessionItem = sessionStorage.getItem(GAME + this.cusa);
+            const game = JSON.parse(sessionItem!) as PlaystationObject;
+            this.state = {
+                isLoaded: true,
+                game: game,
+            };
+        } catch (e) {
+            this.state = {
+                isLoaded: false,
+                game: undefined,
+            };
+        }
     }
 
     componentDidMount() {
         if (!this.cusa) {
             return;
         }
-        this.playStationService.getGameInfo(this.cusa).then((game) => {
-            this.setState({ isLoaded: true, game: game });
-        });
+        if (this.state.isLoaded && this.state.game) {
+            return;
+        }
+
+        new PlayStationService(this.props.region.language, this.props.region.country)
+            .getGameInfo(this.cusa)
+            .then((game: PlaystationObject) => {
+                this.setState({ isLoaded: true, game: game });
+                sessionStorage.setItem(GAME + this.cusa, JSON.stringify(game));
+            });
     }
 
     render() {
-        if (!this.state.isLoaded) {
-            return <LoadingSpinner msg="Loading game information..." />;
-        }
         const game = this.state.game;
-        if (!game || !game.name || !game.images) {
-            this.props.history.push("/");
-            return (
-                <>
-                    <Header />
-                    <Typography variant="h5" align="center">
-                        Oops... Cannot load game information
-                    </Typography>
-                    <Footer />
-                </>
-            );
+        if (!this.state.isLoaded || !game || !game.name || !game.images) {
+            return <LoadingSpinner msg="Loading game information..." />;
         }
 
         const spaceElement = <div style={{ height: "2vh" }}></div>;
-
-        const gameLink = this.playStationGameService.getStoreGameLink(game.id);
+        const playStationGameService = new PlayStationGameService(
+            this.props.region.language,
+            this.props.region.country,
+        );
+        const gameLink = playStationGameService.getStoreGameLink(game.id);
         const platforms = new Set<string>();
         const voices = new Set<string>();
         const subtitles = new Set<string>();
@@ -101,7 +106,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                 <Grid key={"game-detail-" + game.id} container>
                     <Hidden smUp>
                         <Grid item xs={12} sm={12}>
-                            <GameDetailMediaCard playStationGameService={this.playStationGameService} game={game} />
+                            <GameDetailMediaCard playStationGameService={playStationGameService} game={game} />
                         </Grid>
                     </Hidden>
 
@@ -144,7 +149,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                                     <Grid item sm={4} md={3} lg={2} xl={2}>
                                         <Hidden xsDown>
                                             <GameDetailMediaCard
-                                                playStationGameService={this.playStationGameService}
+                                                playStationGameService={playStationGameService}
                                                 game={game}
                                             />
                                             {spaceElement}
