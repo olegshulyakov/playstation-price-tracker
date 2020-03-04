@@ -18,19 +18,25 @@ import React from "react";
 import { Card, CardMedia, CardActions } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { PlaystationObject } from "playstation";
-import PlayStationGameService from "../services/PlayStationGameService";
+import { PlaystationObject, PlaystationRegion } from "playstation";
+import {
+    getStoreGameLink,
+    getInitialPrice,
+    getCurrentPrice,
+    getPsPlusPrice,
+    getPreviewImage,
+} from "../services/PlayStationGameService";
 
 interface GameDetailMediaCardProps {
-    playStationGameService: PlayStationGameService;
+    region: PlaystationRegion;
     game: PlaystationObject;
 }
 
 export default class GameDetailMediaCard extends React.Component<GameDetailMediaCardProps> {
     render() {
-        const initialPrice = this.props.playStationGameService.getInitialPrice(this.props.game);
-        const currentPrice = this.props.playStationGameService.getCurrentPrice(this.props.game);
-        const psPlusPrice = this.props.playStationGameService.getPsPlusPrice(this.props.game);
+        const initialPrice = getInitialPrice(this.props.game);
+        const currentPrice = getCurrentPrice(this.props.game);
+        const psPlusPrice = getPsPlusPrice(this.props.game);
 
         const price: JSX.Element[] = [
             <FontAwesomeIcon key={"shopping-cart-" + this.props.game.id} icon={faShoppingCart} size="1x" />,
@@ -62,13 +68,16 @@ export default class GameDetailMediaCard extends React.Component<GameDetailMedia
             <Card
                 className="App-clickable"
                 onClick={() => {
-                    window.open(this.props.playStationGameService.getStoreGameLink(this.props.game.id), "_blank");
+                    window.open(
+                        getStoreGameLink(this.props.game.id, this.props.region.language, this.props.region.country),
+                        "_blank",
+                    );
                 }}
             >
                 <CardMedia
                     component="img"
                     loading="lazy"
-                    image={this.props.playStationGameService.getPreviewImage(this.props.game)}
+                    image={getPreviewImage(this.props.game)}
                     title={this.props.game.name}
                     placeholder={this.props.game.name}
                 />

@@ -27,7 +27,7 @@ import Footer from "../components/Footer";
 import GameDetailMediaCard from "../components/GameDetailMediaCard";
 import GameDetailAttributeCard from "../components/GameDetailAttributeCard";
 import PlayStationService from "../services/PlayStationService";
-import PlayStationGameService from "../services/PlayStationGameService";
+import { getStoreGameLink } from "../services/PlayStationGameService";
 
 interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
     region: PlaystationRegion;
@@ -77,11 +77,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
         }
 
         const spaceElement = <div style={{ height: "2vh" }}></div>;
-        const playStationGameService = new PlayStationGameService(
-            this.props.region.language,
-            this.props.region.country,
-        );
-        const gameLink = playStationGameService.getStoreGameLink(game.id);
+        const gameLink = getStoreGameLink(game.id, this.props.region.language, this.props.region.country);
         const platforms = new Set<string>();
         const voices = new Set<string>();
         const subtitles = new Set<string>();
@@ -106,7 +102,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                 <Grid key={"game-detail-" + game.id} container>
                     <Hidden smUp>
                         <Grid item xs={12} sm={12}>
-                            <GameDetailMediaCard playStationGameService={playStationGameService} game={game} />
+                            <GameDetailMediaCard region={this.props.region} game={game} />
                         </Grid>
                     </Hidden>
 
@@ -148,10 +144,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
                                     <Grid item sm={4} md={3} lg={2} xl={2}>
                                         <Hidden xsDown>
-                                            <GameDetailMediaCard
-                                                playStationGameService={playStationGameService}
-                                                game={game}
-                                            />
+                                            <GameDetailMediaCard region={this.props.region} game={game} />
                                             {spaceElement}
                                             <GameDetailAttributeCard
                                                 attribute="Platforms"

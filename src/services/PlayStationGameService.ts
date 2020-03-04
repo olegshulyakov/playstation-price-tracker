@@ -1,55 +1,44 @@
-import { PlaystationLink, PlaystationObject } from "playstation";
+import { PlaystationLink, PlaystationObject, Reward } from "playstation";
 
-export default class PlayStationGameService {
-    private language: string;
-    private country: string;
+export const getStoreGameLink = (cusa: string, language: string, country: string): string => {
+    console.debug(`Generating game link ${cusa}`);
+    return `https://store.playstation.com/${language}-${country}/product/${cusa}`;
+};
 
-    constructor(language: string, country: string) {
-        console.debug(`Creating PlayStationGameService for [${language}, ${country}]`);
-        this.language = language;
-        this.country = country;
+export const getInitialPrice = (game: PlaystationLink | PlaystationObject): string | undefined => {
+    if (game.default_sku) {
+        return game.default_sku.display_price;
     }
+    return undefined;
+};
 
-    getStoreGameLink(cusa: string): string {
-        console.debug(`Generating game link ${cusa}`);
-        return `https://store.playstation.com/${this.language}-${this.country}/product/${cusa}`;
-    }
+export const isSale = (game: PlaystationLink | PlaystationObject): boolean | undefined => {
+    return game.default_sku?.rewards && game.default_sku?.rewards.length > 0;
+};
 
-    getInitialPrice(game: PlaystationLink | PlaystationObject): string | undefined {
-        if (game.default_sku) {
-            return game.default_sku.display_price;
-        }
-        return undefined;
+export const getSaleDetails = (game: PlaystationLink | PlaystationObject): Reward | undefined => {
+    if (game.default_sku?.rewards && game.default_sku?.rewards.length > 0) {
+        return game.default_sku?.rewards[0];
     }
+    return undefined;
+};
 
-    isSale(game: PlaystationLink | PlaystationObject) {
-        return game.default_sku?.rewards && game.default_sku?.rewards.length > 0;
+export const getCurrentPrice = (game: PlaystationLink | PlaystationObject): string | undefined => {
+    const saleDetails = getSaleDetails(game);
+    if (saleDetails && saleDetails.display_price) {
+        return saleDetails.display_price;
     }
+    return getInitialPrice(game);
+};
 
-    getSaleDetails(game: PlaystationLink | PlaystationObject) {
-        if (game.default_sku?.rewards && game.default_sku?.rewards.length > 0) {
-            return game.default_sku?.rewards[0];
-        }
-        return undefined;
+export const getPsPlusPrice = (game: PlaystationLink | PlaystationObject): string | undefined => {
+    const saleDetails = getSaleDetails(game);
+    if (saleDetails && saleDetails.bonus_display_price) {
+        return saleDetails.bonus_display_price;
     }
+    return undefined;
+};
 
-    getCurrentPrice(game: PlaystationLink | PlaystationObject): string | undefined {
-        const saleDetails = this.getSaleDetails(game);
-        if (saleDetails && saleDetails.display_price) {
-            return saleDetails.display_price;
-        }
-        return this.getInitialPrice(game);
-    }
-
-    getPsPlusPrice(game: PlaystationLink | PlaystationObject) {
-        const saleDetails = this.getSaleDetails(game);
-        if (saleDetails && saleDetails.bonus_display_price) {
-            return saleDetails.bonus_display_price;
-        }
-        return undefined;
-    }
-
-    getPreviewImage(game: PlaystationLink | PlaystationObject) {
-        return game.images[0].url;
-    }
-}
+export const getPreviewImage = (game: PlaystationLink | PlaystationObject): string => {
+    return game.images[0].url;
+};
