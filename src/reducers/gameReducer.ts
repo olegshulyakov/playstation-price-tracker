@@ -31,10 +31,13 @@ export default (state = initialState, action: any) => {
                 info: action.info,
             } as StoreState;
         case FETCH_GAMES_LIST:
-            localStorage.setItem(GAMES, JSON.stringify(action.games));
+            const currentGames = state.games ? state.games.slice() : [];
+            const newGames = [...currentGames, ...action.games];
+            localStorage.removeItem(GAMES);
+            localStorage.setItem(GAMES, JSON.stringify(newGames));
             return {
                 ...state,
-                games: action.games,
+                games: newGames,
             } as StoreState;
         case CLEAR_GAMES_STORE:
             localStorage.removeItem(STORE);

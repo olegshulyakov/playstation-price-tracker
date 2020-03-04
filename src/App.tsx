@@ -34,15 +34,40 @@ interface AppProps {
 }
 
 class App extends React.Component<AppProps> {
+    isLoaded() {
+        if (!this.props.store.info || !this.props.store.games) {
+            return false;
+        }
+        // TODO change to this.props.store.info.total_results > this.props.store.games.length
+        // Need to fix QuotaExceededError: The quota has been exceeded
+        return 500 <= this.props.store.games.length;
+    }
+
     fetchInfo() {
-        if (this.props.region && !this.props.store.info) {
-            const region = this.props.region;
-            this.props.fetchInfo(region.language, region.country);
+        if (!this.props.region) {
+            return;
         }
 
-        if (this.props.region && this.props.store.info && !this.props.store.games) {
+        if (!this.props.store.info) {
             const region = this.props.region;
-            this.props.fetchGames(region.language, region.country);
+            this.props.fetchInfo(region.language, region.country);
+            return;
+        }
+
+        if (!this.props.store.games) {
+            const region = this.props.region;
+            this.props.fetchGames(region.language, region.country, this.props.store.info.total_results, 0);
+            return;
+        }
+
+        if (!this.isLoaded()) {
+            const region = this.props.region;
+            this.props.fetchGames(
+                region.language,
+                region.country,
+                this.props.store.info.total_results,
+                this.props.store.games.length,
+            );
         }
     }
 
@@ -65,10 +90,14 @@ class App extends React.Component<AppProps> {
             );
         }
 
-        if (!this.props.store.info || !this.props.store.games) {
+        if (!this.props.store.info || !this.props.store.games || !this.isLoaded()) {
+            let msg = "Loading games...";
+            if (this.props.store.info && this.props.store.games) {
+                msg += ` ${this.props.store.games.length} / ${this.props.store.info.total_results}`;
+            }
             return (
                 <div className="App">
-                    <LoadingSpinner msg="Loading games..." />
+                    <LoadingSpinner msg={msg} />
                 </div>
             );
         }

@@ -135,9 +135,9 @@ export default class PlayStationService {
         return this.storeInfo;
     }
 
-    async getGamesList(): Promise<PlaystationLink[]> {
+    async getGamesList(size: number = 50, start: number = 0): Promise<PlaystationLink[]> {
         console.debug("Loading games");
-        const response = await this.query(this.rootCusa, 50);
+        const response = await this.query(this.rootCusa, size, start);
         const json = await response.json();
         //console.debug(`Game list response: ${JSON.stringify(json)}`);
         return json.links;

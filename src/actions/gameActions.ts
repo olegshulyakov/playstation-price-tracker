@@ -25,10 +25,20 @@ export const fetchStoreInfo = (language: string, country: string) => (dispatch: 
     });
 };
 
-export const fetchGamesList = (language: string, country: string) => (dispatch: Function) => {
-    console.debug(`Fetching games for ${language}-${country}`);
+export const fetchGamesList = (
+    language: string,
+    country: string,
+    total: number,
+    start: number = 0,
+    size: number = 100,
+) => (dispatch: Function) => {
+    console.debug(`Fetching games for ${language}-${country}. total=${total} start=${start}, size=${size}`);
+    if (start > total) {
+        console.debug(`Fetched all games for ${language}-${country}`);
+        return;
+    }
     const service = new PlayStationService(language, country);
-    service.getGamesList().then((links) => {
+    service.getGamesList(size, start).then((links) => {
         dispatch({ type: FETCH_GAMES_LIST, games: links });
     });
 };

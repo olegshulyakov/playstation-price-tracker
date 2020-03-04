@@ -31,7 +31,7 @@ class Store extends React.Component<StoreProps> {
             return;
         }
 
-        const games = this.props.store.games.slice().map((game) => {
+        const games = this.props.store.games.slice(0, 25).map((game) => {
             return (
                 <StoreGridItem
                     key={"game-preview-" + game.id}
