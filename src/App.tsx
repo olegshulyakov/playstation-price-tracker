@@ -23,7 +23,7 @@ import Footer from "./components/Footer";
 import Store from "./pages/Store";
 import SelectRegion from "./pages/SelectRegion";
 import { connect } from "react-redux";
-import { fetchStoreInfo, fetchGamesList } from "./actions/gameActions";
+import { fetchStoreInfo, fetchGamePreviewsList, clearGamesStore } from "./actions/gameActions";
 import LoadingSpinner from "./components/LoadingSpinner";
 
 interface AppProps {
@@ -31,6 +31,7 @@ interface AppProps {
     store: StoreState;
     fetchInfo: Function;
     fetchGames: Function;
+    clearStore: Function;
 }
 
 class App extends React.Component<AppProps> {
@@ -38,9 +39,9 @@ class App extends React.Component<AppProps> {
         if (!this.props.store.info || !this.props.store.games) {
             return false;
         }
-        // TODO change to this.props.store.info.total_results > this.props.store.games.length
+        // TODO change to this.props.store.info.total_results <= this.props.store.games.length
         // Need to fix QuotaExceededError: The quota has been exceeded
-        return 500 <= this.props.store.games.length;
+        return 100 <= this.props.store.games.length;
     }
 
     fetchInfo() {
@@ -72,6 +73,9 @@ class App extends React.Component<AppProps> {
     }
 
     componentDidMount() {
+        if (!this.isLoaded()) {
+            this.props.clearStore();
+        }
         this.fetchInfo();
     }
 
@@ -116,4 +120,8 @@ class App extends React.Component<AppProps> {
 
 const mapStateToProps = (state: ReduxStoreState) => state;
 
-export default connect(mapStateToProps, { fetchInfo: fetchStoreInfo, fetchGames: fetchGamesList })(App);
+export default connect(mapStateToProps, {
+    fetchInfo: fetchStoreInfo,
+    fetchGames: fetchGamePreviewsList,
+    clearStore: clearGamesStore,
+})(App);

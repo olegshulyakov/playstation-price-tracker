@@ -1,8 +1,20 @@
-import { PlaystationLink, PlaystationObject, Reward } from "playstation";
+import { PlaystationLink, PlaystationObject, Reward, PlaystationItemPreview } from "playstation";
 
 export const getStoreGameLink = (cusa: string, language: string, country: string): string => {
     console.debug(`Generating game link ${cusa}`);
     return `https://store.playstation.com/${language}-${country}/product/${cusa}`;
+};
+
+export const getGamePreview = (game: PlaystationLink): PlaystationItemPreview => {
+    const image = game.images && game.images[0] ? game.images[0].url : "";
+    return {
+        id: game.id,
+        name: game.name,
+        image: image,
+        url: game.url,
+        display_price: getCurrentPrice(game),
+        is_sale: isSale(game),
+    } as PlaystationItemPreview;
 };
 
 export const getInitialPrice = (game: PlaystationLink | PlaystationObject): string | undefined => {

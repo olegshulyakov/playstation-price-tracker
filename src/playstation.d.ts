@@ -323,9 +323,20 @@ declare module "playstation" {
     }
     // ============================================================================
 
-    export interface PlaystationRegion {
-        name: string;
-        language: string;
-        country: string;
-    }
+    export interface PlaystationRegion
+        extends Readonly<{
+            name: string;
+            language: string;
+            country: string;
+        }> {}
+
+    export interface PlaystationItemPreview
+        extends Readonly<{
+            id: string;
+            name: string;
+            image: string;
+            url: string;
+            display_price: string;
+            is_sale: boolean;
+        }> {}
 }

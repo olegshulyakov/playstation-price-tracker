@@ -16,6 +16,7 @@
 
 import { FETCH_GAMES_COUNT, FETCH_GAMES_LIST, CLEAR_GAMES_STORE } from "./types";
 import PlayStationService from "../services/PlayStationService";
+import { getGamePreview } from "../services/PlayStationGameService";
 
 export const fetchStoreInfo = (language: string, country: string) => (dispatch: Function) => {
     console.debug(`Fetching store info for ${language}-${country}`);
@@ -25,21 +26,25 @@ export const fetchStoreInfo = (language: string, country: string) => (dispatch: 
     });
 };
 
-export const fetchGamesList = (
+export const fetchGamePreviewsList = (
     language: string,
     country: string,
     total: number,
     start: number = 0,
     size: number = 100,
 ) => (dispatch: Function) => {
-    console.debug(`Fetching games for ${language}-${country}. total=${total} start=${start}, size=${size}`);
+    console.debug(`Fetching game previews for ${language}-${country}. total=${total} start=${start}, size=${size}`);
     if (start > total) {
-        console.debug(`Fetched all games for ${language}-${country}`);
+        console.debug(`Fetched all game previews for ${language}-${country}`);
         return;
     }
+
     const service = new PlayStationService(language, country);
     service.getGamesList(size, start).then((links) => {
-        dispatch({ type: FETCH_GAMES_LIST, games: links });
+        const previews = links.map((link) => {
+            return getGamePreview(link);
+        });
+        dispatch({ type: FETCH_GAMES_LIST, games: previews });
     });
 };
 

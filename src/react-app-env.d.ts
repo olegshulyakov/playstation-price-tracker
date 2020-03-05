@@ -27,7 +27,7 @@ interface RegionState {
 
 interface StoreState {
     info?: PlaystationObject;
-    games?: PlaystationLink[];
+    games?: PlaystationItemPreview[];
 }
 
 interface GameDetailState {

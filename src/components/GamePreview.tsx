@@ -15,13 +15,13 @@
  */
 
 import React from "react";
-import { PlaystationLink } from "playstation";
+import { PlaystationItemPreview } from "playstation";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { CardMedia, CardActionArea } from "@material-ui/core";
 import { GamePreviewBadge, GamePreviewCard } from "../theme";
 
 export interface GamePreviewProps extends RouteComponentProps {
-    game: PlaystationLink;
+    game: PlaystationItemPreview;
 }
 
 class GamePreview extends React.Component<GamePreviewProps> {
@@ -36,28 +36,29 @@ class GamePreview extends React.Component<GamePreviewProps> {
 
     render() {
         return (
-            <GamePreviewBadge
-                badgeContent={this.props.game.default_sku.display_price}
-                anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "right",
-                }}
-            >
-                <GamePreviewCard>
-                    <CardActionArea onClick={() => this.handleGameClick(this.props.game.id)}>
+            <GamePreviewCard>
+                <CardActionArea onClick={() => this.handleGameClick(this.props.game.id)}>
+                    <GamePreviewBadge
+                        className={this.props.game.is_sale ? "Game-detail-price" : "Game-detail-sale-price"}
+                        badgeContent={this.props.game.display_price}
+                        anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "right",
+                        }}
+                    >
                         <CardMedia
                             component="img"
                             alt={this.props.game.name}
                             height="240"
                             width="240"
                             loading="lazy"
-                            image={this.props.game.images[0].url}
+                            image={this.props.game.image}
                             title={this.props.game.name}
                             placeholder={this.props.game.name}
                         />
-                    </CardActionArea>
-                </GamePreviewCard>
-            </GamePreviewBadge>
+                    </GamePreviewBadge>
+                </CardActionArea>
+            </GamePreviewCard>
         );
     }
 }
