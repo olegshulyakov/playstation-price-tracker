@@ -16,35 +16,7 @@
 import GamePreviewCard from "./GamePreviewCard";
 import GamePreviewBadge from "./GamePreviewBadge";
 import StoreGridItem from "./StoreGridItem";
-import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
-import blue from "@material-ui/core/colors/blue";
+import materialUiTheme from "./materialUI";
+import themeUiTheme from "./themeUI";
 
-let theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: "#000",
-        },
-        secondary: blue,
-    },
-    typography: {
-        fontFamily: [
-            "-apple-system",
-            "BlinkMacSystemFont",
-            '"Segoe UI"',
-            '"Roboto"',
-            '"Oxygen"',
-            '"Ubuntu"',
-            '"Cantarell"',
-            '"Fira Sans"',
-            '"Droid Sans"',
-            '"Helvetica Neue"',
-            "sans-serif",
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
-        ].join(","),
-    },
-});
-theme = responsiveFontSizes(theme);
-
-export { theme, GamePreviewCard, GamePreviewBadge, StoreGridItem };
+export { materialUiTheme, themeUiTheme, GamePreviewCard, GamePreviewBadge, StoreGridItem };
