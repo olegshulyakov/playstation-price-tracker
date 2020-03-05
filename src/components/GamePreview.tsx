@@ -30,14 +30,14 @@ class GamePreview extends React.Component<GamePreviewProps> {
         this.handleGameClick = this.handleGameClick.bind(this);
     }
 
-    handleGameClick(id: string) {
-        this.props.history.push("/game/" + id);
+    handleGameClick(game: PlaystationItemPreview) {
+        this.props.history.push({ pathname: "/game/" + game.id, state: game.url });
     }
 
     render() {
         return (
             <GamePreviewCard>
-                <CardActionArea onClick={() => this.handleGameClick(this.props.game.id)}>
+                <CardActionArea onClick={() => this.handleGameClick(this.props.game)}>
                     <GamePreviewBadge
                         className={this.props.game.is_sale ? "Game-detail-price" : "Game-detail-sale-price"}
                         badgeContent={this.props.game.display_price}

@@ -1,7 +1,7 @@
 import { PlaystationLink, PlaystationObject, Reward, PlaystationItemPreview } from "playstation";
 
 export const getStoreGameLink = (cusa: string, language: string, country: string): string => {
-    console.debug(`Generating game link ${cusa}`);
+    console.debug(`Generating ps store link for [${cusa}]`);
     return `https://store.playstation.com/${language}-${country}/product/${cusa}`;
 };
 

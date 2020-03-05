@@ -26,7 +26,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import GameDetailMediaCard from "../components/GameDetailMediaCard";
 import GameDetailAttributeCard from "../components/GameDetailAttributeCard";
-import PlayStationService from "../services/PlayStationService";
 import { getStoreGameLink } from "../services/PlayStationGameService";
 
 interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
@@ -35,13 +34,16 @@ interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
 
 class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
     private readonly cusa: string;
+    private readonly url: string;
     constructor(props: any) {
         super(props);
         this.cusa = this.props.match.params.cusa;
+        this.url = this.props.location.state ? (this.props.location.state as string) : "";
 
         try {
             const sessionItem = sessionStorage.getItem(GAME + this.cusa);
             const game = JSON.parse(sessionItem!) as PlaystationObject;
+            // TODO check session item timestamp and clear if old.
             this.state = {
                 isLoaded: true,
                 game: game,
@@ -54,23 +56,33 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
         }
     }
 
+    isCorruptedData(): boolean {
+        return !this.cusa || !this.url;
+    }
+
     componentDidMount() {
-        if (!this.cusa) {
+        if (this.isCorruptedData()) {
             return;
         }
         if (this.state.isLoaded && this.state.game) {
             return;
         }
 
-        new PlayStationService(this.props.region.language, this.props.region.country)
-            .getGameInfo(this.cusa)
-            .then((game: PlaystationObject) => {
+        fetch(this.url)
+            .then((response) => response.json())
+            .then((json: any) => {
+                const game = json as PlaystationObject;
                 this.setState({ isLoaded: true, game: game });
                 sessionStorage.setItem(GAME + this.cusa, JSON.stringify(game));
-            });
+            })
+            .catch((e) => console.error(`Cannot load game data, [${this.cusa}].`, e));
     }
 
     render() {
+        if (this.isCorruptedData()) {
+            return <></>;
+        }
+
         const game = this.state.game;
         if (!this.state.isLoaded || !game || !game.name || !game.images) {
             return <LoadingSpinner msg="Loading game information..." />;
@@ -174,4 +186,4 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
 const mapStateToProps = (state: ReduxStoreState) => ({ region: state.region });
 
-export default connect(mapStateToProps)(withRouter(GameDetail));
+export default withRouter(connect(mapStateToProps)(GameDetail));
