@@ -18,12 +18,15 @@ import { FETCH_GAMES_COUNT, FETCH_GAMES_LIST, CLEAR_GAMES_STORE } from "./types"
 import PlayStationService from "../services/PlayStationService";
 import { getGamePreview } from "../services/PlayStationGameService";
 
-export const fetchStoreInfo = (language: string, country: string) => (dispatch: Function) => {
+export const fetchStoreInfo = (language: string, country: string) => async (dispatch: Function) => {
     console.debug(`Fetching store info for ${language}-${country}`);
     const service = new PlayStationService(language, country);
-    service.getStoreInfo().then((storeInfo) => {
+    try {
+        const storeInfo = await service.getStoreInfo();
         dispatch({ type: FETCH_GAMES_COUNT, info: storeInfo });
-    });
+    } catch (e) {
+        console.error(`Cannot fetch store information [${language}-${country}].`, e);
+    }
 };
 
 export const fetchGamePreviewsList = (
@@ -32,7 +35,7 @@ export const fetchGamePreviewsList = (
     total: number,
     start: number = 0,
     size: number = 100,
-) => (dispatch: Function) => {
+) => async (dispatch: Function) => {
     console.debug(`Fetching game previews for ${language}-${country}. total=${total} start=${start}, size=${size}`);
     if (start > total) {
         console.debug(`Fetched all game previews for ${language}-${country}`);
@@ -40,15 +43,18 @@ export const fetchGamePreviewsList = (
     }
 
     const service = new PlayStationService(language, country);
-    service.getGamesList(size, start).then((links) => {
+    try {
+        const links = await service.getGamesList(size, start);
         const previews = links.map((link) => {
             return getGamePreview(link);
         });
         dispatch({ type: FETCH_GAMES_LIST, games: previews });
-    });
+    } catch (e) {
+        console.error("Cannot fetch games.", e);
+    }
 };
 
-export const clearGamesStore = () => (dispatch: Function) => {
+export const clearGamesStore = () => async (dispatch: Function) => {
     console.debug("Clearing games store");
     dispatch({ type: CLEAR_GAMES_STORE });
 };
