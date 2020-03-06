@@ -12,6 +12,7 @@ export const getGamePreview = (game: PlaystationLink): PlaystationItemPreview =>
         name: game.name,
         image: image,
         url: game.url,
+        timestamp: game.timestamp,
         display_price: getCurrentPrice(game),
         is_sale: isSale(game),
     } as PlaystationItemPreview;

@@ -336,6 +336,7 @@ declare module "playstation" {
             name: string;
             image: string;
             url: string;
+            timestamp: number;
             display_price: string;
             is_sale: boolean;
         }> {}
