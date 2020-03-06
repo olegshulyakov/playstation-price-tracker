@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { createStore, applyMiddleware, StoreEnhancer, compose } from "redux";
+import { createStore, applyMiddleware, StoreEnhancer, compose, Middleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
-import loggerMiddleware from "../middleware/logger";
+import { createLogger } from "redux-logger";
 import rootReducer from "../reducers";
 import { REGION, STORE, GAMES } from "./keys";
 
@@ -48,12 +48,24 @@ const initialState: ReduxStoreState = {
     store: initialStoreState,
 };
 
-const middlewares = [loggerMiddleware, thunkMiddleware];
+const middlewares: Middleware[] = [thunkMiddleware];
+if (process.env.NODE_ENV === "development") {
+    const loggerMiddleware = createLogger({
+        level: "log",
+        duration: true,
+        timestamp: true,
+        logErrors: true,
+        collapsed: true,
+    });
+    middlewares.push(loggerMiddleware);
+}
 const middlewareEnhancer: StoreEnhancer = applyMiddleware(...middlewares);
 const enhancers = [middlewareEnhancer];
-let composedEnhancers: StoreEnhancer = compose(...enhancers);
-if (process.env.NODE_ENV !== "production") {
+let composedEnhancers: StoreEnhancer;
+if (process.env.NODE_ENV === "development") {
     composedEnhancers = composeWithDevTools(...enhancers);
+} else {
+    composedEnhancers = compose(...enhancers);
 }
 
 const store = createStore(rootReducer, initialState, composedEnhancers);
