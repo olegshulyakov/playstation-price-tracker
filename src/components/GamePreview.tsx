@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import "./GamePreview.css";
 import React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { PlaystationItemPreview } from "playstation";
