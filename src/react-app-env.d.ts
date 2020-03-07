@@ -18,14 +18,14 @@
 
 interface ReduxStoreState {
     region?: PlaystationRegion;
-    store: StoreState;
+    store: PlaystationStore;
 }
 
 interface RegionState {
     region?: PlaystationRegion;
 }
 
-interface StoreState {
+interface PlaystationStore {
     info?: PlaystationObject;
     previews?: PreviewGamesMapItem[];
 }

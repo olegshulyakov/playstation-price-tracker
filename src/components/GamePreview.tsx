@@ -15,10 +15,8 @@
  */
 
 import React from "react";
-import { PlaystationItemPreview } from "playstation";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { CardMedia, CardActionArea } from "@material-ui/core";
-import { GamePreviewBadge, GamePreviewCard } from "../theme";
+import { PlaystationItemPreview } from "playstation";
 
 export interface GamePreviewProps extends RouteComponentProps {
     game: PlaystationItemPreview;
@@ -35,30 +33,41 @@ class GamePreview extends React.Component<GamePreviewProps> {
     }
 
     render() {
+        const prices = [];
+        prices.push(
+            <span
+                key={"game-preview-price-" + this.props.game.id}
+                className={this.props.game.is_sale ? "Game-preview-badge-sale-price" : "Game-preview-badge-price"}
+            >
+                {this.props.game.display_price}
+            </span>,
+        );
+        if (this.props.game.bonus_price) {
+            prices.push(
+                <span
+                    key={"game-preview-ps-plus-price-" + this.props.game.id}
+                    className="Game-preview-badge-ps-plus-price"
+                >
+                    {this.props.game.bonus_price}
+                </span>,
+            );
+        }
+
         return (
-            <GamePreviewCard>
-                <CardActionArea onClick={() => this.handleGameClick(this.props.game)}>
-                    <GamePreviewBadge
-                        className={this.props.game.is_sale ? "Game-detail-price" : "Game-detail-sale-price"}
-                        badgeContent={this.props.game.display_price}
-                        anchorOrigin={{
-                            vertical: "bottom",
-                            horizontal: "right",
-                        }}
-                    >
-                        <CardMedia
-                            component="img"
-                            alt={this.props.game.name}
-                            height="240"
-                            width="240"
-                            loading="lazy"
-                            image={this.props.game.image}
-                            title={this.props.game.name}
-                            placeholder={this.props.game.name}
-                        />
-                    </GamePreviewBadge>
-                </CardActionArea>
-            </GamePreviewCard>
+            <div className="Game-preview-item" onClick={() => this.handleGameClick(this.props.game)}>
+                <span className="Game-preview-image">
+                    <img
+                        className="Game-preview-image"
+                        src={this.props.game.image}
+                        loading="lazy"
+                        alt={this.props.game.name}
+                        title={this.props.game.name}
+                        placeholder={this.props.game.name}
+                    />
+
+                    <span className="Game-preview-badge">{prices}</span>
+                </span>
+            </div>
         );
     }
 }

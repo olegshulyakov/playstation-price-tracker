@@ -39,7 +39,7 @@ try {
     persistedGamePreviews = JSON.parse(str!);
 } catch (e) {}
 
-const initialStoreState: StoreState = {
+const initialStoreState: PlaystationStore = {
     info: persistedStoreInfo,
     previews: persistedGamePreviews,
 };

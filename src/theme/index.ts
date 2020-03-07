@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import GamePreviewCard from "./GamePreviewCard";
-import GamePreviewBadge from "./GamePreviewBadge";
-import StoreGridItem from "./StoreGridItem";
 import materialUiTheme from "./materialUI";
 import themeUiTheme from "./themeUI";
 
-export { materialUiTheme, themeUiTheme, GamePreviewCard, GamePreviewBadge, StoreGridItem };
+export { materialUiTheme, themeUiTheme };

@@ -338,6 +338,7 @@ declare module "playstation" {
             url: string;
             timestamp: number;
             display_price: string;
+            bonus_price?: string;
             is_sale: boolean;
         }> {}
 }

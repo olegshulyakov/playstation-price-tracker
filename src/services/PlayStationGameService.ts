@@ -7,13 +7,16 @@ export const getStoreGameLink = (cusa: string, language: string, country: string
 
 export const getGamePreview = (game: PlaystationLink): PlaystationItemPreview => {
     const image = game.images && game.images[0] ? game.images[0].url : "";
+    const currentPrice = getCurrentPrice(game);
+    const psPlusPrice = getPsPlusPrice(game);
     return {
         id: game.id,
         name: game.name,
         image: image,
         url: game.url,
         timestamp: game.timestamp,
-        display_price: getCurrentPrice(game),
+        display_price: currentPrice,
+        bonus_price: currentPrice === psPlusPrice ? undefined : psPlusPrice,
         is_sale: isSale(game),
     } as PlaystationItemPreview;
 };

@@ -28,7 +28,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 
 interface AppProps {
     region: PlaystationRegion;
-    store: StoreState;
+    store: PlaystationStore;
     fetchInfo: Function;
     fetchGames: Function;
     clearStore: Function;

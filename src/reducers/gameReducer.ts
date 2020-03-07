@@ -18,7 +18,7 @@ import { FETCH_GAMES_COUNT, CLEAR_GAMES_STORE, FETCH_PREVIEW_MAP } from "../acti
 import { STORE, GAMES, PREVIEWS } from "../store/keys";
 import { arrayToMap, mapToArray } from "../services/converter";
 
-const initialState: StoreState = {
+const initialState: PlaystationStore = {
     info: undefined,
     previews: undefined,
 };
@@ -31,7 +31,7 @@ export default (state = initialState, action: any) => {
             return {
                 ...state,
                 info: action.info,
-            } as StoreState;
+            } as PlaystationStore;
 
         case FETCH_PREVIEW_MAP:
             const previewsMap = arrayToMap(state.previews);
@@ -49,7 +49,7 @@ export default (state = initialState, action: any) => {
             return {
                 ...state,
                 previews: previews,
-            } as StoreState;
+            } as PlaystationStore;
 
         case CLEAR_GAMES_STORE:
             localStorage.removeItem(STORE);
@@ -59,7 +59,7 @@ export default (state = initialState, action: any) => {
                 info: undefined,
                 games: undefined,
                 map: undefined,
-            } as StoreState;
+            } as PlaystationStore;
 
         default:
             return state;

@@ -18,39 +18,62 @@ import "./Store.css";
 import React from "react";
 import { connect } from "react-redux";
 import GamePreview from "../components/GamePreview";
-import { Grid } from "@material-ui/core";
-import { StoreGridItem } from "../theme";
+import InfiniteScroll from "react-infinite-scroller";
 
 interface StoreProps {
-    store: StoreState;
+    store: PlaystationStore;
 }
 
-class Store extends React.Component<StoreProps> {
+interface StoreState {
+    hasMoreItems: boolean;
+    previews: PreviewGamesMapItem[];
+}
+
+class Store extends React.Component<StoreProps, StoreState> {
+    private pageSize: number = 10;
+    constructor(props: StoreProps) {
+        super(props);
+        this.loadNextPage = this.loadNextPage.bind(this);
+        this.state = {
+            hasMoreItems: true,
+            previews: [],
+        };
+    }
+
+    loadNextPage(nextPage: number) {
+        if (!this.props.store.previews || this.state.previews.length >= this.props.store.previews.length) {
+            this.setState({ hasMoreItems: false });
+            return;
+        }
+
+        const batch = this.props.store.previews.slice(0, nextPage * this.pageSize + this.pageSize);
+        this.setState({ previews: batch });
+    }
+
     render() {
         if (!this.props.store || !this.props.store.previews) {
             return;
         }
 
-        const games = this.props.store.previews.slice(0, 25).map((item) => {
+        const games = this.state.previews.slice().map((item) => {
             return (
-                <StoreGridItem
-                    key={"game-preview-" + item.key}
-                    item
-                    className="Store-grid-item"
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={2}
-                    xl={3}
-                >
+                <div key={"game-preview-" + item.key} className="Store-grid-item">
                     <GamePreview game={item.game} />
-                </StoreGridItem>
+                </div>
             );
         });
+
         return (
-            <Grid container justify="center">
+            <InfiniteScroll
+                className="Store-grid-list"
+                pageStart={0}
+                loadMore={this.loadNextPage}
+                hasMore={this.state.hasMoreItems}
+                initialLoad={true}
+                loader={<div key={"store-page-loader" + this.state.previews.length}></div>}
+            >
                 {games}
-            </Grid>
+            </InfiniteScroll>
         );
     }
 }
