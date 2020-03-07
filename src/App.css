@@ -43,12 +43,29 @@
     }
 }
 
-.App-loading-progress {
+.App-loading-progress-message {
     align-self: center;
 }
 
+.App-loading-progress {
+    display: block;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
 .App-header {
+    color: #fff;
     background-color: rgb(32, 35, 42) !important;
+    width: 100%;
+    display: flex;
+    position: static;
+    align-items: center;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    flex-direction: row;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
 }
 
 .App-header-toolbar {
@@ -62,12 +79,18 @@
 .App-title {
     flex-grow: 1;
     cursor: pointer;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
 }
 
 .App-footer {
     min-height: 1vh !important;
     text-align: center !important;
-    margin-top: 1vh !important;
+    margin-top: auto !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    display: block;
     font-size: 1rem;
 }
 
@@ -77,9 +100,18 @@
 
 .LanguageMenu-logo {
     margin-right: 1vh !important;
+    border: 0;
     color: #fff !important;
+    background-color: transparent;
+    font-size: 0.8rem;
 }
 
 .Text-center {
     text-align: center;
+}
+
+.With-shadow {
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }

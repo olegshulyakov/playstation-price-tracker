@@ -18,7 +18,6 @@ import "./SelectRegion.css";
 import React from "react";
 import { PlaystationRegion } from "playstation";
 import { playstationRegionList } from "../services/PlayStationService";
-import { Grid, Card, CardActionArea, CardContent, Typography } from "@material-ui/core";
 import { connect } from "react-redux";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
@@ -36,34 +35,26 @@ class SelectRegion extends React.Component<SelectRegionProps> {
 
     renderRegion(region: PlaystationRegion) {
         return (
-            <Grid key={"region-" + region.name} className="SelectRegion-item" item xs={10} sm={6} md={4} lg={2} xl={3}>
-                <Card
+            <div key={"region-" + region.name} className="SelectRegion-item">
+                <div
                     className="SelectRegion-card"
                     onClick={() => {
                         this.props.clearGamesStore();
                         this.props.selectRegion(region);
                     }}
                 >
-                    <CardActionArea>
-                        <CardContent className="Text-center">
-                            <Typography gutterBottom>{region.name}</Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-            </Grid>
+                    <p className="SelectRegion-card-content Text-center">{region.name}</p>
+                </div>
+            </div>
         );
     }
 
     render() {
         const regions = playstationRegionList.map((region) => this.renderRegion(region));
         return (
-            <div className="select-region">
+            <div>
                 <h1 className="Text-center">Please select your country / region</h1>
-                <div>
-                    <Grid container justify="center">
-                        {regions}
-                    </Grid>
-                </div>
+                <div className="Select-region-grid">{regions}</div>
             </div>
         );
     }

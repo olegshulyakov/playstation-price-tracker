@@ -59,7 +59,7 @@ class GamePreview extends React.Component<GamePreviewProps> {
         }
 
         return (
-            <div className="Game-preview-item" onClick={() => this.handleGameClick(this.props.game)}>
+            <div className="Game-preview-item With-shadow" onClick={() => this.handleGameClick(this.props.game)}>
                 <span className="Game-preview-image">
                     <img
                         className="Game-preview-image"

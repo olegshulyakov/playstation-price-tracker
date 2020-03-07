@@ -17,7 +17,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import LanguageMenu from "./LanguageMenu";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
@@ -26,23 +25,18 @@ interface HeaderProps extends RouteComponentProps {}
 class Header extends React.Component<HeaderProps> {
     render() {
         return (
-            <AppBar position="static" className="App-header">
-                <Toolbar variant="dense" disableGutters={true} className="App-header-toolbar">
-                    <FontAwesomeIcon className="App-logo" icon={faPlaystation} size="2x" />
-                    <Typography
-                        className="App-title"
-                        variant="h6"
-                        color="inherit"
-                        noWrap
-                        onClick={() => {
-                            this.props.history.push("/");
-                        }}
-                    >
-                        PSN tracker
-                    </Typography>
-                    <LanguageMenu />
-                </Toolbar>
-            </AppBar>
+            <header className="App-header With-shadow">
+                <FontAwesomeIcon className="App-logo" icon={faPlaystation} size="2x" />
+                <h2
+                    className="App-title"
+                    onClick={() => {
+                        this.props.history.push("/");
+                    }}
+                >
+                    PSN tracker
+                </h2>
+                <LanguageMenu />
+            </header>
         );
     }
 }

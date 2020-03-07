@@ -95,9 +95,20 @@ class App extends React.Component<AppProps> {
         }
 
         if (!this.props.store.info || !this.props.store.previews || !this.isLoaded()) {
-            let msg = "Loading games...";
+            let msg = <p>Loading games...</p>;
             if (this.props.store.info && this.props.store.previews) {
-                msg += ` ${this.props.store.previews.length} / ${this.props.store.info.total_results}`;
+                msg = (
+                    <>
+                        <label style={{ margin: "2rem 0rem 0.25rem 0rem" }}>
+                            {`Loading games... ${this.props.store.previews.length} / ${this.props.store.info.total_results}`}
+                        </label>
+                        <progress
+                            className="App-loading-progress"
+                            max={this.props.store.info.total_results}
+                            value={this.props.store.previews.length}
+                        ></progress>
+                    </>
+                );
             }
             return (
                 <div className="App">

@@ -18,7 +18,7 @@ import React from "react";
 import playstationClassicIcon from "../assets/playstation-classic.svg";
 
 interface LoadingSpinnerProps {
-    msg?: string;
+    msg?: JSX.Element;
 }
 
 export default class LoadingSpinner extends React.Component<LoadingSpinnerProps> {
@@ -26,7 +26,7 @@ export default class LoadingSpinner extends React.Component<LoadingSpinnerProps>
         return (
             <div className="App-loading-screen">
                 <img src={playstationClassicIcon} className="App-loading-logo" alt="Loading" />
-                <p className="App-loading-progress">{this.props.msg ? this.props.msg : ""}</p>
+                <div className="App-loading-progress-message">{this.props.msg ? this.props.msg : ""}</div>
             </div>
         );
     }

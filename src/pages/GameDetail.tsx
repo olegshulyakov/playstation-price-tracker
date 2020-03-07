@@ -85,7 +85,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
         const game = this.state.game;
         if (!this.state.isLoaded || !game || !game.name || !game.images) {
-            return <LoadingSpinner msg="Loading game information..." />;
+            return <LoadingSpinner msg={<p>Loading game information...</p>} />;
         }
 
         const spaceElement = <div style={{ height: "2vh" }}></div>;
@@ -109,9 +109,9 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
         }
 
         return (
-            <>
+            <div className="Game-detail-flex">
                 <Header />
-                <Grid key={"game-detail-" + game.id} container>
+                <div key={"game-detail-" + game.id} className="Game-detail-container">
                     <Hidden smUp>
                         <Grid item xs={12} sm={12}>
                             <GameDetailMediaCard region={this.props.region} game={game} />
@@ -177,9 +177,9 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                     </Grid>
 
                     <Grid item md={1} lg={1} xl={1}></Grid>
-                </Grid>
+                </div>
                 <Footer />
-            </>
+            </div>
         );
     }
 }

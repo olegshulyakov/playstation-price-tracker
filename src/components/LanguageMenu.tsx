@@ -16,7 +16,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button, MenuItem, Menu, Fade } from "@material-ui/core";
+import { MenuItem, Menu } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { PlaystationRegion } from "playstation";
@@ -78,21 +78,20 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
 
         return (
             <div>
-                <Button
+                <button
                     className="LanguageMenu-logo"
                     aria-controls="fade-menu"
                     aria-haspopup="true"
                     onClick={this.handleClick}
                 >
                     <FontAwesomeIcon icon={faLanguage} size="2x" />
-                </Button>
+                </button>
                 <Menu
                     id="fade-menu"
                     anchorEl={this.state.anchorEl}
                     keepMounted
                     open={Boolean(this.state.anchorEl)}
                     onClose={this.handleClose}
-                    TransitionComponent={Fade}
                 >
                     {regions}
                 </Menu>
