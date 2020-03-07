@@ -46,50 +46,55 @@
 .Game-preview-badge {
     right: 0;
     bottom: 0;
-    /* height: 20px; */
     display: flex;
-
-    /* z-index: 1; */
     position: absolute;
     flex-wrap: wrap;
-    /* font-size: 0.75rem; */
-    /* min-width: 20px; */
-    /* box-sizing: border-box; */
-    /* transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
     align-items: center;
-    /* font-weight: 500; */
-    /* line-height: 1; */
     align-content: center;
-    /* border-radius: 0.5rem; */
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 0.25rem;
-    margin-right: 0.25rem;
+    margin-bottom: 0.1rem;
+    margin-right: 0.1rem;
+}
+
+@media (min-width: 600px) {
+    .Game-preview-badge {
+        margin-bottom: 0.25rem;
+        margin-right: 0.25rem;
+    }
 }
 
 .Game-preview-badge-price {
-    background-color: white;
     width: 100%;
     text-align: center;
-    padding: 0.1rem 0.25rem 0.1rem 0.25rem;
+    padding: 0.1rem 0.1rem 0.1rem 0.1rem;
     border-radius: 0.5rem;
 }
 
-.Game-preview-badge-sale-price {
-    background-color: rgb(230, 60, 26);
-    color: white;
-    text-align: center;
-    width: 100%;
-    padding: 0.1rem 0.25rem 0.1rem 0.25rem;
-    border-radius: 0.5rem;
+@media (min-width: 600px) {
+    .Game-preview-badge-price {
+        padding: 0.1rem 0.25rem 0.1rem 0.25rem;
+    }
 }
 
-.Game-preview-badge-ps-plus-price {
-    background-color: rgb(244, 147, 66);
-    color: white;
-    text-align: center;
-    width: 100%;
-    padding: 0.1rem 0.25rem 0.1rem 0.25rem;
-    margin-top: 0.25rem;
-    border-radius: 0.5rem;
+.Game-preview-badge-price-default {
+    background-color: #000;
+    color: #fff;
+}
+
+.Game-preview-badge-price-sale {
+    background-color: #000;
+    color: orangered;
+}
+
+.Game-preview-badge-price-ps-plus {
+    background-color: #000;
+    color: gold;
+    margin-top: 0.05rem;
+}
+
+@media (min-width: 600px) {
+    .Game-preview-badge-price-ps-plus {
+        margin-top: 0.1rem;
+    }
 }

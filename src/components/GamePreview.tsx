@@ -38,7 +38,11 @@ class GamePreview extends React.Component<GamePreviewProps> {
         prices.push(
             <span
                 key={"game-preview-price-" + this.props.game.id}
-                className={this.props.game.is_sale ? "Game-preview-badge-sale-price" : "Game-preview-badge-price"}
+                className={
+                    this.props.game.is_sale
+                        ? "Game-preview-badge-price Game-preview-badge-price-sale"
+                        : "Game-preview-badge-price Game-preview-badge-price-default"
+                }
             >
                 {this.props.game.display_price}
             </span>,
@@ -47,7 +51,7 @@ class GamePreview extends React.Component<GamePreviewProps> {
             prices.push(
                 <span
                     key={"game-preview-ps-plus-price-" + this.props.game.id}
-                    className="Game-preview-badge-ps-plus-price"
+                    className="Game-preview-badge-price Game-preview-badge-price-ps-plus"
                 >
                     {this.props.game.bonus_price}
                 </span>,
