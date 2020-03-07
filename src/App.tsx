@@ -39,9 +39,11 @@ class App extends React.Component<AppProps> {
         if (!this.props.store.info || !this.props.store.previews) {
             return false;
         }
-        // TODO change to this.props.store.info.total_results <= this.props.store.games.length
-        // Need to fix QuotaExceededError: The quota has been exceeded
-        return 100 <= this.props.store.previews.length;
+
+        if (process.env.NODE_ENV === "development") {
+            return 100 <= this.props.store.previews.length;
+        }
+        return this.props.store.info.total_results <= this.props.store.previews.length;
     }
 
     fetchInfo() {
