@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2020 Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,9 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export const SELECT_REGION = "SELECT_REGION";
 
-export const FETCH_GAMES_COUNT = "FETCH_GAMES_COUNT";
-export const FETCH_GAMES_LIST = "FETCH_GAMES_LIST";
-export const FETCH_PREVIEW_MAP = "FETCH_PREVIEW_MAP";
-export const CLEAR_GAMES_STORE = "CLEAR_GAMES_STORE";
+export const arrayToMap = (array: PreviewGamesMapItem[] | undefined) => {
+    const map = new Map<string, any>();
+    if (!array) {
+        return map;
+    }
+
+    for (let i = 0; i < array.length; i++) {
+        const e = array[i];
+        map.set(e.key, e.game);
+    }
+    return map;
+};
+
+export const mapToArray = (map: Map<string, any> | undefined) => {
+    const array: any[] = [];
+    if (!map) {
+        return array;
+    }
+
+    for (const [key, game] of map.entries()) {
+        const e = { key: key, game: game };
+        array.push(e);
+    }
+    return array;
+};

@@ -27,10 +27,17 @@ interface RegionState {
 
 interface StoreState {
     info?: PlaystationObject;
-    games?: PlaystationItemPreview[];
+    previews?: PreviewGamesMapItem[];
 }
 
 interface GameDetailState {
     isLoaded: boolean;
     game?: PlaystationObject;
 }
+
+interface PreviewGamesMapItem {
+    key: string;
+    game: PlaystationObject;
+}
+
+interface PreviewGamesMap extends Readonly<Map<string, PlaystationItemPreview>> {}

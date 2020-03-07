@@ -36,12 +36,12 @@ interface AppProps {
 
 class App extends React.Component<AppProps> {
     isLoaded() {
-        if (!this.props.store.info || !this.props.store.games) {
+        if (!this.props.store.info || !this.props.store.previews) {
             return false;
         }
         // TODO change to this.props.store.info.total_results <= this.props.store.games.length
         // Need to fix QuotaExceededError: The quota has been exceeded
-        return 100 <= this.props.store.games.length;
+        return 100 <= this.props.store.previews.length;
     }
 
     fetchInfo() {
@@ -55,7 +55,7 @@ class App extends React.Component<AppProps> {
             return;
         }
 
-        if (!this.props.store.games) {
+        if (!this.props.store.previews) {
             const region = this.props.region;
             this.props.fetchGames(region.language, region.country, this.props.store.info.total_results, 0);
             return;
@@ -67,7 +67,7 @@ class App extends React.Component<AppProps> {
                 region.language,
                 region.country,
                 this.props.store.info.total_results,
-                this.props.store.games.length,
+                this.props.store.previews.length,
             );
         }
     }
@@ -94,10 +94,10 @@ class App extends React.Component<AppProps> {
             );
         }
 
-        if (!this.props.store.info || !this.props.store.games || !this.isLoaded()) {
+        if (!this.props.store.info || !this.props.store.previews || !this.isLoaded()) {
             let msg = "Loading games...";
-            if (this.props.store.info && this.props.store.games) {
-                msg += ` ${this.props.store.games.length} / ${this.props.store.info.total_results}`;
+            if (this.props.store.info && this.props.store.previews) {
+                msg += ` ${this.props.store.previews.length} / ${this.props.store.info.total_results}`;
             }
             return (
                 <div className="App">

@@ -27,14 +27,14 @@ interface StoreProps {
 
 class Store extends React.Component<StoreProps> {
     render() {
-        if (!this.props.store || !this.props.store.games) {
+        if (!this.props.store || !this.props.store.previews) {
             return;
         }
 
-        const games = this.props.store.games.slice(0, 25).map((game) => {
+        const games = this.props.store.previews.slice(0, 25).map((item) => {
             return (
                 <StoreGridItem
-                    key={"game-preview-" + game.id}
+                    key={"game-preview-" + item.key}
                     item
                     className="Store-grid-item"
                     xs={12}
@@ -43,7 +43,7 @@ class Store extends React.Component<StoreProps> {
                     lg={2}
                     xl={3}
                 >
-                    <GamePreview game={game} />
+                    <GamePreview game={item.game} />
                 </StoreGridItem>
             );
         });

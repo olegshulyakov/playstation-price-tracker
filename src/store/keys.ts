@@ -18,4 +18,5 @@ export const APP_VERSION = "persist:redux:app-version";
 export const REGION = "persist:redux:region";
 export const STORE = "persist:redux:store";
 export const GAMES = "persist:redux:games";
+export const PREVIEWS = "persist:redux:previews";
 export const GAME = "persist:game:";

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FETCH_GAMES_COUNT, FETCH_GAMES_LIST, CLEAR_GAMES_STORE } from "./types";
+import { FETCH_GAMES_COUNT, CLEAR_GAMES_STORE, FETCH_PREVIEW_MAP } from "./types";
 import PlayStationService from "../services/PlayStationService";
 import { getGamePreview } from "../services/PlayStationGameService";
 
@@ -48,7 +48,7 @@ export const fetchGamePreviewsList = (
         const previews = links.map((link) => {
             return getGamePreview(link);
         });
-        dispatch({ type: FETCH_GAMES_LIST, games: previews });
+        dispatch({ type: FETCH_PREVIEW_MAP, games: previews });
     } catch (e) {
         console.error("Cannot fetch games.", e);
     }
