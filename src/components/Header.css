@@ -1,5 +1,6 @@
 .App-header {
     position: fixed;
+    z-index: 1;
     color: var(--text-secondary);
     background-color: var(--bg-secondary);
     width: 100%;
@@ -8,8 +9,8 @@
     flex-direction: row;
     align-items: center;
     box-sizing: border-box;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
 }
 
 .App-header-toolbar {
@@ -49,7 +50,6 @@
 @media only screen and (max-width: 600px) {
     .App-header {
         bottom: 0;
-        z-index: 1;
     }
 
     .App-title {
