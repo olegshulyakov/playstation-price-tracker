@@ -54,16 +54,6 @@
     padding: 0;
 }
 
-.App-footer {
-    min-height: 1vh !important;
-    text-align: center !important;
-    margin-top: auto !important;
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-    display: block;
-    font-size: 1rem;
-}
-
 .App-clickable {
     cursor: pointer;
 }

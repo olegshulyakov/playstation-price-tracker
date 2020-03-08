@@ -52,3 +52,8 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
     background: #495db8;
 }
+
+a.link {
+    color: #07c;
+    text-decoration: none;
+}

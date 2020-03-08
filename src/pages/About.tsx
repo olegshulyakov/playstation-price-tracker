@@ -14,58 +14,65 @@
  * limitations under the License.
  */
 
+import "./About.css";
 import React from "react";
 import playstationClassicIcon from "../assets/playstation-classic.svg";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 class About extends React.Component {
     render() {
         return (
             <>
-                <h3>About page</h3>
+                <Header />
+                <div className="About-landing-page">
+                    <h3>About page</h3>
 
-                <p className="description">{process.env.REACT_APP_WEBSITE_DESCRIPTION}</p>
+                    <p className="description">{process.env.REACT_APP_WEBSITE_DESCRIPTION}</p>
 
-                <p className="thanks">We want to thanks people who helped on work with this resource.</p>
+                    <p className="thanks">We want to thanks people who helped on work with this resource.</p>
 
-                <p className="technologies">
-                    <h4>Technology stack:</h4>
-                    <ul>
-                        <li>
-                            <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">
-                                React
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://redux.js.org/" target="_blank" rel="noopener noreferrer">
-                                Redux
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://material-ui.com/" target="_blank" rel="noopener noreferrer">
-                                Material UI
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">
-                                Font Awesome
-                            </a>
-                        </li>
-                    </ul>
-                </p>
+                    <p className="technologies">
+                        <h4>Technology stack:</h4>
+                        <ul>
+                            <li>
+                                <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">
+                                    React
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://redux.js.org/" target="_blank" rel="noopener noreferrer">
+                                    Redux
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://material-ui.com/" target="_blank" rel="noopener noreferrer">
+                                    Material UI
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">
+                                    Font Awesome
+                                </a>
+                            </li>
+                        </ul>
+                    </p>
 
-                <p>
-                    <h4>Attribution:</h4>
-                    <img src={playstationClassicIcon} height={16} width={16} alt="Playstation Classic icon" /> Classic
-                    Playstation Icon is made by{" "}
-                    <a href="https://www.flaticon.com/authors/freepik" target="_blank" rel="noopener noreferrer">
-                        Freepik
-                    </a>{" "}
-                    from{" "}
-                    <a href="https://www.flaticon.com/" target="_blank" rel="noopener noreferrer">
-                        Flaticon
-                    </a>
-                    .
-                </p>
+                    <p>
+                        <h4>Attribution:</h4>
+                        <img src={playstationClassicIcon} height={16} width={16} alt="Playstation Classic icon" />{" "}
+                        Classic Playstation Icon is made by{" "}
+                        <a href="https://www.flaticon.com/authors/freepik" target="_blank" rel="noopener noreferrer">
+                            Freepik
+                        </a>{" "}
+                        from{" "}
+                        <a href="https://www.flaticon.com/" target="_blank" rel="noopener noreferrer">
+                            Flaticon
+                        </a>
+                        .
+                    </p>
+                </div>
+                <Footer />
             </>
         );
     }
