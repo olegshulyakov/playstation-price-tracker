@@ -37,7 +37,7 @@
 @media (min-width: 600px) {
     .Store-grid-list {
         padding-top: 2.5rem;
-        padding-bottom: 1rem;
+        padding-bottom: 0;
     }
 
     .Store-grid-item {

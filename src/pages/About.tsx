@@ -23,9 +23,9 @@ import Footer from "../components/Footer";
 class About extends React.Component {
     render() {
         return (
-            <>
+            <div className="About-landing-page">
                 <Header />
-                <div className="About-landing-page">
+                <div className="About-landing-container">
                     <h3>About page</h3>
 
                     <p className="description">{process.env.REACT_APP_WEBSITE_DESCRIPTION}</p>
@@ -97,8 +97,9 @@ class About extends React.Component {
                         .
                     </p>
                 </div>
+
                 <Footer />
-            </>
+            </div>
         );
     }
 }

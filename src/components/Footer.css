@@ -15,7 +15,7 @@
  */
 
 .App-footer {
-    position: fixed;
+    position: static;
     z-index: 1;
     bottom: 0;
     width: 100%;
