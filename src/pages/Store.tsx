@@ -19,8 +19,10 @@ import React from "react";
 import { connect } from "react-redux";
 import GamePreview from "../components/GamePreview";
 import InfiniteScroll from "react-infinite-scroller";
+import { PlaystationRegion } from "playstation";
 
 interface StoreProps {
+    region: PlaystationRegion;
     store: PlaystationStore;
 }
 
@@ -58,7 +60,7 @@ class Store extends React.Component<StoreProps, StoreState> {
         const games = this.state.previews.slice().map((item) => {
             return (
                 <div key={"game-preview-" + item.key} className="Store-grid-item">
-                    <GamePreview game={item.game} />
+                    <GamePreview region={this.props.region} game={item.game} />
                 </div>
             );
         });
@@ -78,6 +80,6 @@ class Store extends React.Component<StoreProps, StoreState> {
     }
 }
 
-const mapStateToProps = (state: ReduxStoreState) => ({ store: state.store } as StoreProps);
+const mapStateToProps = (state: ReduxStoreState) => ({ region: state.region, store: state.store } as StoreProps);
 
 export default connect(mapStateToProps)(Store);

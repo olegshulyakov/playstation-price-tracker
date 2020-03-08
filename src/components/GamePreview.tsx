@@ -17,9 +17,11 @@
 import "./GamePreview.css";
 import React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { PlaystationItemPreview } from "playstation";
+import { PlaystationItemPreview, PlaystationRegion } from "playstation";
+import { getStoreGameLink } from "../services/PlayStationGameService";
 
 export interface GamePreviewProps extends RouteComponentProps {
+    region: PlaystationRegion;
     game: PlaystationItemPreview;
 }
 
@@ -27,10 +29,19 @@ class GamePreview extends React.Component<GamePreviewProps> {
     constructor(props: GamePreviewProps) {
         super(props);
         this.handleGameClick = this.handleGameClick.bind(this);
+        this.redirectToPsStore = this.redirectToPsStore.bind(this);
     }
 
     handleGameClick(game: PlaystationItemPreview) {
         this.props.history.push({ pathname: "/game/" + game.id, state: game.url });
+    }
+
+    redirectToPsStore(event: any) {
+        event.preventDefault();
+        window.open(
+            getStoreGameLink(this.props.game.id, this.props.region.language, this.props.region.country),
+            "_blank",
+        );
     }
 
     render() {
@@ -59,7 +70,7 @@ class GamePreview extends React.Component<GamePreviewProps> {
         }
 
         return (
-            <div className="Game-preview-item With-shadow" onClick={() => this.handleGameClick(this.props.game)}>
+            <div className="Game-preview-item With-shadow">
                 <span className="Game-preview-image">
                     <img
                         className="Game-preview-image"
@@ -68,9 +79,12 @@ class GamePreview extends React.Component<GamePreviewProps> {
                         alt={this.props.game.name}
                         title={this.props.game.name}
                         placeholder={this.props.game.name}
+                        onClick={() => this.handleGameClick(this.props.game)}
                     />
 
-                    <span className="Game-preview-badge">{prices}</span>
+                    <span className="Game-preview-badge" onClick={this.redirectToPsStore}>
+                        {prices}
+                    </span>
                 </span>
             </div>
         );
