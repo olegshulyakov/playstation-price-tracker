@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import "./Header.css";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
@@ -35,6 +36,7 @@ class Header extends React.Component<HeaderProps> {
                 >
                     PSN tracker
                 </h2>
+                <input className="App-header-search" placeholder="Search here..."></input>
                 <LanguageMenu />
             </header>
         );
