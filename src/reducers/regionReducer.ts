@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { SELECT_REGION } from "../actions/types";
+import { SELECT_REGION, CLEAR_REGION } from "../actions/types";
 import { PlaystationRegion } from "playstation";
 import { REGION } from "../store/keys";
 
@@ -27,6 +27,9 @@ export default (state = initialState, action: any) => {
         case SELECT_REGION:
             localStorage.setItem(REGION, JSON.stringify(action.region));
             return action.region as PlaystationRegion;
+        case CLEAR_REGION:
+            localStorage.removeItem(REGION);
+            return null;
         default:
             return state;
     }

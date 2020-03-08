@@ -25,6 +25,7 @@ import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
 
 interface LanguageMenuProps {
+    region?: PlaystationRegion;
     selectRegion: Function;
     clearGamesStore: Function;
 }
@@ -61,6 +62,7 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
     }
 
     renderRegion(region: PlaystationRegion) {
+        const styledName = this.props.region && this.props.region === region ? <b>{region.name}</b> : region.name;
         return (
             <MenuItem
                 key={"dropdown-region-" + region.name}
@@ -68,7 +70,7 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
                     this.onSelectRegion(region);
                 }}
             >
-                {region.name}
+                {styledName}
             </MenuItem>
         );
     }
@@ -100,4 +102,6 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
     }
 }
 
-export default connect(null, { selectRegion: selectRegion, clearGamesStore: clearGamesStore })(LanguageMenu);
+const mapStateToProps = (state: ReduxStoreState) => ({ region: state.region } as LanguageMenuProps);
+
+export default connect(mapStateToProps, { selectRegion: selectRegion, clearGamesStore: clearGamesStore })(LanguageMenu);

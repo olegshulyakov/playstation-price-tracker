@@ -14,37 +14,44 @@
  * limitations under the License.
  */
 
-import { FETCH_GAMES_COUNT, CLEAR_GAMES_STORE, FETCH_PREVIEW_MAP } from "./types";
-import PlayStationService from "../services/PlayStationService";
+import { FETCH_GAMES_COUNT, CLEAR_GAMES_STORE, FETCH_PREVIEW_MAP, CLEAR_REGION } from "./types";
+import PlayStationService, { isQueryFailed } from "../services/PlayStationService";
 import { getGamePreview } from "../services/PlayStationGameService";
+import { PlaystationRegion } from "playstation";
 
-export const fetchStoreInfo = (language: string, country: string) => async (dispatch: Function) => {
-    console.debug(`Fetching store info for ${language}-${country}`);
-    const service = new PlayStationService(language, country);
+export const fetchStoreInfo = (region: PlaystationRegion) => async (dispatch: Function) => {
+    console.debug(`Fetching store info for [${region.name}]`);
+    const service = new PlayStationService(region);
     try {
         const storeInfo = await service.getStoreInfo();
+        if (isQueryFailed(storeInfo)) {
+            dispatch({ type: CLEAR_REGION });
+            return;
+        }
         dispatch({ type: FETCH_GAMES_COUNT, info: storeInfo });
     } catch (e) {
-        console.error(`Cannot fetch store information [${language}-${country}].`, e);
+        console.error(`Cannot fetch store information [${region.name}].`, e);
     }
 };
 
 export const fetchGamePreviewsList = (
-    language: string,
-    country: string,
+    region: PlaystationRegion,
     total: number,
     start: number = 0,
     size: number = 100,
 ) => async (dispatch: Function) => {
-    console.debug(`Fetching game previews for ${language}-${country}. total=${total} start=${start}, size=${size}`);
+    console.debug(`Fetching game previews for ${region.name}. total=${total} start=${start}, size=${size}`);
     if (start > total) {
-        console.debug(`Fetched all game previews for ${language}-${country}`);
+        console.debug(`Fetched all game previews for ${region.name}`);
         return;
     }
 
-    const service = new PlayStationService(language, country);
+    const service = new PlayStationService(region);
     try {
         const links = await service.getGamesList(size, start);
+        if (!links) {
+            return;
+        }
         const previews = links.map((link) => {
             return getGamePreview(link);
         });

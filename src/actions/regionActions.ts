@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-import { SELECT_REGION } from "./types";
+import { SELECT_REGION, CLEAR_REGION } from "./types";
 import { PlaystationRegion } from "playstation";
 
 export const selectRegion = (region: PlaystationRegion) => (dispatch: Function) => {
     console.debug(`Changing region to ${region.name}`);
     dispatch({ type: SELECT_REGION, region: region });
+};
+
+export const clearRegion = () => (dispatch: Function) => {
+    console.debug("Clearing region");
+    dispatch({ type: CLEAR_REGION });
 };

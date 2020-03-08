@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 export const SELECT_REGION = "SELECT_REGION";
+export const CLEAR_REGION = "CLEAR_REGION";
 
 export const FETCH_GAMES_COUNT = "FETCH_GAMES_COUNT";
 export const FETCH_GAMES_LIST = "FETCH_GAMES_LIST";

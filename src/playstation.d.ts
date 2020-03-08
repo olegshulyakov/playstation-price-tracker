@@ -320,6 +320,8 @@ declare module "playstation" {
         template_def: TemplateDef;
         timestamp: number;
         total_results: number;
+        codeName?: string;
+        cause?: string;
     }
     // ============================================================================
 
@@ -328,6 +330,7 @@ declare module "playstation" {
             name: string;
             language: string;
             country: string;
+            root: string;
         }> {}
 
     export interface PlaystationItemPreview
