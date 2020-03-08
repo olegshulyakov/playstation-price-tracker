@@ -21,7 +21,7 @@
 }
 
 .SelectRegion-item {
-    margin: 4px 8px 4px 8px !important;
+    margin: 0.25rem 0.25rem 0.25rem 0.25rem;
     flex-grow: 0;
     max-width: 83.333333%;
     flex-basis: 83.333333%;
@@ -29,15 +29,9 @@
 
 @media (min-width: 600px) {
     .SelectRegion-item {
-        max-width: 50%;
-        flex-basis: 50%;
-    }
-}
-
-@media (min-width: 960px) {
-    .SelectRegion-item {
-        max-width: 33.333333%;
-        flex-basis: 33.333333%;
+        margin: 0.25rem 0.5rem 0.25rem 0.5rem;
+        max-width: 30%;
+        flex-basis: 30%;
     }
 }
 
@@ -52,18 +46,17 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     background-color: var(--br-card);
     border: 0;
     cursor: pointer;
     margin: 0;
-    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-        0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 0.125rem 0.06rem -0.06rem rgba(0, 0, 0, 0.2), 0px 0.06rem 0.06rem 0px rgba(0, 0, 0, 0.14),
+        0px 0.06rem 0.25rem 0px rgba(0, 0, 0, 0.12);
 }
 
 .SelectRegion-card-content {
     height: 100%;
-    padding: 16px;
-    font-size: 1rem;
+    padding: 1rem;
     margin: 0;
 }
