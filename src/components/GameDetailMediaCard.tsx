@@ -33,6 +33,13 @@ interface GameDetailMediaCardProps {
 }
 
 export default class GameDetailMediaCard extends React.Component<GameDetailMediaCardProps> {
+    redirectToPsStore() {
+        window.open(
+            getStoreGameLink(this.props.game.id, this.props.region.language, this.props.region.country),
+            "_blank",
+        );
+    }
+
     render() {
         const initialPrice = getInitialPrice(this.props.game);
         const currentPrice = getCurrentPrice(this.props.game);
@@ -65,15 +72,7 @@ export default class GameDetailMediaCard extends React.Component<GameDetailMedia
         }
 
         return (
-            <Card
-                className="App-clickable"
-                onClick={() => {
-                    window.open(
-                        getStoreGameLink(this.props.game.id, this.props.region.language, this.props.region.country),
-                        "_blank",
-                    );
-                }}
-            >
+            <Card className="App-clickable" onClick={this.redirectToPsStore.bind(this)}>
                 <CardMedia
                     component="img"
                     loading="lazy"
