@@ -16,7 +16,6 @@
 
 import React from "react";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
 import { PlaystationRegion } from "playstation";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -121,10 +120,8 @@ class App extends React.Component<AppProps> {
 
         return (
             <div className="App">
-                <Header />
-                <Switch>
-                    <Route path="/" exact component={() => <Store />} />
-                </Switch>
+                <Header isSearchEnabled={true} isLanguageEnabled={true} />
+                <Store />
                 <Footer />
             </div>
         );

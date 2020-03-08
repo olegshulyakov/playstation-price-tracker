@@ -110,7 +110,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
         return (
             <div className="Game-detail-flex">
-                <Header />
+                <Header isSearchEnabled={true} />
                 <div key={"game-detail-" + game.id} className="Game-detail-container">
                     <Hidden smUp>
                         <Grid item xs={12} sm={12}>

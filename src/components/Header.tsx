@@ -21,7 +21,10 @@ import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 import LanguageMenu from "./LanguageMenu";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
-interface HeaderProps extends RouteComponentProps {}
+interface HeaderProps extends RouteComponentProps {
+    isSearchEnabled?: boolean;
+    isLanguageEnabled?: boolean;
+}
 
 class Header extends React.Component<HeaderProps> {
     render() {
@@ -36,8 +39,13 @@ class Header extends React.Component<HeaderProps> {
                 >
                     PSN tracker
                 </h2>
-                <input className="App-header-search" placeholder="Search here..."></input>
-                <LanguageMenu />
+                {this.props.isSearchEnabled ? (
+                    <input className="App-header-search" placeholder="Search here..."></input>
+                ) : (
+                    <></>
+                )}
+
+                {this.props.isLanguageEnabled ? <LanguageMenu /> : <></>}
             </header>
         );
     }

@@ -36,22 +36,42 @@ class About extends React.Component {
                         <h4>Technology stack:</h4>
                         <ul>
                             <li>
-                                <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">
+                                <a
+                                    className="link"
+                                    href="https://reactjs.org/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     React
                                 </a>
                             </li>
                             <li>
-                                <a href="https://redux.js.org/" target="_blank" rel="noopener noreferrer">
+                                <a
+                                    className="link"
+                                    href="https://redux.js.org/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     Redux
                                 </a>
                             </li>
                             <li>
-                                <a href="https://material-ui.com/" target="_blank" rel="noopener noreferrer">
+                                <a
+                                    className="link"
+                                    href="https://material-ui.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     Material UI
                                 </a>
                             </li>
                             <li>
-                                <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">
+                                <a
+                                    className="link"
+                                    href="https://fontawesome.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     Font Awesome
                                 </a>
                             </li>
@@ -62,11 +82,16 @@ class About extends React.Component {
                         <h4>Attribution:</h4>
                         <img src={playstationClassicIcon} height={16} width={16} alt="Playstation Classic icon" />{" "}
                         Classic Playstation Icon is made by{" "}
-                        <a href="https://www.flaticon.com/authors/freepik" target="_blank" rel="noopener noreferrer">
+                        <a
+                            className="link"
+                            href="https://www.flaticon.com/authors/freepik"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             Freepik
                         </a>{" "}
                         from{" "}
-                        <a href="https://www.flaticon.com/" target="_blank" rel="noopener noreferrer">
+                        <a className="link" href="https://www.flaticon.com/" target="_blank" rel="noopener noreferrer">
                             Flaticon
                         </a>
                         .
