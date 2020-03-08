@@ -24,19 +24,19 @@
 
 .Game-preview-image {
     border-radius: 0.25rem;
-    min-height: 160px !important;
-    min-width: 160px !important;
-    max-height: 160px !important;
-    max-width: 160px !important;
+    min-height: var(--img-preview-side-small);
+    min-width: var(--img-preview-side-small);
+    max-height: var(--img-preview-side-small);
+    max-width: var(--img-preview-side-small);
 }
 
 @media (min-width: 600px) {
     .Game-preview-image {
         border-radius: 0.25rem;
-        min-height: 240px !important;
-        min-width: 240px !important;
-        max-height: 240px !important;
-        max-width: 240px !important;
+        min-height: var(--img-preview-side);
+        min-width: var(--img-preview-side);
+        max-height: var(--img-preview-side);
+        max-width: var(--img-preview-side);
     }
 }
 
@@ -75,18 +75,18 @@
 }
 
 .Game-preview-badge-price-default {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--bg-secondary);
+    color: var(--price-default);
 }
 
 .Game-preview-badge-price-sale {
-    background-color: #000;
-    color: orangered;
+    background-color: var(--bg-secondary);
+    color: var(--price-sale);
 }
 
 .Game-preview-badge-price-ps-plus {
-    background-color: #000;
-    color: gold;
+    background-color: var(--bg-secondary);
+    color: var(--price-ps-plus);
     margin-top: 0.05rem;
 }
 

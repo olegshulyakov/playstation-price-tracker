@@ -22,6 +22,11 @@
     --bg-primary: #f7f7f7;
     --bg-secondary: rgb(32, 35, 42);
     --br-card: #fff;
+    --img-preview-side: 15rem;
+    --img-preview-side-small: 10rem;
+    --price-default: #fff;
+    --price-sale: orangered;
+    --price-ps-plus: gold;
     --transition-speed: 600ms;
 }
 
