@@ -15,7 +15,7 @@
  */
 
 import { FETCH_GAMES_COUNT, CLEAR_GAMES_STORE, FETCH_PREVIEW_MAP, CLEAR_REGION } from "./types";
-import PlayStationService, { isQueryFailed } from "../services/PlayStationService";
+import PlayStationService, { isQueryFailed, DEFAULT_FETCH_SIZE } from "../services/PlayStationService";
 import { getGamePreview } from "../services/PlayStationGameService";
 import { PlaystationRegion } from "playstation";
 
@@ -38,7 +38,7 @@ export const fetchGamePreviewsList = (
     region: PlaystationRegion,
     total: number,
     start: number = 0,
-    size: number = 100,
+    size: number = DEFAULT_FETCH_SIZE,
 ) => async (dispatch: Function) => {
     console.debug(`Fetching game previews for ${region.name}. total=${total} start=${start}, size=${size}`);
     if (!region) {

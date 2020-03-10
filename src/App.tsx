@@ -24,6 +24,7 @@ import SelectRegion from "./pages/SelectRegion";
 import { connect } from "react-redux";
 import { fetchStoreInfo, fetchGamePreviewsList, clearGamesStore } from "./actions/gameActions";
 import LoadingSpinner from "./components/LoadingSpinner";
+import { DEFAULT_FETCH_SIZE } from "./services/PlayStationService";
 
 interface AppProps {
     region: PlaystationRegion;
@@ -40,7 +41,7 @@ class App extends React.Component<AppProps> {
         }
 
         if (process.env.NODE_ENV === "development") {
-            return 100 <= this.props.store.previews.length;
+            return DEFAULT_FETCH_SIZE <= this.props.store.previews.length;
         }
         return this.props.store.info.total_results <= this.props.store.previews.length;
     }

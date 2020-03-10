@@ -19,6 +19,8 @@ import { PlaystationLink, PlaystationObject, PlaystationRegion } from "playstati
 const SORT_FIELD = Object.freeze({ RELEASE_DATE: "release_date", TIMESTAMP: "timestamp" });
 const SORT_DIRECTION = Object.freeze({ ASC: "asc", DESC: "desc" });
 
+export const DEFAULT_FETCH_SIZE = 100;
+
 // Parsed from https://www.playstation.com/country-selector/index.html using regexp "<a href="https:\/\/www\.playstation\.com\/([a-z]{2})-([a-z]{2})\/">([^<]+)<\/a>"
 export const playstationRegionList: PlaystationRegion[] = [
     { name: "Argentina", language: "es", country: "ar", root: "STORE-MSF77008-ALLGAMES" },
