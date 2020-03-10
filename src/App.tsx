@@ -57,16 +57,13 @@ class App extends React.Component<AppProps> {
         }
 
         if (!this.props.store.previews) {
-            const region = this.props.region;
-            this.props.fetchGames(region, this.props.store.info.total_results, 0);
+            this.props.fetchGames(this.props.region, this.props.store.info.total_results, 0);
             return;
         }
 
         if (!this.isLoaded()) {
-            const region = this.props.region;
             this.props.fetchGames(
-                region.language,
-                region.country,
+                this.props.region,
                 this.props.store.info.total_results,
                 this.props.store.previews.length,
             );

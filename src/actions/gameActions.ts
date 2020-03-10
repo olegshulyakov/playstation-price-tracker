@@ -41,6 +41,10 @@ export const fetchGamePreviewsList = (
     size: number = 100,
 ) => async (dispatch: Function) => {
     console.debug(`Fetching game previews for ${region.name}. total=${total} start=${start}, size=${size}`);
+    if (!region) {
+        console.error("No region specified.");
+        return;
+    }
     if (start > total) {
         console.debug(`Fetched all game previews for ${region.name}`);
         return;
