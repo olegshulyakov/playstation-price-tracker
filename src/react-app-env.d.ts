@@ -17,12 +17,13 @@
 /// <reference types="react-scripts" />
 
 interface ReduxStoreState {
-    region?: PlaystationRegion;
+    region: RegionState;
     store: PlaystationStore;
 }
 
 interface RegionState {
-    region?: PlaystationRegion;
+    regions: PlaystationRegion[];
+    current?: PlaystationRegion;
 }
 
 interface PlaystationStore {

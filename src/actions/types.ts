@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+export const FETCH_REGIONS = "FETCH_REGIONS";
 export const SELECT_REGION = "SELECT_REGION";
 export const CLEAR_REGION = "CLEAR_REGION";
 

@@ -20,6 +20,11 @@ import { getGamePreview } from "../services/PlayStationGameService";
 import { PlaystationRegion } from "playstation";
 
 export const fetchStoreInfo = (region: PlaystationRegion) => async (dispatch: Function) => {
+    if (!region || !region.name) {
+        console.warn("No region specified.");
+        return;
+    }
+
     console.debug(`Fetching store info for [${region.name}]`);
     const service = new PlayStationService(region);
     try {
@@ -40,15 +45,17 @@ export const fetchGamePreviewsList = (
     start: number = 0,
     size: number = DEFAULT_FETCH_SIZE,
 ) => async (dispatch: Function) => {
-    console.debug(`Fetching game previews for ${region.name}. total=${total} start=${start}, size=${size}`);
-    if (!region) {
-        console.error("No region specified.");
+    if (!region || !region.name) {
+        console.warn("No region specified.");
         return;
     }
+
     if (start > total) {
         console.debug(`Fetched all game previews for ${region.name}`);
         return;
     }
+
+    console.debug(`Fetching game previews for ${region.name}. total=${total} start=${start}, size=${size}`);
 
     const service = new PlayStationService(region);
     try {

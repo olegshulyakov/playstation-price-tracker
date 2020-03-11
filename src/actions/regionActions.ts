@@ -14,8 +14,23 @@
  * limitations under the License.
  */
 
-import { SELECT_REGION, CLEAR_REGION } from "./types";
+import { SELECT_REGION, CLEAR_REGION, FETCH_REGIONS } from "./types";
 import { PlaystationRegion } from "playstation";
+import { getRegions, setRegions } from "../services/FirebaseService";
+import { playstationRegionList } from "../services/PlayStationService";
+
+export const fetchRegions = () => async (dispatch: Function) => {
+    console.debug("Fetching region list");
+    let regions = await getRegions();
+    if (!regions || regions.length < playstationRegionList.length) {
+        console.warn(
+            " Regions not found. Using predefined values" + regions.length + " " + playstationRegionList.length,
+        );
+        regions = playstationRegionList;
+        await setRegions(regions);
+    }
+    dispatch({ type: FETCH_REGIONS, regions: regions });
+};
 
 export const selectRegion = (region: PlaystationRegion) => (dispatch: Function) => {
     console.debug(`Changing region to ${region.name}`);

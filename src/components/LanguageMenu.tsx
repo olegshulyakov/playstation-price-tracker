@@ -20,12 +20,10 @@ import { MenuItem, Menu } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { PlaystationRegion } from "playstation";
-import { playstationRegionList } from "../services/PlayStationService";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
 
-interface LanguageMenuProps {
-    region?: PlaystationRegion;
+interface LanguageMenuProps extends RegionState {
     selectRegion: Function;
     clearGamesStore: Function;
 }
@@ -62,7 +60,7 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
     }
 
     renderRegion(region: PlaystationRegion) {
-        const styledName = this.props.region && this.props.region === region ? <b>{region.name}</b> : region.name;
+        const styledName = this.props.current && this.props.current === region ? <b>{region.name}</b> : region.name;
         return (
             <MenuItem
                 key={"dropdown-region-" + region.name}
@@ -76,7 +74,7 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
     }
 
     render() {
-        const regions = playstationRegionList.map((region) => this.renderRegion(region));
+        const regions = this.props.regions.map((region) => this.renderRegion(region));
 
         return (
             <div>
@@ -102,6 +100,7 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
     }
 }
 
-const mapStateToProps = (state: ReduxStoreState) => ({ region: state.region } as LanguageMenuProps);
+const mapStateToProps = (state: ReduxStoreState) =>
+    ({ current: state.region.current, regions: state.region.regions } as RegionState);
 
 export default connect(mapStateToProps, { selectRegion: selectRegion, clearGamesStore: clearGamesStore })(LanguageMenu);

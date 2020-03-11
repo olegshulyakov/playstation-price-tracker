@@ -16,7 +16,6 @@
 
 import React from "react";
 import "./App.css";
-import { PlaystationRegion } from "playstation";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Store from "./pages/Store";
@@ -25,10 +24,10 @@ import { connect } from "react-redux";
 import { fetchStoreInfo, fetchGamePreviewsList, clearGamesStore } from "./actions/gameActions";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { DEFAULT_FETCH_SIZE } from "./services/PlayStationService";
+import { fetchRegions } from "./actions/regionActions";
 
-interface AppProps {
-    region: PlaystationRegion;
-    store: PlaystationStore;
+interface AppProps extends ReduxStoreState {
+    fetchRegions: Function;
     fetchInfo: Function;
     fetchGames: Function;
     clearStore: Function;
@@ -47,24 +46,24 @@ class App extends React.Component<AppProps> {
     }
 
     fetchInfo() {
-        if (!this.props.region) {
+        if (!this.props.region.current) {
             return;
         }
 
         if (!this.props.store.info) {
-            const region = this.props.region;
+            const region = this.props.region.current;
             this.props.fetchInfo(region);
             return;
         }
 
         if (!this.props.store.previews) {
-            this.props.fetchGames(this.props.region, this.props.store.info.total_results, 0);
+            this.props.fetchGames(this.props.region.current, this.props.store.info.total_results, 0);
             return;
         }
 
         if (!this.isLoaded()) {
             this.props.fetchGames(
-                this.props.region,
+                this.props.region.current,
                 this.props.store.info.total_results,
                 this.props.store.previews.length,
             );
@@ -72,6 +71,10 @@ class App extends React.Component<AppProps> {
     }
 
     componentDidMount() {
+        if (!this.props.region.regions || this.props.region.regions.length === 0) {
+            this.props.fetchRegions();
+        }
+
         if (!this.isLoaded()) {
             this.props.clearStore();
         }
@@ -83,7 +86,11 @@ class App extends React.Component<AppProps> {
     }
 
     render() {
-        if (!this.props.region || !this.props.region.name) {
+        if (!this.props.region.regions || this.props.region.regions.length === 0) {
+            return <LoadingSpinner />;
+        }
+
+        if (!this.props.region.current || !this.props.region.current.name) {
             return (
                 <div className="App">
                     <Header />
@@ -129,6 +136,7 @@ class App extends React.Component<AppProps> {
 const mapStateToProps = (state: ReduxStoreState) => state;
 
 export default connect(mapStateToProps, {
+    fetchRegions: fetchRegions,
     fetchInfo: fetchStoreInfo,
     fetchGames: fetchGamePreviewsList,
     clearStore: clearGamesStore,

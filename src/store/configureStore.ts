@@ -19,7 +19,13 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
 import rootReducer from "../reducers";
-import { REGION, STORE, PREVIEWS } from "./keys";
+import { REGIONS, REGION, STORE, PREVIEWS } from "./keys";
+
+let persistedRegions = undefined;
+try {
+    const str = localStorage.getItem(REGIONS);
+    persistedRegions = JSON.parse(str!);
+} catch (e) {}
 
 let persistedRegion = undefined;
 try {
@@ -43,8 +49,9 @@ const initialStoreState: PlaystationStore = {
     info: persistedStoreInfo,
     previews: persistedGamePreviews,
 };
+
 const initialState: ReduxStoreState = {
-    region: persistedRegion,
+    region: { regions: persistedRegions, current: persistedRegion } as RegionState,
     store: initialStoreState,
 };
 

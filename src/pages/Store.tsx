@@ -80,6 +80,7 @@ class Store extends React.Component<StoreProps, StoreState> {
     }
 }
 
-const mapStateToProps = (state: ReduxStoreState) => ({ region: state.region, store: state.store } as StoreProps);
+const mapStateToProps = (state: ReduxStoreState) =>
+    ({ region: state.region.current, store: state.store } as StoreProps);
 
 export default connect(mapStateToProps)(Store);

@@ -184,6 +184,6 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
     }
 }
 
-const mapStateToProps = (state: ReduxStoreState) => ({ region: state.region });
+const mapStateToProps = (state: ReduxStoreState) => ({ region: state.region.current });
 
 export default withRouter(connect(mapStateToProps)(GameDetail));

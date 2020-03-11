@@ -17,12 +17,11 @@
 import "./SelectRegion.css";
 import React from "react";
 import { PlaystationRegion } from "playstation";
-import { playstationRegionList } from "../services/PlayStationService";
 import { connect } from "react-redux";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
 
-export interface SelectRegionProps {
+export interface SelectRegionProps extends RegionState {
     selectRegion: Function;
     clearGamesStore: Function;
 }
@@ -50,7 +49,7 @@ class SelectRegion extends React.Component<SelectRegionProps> {
     }
 
     render() {
-        const regions = playstationRegionList.map((region) => this.renderRegion(region));
+        const regions = this.props.regions.map((region) => this.renderRegion(region));
         return (
             <div>
                 <h1 className="Text-center">Please select your country / region</h1>
@@ -60,4 +59,10 @@ class SelectRegion extends React.Component<SelectRegionProps> {
     }
 }
 
-export default connect(null, { selectRegion: selectRegion, clearGamesStore: clearGamesStore })(SelectRegion);
+const mapStateToProps = (state: ReduxStoreState) =>
+    ({ regions: state.region.regions, current: state.region.current } as RegionState);
+
+export default connect(mapStateToProps, {
+    selectRegion: selectRegion,
+    clearGamesStore: clearGamesStore,
+})(SelectRegion);

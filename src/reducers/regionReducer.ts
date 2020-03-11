@@ -14,22 +14,26 @@
  * limitations under the License.
  */
 
-import { SELECT_REGION, CLEAR_REGION } from "../actions/types";
+import { SELECT_REGION, CLEAR_REGION, FETCH_REGIONS } from "../actions/types";
 import { PlaystationRegion } from "playstation";
-import { REGION } from "../store/keys";
+import { REGIONS, REGION } from "../store/keys";
 
-const initialState = {
-    region: undefined,
+const initialState: RegionState = {
+    regions: [],
+    current: undefined,
 };
 
 export default (state = initialState, action: any) => {
     switch (action.type) {
+        case FETCH_REGIONS:
+            localStorage.setItem(REGIONS, JSON.stringify(action.regions));
+            return { ...state, regions: action.regions };
         case SELECT_REGION:
             localStorage.setItem(REGION, JSON.stringify(action.region));
-            return action.region as PlaystationRegion;
+            return { ...state, current: action.region as PlaystationRegion };
         case CLEAR_REGION:
             localStorage.removeItem(REGION);
-            return null;
+            return { ...state, current: null };
         default:
             return state;
     }
