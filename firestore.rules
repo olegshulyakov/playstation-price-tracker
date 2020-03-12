@@ -11,7 +11,25 @@ service cloud.firestore {
     // Make sure to write security rules for your app before that time, or else
     // your app will lose access to your Firestore database
     match /{document=**} {
-      allow read, write: if request.time < timestamp.date(2020, 1, 17);
+      allow read, write: if request.time < timestamp.date(2020, 3, 12);
+    }
+    
+    match /regions/{region} {
+      allow get: if true;
+      allow list: if true;
+
+      allow create: if true;
+      allow update: if true;
+      allow delete: if false;
+
+      match /games/{game} {
+        allow get: if true;
+        allow list: if true;
+
+        allow create: if true;
+        allow update: if true;
+        allow delete: if false;
+      }
     }
   }
 }
