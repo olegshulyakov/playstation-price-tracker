@@ -20,6 +20,7 @@ const SORT_FIELD = Object.freeze({ RELEASE_DATE: "release_date", TIMESTAMP: "tim
 const SORT_DIRECTION = Object.freeze({ ASC: "asc", DESC: "desc" });
 
 export const DEFAULT_FETCH_SIZE = 100;
+export const REFRESH_THRESHOLD = process.env.NODE_ENV === "development" ? 1000 * 60 * 60 : 1000 * 60 * 60 * 24;
 
 // Parsed from https://www.playstation.com/country-selector/index.html using regexp "<a href="https:\/\/www\.playstation\.com\/([a-z]{2})-([a-z]{2})\/">([^<]+)<\/a>"
 export const playstationRegionList: PlaystationRegion[] = [
