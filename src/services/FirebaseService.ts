@@ -15,7 +15,7 @@
  */
 import firebase from "firebase";
 import "firebase/firestore";
-import { PlaystationRegion } from "playstation";
+import { PlaystationRegion, PlaystationLink, PlaystationObject } from "playstation";
 
 const app = firebase.initializeApp({
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -64,4 +64,38 @@ export const setRegions = async (regions: PlaystationRegion[]): Promise<void> =>
             .doc(`${region.language.toLowerCase()}-${region.country.toLowerCase()}`)
             .set(region);
     }
+};
+
+export const loadGame = async (
+    region: PlaystationRegion,
+    cusa: string,
+): Promise<PlaystationLink | PlaystationObject | undefined> => {
+    if (!region || !cusa) {
+        return undefined;
+    }
+
+    const documentSnapshot = await firestore
+        .collection("regions")
+        .doc(`${region.language.toLowerCase()}-${region.country.toLowerCase()}`)
+        .collection("games")
+        .doc(cusa)
+        .get();
+
+    if (!documentSnapshot.exists) {
+        return undefined;
+    }
+    return documentSnapshot.data() as PlaystationLink;
+};
+
+export const saveGame = async (region: PlaystationRegion, game: PlaystationLink | PlaystationObject): Promise<void> => {
+    if (!region || !game) {
+        return;
+    }
+
+    await firestore
+        .collection("regions")
+        .doc(`${region.language.toLowerCase()}-${region.country.toLowerCase()}`)
+        .collection("games")
+        .doc(game.id)
+        .set(game);
 };
