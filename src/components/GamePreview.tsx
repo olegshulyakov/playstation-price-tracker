@@ -14,11 +14,102 @@
  * limitations under the License.
  */
 
-import "./GamePreview.css";
 import React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import styled from "styled-components";
 import { PlaystationItemPreview, PlaystationRegion } from "playstation";
 import { getStoreGameLink } from "../services/PlayStationGameService";
+
+const GamePreviewContainer = styled.div`
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+    vertical-align: middle;
+    border-radius: 0.25rem;
+
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+`;
+
+const GamePreviewImage = styled.img`
+    min-height: var(--img-preview-side-small);
+    min-width: var(--img-preview-side-small);
+    max-height: var(--img-preview-side-small);
+    max-width: var(--img-preview-side-small);
+
+    @media (min-width: 600px) {
+        border-radius: 0.25rem;
+        min-height: var(--img-preview-side);
+        min-width: var(--img-preview-side);
+        max-height: var(--img-preview-side);
+        max-width: var(--img-preview-side);
+    }
+`;
+
+const GamePreviewBadge = styled.span`
+    right: 0;
+    bottom: 0;
+    display: flex;
+    position: absolute;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 0.1rem;
+    margin-right: 0.1rem;
+
+    @media (min-width: 600px) {
+        margin-bottom: 0.25rem;
+        margin-right: 0.25rem;
+    }
+`;
+
+const GamePreviewDefaultPrice = styled.span`
+    background-color: var(--bg-secondary);
+    color: var(--price-default);
+
+    width: 100%;
+    text-align: center;
+    padding: 0.1rem 0.1rem 0.1rem 0.1rem;
+    border-radius: 0.5rem;
+
+    @media (min-width: 600px) {
+        padding: 0.1rem 0.25rem 0.1rem 0.25rem;
+    }
+`;
+
+const GamePreviewSalePrice = styled.span`
+    background-color: var(--bg-secondary);
+    color: var(--price-sale);
+
+    width: 100%;
+    text-align: center;
+    padding: 0.1rem 0.1rem 0.1rem 0.1rem;
+    border-radius: 0.5rem;
+
+    @media (min-width: 600px) {
+        padding: 0.1rem 0.25rem 0.1rem 0.25rem;
+    }
+`;
+
+const GamePreviewPsPlusPrice = styled.span`
+    background-color: var(--bg-secondary);
+    color: var(--price-ps-plus);
+    margin-top: 0.05rem;
+
+    width: 100%;
+    text-align: center;
+    padding: 0.1rem 0.1rem 0.1rem 0.1rem;
+    border-radius: 0.5rem;
+
+    @media (min-width: 600px) {
+        margin-top: 0.1rem;
+        padding: 0.1rem 0.25rem 0.1rem 0.25rem;
+    }
+`;
 
 export interface GamePreviewProps extends RouteComponentProps {
     region: PlaystationRegion;
@@ -47,46 +138,37 @@ class GamePreview extends React.Component<GamePreviewProps> {
     render() {
         const prices = [];
         prices.push(
-            <span
-                key={"game-preview-price-" + this.props.game.id}
-                className={
-                    this.props.game.is_sale
-                        ? "Game-preview-badge-price Game-preview-badge-price-sale"
-                        : "Game-preview-badge-price Game-preview-badge-price-default"
-                }
-            >
-                {this.props.game.display_price}
-            </span>,
+            this.props.game.is_sale ? (
+                <GamePreviewSalePrice key={"game-preview-price-" + this.props.game.id}>
+                    {this.props.game.display_price}
+                </GamePreviewSalePrice>
+            ) : (
+                <GamePreviewDefaultPrice key={"game-preview-price-" + this.props.game.id}>
+                    {this.props.game.display_price}
+                </GamePreviewDefaultPrice>
+            ),
         );
         if (this.props.game.bonus_price) {
             prices.push(
-                <span
-                    key={"game-preview-ps-plus-price-" + this.props.game.id}
-                    className="Game-preview-badge-price Game-preview-badge-price-ps-plus"
-                >
+                <GamePreviewPsPlusPrice key={"game-preview-ps-plus-price-" + this.props.game.id}>
                     {this.props.game.bonus_price}
-                </span>,
+                </GamePreviewPsPlusPrice>,
             );
         }
 
         return (
-            <div className="Game-preview-item With-shadow">
-                <span className="Game-preview-image">
-                    <img
-                        className="Game-preview-image"
-                        src={this.props.game.image}
-                        loading="lazy"
-                        alt={this.props.game.name}
-                        title={this.props.game.name}
-                        placeholder={this.props.game.name}
-                        onClick={() => this.handleGameClick(this.props.game)}
-                    />
+            <GamePreviewContainer>
+                <GamePreviewImage
+                    src={this.props.game.image}
+                    loading="lazy"
+                    alt={this.props.game.name}
+                    title={this.props.game.name}
+                    placeholder={this.props.game.name}
+                    onClick={() => this.handleGameClick(this.props.game)}
+                />
 
-                    <span className="Game-preview-badge" onClick={this.redirectToPsStore}>
-                        {prices}
-                    </span>
-                </span>
-            </div>
+                <GamePreviewBadge onClick={this.redirectToPsStore}>{prices}</GamePreviewBadge>
+            </GamePreviewContainer>
         );
     }
 }
