@@ -14,12 +14,51 @@
  * limitations under the License.
  */
 
-import "./Store.css";
 import React from "react";
 import { connect } from "react-redux";
-import GamePreview from "../components/GamePreview";
 import InfiniteScroll from "react-infinite-scroller";
+import styled from "styled-components";
+import GamePreview from "../components/GamePreview";
 import { PlaystationRegion } from "playstation";
+
+const StoreContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem 0.5rem 3rem;
+
+    @media screen and (min-width: 600px) {
+        padding: 3rem 1rem 0.5rem;
+    }
+`;
+
+const StoreGrid = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, var(--img-preview-side-small));
+    grid-auto-rows: var(--img-preview-side-small);
+    gap: 1rem;
+    justify-content: center;
+
+    @media screen and (min-width: 600px) {
+        grid-template-columns: repeat(auto-fit, var(--img-preview-side));
+        grid-auto-rows: var(--img-preview-side);
+        gap: 0.5rem;
+    }
+`;
+
+const StoreGridItem = styled.div`
+    min-height: var(--img-preview-side-small);
+    min-width: var(--img-preview-side-small);
+    max-height: var(--img-preview-side-small);
+    max-width: var(--img-preview-side-small);
+
+    @media screen and (min-width: 600px) {
+        min-height: var(--img-preview-side);
+        min-width: var(--img-preview-side);
+        max-height: var(--img-preview-side);
+        max-width: var(--img-preview-side);
+    }
+`;
 
 interface StoreProps {
     region: PlaystationRegion;
@@ -59,23 +98,24 @@ class Store extends React.Component<StoreProps, StoreState> {
 
         const games = this.state.previews.slice().map((item) => {
             return (
-                <div key={"game-preview-" + item.key} className="Store-grid-item">
+                <StoreGridItem key={"game-preview-" + item.key}>
                     <GamePreview region={this.props.region} game={item.game} />
-                </div>
+                </StoreGridItem>
             );
         });
 
         return (
-            <InfiniteScroll
-                className="Store-grid-list"
-                pageStart={0}
-                loadMore={this.loadNextPage}
-                hasMore={this.state.hasMoreItems}
-                initialLoad={true}
-                loader={<div key={"store-page-loader" + this.state.previews.length}></div>}
-            >
-                {games}
-            </InfiniteScroll>
+            <StoreContainer>
+                <InfiniteScroll
+                    pageStart={0}
+                    loadMore={this.loadNextPage}
+                    hasMore={this.state.hasMoreItems}
+                    initialLoad={true}
+                    loader={<div key={"store-page-loader" + this.state.previews.length}></div>}
+                >
+                    <StoreGrid>{games}</StoreGrid>
+                </InfiniteScroll>
+            </StoreContainer>
         );
     }
 }
