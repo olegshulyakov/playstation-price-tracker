@@ -14,52 +14,8 @@
  * limitations under the License.
  */
 
-.App-loading-screen {
-    position: absolute;
-    top: 30%;
-    min-width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.App-loading-logo {
-    align-self: center;
-    height: 20vh;
-    pointer-events: none;
-    animation-name: App-loading-logo-spin;
-    animation-duration: 0.9s;
-    animation-timing-function: ease-in-out;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    animation-direction: normal;
-}
-
-@keyframes App-loading-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.App-loading-progress-message {
-    align-self: center;
-}
-
-.App-loading-progress {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
 .App-clickable {
     cursor: pointer;
-}
-
-.Text-center {
-    text-align: center;
 }
 
 .With-shadow {

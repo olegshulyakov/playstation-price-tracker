@@ -33,6 +33,17 @@ const AppContainer = styled.div`
     padding: 0;
 `;
 
+const LoadingLabel = styled.label`
+    margin: 2rem 0rem 0.25rem 0rem;
+`;
+
+const LoadingProgress = styled.progress`
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+`;
+
 interface AppProps extends ReduxStoreState {
     fetchRegions: Function;
     fetchInfo: Function;
@@ -112,14 +123,13 @@ class App extends React.Component<AppProps> {
             if (this.props.store.info && this.props.store.previews) {
                 msg = (
                     <>
-                        <label style={{ margin: "2rem 0rem 0.25rem 0rem" }}>
+                        <LoadingLabel>
                             {`Loading games... ${this.props.store.previews.length} / ${this.props.store.info.total_results}`}
-                        </label>
-                        <progress
-                            className="App-loading-progress"
+                        </LoadingLabel>
+                        <LoadingProgress
                             max={this.props.store.info.total_results}
                             value={this.props.store.previews.length}
-                        ></progress>
+                        ></LoadingProgress>
                     </>
                 );
             }
