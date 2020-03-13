@@ -18,6 +18,7 @@ import "./GameDetail.css";
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import styled from "styled-components";
 import { Grid, Card, CardContent, Typography, Hidden } from "@material-ui/core";
 import { PlaystationRegion, Package, PlaystationObject } from "playstation";
 import { GAME } from "../store/keys";
@@ -27,6 +28,39 @@ import Footer from "../components/Footer";
 import GameDetailMediaCard from "../components/GameDetailMediaCard";
 import GameDetailAttributeCard from "../components/GameDetailAttributeCard";
 import { getStoreGameLink } from "../services/PlayStationGameService";
+
+const GameDetailContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+`;
+
+const GameDetailGrid = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem 0rem 3rem;
+
+    @media screen and (min-width: 600px) {
+        flex-direction: row;
+        padding: 3rem 2rem 0.5rem;
+    }
+
+    @media screen and (min-width: 1280px) {
+        flex-direction: row;
+        padding: 3rem 5rem 0.5rem;
+    }
+`;
+
+const GameDetailDescription = styled.div`
+    font-size: 0.9rem;
+`;
+
+const SpaceElement = styled.div`
+    height: 0.5rem;
+`;
 
 interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
     region: PlaystationRegion;
@@ -88,7 +122,6 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
             return <LoadingSpinner msg={<p>Loading game information...</p>} />;
         }
 
-        const spaceElement = <div style={{ height: "2vh" }}></div>;
         const gameLink = getStoreGameLink(game.id, this.props.region.language, this.props.region.country);
         const platforms = new Set<string>();
         const voices = new Set<string>();
@@ -109,18 +142,16 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
         }
 
         return (
-            <div className="Game-detail-flex">
+            <GameDetailContainer>
                 <Header isSearchEnabled={true} />
-                <div key={"game-detail-" + game.id} className="Game-detail-container">
+                <GameDetailGrid>
                     <Hidden smUp>
                         <Grid item xs={12} sm={12}>
                             <GameDetailMediaCard region={this.props.region} game={game} />
                         </Grid>
                     </Hidden>
 
-                    <Grid item md={1} lg={1} xl={1}></Grid>
-
-                    <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
+                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                         <Card>
                             <CardContent>
                                 <Grid container>
@@ -146,10 +177,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                                             )}
                                         </Typography>
 
-                                        <div
-                                            className="Game-detail-description"
-                                            dangerouslySetInnerHTML={{ __html: game.long_desc }}
-                                        ></div>
+                                        <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }} />
                                     </Grid>
 
                                     <Grid item lg={1} xl={1} />
@@ -157,14 +185,14 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                                     <Grid item sm={4} md={3} lg={2} xl={2}>
                                         <Hidden xsDown>
                                             <GameDetailMediaCard region={this.props.region} game={game} />
-                                            {spaceElement}
+                                            <SpaceElement />
                                             <GameDetailAttributeCard
                                                 attribute="Platforms"
                                                 values={[...platforms.keys()]}
                                             />
-                                            {spaceElement}
+                                            <SpaceElement />
                                             <GameDetailAttributeCard attribute="Audio" values={[...voices.keys()]} />
-                                            {spaceElement}
+                                            <SpaceElement />
                                             <GameDetailAttributeCard
                                                 attribute="Subtitles"
                                                 values={[...subtitles.keys()]}
@@ -175,11 +203,9 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                             </CardContent>
                         </Card>
                     </Grid>
-
-                    <Grid item md={1} lg={1} xl={1}></Grid>
-                </div>
+                </GameDetailGrid>
                 <Footer />
-            </div>
+            </GameDetailContainer>
         );
     }
 }
