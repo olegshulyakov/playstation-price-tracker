@@ -14,12 +14,55 @@
  * limitations under the License.
  */
 
-import "./SelectRegion.css";
 import React from "react";
-import { PlaystationRegion } from "playstation";
 import { connect } from "react-redux";
+import styled from "styled-components";
+import { PlaystationRegion } from "playstation";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
+
+const SelectRegionContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.5rem 1rem 0.5rem;
+`;
+
+const SelectRegionGrid = styled.div`
+    min-height: 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16.875rem, 0.45fr));
+    grid-auto-rows: minmax(0px, 70px);
+    gap: 0.5rem;
+    justify-content: center;
+
+    @media screen and (min-width: 600px) {
+        grid-template-columns: repeat(auto-fit, 16.875rem);
+        gap: 0.75rem;
+    }
+`;
+
+const SelectRegionCard = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 0.25rem;
+    background-color: var(--br-card);
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    box-shadow: var(--box-shadow-card);
+    overflow: hidden;
+`;
+
+const SelectRegionHeader = styled.h1`
+    text-align: center;
+`;
+
+const SelectRegionName = styled.p`
+    text-align: center;
+`;
 
 export interface SelectRegionProps extends RegionState {
     selectRegion: Function;
@@ -34,27 +77,26 @@ class SelectRegion extends React.Component<SelectRegionProps> {
 
     renderRegion(region: PlaystationRegion) {
         return (
-            <div key={"region-" + region.name} className="SelectRegion-item">
-                <div
-                    className="SelectRegion-card"
-                    onClick={() => {
-                        this.props.clearGamesStore();
-                        this.props.selectRegion(region);
-                    }}
-                >
-                    <p className="SelectRegion-card-content Text-center">{region.name}</p>
-                </div>
-            </div>
+            <SelectRegionCard
+                key={"region-" + region.name}
+                className="SelectRegion-card"
+                onClick={() => {
+                    this.props.clearGamesStore();
+                    this.props.selectRegion(region);
+                }}
+            >
+                <SelectRegionName>{region.name}</SelectRegionName>
+            </SelectRegionCard>
         );
     }
 
     render() {
         const regions = this.props.regions.map((region) => this.renderRegion(region));
         return (
-            <div>
-                <h1 className="Text-center">Please select your country / region</h1>
-                <div className="Select-region-grid">{regions}</div>
-            </div>
+            <SelectRegionContainer>
+                <SelectRegionHeader>Please select your country / region</SelectRegionHeader>
+                <SelectRegionGrid>{regions}</SelectRegionGrid>
+            </SelectRegionContainer>
         );
     }
 }
