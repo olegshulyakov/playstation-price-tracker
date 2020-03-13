@@ -19,7 +19,6 @@ import React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { Grid, Card, CardContent, Typography, Hidden } from "@material-ui/core";
 import { PlaystationRegion, Package, PlaystationObject } from "playstation";
 import { GAME } from "../store/keys";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -38,20 +37,36 @@ const GameDetailContainer = styled.div`
 `;
 
 const GameDetailGrid = styled.div`
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    gap: 0rem;
+    background-color: var(--br-card);
     justify-content: center;
-    padding: 0.5rem 0rem 3rem;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    padding: 0.5rem 0.5rem 3rem;
 
     @media screen and (min-width: 600px) {
-        flex-direction: row;
-        padding: 3rem 2rem 0.5rem;
+        grid-template-columns: auto 15rem;
+        grid-template-rows: auto;
+        gap: 1rem;
+        padding: 3rem 2rem 1rem;
     }
 
     @media screen and (min-width: 1280px) {
-        flex-direction: row;
-        padding: 3rem 5rem 0.5rem;
+        gap: 3rem;
+        margin: 0rem 5rem;
+        box-shadow: var(--box-shadow-card);
     }
+`;
+
+const GameDetailTitle = styled.h3`
+    margin: 0;
+    font-size: 3rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.167;
+    letter-spacing: 0em;
+    cursor: pointer;
 `;
 
 const GameDetailDescription = styled.div`
@@ -60,6 +75,18 @@ const GameDetailDescription = styled.div`
 
 const SpaceElement = styled.div`
     height: 0.5rem;
+`;
+
+const HiddenMobile = styled.div`
+    @media screen and (max-width: 600px) {
+        display: none;
+    }
+`;
+
+const HiddenDesktop = styled.div`
+    @media screen and (min-width: 600px) {
+        display: none;
+    }
 `;
 
 interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
@@ -145,64 +172,42 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
             <GameDetailContainer>
                 <Header isSearchEnabled={true} />
                 <GameDetailGrid>
-                    <Hidden smUp>
-                        <Grid item xs={12} sm={12}>
-                            <GameDetailMediaCard region={this.props.region} game={game} />
-                        </Grid>
-                    </Hidden>
+                    <HiddenDesktop>
+                        <GameDetailMediaCard region={this.props.region} game={game} />
+                    </HiddenDesktop>
 
-                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <Card>
-                            <CardContent>
-                                <Grid container>
-                                    <Grid item xs={12} sm={8} md={8} lg={9} xl={9}>
-                                        <Typography
-                                            className="App-clickable"
-                                            variant="h3"
-                                            onClick={() => {
-                                                window.open(gameLink, "_blank");
-                                            }}
-                                        >
-                                            {game.name}
-                                            {game.content_rating?.url ? (
-                                                <img
-                                                    src={game.content_rating?.url}
-                                                    loading="eager"
-                                                    alt="rating"
-                                                    height="45px"
-                                                    width="45px"
-                                                />
-                                            ) : (
-                                                <></>
-                                            )}
-                                        </Typography>
+                    <div>
+                        <GameDetailTitle
+                            onClick={() => {
+                                window.open(gameLink, "_blank");
+                            }}
+                        >
+                            {game.name}
+                            {game.content_rating?.url ? (
+                                <img
+                                    src={game.content_rating?.url}
+                                    loading="eager"
+                                    alt="rating"
+                                    height="45px"
+                                    width="45px"
+                                />
+                            ) : (
+                                <></>
+                            )}
+                        </GameDetailTitle>
 
-                                        <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }} />
-                                    </Grid>
+                        <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }} />
+                    </div>
 
-                                    <Grid item lg={1} xl={1} />
-
-                                    <Grid item sm={4} md={3} lg={2} xl={2}>
-                                        <Hidden xsDown>
-                                            <GameDetailMediaCard region={this.props.region} game={game} />
-                                            <SpaceElement />
-                                            <GameDetailAttributeCard
-                                                attribute="Platforms"
-                                                values={[...platforms.keys()]}
-                                            />
-                                            <SpaceElement />
-                                            <GameDetailAttributeCard attribute="Audio" values={[...voices.keys()]} />
-                                            <SpaceElement />
-                                            <GameDetailAttributeCard
-                                                attribute="Subtitles"
-                                                values={[...subtitles.keys()]}
-                                            />
-                                        </Hidden>
-                                    </Grid>
-                                </Grid>
-                            </CardContent>
-                        </Card>
-                    </Grid>
+                    <HiddenMobile>
+                        <GameDetailMediaCard region={this.props.region} game={game} />
+                        <SpaceElement />
+                        <GameDetailAttributeCard attribute="Platforms" values={[...platforms.keys()]} />
+                        <SpaceElement />
+                        <GameDetailAttributeCard attribute="Audio" values={[...voices.keys()]} />
+                        <SpaceElement />
+                        <GameDetailAttributeCard attribute="Subtitles" values={[...subtitles.keys()]} />
+                    </HiddenMobile>
                 </GameDetailGrid>
                 <Footer />
             </GameDetailContainer>

@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { Card, CardMedia, CardActions } from "@material-ui/core";
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { PlaystationObject, PlaystationRegion } from "playstation";
@@ -26,6 +26,34 @@ import {
     getPsPlusPrice,
     getPreviewImage,
 } from "../services/PlayStationGameService";
+
+const GameDetailMediaCardContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+`;
+
+const GameDetailMediaCardImage = styled.img`
+    width: 240px;
+    height: 240px;
+    align-self: center;
+    border-radius: 0.25rem;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+`;
+
+const GameDetailMediaCardPrices = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem 0rem;
+    align-items: center;
+    font-size: 2rem;
+
+    @media (min-width: 600px) {
+        font-size: 1rem;
+    }
+`;
 
 interface GameDetailMediaCardProps {
     region: PlaystationRegion;
@@ -45,18 +73,16 @@ export default class GameDetailMediaCard extends React.Component<GameDetailMedia
         const currentPrice = getCurrentPrice(this.props.game);
         const psPlusPrice = getPsPlusPrice(this.props.game);
 
-        const price: JSX.Element[] = [
-            <FontAwesomeIcon key={"shopping-cart-" + this.props.game.id} icon={faShoppingCart} size="1x" />,
-        ];
+        const prices: JSX.Element[] = [];
         if (initialPrice === currentPrice) {
-            price.push(
+            prices.push(
                 <div key={"detail-price-" + this.props.game.id} className="Game-detail-price">
                     {currentPrice}
                 </div>,
             );
         } else {
             // price.push(<div className="Game-detail-inactive-price">{initialPrice}</div>);
-            price.push(
+            prices.push(
                 <div key={"sale-price-" + this.props.game.id} className="Game-detail-sale-price">
                     {currentPrice}
                 </div>,
@@ -64,7 +90,7 @@ export default class GameDetailMediaCard extends React.Component<GameDetailMedia
         }
 
         if (psPlusPrice) {
-            price.push(
+            prices.push(
                 <div key={"ps-plus-price-" + this.props.game.id} className="Game-detail-ps-plus-price">
                     {psPlusPrice}
                 </div>,
@@ -72,17 +98,24 @@ export default class GameDetailMediaCard extends React.Component<GameDetailMedia
         }
 
         return (
-            <Card className="App-clickable" onClick={this.redirectToPsStore.bind(this)}>
-                <CardMedia
-                    component="img"
+            <GameDetailMediaCardContainer onClick={this.redirectToPsStore.bind(this)}>
+                <GameDetailMediaCardImage
                     loading="lazy"
-                    image={getPreviewImage(this.props.game)}
+                    src={getPreviewImage(this.props.game)}
                     title={this.props.game.name}
                     placeholder={this.props.game.name}
                 />
 
-                <CardActions>{price}</CardActions>
-            </Card>
+                <GameDetailMediaCardPrices>
+                    <FontAwesomeIcon
+                        key={"shopping-cart-" + this.props.game.id}
+                        icon={faShoppingCart}
+                        size="1x"
+                        style={{ marginRight: "0.25rem" }}
+                    />
+                    {prices}
+                </GameDetailMediaCardPrices>
+            </GameDetailMediaCardContainer>
         );
     }
 }
