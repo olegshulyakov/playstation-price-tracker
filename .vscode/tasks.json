@@ -5,8 +5,15 @@
     "tasks": [
         {
             "label": "Install dependencies",
-            "type": "npm",
-            "script": "install",
+            "type": "shell",
+            "command": "npm install --no-optional",
+            "problemMatcher": [],
+            "group": "none"
+        },
+        {
+            "label": "Install dependencies using Yarn",
+            "type": "shell",
+            "command": "yarn --ignore-optional",
             "problemMatcher": [],
             "group": "none"
         },
