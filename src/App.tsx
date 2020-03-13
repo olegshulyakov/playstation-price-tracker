@@ -15,16 +15,23 @@
  */
 
 import React from "react";
+import { connect } from "react-redux";
 import "./App.css";
+import styled from "styled-components";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Store from "./pages/Store";
 import SelectRegion from "./pages/SelectRegion";
-import { connect } from "react-redux";
 import { fetchStoreInfo, fetchGamePreviewsList, clearGamesStore } from "./actions/gameActions";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { DEFAULT_FETCH_SIZE } from "./services/PlayStationService";
 import { fetchRegions } from "./actions/regionActions";
+
+const AppContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+`;
 
 interface AppProps extends ReduxStoreState {
     fetchRegions: Function;
@@ -92,11 +99,11 @@ class App extends React.Component<AppProps> {
 
         if (!this.props.region.current || !this.props.region.current.name) {
             return (
-                <div className="App">
+                <AppContainer>
                     <Header />
                     <SelectRegion />
                     <Footer />
-                </div>
+                </AppContainer>
             );
         }
 
@@ -117,18 +124,18 @@ class App extends React.Component<AppProps> {
                 );
             }
             return (
-                <div className="App">
+                <AppContainer>
                     <LoadingSpinner msg={msg} />
-                </div>
+                </AppContainer>
             );
         }
 
         return (
-            <div className="App">
+            <AppContainer>
                 <Header isSearchEnabled={true} isLanguageEnabled={true} />
                 <Store />
                 <Footer />
-            </div>
+            </AppContainer>
         );
     }
 }
