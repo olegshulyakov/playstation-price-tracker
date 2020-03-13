@@ -14,18 +14,41 @@
  * limitations under the License.
  */
 
-import "./About.css";
 import React from "react";
+import styled from "styled-components";
 import playstationClassicIcon from "../assets/playstation-classic.svg";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+const AboutContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+`;
+
+const AboutContent = styled.div`
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 2.5rem;
+
+    @media (min-width: 600px) {
+        padding-top: 2.5rem;
+        padding-bottom: 1rem;
+    }
+`;
+
+const ExternalLink = styled.a`
+    color: #07c;
+    text-decoration: none;
+`;
+
 class About extends React.Component {
     render() {
         return (
-            <div className="About-landing-page">
+            <AboutContainer>
                 <Header />
-                <div className="About-landing-container">
+                <AboutContent>
                     <h3>About page</h3>
 
                     <p className="description">{process.env.REACT_APP_WEBSITE_DESCRIPTION}</p>
@@ -36,44 +59,33 @@ class About extends React.Component {
                         <h4>Technology stack:</h4>
                         <ul>
                             <li>
-                                <a
-                                    className="link"
-                                    href="https://reactjs.org/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
+                                <ExternalLink href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">
                                     React
-                                </a>
+                                </ExternalLink>
                             </li>
                             <li>
-                                <a
-                                    className="link"
-                                    href="https://redux.js.org/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
+                                <ExternalLink href="https://redux.js.org/" target="_blank" rel="noopener noreferrer">
                                     Redux
-                                </a>
+                                </ExternalLink>
                             </li>
                             <li>
-                                <a
-                                    className="link"
-                                    href="https://material-ui.com/"
+                                <ExternalLink
+                                    href="https://styled-components.com/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
+                                    Styled Components
+                                </ExternalLink>
+                            </li>
+                            <li>
+                                <ExternalLink href="https://material-ui.com/" target="_blank" rel="noopener noreferrer">
                                     Material UI
-                                </a>
+                                </ExternalLink>
                             </li>
                             <li>
-                                <a
-                                    className="link"
-                                    href="https://fontawesome.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
+                                <ExternalLink href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">
                                     Font Awesome
-                                </a>
+                                </ExternalLink>
                             </li>
                         </ul>
                     </p>
@@ -82,24 +94,23 @@ class About extends React.Component {
                         <h4>Attribution:</h4>
                         <img src={playstationClassicIcon} height={16} width={16} alt="Playstation Classic icon" />{" "}
                         Classic Playstation Icon is made by{" "}
-                        <a
-                            className="link"
+                        <ExternalLink
                             href="https://www.flaticon.com/authors/freepik"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
                             Freepik
-                        </a>{" "}
+                        </ExternalLink>{" "}
                         from{" "}
-                        <a className="link" href="https://www.flaticon.com/" target="_blank" rel="noopener noreferrer">
+                        <ExternalLink href="https://www.flaticon.com/" target="_blank" rel="noopener noreferrer">
                             Flaticon
-                        </a>
+                        </ExternalLink>
                         .
                     </p>
-                </div>
+                </AboutContent>
 
                 <Footer />
-            </div>
+            </AboutContainer>
         );
     }
 }
