@@ -31,7 +31,10 @@ const app = firebase.initializeApp({
 const firestore = app.firestore();
 
 export const getRegions = async (): Promise<PlaystationRegion[]> => {
-    const querySnapshot = await firestore.collection("regions").get();
+    const querySnapshot = await firestore
+        .collection("regions")
+        .orderBy("name", "asc")
+        .get();
     if (querySnapshot.empty) {
         return [];
     }
