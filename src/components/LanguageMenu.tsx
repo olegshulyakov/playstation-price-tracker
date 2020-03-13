@@ -16,12 +16,21 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
 import { MenuItem, Menu } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { PlaystationRegion } from "playstation";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
+
+const LanguageMenuButton = styled.button`
+    margin-right: 0.25rem;
+    border: 0;
+    color: var(--text-secondary);
+    background-color: transparent;
+    font-size: 0.8rem;
+`;
 
 interface LanguageMenuProps extends RegionState {
     selectRegion: Function;
@@ -77,17 +86,12 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
         const regions = this.props.regions.map((region) => this.renderRegion(region));
 
         return (
-            <div>
-                <button
-                    className="LanguageMenu-logo"
-                    aria-controls="fade-menu"
-                    aria-haspopup="true"
-                    onClick={this.handleClick}
-                >
+            <>
+                <LanguageMenuButton aria-controls="language-menu" aria-haspopup="true" onClick={this.handleClick}>
                     <FontAwesomeIcon icon={faLanguage} size="2x" />
-                </button>
+                </LanguageMenuButton>
                 <Menu
-                    id="fade-menu"
+                    id="language-menu"
                     anchorEl={this.state.anchorEl}
                     keepMounted
                     open={Boolean(this.state.anchorEl)}
@@ -95,7 +99,7 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
                 >
                     {regions}
                 </Menu>
-            </div>
+            </>
         );
     }
 }

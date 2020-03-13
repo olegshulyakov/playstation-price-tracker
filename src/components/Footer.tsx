@@ -14,20 +14,38 @@
  * limitations under the License.
  */
 
-import "./Footer.css";
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const FooterContainer = styled.footer`
+    position: static;
+    z-index: 1;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font-size: 0.8rem;
+
+    @media only screen and (max-width: 600px) {
+        display: none;
+    }
+`;
 
 export default class Footer extends React.Component {
     render() {
         return (
-            <footer className="App-footer">
+            <FooterContainer>
                 <Link className="link" to="/about">
                     About
                 </Link>
                 {". "}
                 Version: <b>{process.env.REACT_APP_VERSION}</b>
-            </footer>
+            </FooterContainer>
         );
     }
 }

@@ -14,12 +14,52 @@
  * limitations under the License.
  */
 
-import "./Header.css";
 import React from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 import LanguageMenu from "./LanguageMenu";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+
+const HeaderContainer = styled.header`
+    position: fixed;
+    z-index: 1;
+    color: var(--text-secondary);
+    background-color: var(--bg-secondary);
+    width: 100%;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+
+    @media only screen and (max-width: 600px) {
+        bottom: 0;
+    }
+`;
+
+const HeaderTitle = styled.h2`
+    cursor: pointer;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+
+    @media only screen and (max-width: 600px) {
+        display: none;
+    }
+`;
+
+const HeaderSearchInput = styled.input`
+    flex-grow: 1;
+    height: 1rem;
+    margin: 0px 0.5rem 0px 0.5rem;
+    padding: 0.25rem;
+    border: 0;
+    border-radius: 0.2rem;
+    background-color: var(--bg-primary);
+`;
 
 interface HeaderProps extends RouteComponentProps {
     isSearchEnabled?: boolean;
@@ -29,24 +69,24 @@ interface HeaderProps extends RouteComponentProps {
 class Header extends React.Component<HeaderProps> {
     render() {
         return (
-            <header className="App-header With-shadow">
-                <FontAwesomeIcon className="App-logo" icon={faPlaystation} size="2x" />
-                <h2
+            <HeaderContainer>
+                <FontAwesomeIcon style={{ margin: "0 0.5rem 0 0.5rem" }} icon={faPlaystation} size="2x" />
+                <HeaderTitle
                     className="App-title"
                     onClick={() => {
                         this.props.history.push("/");
                     }}
                 >
                     PSN tracker
-                </h2>
+                </HeaderTitle>
                 {this.props.isSearchEnabled ? (
-                    <input className="App-header-search" placeholder="Search here..."></input>
+                    <HeaderSearchInput className="App-header-search" placeholder="Search here..."></HeaderSearchInput>
                 ) : (
                     <></>
                 )}
 
                 {this.props.isLanguageEnabled ? <LanguageMenu /> : <></>}
-            </header>
+            </HeaderContainer>
         );
     }
 }
