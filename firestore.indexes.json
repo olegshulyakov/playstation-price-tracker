@@ -1,4 +1,14 @@
 {
-  "indexes": [],
-  "fieldOverrides": []
+    "indexes": [
+        {
+            "collectionGroup": "regions",
+            "queryScope": "COLLECTION",
+            "fields": [
+                { "fieldPath": "language", "order": "ASCENDING" },
+                { "fieldPath": "country", "order": "ASCENDING" },
+                { "fieldPath": "name", "order": "ASCENDING" }
+            ]
+        }
+    ],
+    "fieldOverrides": []
 }
