@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
+        "lib": ["es2017"],
         "module": "commonjs",
         "noImplicitReturns": true,
         "noUnusedLocals": true,
-        "outDir": "lib",
+        "outDir": "build",
         "sourceMap": true,
         "allowJs": true,
         "skipLibCheck": true,
@@ -15,7 +16,6 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "isolatedModules": false,
-        "noEmit": true,
         "strictNullChecks": true,
         "downlevelIteration": true
     },
