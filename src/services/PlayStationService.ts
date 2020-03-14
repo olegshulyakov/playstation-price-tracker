@@ -158,10 +158,10 @@ export default class PlayStationService {
     }
 
     search(query: string) {
-        return "https://store.playstation.com/store/api/chihiro/00_09_000/tumbler/SA/en/999/horizon?suggested_size=10&mode=game";
+        return `https://store.playstation.com/store/api/chihiro/00_09_000/tumbler/${this.region.country}/${this.region.language}/999/${query}?suggested_size=10&mode=game`;
     }
 
     findView(cusa: string) {
-        return "https://store.playstation.com/chihiro-api/viewfinder/ru/ru/999/STORE-MSF75508-FULLGAMES?size=10&gkb=1&geoCountry=ru&start=0";
+        return `https://store.playstation.com/chihiro-api/viewfinder/${this.region.country}/${this.region.language}/999/${cusa}?size=0&gkb=1&start=0`;
     }
 }
