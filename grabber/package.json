@@ -1,0 +1,24 @@
+{
+    "name": "grabber",
+    "version": "1.0.0",
+    "description": "",
+    "license": "Apache-2.0",
+    "main": "build/index.js",
+    "author": "Oleg Shulyakov",
+    "scripts": {
+        "lint": "tslint --project tsconfig.json",
+        "build": "tsc",
+        "start": "node ./build/index.js"
+    },
+    "dependencies": {
+        "firebase-admin": "^8.10.0",
+        "node-fetch": "^2.6.0",
+        "winston": "^3.2.1"
+    },
+    "devDependencies": {
+        "@types/node-fetch": "^2.5.5",
+        "tslint": "^6.1.0",
+        "typescript": "^3.8.3"
+    },
+    "private": true
+}
