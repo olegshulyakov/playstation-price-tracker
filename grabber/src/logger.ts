@@ -21,6 +21,7 @@ const myFormat = format.printf(({ level, message, timestamp }) => {
 });
 
 export const logger = createLogger({
+    level: "debug",
     format: format.combine(format.timestamp(), myFormat),
     transports: [new transports.Console(), new transports.File({ filename: "grabber.log" })],
 });

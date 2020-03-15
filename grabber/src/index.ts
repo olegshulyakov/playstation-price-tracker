@@ -17,6 +17,7 @@
 import * as admin from "firebase-admin";
 import fetch from "node-fetch";
 import { logger } from "./logger";
+import { getRegions, setGame, getGame } from "./firebase";
 const serviceAccount = require("../serviceAccountKey.json");
 
 const queryPsStore = async (region: any, cusa: string, size: number = 0, start: number = 0) => {
@@ -40,49 +41,54 @@ const queryPsStore = async (region: any, cusa: string, size: number = 0, start: 
     return json;
 };
 
-const getRegions = async (db: FirebaseFirestore.Firestore) => {
-    const query = await db
-        .collection("regions")
-        .orderBy("name", "asc")
-        .get();
-    if (!query || query.docs.length === 0) return undefined;
+const processRegion = async (db: FirebaseFirestore.Firestore, region: any) => {
+    logger.info(`Start processing region [${region.name}]`);
 
-    const regions = [];
-    for (const doc of query.docs) {
-        regions.push(doc.data());
+    const info = await queryPsStore(region, region.root);
+    if (!info || !info.id) {
+        logger.warn(`Cannot get store info for region [${region.name}]`);
+        return;
     }
+    await setGame(db, region, info);
 
-    return regions;
-};
+    logger.info(`Loading games from region [${region.name}]`);
 
-const updateGameRecord = async (db: FirebaseFirestore.Firestore, region: any, game: any) => {
-    if (!game || !game.id) {
-        logger.error("Not valid game record: " + JSON.stringify(game));
+    const gamesJson = await queryPsStore(region, region.root, info.total_results);
+    if (!gamesJson || !gamesJson.links || gamesJson.links.length === 0) {
+        logger.warn(`No games found for [${region.name}]`);
         return;
     }
 
-    const query = await db
-        .collection("regions")
-        .doc(`${region.language}-${region.country}`)
-        .collection("games")
-        .doc(game.id)
-        .get();
+    const batch = db.batch();
+    for (const game of gamesJson.links) {
+        if (!game.id || !game.default_sku) {
+            logger.warn(`Skipping [${game.id}]`);
+            continue;
+        }
 
-    const current = query.data();
-
-    if (!current || current.timestamp < game.timestamp) {
-        await db
-            .collection("regions")
-            .doc(`${region.language}-${region.country}`)
-            .collection("games")
-            .doc(game.id)
-            .set(game);
+        const current = await getGame(db, region, game);
+        if (!current || current.timestamp < game.timestamp) {
+            // logger.debug(`Storing [${game.id}]`);
+            const gameRef = db
+                .collection("regions")
+                .doc(`${region.language}-${region.country}`)
+                .collection("games")
+                .doc(game.id);
+            batch.set(gameRef, game);
+        }
     }
+
+    try {
+        await batch.commit();
+    } catch (e) {
+        logger.error(`Cannot save [${region.name}] games.`, e);
+    }
+
+    logger.info(`Finish processing region [${region.name}]`);
 };
 
 const updateStoreJob = async (db: FirebaseFirestore.Firestore) => {
-    const start = admin.firestore.Timestamp.now();
-    logger.info(`Performing store update at ${start.toMillis()}`);
+    logger.info("Performing store update");
 
     const regions = await getRegions(db);
     if (!regions) {
@@ -91,40 +97,25 @@ const updateStoreJob = async (db: FirebaseFirestore.Firestore) => {
     }
 
     for (const region of regions) {
-        if (!region.root) continue;
-        logger.info(`Start processing region ${region.name}`);
-
-        const info = await queryPsStore(region, region.root);
-        if (!info) {
-            logger.warn(`Cannot get store info for ${region.name}`);
+        if (!region.root) {
+            logger.warn(`Skipping invalid region [${region.name}]`);
             continue;
         }
-        await updateGameRecord(db, region, info);
-
-        logger.info(`Loading games from region ${region.name}`);
-
-        const gamesJson = await queryPsStore(region, region.root, info.total_results);
-        if (!gamesJson || !gamesJson.links || gamesJson.links.length === 0) {
-            logger.warn(`No games found for ${region.name}`);
-            continue;
+        try {
+            await processRegion(db, region);
+        } catch (e) {
+            logger.error(`Cannot process region [${region.name}]:`, e);
         }
-
-        for (const game of gamesJson.links) {
-            if (!game || !game.id || !game.default_sku) continue;
-            await updateGameRecord(db, region, game);
-        }
-
-        logger.info(`Finish processing region ${region.name}`);
     }
 
-    const end = admin.firestore.Timestamp.now();
-    logger.info(`Finished store update at ${end.toMillis()}`);
+    logger.info("Finished store update");
 };
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://psn-tracker.firebaseio.com",
 });
-const db = admin.firestore();
+const firestore = admin.firestore();
+const updateStoreJobResult = updateStoreJob(firestore);
 
-Promise.resolve(updateStoreJob(db));
+Promise.resolve(updateStoreJobResult);
