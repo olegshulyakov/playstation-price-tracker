@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import { FETCH_GAMES_COUNT, CLEAR_GAMES_STORE, FETCH_PREVIEW_MAP, CLEAR_REGION } from "./types";
-import PlayStationService, { isQueryFailed, DEFAULT_FETCH_SIZE } from "../services/PlayStationService";
+import { CLEAR_GAMES_STORE, CLEAR_REGION, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP } from "./types";
 import { getGamePreview } from "../services/PlayStationGameService";
-import { PlaystationRegion } from "playstation";
+import { getGamesList, getStoreInfo, isQueryFailed } from "../services/Playstation/queries";
+import { DEFAULT_FETCH_SIZE } from "../services/Playstation/constants";
+import { PlaystationRegion } from "../services/Playstation/types";
 
 export const fetchStoreInfo = (region: PlaystationRegion) => async (dispatch: Function) => {
     if (!region || !region.name) {
@@ -26,9 +27,8 @@ export const fetchStoreInfo = (region: PlaystationRegion) => async (dispatch: Fu
     }
 
     console.debug(`Fetching store info for [${region.name}]`);
-    const service = new PlayStationService(region);
     try {
-        const storeInfo = await service.getStoreInfo();
+        const storeInfo = await getStoreInfo(region);
         if (isQueryFailed(storeInfo)) {
             dispatch({ type: CLEAR_REGION });
             return;
@@ -57,9 +57,8 @@ export const fetchGamePreviewsList = (
 
     console.debug(`Fetching game previews for ${region.name}. total=${total} start=${start}, size=${size}`);
 
-    const service = new PlayStationService(region);
     try {
-        const links = await service.getGamesList(size, start);
+        const links = await getGamesList(region, size, start);
         if (!links) {
             return;
         }

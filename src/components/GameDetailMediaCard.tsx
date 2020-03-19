@@ -18,14 +18,14 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { PlaystationObject, PlaystationRegion } from "playstation";
 import {
-    getStoreGameLink,
-    getInitialPrice,
     getCurrentPrice,
-    getPsPlusPrice,
+    getInitialPrice,
     getPreviewImage,
+    getPsPlusPrice,
+    getStoreGameLink,
 } from "../services/PlayStationGameService";
+import { PlaystationObject, PlaystationRegion } from "../services/Playstation/types";
 
 const GameDetailMediaCardContainer = styled.div`
     display: flex;

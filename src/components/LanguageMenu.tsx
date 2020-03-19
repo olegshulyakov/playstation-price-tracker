@@ -17,12 +17,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { MenuItem, Menu } from "@material-ui/core";
+import { Menu, MenuItem } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
-import { PlaystationRegion } from "playstation";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
+import { PlaystationRegion } from "../services/Playstation/types";
 
 const LanguageMenuButton = styled.button`
     margin-right: 0.25rem;
@@ -88,7 +88,7 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
         return (
             <>
                 <LanguageMenuButton aria-controls="language-menu" aria-haspopup="true" onClick={this.handleClick}>
-                    <FontAwesomeIcon icon={faLanguage} size="2x" />
+                    <FontAwesomeIcon icon={faLanguage} size="2x"/>
                 </LanguageMenuButton>
                 <Menu
                     id="language-menu"

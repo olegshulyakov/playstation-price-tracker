@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { SELECT_REGION, CLEAR_REGION, FETCH_REGIONS } from "../actions/types";
-import { PlaystationRegion } from "playstation";
-import { REGIONS, REGION } from "../store/keys";
+import { CLEAR_REGION, FETCH_REGIONS, SELECT_REGION } from "../actions/types";
+import { REGION, REGIONS } from "../store/keys";
+import { PlaystationRegion } from "../services/Playstation/types";
 
 const initialState: RegionState = {
     regions: [],

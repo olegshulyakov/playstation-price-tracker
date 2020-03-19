@@ -17,9 +17,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { PlaystationRegion } from "playstation";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
+import { PlaystationRegion } from "../services/Playstation/types";
 
 const SelectRegionContainer = styled.div`
     display: flex;

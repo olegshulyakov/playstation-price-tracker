@@ -19,7 +19,7 @@ import { connect } from "react-redux";
 import InfiniteScroll from "react-infinite-scroller";
 import styled from "styled-components";
 import GamePreview from "../components/GamePreview";
-import { PlaystationRegion } from "playstation";
+import { PlaystationRegion } from "../services/Playstation/types";
 
 const StoreContainer = styled.div`
     display: flex;
@@ -72,6 +72,7 @@ interface StoreState {
 
 class Store extends React.Component<StoreProps, StoreState> {
     private pageSize: number = 10;
+
     constructor(props: StoreProps) {
         super(props);
         this.loadNextPage = this.loadNextPage.bind(this);
@@ -99,7 +100,7 @@ class Store extends React.Component<StoreProps, StoreState> {
         const games = this.state.previews.slice().map((item) => {
             return (
                 <StoreGridItem key={"game-preview-" + item.key}>
-                    <GamePreview region={this.props.region} game={item.game} />
+                    <GamePreview region={this.props.region} game={item.game}/>
                 </StoreGridItem>
             );
         });

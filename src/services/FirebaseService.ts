@@ -15,7 +15,7 @@
  */
 import firebase from "firebase";
 import "firebase/firestore";
-import { PlaystationRegion, PlaystationLink, PlaystationObject } from "playstation";
+import { PlaystationLink, PlaystationObject, PlaystationRegion } from "./Playstation/types";
 
 const app = firebase.initializeApp({
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -30,25 +30,25 @@ const app = firebase.initializeApp({
 
 try {
     app.performance();
-    console.info("Performance monitoring is ON")
+    console.info("Performance monitoring is ON");
 } catch (e) {
-    console.warn("Performance monitoring is OFF")
+    console.warn("Performance monitoring is OFF");
 }
 
 try {
     app.analytics();
-    console.info("Analytics is ON")
+    console.info("Analytics is ON");
 } catch (e) {
-    console.warn("Analytics is OFF")
+    console.warn("Analytics is OFF");
 }
 
 const firestore = app.firestore();
 
 try {
-    firestore.enablePersistence({synchronizeTabs: true});
-    console.info("Persistence is ON")
+    firestore.enablePersistence({ synchronizeTabs: true });
+    console.info("Persistence is ON");
 } catch (e) {
-    console.warn("Persistence is OFF")
+    console.warn("Persistence is OFF");
 }
 
 export const getRegions = async (): Promise<PlaystationRegion[]> => {

@@ -19,7 +19,6 @@ import React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { PlaystationRegion, Package, PlaystationObject } from "playstation";
 import { GAME } from "../store/keys";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Header from "../components/Header";
@@ -27,6 +26,7 @@ import Footer from "../components/Footer";
 import GameDetailMediaCard from "../components/GameDetailMediaCard";
 import GameDetailAttributeCard from "../components/GameDetailAttributeCard";
 import { getStoreGameLink } from "../services/PlayStationGameService";
+import { Package, PlaystationObject, PlaystationRegion } from "../services/Playstation/types";
 
 const GameDetailContainer = styled.div`
     display: flex;
@@ -96,6 +96,7 @@ interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
 class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
     private readonly cusa: string;
     private readonly url: string;
+
     constructor(props: any) {
         super(props);
         this.cusa = this.props.match.params.cusa;
@@ -146,7 +147,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
         const game = this.state.game;
         if (!this.state.isLoaded || !game || !game.name || !game.images) {
-            return <LoadingSpinner msg={<p>Loading game information...</p>} />;
+            return <LoadingSpinner msg={<p>Loading game information...</p>}/>;
         }
 
         const gameLink = getStoreGameLink(game.id, this.props.region.language, this.props.region.country);
@@ -170,10 +171,10 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
         return (
             <GameDetailContainer>
-                <Header isSearchEnabled={true} />
+                <Header isSearchEnabled={true}/>
                 <GameDetailGrid>
                     <HiddenDesktop>
-                        <GameDetailMediaCard region={this.props.region} game={game} />
+                        <GameDetailMediaCard region={this.props.region} game={game}/>
                     </HiddenDesktop>
 
                     <div>
@@ -196,20 +197,20 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                             )}
                         </GameDetailTitle>
 
-                        <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }} />
+                        <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }}/>
                     </div>
 
                     <HiddenMobile>
-                        <GameDetailMediaCard region={this.props.region} game={game} />
-                        <SpaceElement />
-                        <GameDetailAttributeCard attribute="Platforms" values={[...platforms.keys()]} />
-                        <SpaceElement />
-                        <GameDetailAttributeCard attribute="Audio" values={[...voices.keys()]} />
-                        <SpaceElement />
-                        <GameDetailAttributeCard attribute="Subtitles" values={[...subtitles.keys()]} />
+                        <GameDetailMediaCard region={this.props.region} game={game}/>
+                        <SpaceElement/>
+                        <GameDetailAttributeCard attribute="Platforms" values={[...platforms.keys()]}/>
+                        <SpaceElement/>
+                        <GameDetailAttributeCard attribute="Audio" values={[...voices.keys()]}/>
+                        <SpaceElement/>
+                        <GameDetailAttributeCard attribute="Subtitles" values={[...subtitles.keys()]}/>
                     </HiddenMobile>
                 </GameDetailGrid>
-                <Footer />
+                <Footer/>
             </GameDetailContainer>
         );
     }

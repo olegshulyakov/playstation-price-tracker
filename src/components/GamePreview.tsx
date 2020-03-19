@@ -15,10 +15,10 @@
  */
 
 import React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { PlaystationItemPreview, PlaystationRegion } from "playstation";
 import { getStoreGameLink } from "../services/PlayStationGameService";
+import { PlaystationRegion } from "../services/Playstation/types";
 
 const GamePreviewContainer = styled.div`
     cursor: pointer;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Oleg Shulyakov
+ * Copyright (c) 2020. Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-import { PlaystationLink, PlaystationObject, PlaystationRegion } from "playstation";
+import { PlaystationRegion } from "./types";
 
-const SORT_FIELD = Object.freeze({ RELEASE_DATE: "release_date", TIMESTAMP: "timestamp" });
-const SORT_DIRECTION = Object.freeze({ ASC: "asc", DESC: "desc" });
-
+export const SORT_FIELDS = Object.freeze({ RELEASE_DATE: "release_date", TIMESTAMP: "timestamp" });
+export const SORT_DIRECTIONS = Object.freeze({ ASC: "asc", DESC: "desc" });
 export const DEFAULT_FETCH_SIZE = 100;
-export const REFRESH_THRESHOLD = process.env.NODE_ENV === "development" ? 1000 * 60 * 60 : 1000 * 60 * 60 * 24;
 
 // Parsed from https://www.playstation.com/country-selector/index.html using regexp "<a href="https:\/\/www\.playstation\.com\/([a-z]{2})-([a-z]{2})\/">([^<]+)<\/a>"
-export const playstationRegionList: PlaystationRegion[] = [
+export const REGIONS: PlaystationRegion[] = [
     { name: "Argentina", language: "es", country: "ar", root: "STORE-MSF77008-ALLGAMES" },
     { name: "Australia", language: "en", country: "au", root: "STORE-MSF75508-FULLGAMES" },
     { name: "Austria (Österreich)", language: "de", country: "at", root: "STORE-MSF75508-FULLGAMES" },
@@ -38,12 +36,7 @@ export const playstationRegionList: PlaystationRegion[] = [
     { name: "Costa Rica", language: "es", country: "cr", root: "STORE-MSF77008-ALLGAMES" },
     { name: "Croatia (Hrvatska)", language: "hr", country: "hr", root: "STORE-MSF75508-FULLGAMES" },
     { name: "Cyprus", language: "en", country: "cy", root: "STORE-MSF75508-FULLGAMES" },
-    {
-        name: "Czech Republic (Ceská Republika)",
-        language: "cs",
-        country: "cz",
-        root: "STORE-MSF75508-FULLGAMES",
-    },
+    { name: "Czech Republic (Ceská Republika)", language: "cs", country: "cz", root: "STORE-MSF75508-FULLGAMES" },
     { name: "Denmark (Danmark)", language: "da", country: "dk", root: "STORE-MSF75508-FULLGAMES" },
     { name: "Ecuador", language: "es", country: "ec", root: "STORE-MSF77008-ALLGAMES" },
     { name: "El Salvador", language: "es", country: "sv", root: "STORE-MSF77008-ALLGAMES" },
@@ -84,84 +77,8 @@ export const playstationRegionList: PlaystationRegion[] = [
     { name: "Switzerland (Italiano)", language: "it", country: "ch", root: "STORE-MSF75508-FULLGAMES" },
     { name: "Turkey (Türkiye)", language: "tr", country: "tr", root: "STORE-MSF75508-FULLGAMES" },
     { name: "Ukraine (Україна)", language: "uk", country: "ua", root: "STORE-MSF75508-FULLGAMES" },
-    {
-        name: "United Arab Emirates / Middle East",
-        language: "en",
-        country: "ae",
-        root: "STORE-MSF75508-FULLGAMES",
-    },
+    { name: "United Arab Emirates / Middle East", language: "en", country: "ae", root: "STORE-MSF75508-FULLGAMES" },
     { name: "United States", language: "en", country: "us", root: "STORE-MSF77008-ALLGAMES" },
     { name: "United Kingdom", language: "en", country: "gb", root: "STORE-MSF75508-FULLGAMES" },
     { name: "Uruguay", language: "es", country: "uy", root: "STORE-MSF77008-ALLGAMES" },
 ];
-
-export const isQueryFailed = (storeInfo: PlaystationObject) => {
-    return storeInfo.cause || (storeInfo.codeName && storeInfo.codeName === "DataNotFound");
-};
-
-export default class PlayStationService {
-    private readonly baseUrl = "https://store.playstation.com/store/api/chihiro/00_09_000";
-    private region: PlaystationRegion;
-    private storeInfo: any;
-
-    constructor(region: PlaystationRegion) {
-        console.debug(`Creating PlayStationService for [${region.name}]`);
-        this.region = region;
-    }
-
-    async getGeoInfo() {
-        console.debug(`Quering geo info`);
-        const response = await fetch(`${this.baseUrl}/geo`);
-        return response;
-    }
-
-    async query(cusa: string, size: number | undefined = 1, start: number | undefined = undefined) {
-        console.debug(`Quering cusa=${cusa}, start=${start}, size=${size}`);
-        let url = `${this.baseUrl}/container/${this.region.country}/${this.region.language}/999/${cusa}?&sort=${SORT_FIELD.TIMESTAMP}&direction=${SORT_DIRECTION.DESC}`;
-        if (size !== undefined) {
-            url += `&size=${size}`;
-        }
-        if (start !== undefined) {
-            url += `&start=${start}`;
-        }
-        const response = await fetch(url);
-        const json: any = response.json();
-        if (isQueryFailed(json)) {
-            console.error(`Cannot execute query. ${json.cause}`);
-        }
-        return json;
-    }
-
-    async getGameInfo(cusa: string): Promise<PlaystationObject> {
-        console.debug(`Loading game info ${cusa}`);
-        const json = await this.query(cusa, 0);
-        return json;
-    }
-
-    async getStoreInfo(): Promise<PlaystationObject> {
-        console.debug("Loading games count");
-        const json = await this.query(this.region.root, 0);
-        //console.debug(`Count response: ${JSON.stringify(json)}`);
-        this.storeInfo = json;
-        return this.storeInfo;
-    }
-
-    async getGamesList(size: number = 50, start: number = 0): Promise<PlaystationLink[]> {
-        console.debug("Loading games");
-        const json = await this.query(this.region.root, size, start);
-        //console.debug(`Game list response: ${JSON.stringify(json)}`);
-        return json.links;
-    }
-
-    getGameImageLink(cusa: string, width: number = 240, height: number = 240): string {
-        return `${this.baseUrl}/titlecontainer/${this.region.country}/${this.region.language}/999/${cusa}/image?w=${width}&h=${height}`;
-    }
-
-    search(query: string) {
-        return `https://store.playstation.com/store/api/chihiro/00_09_000/tumbler/${this.region.country}/${this.region.language}/999/${query}?suggested_size=10&mode=game`;
-    }
-
-    findView(cusa: string) {
-        return `https://store.playstation.com/chihiro-api/viewfinder/${this.region.country}/${this.region.language}/999/${cusa}?size=0&gkb=1&start=0`;
-    }
-}

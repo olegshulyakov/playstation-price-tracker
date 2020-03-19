@@ -24,8 +24,8 @@ import Store from "./pages/Store";
 import SelectRegion from "./pages/SelectRegion";
 import { fetchStoreInfo, fetchGamePreviewsList, clearGamesStore } from "./actions/gameActions";
 import LoadingSpinner from "./components/LoadingSpinner";
-import { DEFAULT_FETCH_SIZE } from "./services/PlayStationService";
 import { fetchRegions } from "./actions/regionActions";
+import { DEFAULT_FETCH_SIZE } from "./services/Playstation/constants";
 
 const AppContainer = styled.div`
     display: flex;
