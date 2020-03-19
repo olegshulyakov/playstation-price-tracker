@@ -14,9 +14,5 @@
  * limitations under the License.
  */
 
-import previewGenerator from "./previewGenerator";
-
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
-
-export { previewGenerator };
