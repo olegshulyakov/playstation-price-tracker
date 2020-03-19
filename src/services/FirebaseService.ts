@@ -28,7 +28,28 @@ const app = firebase.initializeApp({
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 });
 
+try {
+    app.performance();
+    console.info("Performance monitoring is ON")
+} catch (e) {
+    console.warn("Performance monitoring is OFF")
+}
+
+try {
+    app.analytics();
+    console.info("Analytics is ON")
+} catch (e) {
+    console.warn("Analytics is OFF")
+}
+
 const firestore = app.firestore();
+
+try {
+    firestore.enablePersistence({synchronizeTabs: true});
+    console.info("Persistence is ON")
+} catch (e) {
+    console.warn("Persistence is OFF")
+}
 
 export const getRegions = async (): Promise<PlaystationRegion[]> => {
     const querySnapshot = await firestore
