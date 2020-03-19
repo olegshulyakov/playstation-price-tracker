@@ -1,6 +1,6 @@
 {
     "name": "psn-tracker",
-    "version": "2020.03.13",
+    "version": "2020.03.19",
     "description": "PSN games tracker project",
     "license": "Apache-2.0",
     "private": true,
