@@ -13,8 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import * as admin from "firebase-admin";
 
-const getRegions = async (db: FirebaseFirestore.Firestore) => {
+export const getFirestore = (serviceAccount: any) => {
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: "https://psn-tracker.firebaseio.com",
+    });
+
+    return admin.firestore();
+};
+
+export const getRegions = async (db: FirebaseFirestore.Firestore) => {
     const query = await db
         .collection("regions")
         .orderBy("name", "asc")
@@ -29,24 +39,20 @@ const getRegions = async (db: FirebaseFirestore.Firestore) => {
     return regions;
 };
 
-const getGame = async (db: FirebaseFirestore.Firestore, region: any, game: any) => {
+export const getGames = async (db: FirebaseFirestore.Firestore, region: any) => {
     const query = await db
         .collection("regions")
         .doc(`${region.language}-${region.country}`)
         .collection("games")
-        .doc(game.id)
         .get();
 
-    return query.data();
-};
+    const map = new Map<string, any>();
+    if (!query || query.docs.length === 0) return map;
 
-const setGame = async (db: FirebaseFirestore.Firestore, region: any, game: any) => {
-    await db
-        .collection("regions")
-        .doc(`${region.language}-${region.country}`)
-        .collection("games")
-        .doc(game.id)
-        .set(game);
-};
+    for (const doc of query.docs) {
+        const data = doc.data();
+        map.set(data.id, data);
+    }
 
-export { getRegions, getGame, setGame };
+    return map;
+};

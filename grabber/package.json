@@ -7,18 +7,22 @@
     "author": "Oleg Shulyakov",
     "scripts": {
         "lint": "tslint --project tsconfig.json",
-        "build": "tsc",
-        "start": "node ./build/index.js"
+        "build": "webpack",
+        "start": "npm run build && node ./build/index.js"
     },
     "dependencies": {
         "firebase-admin": "^8.10.0",
         "node-fetch": "^2.6.0",
+        "webpack": "^4.42.0",
+        "webpack-node-externals": "^1.7.2",
         "winston": "^3.2.1"
     },
     "devDependencies": {
         "@types/node-fetch": "^2.5.5",
+        "awesome-typescript-loader": "^5.2.1",
         "tslint": "^6.1.0",
-        "typescript": "^3.8.3"
+        "typescript": "^3.8.3",
+        "webpack-cli": "^3.3.11"
     },
     "private": true
 }

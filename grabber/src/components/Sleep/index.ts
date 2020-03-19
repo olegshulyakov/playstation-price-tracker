@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2020 Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,16 +14,6 @@
  * limitations under the License.
  */
 
-import {updateStoreJob} from "./components/Grabber";
-import {getFirestore} from "./services/Firebase";
-
-const serviceAccount = require("../serviceAccountKey.json");
-
-(async () => {
-    try {
-        await updateStoreJob(getFirestore(serviceAccount));
-        console.log("Finished");
-    } catch (e) {
-        console.error("Failed.", e);
-    }
-})();
+export function sleep(millis: number) {
+    return new Promise((resolve) => setTimeout(resolve, millis));
+}
