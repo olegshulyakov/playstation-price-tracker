@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-import {updateStoreJob} from "./components/Grabber";
 import {getFirestore} from "./services/Firebase";
+import { Grabber } from "./components/Grabber";
 
 const serviceAccount = require("../serviceAccountKey.json");
 
 (async () => {
     try {
-        await updateStoreJob(getFirestore(serviceAccount));
+        const grabber = new Grabber(getFirestore(serviceAccount));
+        await grabber.process();
         console.log("Finished");
     } catch (e) {
         console.error("Failed.", e);
