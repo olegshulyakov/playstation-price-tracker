@@ -104,6 +104,8 @@ export default class GameDetailMediaCard extends React.Component<GameDetailMedia
                     src={getPreviewImage(this.props.game)}
                     title={this.props.game.name}
                     placeholder={this.props.game.name}
+                    width={240}
+                    height={240}
                 />
 
                 <GameDetailMediaCardPrices>

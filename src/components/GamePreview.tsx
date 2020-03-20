@@ -164,6 +164,8 @@ class GamePreview extends React.Component<GamePreviewProps> {
                     alt={this.props.game.name}
                     title={this.props.game.name}
                     placeholder={this.props.game.name}
+                    width={240}
+                    height={240}
                     onClick={() => this.handleGameClick(this.props.game)}
                 />
 

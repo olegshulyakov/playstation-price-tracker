@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import firebase from "firebase";
+import * as firebase from 'firebase/app';
 import "firebase/firestore";
+import "firebase/performance"
+import "firebase/analytics"
 import { PlaystationLink, PlaystationObject, PlaystationRegion } from "./Playstation/types";
 
 const app = firebase.initializeApp({
