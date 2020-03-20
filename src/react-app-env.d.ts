@@ -52,4 +52,4 @@ type PlaystationItemPreview = {
     display_price: string;
     bonus_price?: string;
     is_sale: boolean;
-}
+};

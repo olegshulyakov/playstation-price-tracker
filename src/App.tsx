@@ -77,15 +77,15 @@ class App extends React.Component<AppProps> {
 
     render() {
         if (!this.props.region.regions || this.props.region.regions.length === 0) {
-            return <LoadingSpinner/>;
+            return <LoadingSpinner />;
         }
 
         if (!this.props.region.current || !this.props.region.current.name) {
             return (
                 <AppContainer>
-                    <Header/>
-                    <SelectRegion/>
-                    <Footer/>
+                    <Header />
+                    <SelectRegion />
+                    <Footer />
                 </AppContainer>
             );
         }
@@ -93,16 +93,16 @@ class App extends React.Component<AppProps> {
         if (!this.props.store.info || !this.props.store.previews || !this.isLoaded()) {
             return (
                 <AppContainer>
-                    <LoadingSpinner msg={<p>Loading games...</p>}/>
+                    <LoadingSpinner msg={<p>Loading games...</p>} />
                 </AppContainer>
             );
         }
 
         return (
             <AppContainer>
-                <Header isSearchEnabled={true} isLanguageEnabled={true}/>
-                <Store/>
-                <Footer/>
+                <Header isSearchEnabled={true} isLanguageEnabled={true} />
+                <Store />
+                <Footer />
             </AppContainer>
         );
     }
