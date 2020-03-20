@@ -18,7 +18,7 @@ import { PlaystationRegion } from "./types";
 
 export const SORT_FIELDS = Object.freeze({ RELEASE_DATE: "release_date", TIMESTAMP: "timestamp" });
 export const SORT_DIRECTIONS = Object.freeze({ ASC: "asc", DESC: "desc" });
-export const DEFAULT_FETCH_SIZE = 100;
+export const DEFAULT_FETCH_SIZE = 25;
 
 // Parsed from https://www.playstation.com/country-selector/index.html using regexp "<a href="https:\/\/www\.playstation\.com\/([a-z]{2})-([a-z]{2})\/">([^<]+)<\/a>"
 export const REGIONS: PlaystationRegion[] = [

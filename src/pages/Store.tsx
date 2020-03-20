@@ -20,6 +20,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import styled from "styled-components";
 import GamePreview from "../components/GamePreview";
 import { PlaystationRegion } from "../services/Playstation/types";
+import { fetchGamePreviewsList } from "../actions/gameActions";
 
 const StoreContainer = styled.div`
     display: flex;
@@ -63,33 +64,26 @@ const StoreGridItem = styled.div`
 interface StoreProps {
     region: PlaystationRegion;
     store: PlaystationStore;
+    fetchGames: Function;
 }
 
-interface StoreState {
-    hasMoreItems: boolean;
-    previews: PreviewGamesMapItem[];
-}
-
-class Store extends React.Component<StoreProps, StoreState> {
-    private pageSize: number = 10;
+class Store extends React.Component<StoreProps> {
 
     constructor(props: StoreProps) {
         super(props);
         this.loadNextPage = this.loadNextPage.bind(this);
-        this.state = {
-            hasMoreItems: true,
-            previews: [],
-        };
+        this.hasMoreItems = this.hasMoreItems.bind(this);
+    }
+
+    hasMoreItems() {
+        return !(!this.props.store.previews || this.props.store.previews.length >= this.props.store.info.total_results);
     }
 
     loadNextPage(nextPage: number) {
-        if (!this.props.store.previews || this.state.previews.length >= this.props.store.previews.length) {
-            this.setState({ hasMoreItems: false });
+        if (!this.props.store.previews) {
             return;
         }
-
-        const batch = this.props.store.previews.slice(0, nextPage * this.pageSize + this.pageSize);
-        this.setState({ previews: batch });
+        this.props.fetchGames(this.props.region, this.props.store.info.total_results, this.props.store.previews.length);
     }
 
     render() {
@@ -97,7 +91,7 @@ class Store extends React.Component<StoreProps, StoreState> {
             return;
         }
 
-        const games = this.state.previews.slice().map((item) => {
+        const games = this.props.store.previews.slice().map((item) => {
             return (
                 <StoreGridItem key={"game-preview-" + item.key}>
                     <GamePreview region={this.props.region} game={item.game}/>
@@ -105,14 +99,19 @@ class Store extends React.Component<StoreProps, StoreState> {
             );
         });
 
+        const threshold = window.screen.height;
+
         return (
             <StoreContainer>
-                <InfiniteScroll
-                    pageStart={0}
-                    loadMore={this.loadNextPage}
-                    hasMore={this.state.hasMoreItems}
+                <InfiniteScroll key={"infinite-scroll"}
+                    hasMore={this.hasMoreItems()}
                     initialLoad={true}
-                    loader={<div key={"store-page-loader" + this.state.previews.length}></div>}
+                    isReverse={false}
+                    loadMore={this.loadNextPage}
+                    pageStart={0}
+                    threshold={threshold}
+                    useCapture={false}
+                    useWindow={true}
                 >
                     <StoreGrid>{games}</StoreGrid>
                 </InfiniteScroll>
@@ -124,4 +123,4 @@ class Store extends React.Component<StoreProps, StoreState> {
 const mapStateToProps = (state: ReduxStoreState) =>
     ({ region: state.region.current, store: state.store } as StoreProps);
 
-export default connect(mapStateToProps)(Store);
+export default connect(mapStateToProps, { fetchGames: fetchGamePreviewsList })(Store);
