@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
@@ -53,7 +53,7 @@ const HeaderTitle = styled.h2`
 
 const HeaderSearchInput = styled.input`
     flex-grow: 1;
-    height: 1rem;
+    height: 1.75rem;
     margin: 0px 0.5rem 0px 0.5rem;
     padding: 0.25rem;
     border: 0;
@@ -70,7 +70,7 @@ class Header extends React.Component<HeaderProps> {
     render() {
         return (
             <HeaderContainer>
-                <FontAwesomeIcon style={{ margin: "0 0.5rem 0 0.5rem" }} icon={faPlaystation} size="2x" />
+                <FontAwesomeIcon style={{ margin: "0 0.5rem 0 0.5rem" }} icon={faPlaystation} size="2x"/>
                 <HeaderTitle
                     className="App-title"
                     onClick={() => {
@@ -80,12 +80,12 @@ class Header extends React.Component<HeaderProps> {
                     PSN tracker
                 </HeaderTitle>
                 {this.props.isSearchEnabled ? (
-                    <HeaderSearchInput className="App-header-search" placeholder="Search here..."></HeaderSearchInput>
+                    <HeaderSearchInput className="App-header-search" placeholder="Search here..."/>
                 ) : (
                     <></>
                 )}
 
-                {this.props.isLanguageEnabled ? <LanguageMenu /> : <></>}
+                {this.props.isLanguageEnabled ? <LanguageMenu/> : <></>}
             </HeaderContainer>
         );
     }

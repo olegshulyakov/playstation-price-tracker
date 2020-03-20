@@ -13,7 +13,7 @@
         {
             "label": "Install dependencies using Yarn",
             "type": "shell",
-            "command": "yarn --ignore-optional",
+            "command": "yarn install --check-files --ignore-optional",
             "problemMatcher": [],
             "group": "none"
         },

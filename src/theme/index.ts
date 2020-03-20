@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import materialUiTheme from "./materialUI";
+
 import themeUiTheme from "./themeUI";
 
-export { materialUiTheme, themeUiTheme };
+export { themeUiTheme };

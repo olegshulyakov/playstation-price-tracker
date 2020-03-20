@@ -16,37 +16,21 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
-import { Menu, MenuItem } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
 import { PlaystationRegion } from "../services/Playstation/types";
-
-const LanguageMenuButton = styled.button`
-    margin-right: 0.25rem;
-    border: 0;
-    color: var(--text-secondary);
-    background-color: transparent;
-    font-size: 0.8rem;
-`;
+import { Dropdown } from "react-bootstrap";
 
 interface LanguageMenuProps extends RegionState {
     selectRegion: Function;
     clearGamesStore: Function;
 }
 
-interface LanguageMenuState {
-    anchorEl: null | HTMLElement;
-}
-
-class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState> {
+class LanguageMenu extends React.Component<LanguageMenuProps> {
     constructor(props: LanguageMenuProps) {
         super(props);
-        this.state = { anchorEl: null };
-        this.handleClick = this.handleClick.bind(this);
-        this.handleClose = this.handleClose.bind(this);
         this.renderRegion = this.renderRegion.bind(this);
         this.onSelectRegion = this.onSelectRegion.bind(this);
     }
@@ -56,50 +40,46 @@ class LanguageMenu extends React.Component<LanguageMenuProps, LanguageMenuState>
         this.props.selectRegion(region);
     }
 
-    handleClick(event: React.MouseEvent<HTMLElement>) {
-        this.setState({
-            anchorEl: event.currentTarget,
-        });
-    }
-
-    handleClose() {
-        this.setState({
-            anchorEl: null,
-        });
-    }
-
     renderRegion(region: PlaystationRegion) {
-        const styledName = this.props.current && this.props.current === region ? <b>{region.name}</b> : region.name;
+        let styledName;
+        if (!this.props.current || this.props.current.name !== region.name) {
+            styledName = region.name;
+        } else {
+            styledName = <b>{region.name}</b>;
+        }
+
         return (
-            <MenuItem
+            <Dropdown.Item
                 key={"dropdown-region-" + region.name}
                 onClick={() => {
                     this.onSelectRegion(region);
                 }}
             >
                 {styledName}
-            </MenuItem>
+            </Dropdown.Item>
         );
     }
 
     render() {
+        console.log(this.props.current);
         const regions = this.props.regions.map((region) => this.renderRegion(region));
 
         return (
-            <>
-                <LanguageMenuButton aria-controls="language-menu" aria-haspopup="true" onClick={this.handleClick}>
+            <Dropdown>
+                <Dropdown.Toggle id="language-menu" size="sm" style={{
+                    marginRight: "0.25rem",
+                    border: 0,
+                    color: "var(--text-secondary)",
+                    backgroundColor: "transparent",
+                    fontSize: "0.8rem",
+                }}>
                     <FontAwesomeIcon icon={faLanguage} size="2x"/>
-                </LanguageMenuButton>
-                <Menu
-                    id="language-menu"
-                    anchorEl={this.state.anchorEl}
-                    keepMounted
-                    open={Boolean(this.state.anchorEl)}
-                    onClose={this.handleClose}
-                >
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
                     {regions}
-                </Menu>
-            </>
+                </Dropdown.Menu>
+            </Dropdown>
         );
     }
 }

@@ -20,7 +20,7 @@
     --text-primary: #000;
     --text-secondary: #fff;
     --bg-primary: #f7f7f7;
-    --bg-secondary: rgba(0,0,0,0.8);
+    --bg-secondary: rgba(0, 0, 0, 0.8);
     --br-card: #fff;
     --box-shadow-card: 0px 0.125rem 0.06rem -0.06rem rgba(0, 0, 0, 0.2), 0px 0.06rem 0.06rem 0px rgba(0, 0, 0, 0.14),
         0px 0.06rem 0.25rem 0px rgba(0, 0, 0, 0.12);
@@ -58,4 +58,8 @@ body::-webkit-scrollbar-thumb {
 a.link {
     color: #07c;
     text-decoration: none;
+}
+
+.dropdown-toggle::after {
+  display:none;
 }
