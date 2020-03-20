@@ -20,7 +20,7 @@
     --text-primary: #000;
     --text-secondary: #fff;
     --bg-primary: #f7f7f7;
-    --bg-secondary: rgb(32, 35, 42);
+    --bg-secondary: rgba(0,0,0,0.8);
     --br-card: #fff;
     --box-shadow-card: 0px 0.125rem 0.06rem -0.06rem rgba(0, 0, 0, 0.2), 0px 0.06rem 0.06rem 0px rgba(0, 0, 0, 0.14),
         0px 0.06rem 0.25rem 0px rgba(0, 0, 0, 0.12);
@@ -44,15 +44,15 @@ code {
 }
 
 body::-webkit-scrollbar {
-    width: 0.25rem;
+    width: 0.5rem;
 }
 
 body::-webkit-scrollbar-track {
-    background: #1e1e24;
+    background: var(--bg-primary);
 }
 
 body::-webkit-scrollbar-thumb {
-    background: #495db8;
+    background: var(--bg-secondary);
 }
 
 a.link {
