@@ -76,20 +76,6 @@ export const getRegions = async (): Promise<PlaystationRegion[]> => {
     return regions;
 };
 
-export const setRegions = async (regions: PlaystationRegion[]): Promise<void> => {
-    if (!regions || regions.length === 0) {
-        console.error("No regions to save.");
-        return;
-    }
-
-    for (const region of regions) {
-        await firestore
-            .collection("regions")
-            .doc(`${region.language.toLowerCase()}-${region.country.toLowerCase()}`)
-            .set(region);
-    }
-};
-
 export const loadGame = async (
     region: PlaystationRegion,
     cusa: string,
@@ -109,17 +95,4 @@ export const loadGame = async (
         return undefined;
     }
     return documentSnapshot.data() as PlaystationLink;
-};
-
-export const saveGame = async (region: PlaystationRegion, game: PlaystationLink | PlaystationObject): Promise<void> => {
-    if (!region || !game) {
-        return;
-    }
-
-    await firestore
-        .collection("regions")
-        .doc(`${region.language.toLowerCase()}-${region.country.toLowerCase()}`)
-        .collection("games")
-        .doc(game.id)
-        .set(game);
 };

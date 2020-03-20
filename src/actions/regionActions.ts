@@ -15,7 +15,7 @@
  */
 
 import { CLEAR_REGION, FETCH_REGIONS, SELECT_REGION } from "./types";
-import { getRegions, setRegions } from "../services/FirebaseService";
+import { getRegions } from "../services/FirebaseService";
 import { REGIONS } from "../services/Playstation/constants";
 import { PlaystationRegion } from "../services/Playstation/types";
 
@@ -27,7 +27,6 @@ export const fetchRegions = () => async (dispatch: Function) => {
             " Regions not found. Using predefined values" + regions.length + " " + REGIONS.length,
         );
         regions = REGIONS;
-        await setRegions(regions);
     }
     dispatch({ type: FETCH_REGIONS, regions: regions });
 };
