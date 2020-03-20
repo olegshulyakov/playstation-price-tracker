@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Oleg Shulyakov
+ * Copyright (c) 2020. Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { schema } from "normalizr";
+import * as game from "./gameActions";
+import * as region from "./regionActions";
+import * as type from "./types";
 
-export const game = new schema.Entity("games", undefined, { idAttribute: "id" } as schema.EntityOptions);
-export const gamesArray = new schema.Array(game);
+export { game, region, type };
