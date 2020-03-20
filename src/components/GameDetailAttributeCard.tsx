@@ -15,7 +15,18 @@
  */
 
 import React from "react";
-import { Typography } from "@material-ui/core";
+import styled from "styled-components";
+
+const Title = styled.span`
+    margin: 0;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+`;
+
+const Values = styled.p`
+    margin: 0;
+    letter-spacing: 0.01071em;
+`;
 
 interface GameDetailAttributeCardProps {
     attribute: string;
@@ -30,12 +41,12 @@ export default class GameDetailAttributeCard extends React.Component<GameDetailA
 
         return (
             <>
-                <Typography variant="button">{this.props.attribute}</Typography>
-                <Typography variant="body2">
+                <Title>{this.props.attribute}</Title>
+                <Values>
                     {this.props.values?.map((value: string) => {
                         return value + " ";
                     })}
-                </Typography>
+                </Values>
             </>
         );
     }
