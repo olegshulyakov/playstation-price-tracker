@@ -38,7 +38,7 @@ export async function query(region: PlaystationRegion, cusa: string, size: numbe
         url += `&start=${start}`;
     }
     const response = await fetch(url);
-    const json: any = response.json();
+    const json: any = await response.json();
     if (isQueryFailed(json)) {
         console.error(`Cannot execute query. ${json.cause}`);
     }

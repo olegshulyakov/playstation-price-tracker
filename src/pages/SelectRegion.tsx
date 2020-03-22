@@ -29,7 +29,7 @@ const SelectRegionContainer = styled.div`
 `;
 
 const SelectRegionGrid = styled.div`
-    min-height: 0px;
+    min-height: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(16.875rem, 0.45fr));
     grid-auto-rows: minmax(0px, 70px);
@@ -73,6 +73,29 @@ class SelectRegion extends React.Component<SelectRegionProps> {
     constructor(props: SelectRegionProps) {
         super(props);
         this.renderRegion = this.renderRegion.bind(this);
+    }
+
+    async selectRegionByPosition(pos: Position) {
+        const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`);
+        const json = await resp.json();
+        if (!json.address || !json.address.country_code) return;
+
+        const country_code = json.address.country_code;
+        for (const region of this.props.regions) {
+            if (region.country.toLowerCase() !== country_code.toLowerCase()) continue;
+            this.props.selectRegion(region);
+        }
+    }
+
+    locateUserCountryCode() {
+        if (!navigator || !navigator.geolocation) return;
+        navigator.geolocation.getCurrentPosition(pos => {
+            this.selectRegionByPosition(pos).catch(e => console.error(e));
+        });
+    }
+
+    componentDidMount(): void {
+        this.locateUserCountryCode();
     }
 
     renderRegion(region: PlaystationRegion) {

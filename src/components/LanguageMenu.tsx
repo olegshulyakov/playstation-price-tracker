@@ -61,7 +61,6 @@ class LanguageMenu extends React.Component<LanguageMenuProps> {
     }
 
     render() {
-        console.log(this.props.current);
         const regions = this.props.regions.map((region) => this.renderRegion(region));
 
         return (
