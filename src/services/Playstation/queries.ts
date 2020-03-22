@@ -15,11 +15,11 @@
  */
 
 import { SORT_DIRECTIONS, SORT_FIELDS } from "./constants";
-import { PlaystationLink, PlaystationObject, PlaystationRegion } from "./types";
+import { PlaystationGameResponse, PlaystationResponse, PlaystationRegion } from "./types";
 
 const baseUrl = "https://store.playstation.com/store/api/chihiro/00_09_000";
 
-export const isQueryFailed = (storeInfo: PlaystationObject) => {
+export const isQueryFailed = (storeInfo: PlaystationResponse) => {
     return storeInfo.cause || (storeInfo.codeName && storeInfo.codeName === "DataNotFound");
 };
 
@@ -45,17 +45,17 @@ export async function query(region: PlaystationRegion, cusa: string, size: numbe
     return json;
 }
 
-export async function getGameInfo(region: PlaystationRegion, cusa: string): Promise<PlaystationObject> {
+export async function getGameInfo(region: PlaystationRegion, cusa: string): Promise<PlaystationResponse> {
     console.debug(`Loading game info ${cusa}`);
     return await query(region, cusa, 0);
 }
 
-export async function getStoreInfo(region: PlaystationRegion): Promise<PlaystationObject> {
+export async function getStoreInfo(region: PlaystationRegion): Promise<PlaystationResponse> {
     console.debug("Loading games count");
     return await query(region, region.root, 0);
 }
 
-export async function getGamesList(region: PlaystationRegion, size: number = 50, start: number = 0): Promise<PlaystationLink[]> {
+export async function getGamesList(region: PlaystationRegion, size: number = 50, start: number = 0): Promise<PlaystationGameResponse[]> {
     console.debug("Loading games");
     const json = await query(region, region.root, size, start);
     return json.links;

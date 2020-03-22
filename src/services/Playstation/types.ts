@@ -218,7 +218,7 @@ export type PlaystationImage = {
     url: string;
 }
 
-export type PlaystationLink = {
+export type PlaystationGameResponse = {
     bucket: string;
     bundleChildTypeId: number;
     cloud_only_platform: string[];
@@ -293,7 +293,7 @@ export type TemplateDef = {
     extras: Extra[];
 }
 
-export type PlaystationObject = {
+export type PlaystationResponse = {
     age_limit: number;
     attributes: Attributes;
     container_type: string;
@@ -303,7 +303,7 @@ export type PlaystationObject = {
     default_sku?: DefaultSku;
     id: string;
     images: any[];
-    links: PlaystationLink[];
+    links: PlaystationGameResponse[];
     long_desc: string;
     metadata: Metadata2;
     name: string;

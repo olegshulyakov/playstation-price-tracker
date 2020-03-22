@@ -26,7 +26,7 @@ import Footer from "../components/Footer";
 import GameDetailMediaCard from "../components/GameDetailMediaCard";
 import GameDetailAttributeCard from "../components/GameDetailAttributeCard";
 import { getStoreGameLink } from "../services/PlayStationGameService";
-import { Package, PlaystationObject, PlaystationRegion } from "../services/Playstation/types";
+import { Package, PlaystationResponse, PlaystationRegion } from "../services/Playstation/types";
 
 const GameDetailContainer = styled.div`
     display: flex;
@@ -38,7 +38,7 @@ const GameDetailContainer = styled.div`
 
 const GameDetailGrid = styled.div`
     display: grid;
-    gap: 0rem;
+    gap: 0;
     background-color: var(--br-card);
     justify-content: center;
     grid-template-columns: auto;
@@ -54,7 +54,7 @@ const GameDetailGrid = styled.div`
 
     @media screen and (min-width: 1280px) {
         gap: 3rem;
-        margin: 0rem 5rem;
+        margin: 0 5rem;
         box-shadow: var(--box-shadow-card);
     }
 `;
@@ -65,7 +65,7 @@ const GameDetailTitle = styled.h3`
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
     line-height: 1.167;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     cursor: pointer;
 `;
 
@@ -104,7 +104,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
         try {
             const sessionItem = sessionStorage.getItem(GAME + this.cusa);
-            const game = JSON.parse(sessionItem!) as PlaystationObject;
+            const game = JSON.parse(sessionItem!) as PlaystationResponse;
             // TODO check session item timestamp and clear if old.
             this.state = {
                 isLoaded: true,
@@ -133,7 +133,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
         fetch(this.url)
             .then((response) => response.json())
             .then((json: any) => {
-                const game = json as PlaystationObject;
+                const game = json as PlaystationResponse;
                 this.setState({ isLoaded: true, game: game });
                 sessionStorage.setItem(GAME + this.cusa, JSON.stringify(game));
             })

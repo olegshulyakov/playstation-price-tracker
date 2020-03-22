@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { PlaystationLink, PlaystationObject, Reward } from "./Playstation/types";
+import { PlaystationGameResponse, PlaystationResponse, Reward } from "./Playstation/types";
 
 export const getStoreGameLink = (cusa: string, language: string, country: string): string => {
     console.debug(`Generating ps store link for [${cusa}]`);
     return `https://store.playstation.com/${language}-${country}/product/${cusa}`;
 };
 
-export const getGamePreview = (game: PlaystationLink): PlaystationItemPreview => {
+export const getGamePreview = (game: PlaystationGameResponse): PlaystationItemPreview => {
     const image = game.images && game.images[0] ? game.images[0].url : "";
     const currentPrice = getCurrentPrice(game);
     const psPlusPrice = getPsPlusPrice(game);
@@ -37,25 +37,25 @@ export const getGamePreview = (game: PlaystationLink): PlaystationItemPreview =>
     } as PlaystationItemPreview;
 };
 
-export const getInitialPrice = (game: PlaystationLink | PlaystationObject): string | undefined => {
+export const getInitialPrice = (game: PlaystationGameResponse | PlaystationResponse): string | undefined => {
     if (game.default_sku) {
         return game.default_sku.display_price;
     }
     return undefined;
 };
 
-export const isSale = (game: PlaystationLink | PlaystationObject): boolean | undefined => {
+export const isSale = (game: PlaystationGameResponse | PlaystationResponse): boolean | undefined => {
     return game.default_sku?.rewards && game.default_sku?.rewards.length > 0;
 };
 
-export const getSaleDetails = (game: PlaystationLink | PlaystationObject): Reward | undefined => {
+export const getSaleDetails = (game: PlaystationGameResponse | PlaystationResponse): Reward | undefined => {
     if (game.default_sku?.rewards && game.default_sku?.rewards.length > 0) {
         return game.default_sku?.rewards[0];
     }
     return undefined;
 };
 
-export const getCurrentPrice = (game: PlaystationLink | PlaystationObject): string | undefined => {
+export const getCurrentPrice = (game: PlaystationGameResponse | PlaystationResponse): string | undefined => {
     const saleDetails = getSaleDetails(game);
     if (saleDetails && saleDetails.display_price) {
         return saleDetails.display_price;
@@ -63,7 +63,7 @@ export const getCurrentPrice = (game: PlaystationLink | PlaystationObject): stri
     return getInitialPrice(game);
 };
 
-export const getPsPlusPrice = (game: PlaystationLink | PlaystationObject): string | undefined => {
+export const getPsPlusPrice = (game: PlaystationGameResponse | PlaystationResponse): string | undefined => {
     const saleDetails = getSaleDetails(game);
     if (saleDetails && saleDetails.bonus_display_price) {
         return saleDetails.bonus_display_price;
@@ -71,6 +71,6 @@ export const getPsPlusPrice = (game: PlaystationLink | PlaystationObject): strin
     return undefined;
 };
 
-export const getPreviewImage = (game: PlaystationLink | PlaystationObject): string => {
+export const getPreviewImage = (game: PlaystationGameResponse | PlaystationResponse): string => {
     return game.images[0].url;
 };

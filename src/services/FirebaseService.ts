@@ -17,7 +17,7 @@ import * as firebase from 'firebase/app';
 import "firebase/firestore";
 import "firebase/performance"
 import "firebase/analytics"
-import { PlaystationLink, PlaystationObject, PlaystationRegion } from "./Playstation/types";
+import { PlaystationGameResponse, PlaystationResponse, PlaystationRegion } from "./Playstation/types";
 
 const app = firebase.initializeApp({
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -81,7 +81,7 @@ export const getRegions = async (): Promise<PlaystationRegion[]> => {
 export const loadGame = async (
     region: PlaystationRegion,
     cusa: string,
-): Promise<PlaystationLink | PlaystationObject | undefined> => {
+): Promise<PlaystationGameResponse | PlaystationResponse | undefined> => {
     if (!region || !cusa) {
         return undefined;
     }
@@ -96,5 +96,5 @@ export const loadGame = async (
     if (!documentSnapshot.exists) {
         return undefined;
     }
-    return documentSnapshot.data() as PlaystationLink;
+    return documentSnapshot.data() as PlaystationGameResponse;
 };
