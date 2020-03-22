@@ -15,20 +15,19 @@
  */
 
 import { CLEAR_REGION, FETCH_REGIONS, SELECT_REGION } from "./types";
-import { getRegions } from "../services/FirebaseService";
 import { REGIONS } from "../services/Playstation/constants";
 import { PlaystationRegion } from "../services/Playstation/types";
 
 export const fetchRegions = () => async (dispatch: Function) => {
     console.debug("Fetching region list");
-    let regions = await getRegions();
+    /*let regions = await getRegions();
     if (!regions || regions.length < REGIONS.length) {
         console.warn(
             " Regions not found. Using predefined values" + regions.length + " " + REGIONS.length,
         );
         regions = REGIONS;
-    }
-    dispatch({ type: FETCH_REGIONS, regions: regions });
+    }*/
+    dispatch({ type: FETCH_REGIONS, regions: REGIONS });
 };
 
 export const selectRegion = (region: PlaystationRegion) => (dispatch: Function) => {
