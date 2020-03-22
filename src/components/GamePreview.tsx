@@ -29,7 +29,7 @@ const GamePreviewContainer = styled.div`
     border-radius: 0.25rem;
 
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
         0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 `;
 
@@ -75,6 +75,10 @@ const GamePreviewDefaultPrice = styled.span`
     text-align: center;
     padding: 0.1rem 0.1rem 0.1rem 0.1rem;
     border-radius: 0.5rem;
+    letter-spacing: -1px;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 1.25rem;
 
     @media (min-width: 600px) {
         padding: 0.1rem 0.25rem 0.1rem 0.25rem;
@@ -89,6 +93,10 @@ const GamePreviewSalePrice = styled.span`
     text-align: center;
     padding: 0.1rem 0.1rem 0.1rem 0.1rem;
     border-radius: 0.5rem;
+    letter-spacing: -1px;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 1.25rem;
 
     @media (min-width: 600px) {
         padding: 0.1rem 0.25rem 0.1rem 0.25rem;
@@ -104,6 +112,10 @@ const GamePreviewPsPlusPrice = styled.span`
     text-align: center;
     padding: 0.1rem 0.1rem 0.1rem 0.1rem;
     border-radius: 0.5rem;
+    letter-spacing: -1px;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 1.25rem;
 
     @media (min-width: 600px) {
         margin-top: 0.1rem;
