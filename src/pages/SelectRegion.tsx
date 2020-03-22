@@ -20,6 +20,7 @@ import styled from "styled-components";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
 import { PlaystationRegion } from "../services/Playstation/types";
+import { getCountryCode } from "../services/GeoLocation";
 
 const SelectRegionContainer = styled.div`
     display: flex;
@@ -75,27 +76,13 @@ class SelectRegion extends React.Component<SelectRegionProps> {
         this.renderRegion = this.renderRegion.bind(this);
     }
 
-    async selectRegionByPosition(pos: Position) {
-        const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`);
-        const json = await resp.json();
-        if (!json.address || !json.address.country_code) return;
-
-        const country_code = json.address.country_code;
-        for (const region of this.props.regions) {
-            if (region.country.toLowerCase() !== country_code.toLowerCase()) continue;
-            this.props.selectRegion(region);
-        }
-    }
-
-    locateUserCountryCode() {
-        if (!navigator || !navigator.geolocation) return;
-        navigator.geolocation.getCurrentPosition(pos => {
-            this.selectRegionByPosition(pos).catch(e => console.error(e));
-        });
-    }
-
     componentDidMount(): void {
-        this.locateUserCountryCode();
+        getCountryCode((country_code: string) => {
+            for (const region of this.props.regions) {
+                if (region.country.toLowerCase() !== country_code.toLowerCase()) continue;
+                this.props.selectRegion(region);
+            }
+        });
     }
 
     renderRegion(region: PlaystationRegion) {
