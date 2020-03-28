@@ -20,7 +20,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import styled from "styled-components";
 import GamePreview from "../components/GamePreview";
 import { fetchGamePreviewsList } from "../actions/gameActions";
-import { PlaystationRegion } from "playstation-api/dist/types";
+import * as PlaystationApi from "playstation-api";
 
 const StoreContainer = styled.div`
     display: flex;
@@ -62,7 +62,7 @@ const StoreGridItem = styled.div`
 `;
 
 interface StoreProps {
-    region: PlaystationRegion;
+    region: PlaystationApi.types.PlaystationRegion;
     store: PlaystationStore;
     fetchGames: Function;
 }

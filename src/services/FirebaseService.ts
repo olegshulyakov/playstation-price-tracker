@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as firebase from 'firebase/app';
+import * as firebase from "firebase/app";
 import "firebase/firestore";
-import "firebase/performance"
-import "firebase/analytics"
-import { PlaystationGameResponse, PlaystationRegion, PlaystationResponse } from "playstation-api/dist/types";
+import "firebase/performance";
+import "firebase/analytics";
+import * as PlaystationApi from "playstation-api";
 
 const app = firebase.initializeApp({
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -53,7 +53,7 @@ try {
     console.warn("Persistence is OFF");
 }
 
-export const getRegions = async (): Promise<PlaystationRegion[]> => {
+export const getRegions = async (): Promise<PlaystationApi.types.PlaystationRegion[]> => {
     const querySnapshot = await firestore
         .collection("regions")
         .orderBy("name", "asc")
@@ -62,7 +62,7 @@ export const getRegions = async (): Promise<PlaystationRegion[]> => {
         return [];
     }
 
-    const regions: PlaystationRegion[] = [];
+    const regions: PlaystationApi.types.PlaystationRegion[] = [];
     querySnapshot.forEach(function(doc) {
         const data = doc.data();
         // console.debug(doc.id, " => ", data);
@@ -79,9 +79,9 @@ export const getRegions = async (): Promise<PlaystationRegion[]> => {
 };
 
 export const loadGame = async (
-    region: PlaystationRegion,
+    region: PlaystationApi.types.PlaystationRegion,
     cusa: string,
-): Promise<PlaystationGameResponse | PlaystationResponse | undefined> => {
+): Promise<PlaystationApi.types.PlaystationGameResponse | PlaystationApi.types.PlaystationResponse | undefined> => {
     if (!region || !cusa) {
         return undefined;
     }
@@ -96,5 +96,5 @@ export const loadGame = async (
     if (!documentSnapshot.exists) {
         return undefined;
     }
-    return documentSnapshot.data() as PlaystationGameResponse;
+    return documentSnapshot.data() as PlaystationApi.types.PlaystationGameResponse;
 };

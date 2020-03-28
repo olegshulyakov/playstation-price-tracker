@@ -15,8 +15,7 @@
  */
 
 import { CLEAR_REGION, FETCH_REGIONS, SELECT_REGION } from "./types";
-import { REGIONS } from "playstation-api/dist/constants";
-import { PlaystationRegion } from "playstation-api/dist/types";
+import * as PlaystationApi from "playstation-api";
 
 export const fetchRegions = () => async (dispatch: Function) => {
     console.debug("Fetching region list");
@@ -27,10 +26,10 @@ export const fetchRegions = () => async (dispatch: Function) => {
         );
         regions = REGIONS;
     }*/
-    dispatch({ type: FETCH_REGIONS, regions: REGIONS });
+    dispatch({ type: FETCH_REGIONS, regions: PlaystationApi.constants.REGIONS });
 };
 
-export const selectRegion = (region: PlaystationRegion) => (dispatch: Function) => {
+export const selectRegion = (region: PlaystationApi.types.PlaystationRegion) => (dispatch: Function) => {
     console.debug(`Changing region to ${region.name}`);
     dispatch({ type: SELECT_REGION, region: region });
 };

@@ -26,6 +26,8 @@
         0px 0.06rem 0.25rem 0px rgba(0, 0, 0, 0.12);
     --img-preview-side: 15rem;
     --img-preview-side-small: 10rem;
+    --img-search: 4rem;
+    --img-search-small: 2rem;
     --price-default: #fff;
     --price-sale: orangered;
     --price-ps-plus: gold;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DEFAULT_FETCH_SIZE, SORT_DIRECTIONS, SORT_FIELDS } from "./constants";
+import { DEFAULT_FETCH_SIZE, DEFAULT_SEARCH_SIZE, SORT_DIRECTIONS, SORT_FIELDS } from "./constants";
 import { PlaystationGameResponse, PlaystationRegion, PlaystationResponse } from "./types";
 
 const baseUrl = "https://store.playstation.com/store/api/chihiro/00_09_000";
@@ -60,8 +60,8 @@ export function getGameImageLink(region: PlaystationRegion, cusa: string, width:
     return `${baseUrl}/titlecontainer/${region.country}/${region.language}/999/${cusa}/image?w=${width}&h=${height}`;
 }
 
-export async function search(region: PlaystationRegion, searchString: string): Promise<PlaystationResponse> {
-    const url = `https://store.playstation.com/store/api/chihiro/00_09_000/tumbler/${region.country}/${region.language}/999/${searchString}?suggested_size=${DEFAULT_FETCH_SIZE}`;
+export async function search(region: PlaystationRegion, searchString: string, size: number = DEFAULT_SEARCH_SIZE): Promise<PlaystationResponse> {
+    const url = `https://store.playstation.com/store/api/chihiro/00_09_000/tumbler/${region.country}/${region.language}/999/${escape(searchString)}?size=${size}`;
     const response = await fetch(url);
     const json: any = await response.json();
     if (isQueryFailed(json)) {

@@ -17,8 +17,7 @@
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { getStoreGameLink } from "playstation-api/dist/helpers";
-import { PlaystationRegion } from "playstation-api/dist/types";
+import * as PlaystationApi from "playstation-api";
 
 const GamePreviewContainer = styled.div`
     cursor: pointer;
@@ -124,7 +123,7 @@ const GamePreviewPsPlusPrice = styled.span`
 `;
 
 export interface GamePreviewProps extends RouteComponentProps {
-    region: PlaystationRegion;
+    region: PlaystationApi.types.PlaystationRegion;
     game: PlaystationItemPreview;
 }
 
@@ -142,7 +141,7 @@ class GamePreview extends React.Component<GamePreviewProps> {
     redirectToPsStore(event: any) {
         event.preventDefault();
         window.open(
-            getStoreGameLink(this.props.region, this.props.game.id),
+            PlaystationApi.helpers.getStoreGameLink(this.props.region, this.props.game.id),
             "_blank",
         );
     }

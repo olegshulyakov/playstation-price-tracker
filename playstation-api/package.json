@@ -16,8 +16,9 @@
     "dist"
   ],
   "scripts": {
+    "clean": "rimraf dist",
     "lint": "tslint -p tsconfig.json -c tslint.json --fix",
-    "build": "npm run lint && tsc -d"
+    "build": "npm run clean && npm run lint && tsc -d"
   },
   "peerDependencies": {
     "tslint": "^6.1.0",
@@ -28,6 +29,7 @@
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
+    "rimraf": "^3.0.2",
     "tslint": "^6.1.0",
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^3.8.3"

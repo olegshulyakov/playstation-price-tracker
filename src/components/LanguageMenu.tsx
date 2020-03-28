@@ -21,7 +21,7 @@ import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
 import { Dropdown } from "react-bootstrap";
-import { PlaystationRegion } from "playstation-api/dist/types";
+import * as PlaystationApi from "playstation-api";
 
 interface LanguageMenuProps extends RegionState {
     selectRegion: Function;
@@ -35,12 +35,12 @@ class LanguageMenu extends React.Component<LanguageMenuProps> {
         this.onSelectRegion = this.onSelectRegion.bind(this);
     }
 
-    onSelectRegion(region: PlaystationRegion) {
+    onSelectRegion(region: PlaystationApi.types.PlaystationRegion) {
         this.props.clearGamesStore();
         this.props.selectRegion(region);
     }
 
-    renderRegion(region: PlaystationRegion) {
+    renderRegion(region: PlaystationApi.types.PlaystationRegion) {
         let styledName;
         if (!this.props.current || this.props.current.name !== region.name) {
             styledName = region.name;

@@ -25,8 +25,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import GameDetailMediaCard from "../components/GameDetailMediaCard";
 import GameDetailAttributeCard from "../components/GameDetailAttributeCard";
-import { Package, PlaystationRegion, PlaystationResponse } from "playstation-api/dist/types";
-import { getStoreGameLink } from "playstation-api/dist/helpers";
+import * as PlaystationApi from "playstation-api";
 
 const GameDetailContainer = styled.div`
     display: flex;
@@ -90,7 +89,7 @@ const HiddenDesktop = styled.div`
 `;
 
 interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
-    region: PlaystationRegion;
+    region: PlaystationApi.types.PlaystationRegion;
 }
 
 class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
@@ -104,7 +103,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
         try {
             const sessionItem = sessionStorage.getItem(GAME + this.cusa);
-            const game = JSON.parse(sessionItem!) as PlaystationResponse;
+            const game = JSON.parse(sessionItem!) as PlaystationApi.types.PlaystationResponse;
             // TODO check session item timestamp and clear if old.
             this.state = {
                 isLoaded: true,
@@ -133,7 +132,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
         fetch(this.url)
             .then((response) => response.json())
             .then((json: any) => {
-                const game = json as PlaystationResponse;
+                const game = json as PlaystationApi.types.PlaystationResponse;
                 this.setState({ isLoaded: true, game: game });
                 sessionStorage.setItem(GAME + this.cusa, JSON.stringify(game));
             })
@@ -150,7 +149,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
             return <LoadingSpinner msg={<p>Loading game information...</p>}/>;
         }
 
-        const gameLink = getStoreGameLink(this.props.region, game.id);
+        const gameLink = PlaystationApi.helpers.getStoreGameLink(this.props.region, game.id);
         const platforms = new Set<string>();
         const voices = new Set<string>();
         const subtitles = new Set<string>();
@@ -158,7 +157,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
             platforms.add(platform.substring(0, platform.indexOf("™")).toUpperCase());
         }
         for (const entitlement of game.default_sku?.entitlements) {
-            entitlement.packages?.map((pkg: Package) => {
+            entitlement.packages?.map((pkg: PlaystationApi.types.Package) => {
                 platforms.add(pkg.platformName.toUpperCase());
             });
             entitlement.voice_language_codes?.map((voice: string) => {

@@ -16,7 +16,7 @@
 
 import { CLEAR_REGION, FETCH_REGIONS, SELECT_REGION } from "../actions/types";
 import { REGION, REGIONS } from "../store/keys";
-import { PlaystationRegion } from "playstation-api/dist/types";
+import * as PlaystationApi from "playstation-api";
 
 const initialState: RegionState = {
     regions: [],
@@ -30,7 +30,7 @@ export default (state = initialState, action: any) => {
             return { ...state, regions: action.regions };
         case SELECT_REGION:
             localStorage.setItem(REGION, JSON.stringify(action.region));
-            return { ...state, current: action.region as PlaystationRegion };
+            return { ...state, current: action.region as PlaystationApi.types.PlaystationRegion };
         case CLEAR_REGION:
             localStorage.removeItem(REGION);
             return { ...state, current: null };

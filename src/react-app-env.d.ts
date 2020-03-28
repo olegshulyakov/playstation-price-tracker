@@ -29,6 +29,7 @@ interface RegionState {
 interface PlaystationStore {
     info?: PlaystationObject;
     previews?: PreviewGamesMapItem[];
+    search?: PlaystationItemPreview[];
 }
 
 interface GameDetailState {

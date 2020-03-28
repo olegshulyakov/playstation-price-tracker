@@ -20,7 +20,7 @@ import styled from "styled-components";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
 import { getCountryCode } from "../services/GeoLocation";
-import { PlaystationRegion } from "playstation-api/dist/types";
+import * as PlaystationApi from "playstation-api";
 
 const SelectRegionContainer = styled.div`
     display: flex;
@@ -85,7 +85,7 @@ class SelectRegion extends React.Component<SelectRegionProps> {
         });
     }
 
-    renderRegion(region: PlaystationRegion) {
+    renderRegion(region: PlaystationApi.types.PlaystationRegion) {
         return (
             <SelectRegionCard
                 key={"region-" + region.name}

@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-import { CLEAR_GAMES_STORE, CLEAR_REGION, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP } from "./types";
+import { CLEAR_GAMES_STORE, CLEAR_REGION, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP, SEARCH_GAMES } from "./types";
 import { getGamePreview } from "../services/PlayStationGameService";
-import { PlaystationRegion } from "playstation-api/dist/types";
-import { getGamesList, getStoreInfo, isQueryFailed } from "playstation-api/dist/queries";
-import { DEFAULT_FETCH_SIZE } from "playstation-api/dist/constants";
+import * as PlaystationApi from "playstation-api";
 
-export const fetchStoreInfo = (region: PlaystationRegion) => async (dispatch: Function) => {
+export const fetchStoreInfo = (region: PlaystationApi.types.PlaystationRegion) => async (dispatch: Function) => {
     if (!region || !region.name) {
         console.warn("No region specified.");
         return;
@@ -28,8 +26,8 @@ export const fetchStoreInfo = (region: PlaystationRegion) => async (dispatch: Fu
 
     console.debug(`Fetching store info for [${region.name}]`);
     try {
-        const storeInfo = await getStoreInfo(region);
-        if (isQueryFailed(storeInfo)) {
+        const storeInfo = await PlaystationApi.queries.getStoreInfo(region);
+        if (PlaystationApi.queries.isQueryFailed(storeInfo)) {
             dispatch({ type: CLEAR_REGION });
             return;
         }
@@ -40,10 +38,10 @@ export const fetchStoreInfo = (region: PlaystationRegion) => async (dispatch: Fu
 };
 
 export const fetchGamePreviewsList = (
-    region: PlaystationRegion,
+    region: PlaystationApi.types.PlaystationRegion,
     total: number,
     start: number = 0,
-    size: number = DEFAULT_FETCH_SIZE,
+    size: number = PlaystationApi.constants.DEFAULT_FETCH_SIZE,
 ) => async (dispatch: Function) => {
     if (!region || !region.name) {
         console.warn("No region specified.");
@@ -58,7 +56,7 @@ export const fetchGamePreviewsList = (
     console.debug(`Fetching game previews for ${region.name}. total=${total} start=${start}, size=${size}`);
 
     try {
-        const links = await getGamesList(region, size, start);
+        const links = await PlaystationApi.queries.getGamesList(region, size, start);
         if (!links) {
             return;
         }
@@ -74,4 +72,27 @@ export const fetchGamePreviewsList = (
 export const clearGamesStore = () => async (dispatch: Function) => {
     console.debug("Clearing games store");
     dispatch({ type: CLEAR_GAMES_STORE });
+};
+
+export const searchGames = (region: PlaystationApi.types.PlaystationRegion,
+                            searchString: string
+) => async (dispatch: Function) => {
+    if (!region || !region.name) {
+        console.warn("No region specified.");
+        return;
+    }
+    console.debug(`Searching games for ${region.name}. string=[${searchString}]`);
+    try {
+        const json = await PlaystationApi.queries.search(region, searchString);
+        if (!json) {
+            return;
+        }
+
+        const previews = json.links.map((link) => {
+            return getGamePreview(link);
+        });
+        dispatch({ type: SEARCH_GAMES, games: previews });
+    } catch (e) {
+        console.error("Cannot fetch games.", e);
+    }
 };

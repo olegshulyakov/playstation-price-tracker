@@ -18,13 +18,8 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import {
-    getCurrentPrice,
-    getInitialPrice,
-    getPsPlusPrice,
-} from "../services/PlayStationGameService";
-import { PlaystationRegion, PlaystationResponse } from "playstation-api/dist/types";
-import { getPreviewImage, getStoreGameLink } from "playstation-api/dist/helpers";
+import { getCurrentPrice, getInitialPrice, getPsPlusPrice } from "../services/PlayStationGameService";
+import * as PlaystationApi from "playstation-api";
 
 const GameDetailMediaCardContainer = styled.div`
     display: flex;
@@ -55,14 +50,14 @@ const GameDetailMediaCardPrices = styled.div`
 `;
 
 interface GameDetailMediaCardProps {
-    region: PlaystationRegion;
-    game: PlaystationResponse;
+    region: PlaystationApi.types.PlaystationRegion;
+    game: PlaystationApi.types.PlaystationResponse;
 }
 
 export default class GameDetailMediaCard extends React.Component<GameDetailMediaCardProps> {
     redirectToPsStore() {
         window.open(
-            getStoreGameLink(this.props.region, this.props.game.id),
+            PlaystationApi.helpers.getStoreGameLink(this.props.region, this.props.game.id),
             "_blank",
         );
     }
@@ -100,7 +95,7 @@ export default class GameDetailMediaCard extends React.Component<GameDetailMedia
             <GameDetailMediaCardContainer onClick={this.redirectToPsStore.bind(this)}>
                 <GameDetailMediaCardImage
                     loading="lazy"
-                    src={getPreviewImage(this.props.game)}
+                    src={PlaystationApi.helpers.getPreviewImage(this.props.game)}
                     title={this.props.game.name}
                     placeholder={this.props.game.name}
                     width={240}

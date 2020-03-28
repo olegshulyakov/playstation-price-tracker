@@ -20,6 +20,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 import LanguageMenu from "./LanguageMenu";
+import Search from "./Search";
 
 const HeaderContainer = styled.header`
     position: fixed;
@@ -51,16 +52,6 @@ const HeaderTitle = styled.h2`
     }
 `;
 
-const HeaderSearchInput = styled.input`
-    flex-grow: 1;
-    height: 1.75rem;
-    margin: 0px 0.5rem 0px 0.5rem;
-    padding: 0.25rem;
-    border: 0;
-    border-radius: 0.2rem;
-    background-color: var(--bg-primary);
-`;
-
 interface HeaderProps extends RouteComponentProps {
     isSearchEnabled?: boolean;
     isLanguageEnabled?: boolean;
@@ -80,7 +71,7 @@ class Header extends React.Component<HeaderProps> {
                     PSN tracker
                 </HeaderTitle>
                 {this.props.isSearchEnabled ? (
-                    <HeaderSearchInput className="App-header-search" placeholder="Search here..."/>
+                    <Search/>
                 ) : (
                     <></>
                 )}

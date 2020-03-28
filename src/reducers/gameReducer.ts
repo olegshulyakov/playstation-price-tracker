@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { FETCH_GAMES_COUNT, CLEAR_GAMES_STORE, FETCH_PREVIEW_MAP } from "../actions/types";
-import { STORE, GAMES, PREVIEWS } from "../store/keys";
+import { CLEAR_GAMES_STORE, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP, SEARCH_GAMES } from "../actions/types";
+import { GAMES, PREVIEWS, STORE } from "../store/keys";
 import { arrayToMap, mapToArray } from "../services/converter";
 
 const initialState: PlaystationStore = {
     info: undefined,
-    previews: undefined,
+    previews: undefined
 };
 
 export default (state = initialState, action: any) => {
@@ -59,6 +59,13 @@ export default (state = initialState, action: any) => {
                 info: undefined,
                 games: undefined,
                 map: undefined,
+                search: undefined,
+            } as PlaystationStore;
+
+        case SEARCH_GAMES:
+            return {
+                ...state,
+                search: action.games,
             } as PlaystationStore;
 
         default:
