@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Playstation API for JavaScript/Typescript",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "deprecated": false,
   "repository": {
@@ -16,26 +17,20 @@
   ],
   "scripts": {
     "lint": "tslint -p tsconfig.json -c tslint.json --fix",
-    "build": "npm run lint && webpack"
+    "build": "npm run lint && tsc -d"
   },
   "peerDependencies": {
     "tslint": "^6.1.0",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "^3.8.3",
-    "webpack": "^4.42.0",
-    "webpack-node-externals": "^1.7.2"
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^5.2.1",
     "tslint": "^6.1.0",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "^3.8.3",
-    "webpack": "^4.42.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-node-externals": "^1.7.2"
+    "typescript": "^3.8.3"
   },
   "prettier": {
     "printWidth": 250,
