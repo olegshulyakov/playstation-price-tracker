@@ -17,5 +17,6 @@
 import * as types from "./types";
 import * as constants from "./constants";
 import * as queries from "./queries";
+import * as helpers from "./helpers";
 
-export { types, constants, queries };
+export { types, constants, queries, helpers };

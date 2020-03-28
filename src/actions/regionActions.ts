@@ -15,8 +15,8 @@
  */
 
 import { CLEAR_REGION, FETCH_REGIONS, SELECT_REGION } from "./types";
-import { REGIONS } from "../services/Playstation/constants";
-import { PlaystationRegion } from "../services/Playstation/types";
+import { REGIONS } from "playstation-api/dist/constants";
+import { PlaystationRegion } from "playstation-api/dist/types";
 
 export const fetchRegions = () => async (dispatch: Function) => {
     console.debug("Fetching region list");

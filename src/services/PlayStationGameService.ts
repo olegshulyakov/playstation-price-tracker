@@ -14,12 +14,8 @@
  * limitations under the License.
  */
 
-import { PlaystationGameResponse, PlaystationResponse, Reward } from "./Playstation/types";
-
-export const getStoreGameLink = (cusa: string, language: string, country: string): string => {
-    console.debug(`Generating ps store link for [${cusa}]`);
-    return `https://store.playstation.com/${language}-${country}/product/${cusa}`;
-};
+import { PlaystationGameResponse, PlaystationResponse } from "playstation-api/dist/types";
+import { getSaleDetails, isSale } from "playstation-api/dist/helpers";
 
 export const getGamePreview = (game: PlaystationGameResponse): PlaystationItemPreview => {
     const image = game.images && game.images[0] ? game.images[0].url : "";
@@ -44,17 +40,6 @@ export const getInitialPrice = (game: PlaystationGameResponse | PlaystationRespo
     return undefined;
 };
 
-export const isSale = (game: PlaystationGameResponse | PlaystationResponse): boolean | undefined => {
-    return game.default_sku?.rewards && game.default_sku?.rewards.length > 0;
-};
-
-export const getSaleDetails = (game: PlaystationGameResponse | PlaystationResponse): Reward | undefined => {
-    if (game.default_sku?.rewards && game.default_sku?.rewards.length > 0) {
-        return game.default_sku?.rewards[0];
-    }
-    return undefined;
-};
-
 export const getCurrentPrice = (game: PlaystationGameResponse | PlaystationResponse): string | undefined => {
     const saleDetails = getSaleDetails(game);
     if (saleDetails && saleDetails.display_price) {
@@ -69,8 +54,4 @@ export const getPsPlusPrice = (game: PlaystationGameResponse | PlaystationRespon
         return saleDetails.bonus_display_price;
     }
     return undefined;
-};
-
-export const getPreviewImage = (game: PlaystationGameResponse | PlaystationResponse): string => {
-    return game.images[0].url;
 };

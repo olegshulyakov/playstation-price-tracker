@@ -17,7 +17,7 @@ import * as firebase from 'firebase/app';
 import "firebase/firestore";
 import "firebase/performance"
 import "firebase/analytics"
-import { PlaystationGameResponse, PlaystationResponse, PlaystationRegion } from "./Playstation/types";
+import { PlaystationGameResponse, PlaystationRegion, PlaystationResponse } from "playstation-api/dist/types";
 
 const app = firebase.initializeApp({
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

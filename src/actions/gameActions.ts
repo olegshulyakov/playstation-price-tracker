@@ -16,9 +16,9 @@
 
 import { CLEAR_GAMES_STORE, CLEAR_REGION, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP } from "./types";
 import { getGamePreview } from "../services/PlayStationGameService";
-import { getGamesList, getStoreInfo, isQueryFailed } from "../services/Playstation/queries";
-import { DEFAULT_FETCH_SIZE } from "../services/Playstation/constants";
-import { PlaystationRegion } from "../services/Playstation/types";
+import { PlaystationRegion } from "playstation-api/dist/types";
+import { getGamesList, getStoreInfo, isQueryFailed } from "playstation-api/dist/queries";
+import { DEFAULT_FETCH_SIZE } from "playstation-api/dist/constants";
 
 export const fetchStoreInfo = (region: PlaystationRegion) => async (dispatch: Function) => {
     if (!region || !region.name) {

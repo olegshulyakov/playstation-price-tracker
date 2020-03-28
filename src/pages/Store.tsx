@@ -19,8 +19,8 @@ import { connect } from "react-redux";
 import InfiniteScroll from "react-infinite-scroller";
 import styled from "styled-components";
 import GamePreview from "../components/GamePreview";
-import { PlaystationRegion } from "../services/Playstation/types";
 import { fetchGamePreviewsList } from "../actions/gameActions";
+import { PlaystationRegion } from "playstation-api/dist/types";
 
 const StoreContainer = styled.div`
     display: flex;

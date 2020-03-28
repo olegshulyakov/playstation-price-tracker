@@ -25,8 +25,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import GameDetailMediaCard from "../components/GameDetailMediaCard";
 import GameDetailAttributeCard from "../components/GameDetailAttributeCard";
-import { getStoreGameLink } from "../services/PlayStationGameService";
-import { Package, PlaystationResponse, PlaystationRegion } from "../services/Playstation/types";
+import { Package, PlaystationRegion, PlaystationResponse } from "playstation-api/dist/types";
+import { getStoreGameLink } from "playstation-api/dist/helpers";
 
 const GameDetailContainer = styled.div`
     display: flex;
@@ -150,7 +150,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
             return <LoadingSpinner msg={<p>Loading game information...</p>}/>;
         }
 
-        const gameLink = getStoreGameLink(game.id, this.props.region.language, this.props.region.country);
+        const gameLink = getStoreGameLink(this.props.region, game.id);
         const platforms = new Set<string>();
         const voices = new Set<string>();
         const subtitles = new Set<string>();

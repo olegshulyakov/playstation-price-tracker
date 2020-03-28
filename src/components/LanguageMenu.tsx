@@ -20,8 +20,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { selectRegion } from "../actions/regionActions";
 import { clearGamesStore } from "../actions/gameActions";
-import { PlaystationRegion } from "../services/Playstation/types";
 import { Dropdown } from "react-bootstrap";
+import { PlaystationRegion } from "playstation-api/dist/types";
 
 interface LanguageMenuProps extends RegionState {
     selectRegion: Function;

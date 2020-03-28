@@ -16,7 +16,7 @@
 
 import { CLEAR_REGION, FETCH_REGIONS, SELECT_REGION } from "../actions/types";
 import { REGION, REGIONS } from "../store/keys";
-import { PlaystationRegion } from "../services/Playstation/types";
+import { PlaystationRegion } from "playstation-api/dist/types";
 
 const initialState: RegionState = {
     regions: [],

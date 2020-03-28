@@ -21,11 +21,10 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import {
     getCurrentPrice,
     getInitialPrice,
-    getPreviewImage,
     getPsPlusPrice,
-    getStoreGameLink,
 } from "../services/PlayStationGameService";
-import { PlaystationResponse, PlaystationRegion } from "../services/Playstation/types";
+import { PlaystationRegion, PlaystationResponse } from "playstation-api/dist/types";
+import { getPreviewImage, getStoreGameLink } from "playstation-api/dist/helpers";
 
 const GameDetailMediaCardContainer = styled.div`
     display: flex;
@@ -63,7 +62,7 @@ interface GameDetailMediaCardProps {
 export default class GameDetailMediaCard extends React.Component<GameDetailMediaCardProps> {
     redirectToPsStore() {
         window.open(
-            getStoreGameLink(this.props.game.id, this.props.region.language, this.props.region.country),
+            getStoreGameLink(this.props.region, this.props.game.id),
             "_blank",
         );
     }

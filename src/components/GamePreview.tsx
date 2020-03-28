@@ -17,8 +17,8 @@
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { getStoreGameLink } from "../services/PlayStationGameService";
-import { PlaystationRegion } from "../services/Playstation/types";
+import { getStoreGameLink } from "playstation-api/dist/helpers";
+import { PlaystationRegion } from "playstation-api/dist/types";
 
 const GamePreviewContainer = styled.div`
     cursor: pointer;
@@ -142,7 +142,7 @@ class GamePreview extends React.Component<GamePreviewProps> {
     redirectToPsStore(event: any) {
         event.preventDefault();
         window.open(
-            getStoreGameLink(this.props.game.id, this.props.region.language, this.props.region.country),
+            getStoreGameLink(this.props.region, this.props.game.id),
             "_blank",
         );
     }
