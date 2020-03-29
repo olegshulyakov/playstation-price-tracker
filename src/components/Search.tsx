@@ -24,13 +24,12 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 
 const SearchInput = styled.input`
     flex-grow: 1;
-    height: 1.75rem;
+    height: 1.5rem;
     margin: 0 0.5rem 0 0.5rem;
     padding: 0.25rem;
     border: 0;
-    border-radius: 0.2rem;
     color: var(--text-secondary);
-    background-color: var(--bg-secondary);
+    background-color: transparent;
 `;
 
 const SearchImage = styled.img`
@@ -63,7 +62,7 @@ class Search extends React.Component<SearchProps> {
     handleInputChange(e: ChangeEvent<HTMLInputElement>) {
         if (!e.target || !this.props.region) return;
         const query = e.target.value;
-        if (!query || query.length <= 3) return;
+        if (!query || query.length <= 3 || query[query.length - 1] === " ") return;
 
         this.props.search(this.props.region, query);
     }
