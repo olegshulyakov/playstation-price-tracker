@@ -1,0 +1,13 @@
+build
+**/node_modules
+.firebase
+.idea
+.vscode
+
+*.xml
+
+*.ico
+*.txt
+*.png
+*.svg
+*.log

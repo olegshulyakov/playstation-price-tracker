@@ -1,0 +1,67 @@
+/*
+ * Copyright 2020 Oleg Shulyakov
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+:root {
+    font-size: 16px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --text-primary: #000;
+    --text-secondary: #fff;
+    --bg-primary: #f7f7f7;
+    --bg-secondary: rgba(0, 0, 0, 0.8);
+    --br-card: #fff;
+    --box-shadow-card: 0px 0.125rem 0.06rem -0.06rem rgba(0, 0, 0, 0.2), 0px 0.06rem 0.06rem 0px rgba(0, 0, 0, 0.14),
+        0px 0.06rem 0.25rem 0px rgba(0, 0, 0, 0.12);
+    --img-preview-side: 15rem;
+    --img-preview-side-small: 10rem;
+    --img-search: 4rem;
+    --img-search-small: 2rem;
+    --price-default: #fff;
+    --price-sale: orangered;
+    --price-ps-plus: gold;
+    --transition-speed: 600ms;
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg-primary);
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+body::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--bg-secondary);
+}
+
+a.link {
+    color: #07c;
+    text-decoration: none;
+}
+
+.dropdown-toggle::after {
+  display:none;
+}

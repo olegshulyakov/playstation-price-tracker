@@ -1,0 +1,86 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install dependencies",
+            "type": "shell",
+            "command": "npm install --no-optional --no-fund --no-audit",
+            "problemMatcher": [],
+            "group": "none"
+        },
+        {
+            "label": "Install dependencies using Yarn",
+            "type": "shell",
+            "command": "yarn install --check-files --ignore-optional",
+            "problemMatcher": [],
+            "group": "none"
+        },
+        {
+            "label": "Format code",
+            "type": "npm",
+            "script": "prettier",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "Start server",
+            "type": "npm",
+            "script": "start",
+            "problemMatcher": [],
+            "group": "none"
+        },
+        {
+            "label": "Run tests",
+            "type": "npm",
+            "script": "test",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build production",
+            "type": "npm",
+            "script": "build",
+            "problemMatcher": [
+                "$eslint-stylish",
+                "$tsc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Deploy",
+            "type": "npm",
+            "script": "deploy",
+            "problemMatcher": []
+        },
+        {
+            "label": "Grabber: Build",
+            "type": "shell",
+            "command": "npm run build",
+            "options": {
+                "cwd": "${workspaceRoot}/grabber"
+            },
+            "problemMatcher": [
+                "$eslint-stylish",
+                "$tsc"
+            ]
+        },
+        {
+            "label": "Grabber: Start",
+            "type": "shell",
+            "command": "npm start",
+            "options": {
+                "cwd": "${workspaceRoot}/grabber"
+            },
+            "dependsOn": "Grabber: Build",
+            "problemMatcher": []
+        }
+    ]
+}
