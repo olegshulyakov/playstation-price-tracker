@@ -1,17 +1,33 @@
-# 🚀 Welcome to your new awesome project!
+# 🕹 Welcome to **PSN Tracker** project!
 
 [![Build Status](https://travis-ci.org/olegshulyakov/game-price-tracker.svg?branch=master)](https://travis-ci.org/olegshulyakov/game-price-tracker)
 
-This project has been created using **webpack scaffold**, you can now run
+Live [Demo](https://psn-tracker-web.app)
 
-```
-npm run build
-```
+## Description
 
-or
+This project is a try to prettify Playstation store UI with modern technologies.
 
-```
-yarn build
-```
+## Development
 
-to bundle your application
+### Setup
+
+Install required dependencies
+
+| NPM | Yarn |
+| ------------- |:-------------:|
+| ```npm install --no-optional --no-fund --no-audit``` | ```yarn install --check-files --ignore-optional``` |
+
+### Build
+
+To bundle application
+
+| NPM | Yarn |
+| ------------- |:-------------:|
+| ```npm run build``` | ```yarn build``` |
+
+### Launch
+
+| NPM | Yarn |
+| ------------- |:-------------:|
+| ```npm start``` | ```yarn start``` |
