@@ -6,7 +6,7 @@
         {
             "label": "Install dependencies",
             "type": "shell",
-            "command": "npm install --no-optional",
+            "command": "npm install --no-optional --no-fund --no-audit",
             "problemMatcher": [],
             "group": "none"
         },
