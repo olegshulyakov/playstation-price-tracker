@@ -14,18 +14,9 @@
  * limitations under the License.
  */
 
-import * as types from "./types";
-import * as constants from "./constants";
-import * as queries from "./queries";
-import * as helpers from "./helpers";
-
-export { types, constants, queries, helpers };
-
-const playStationApi = {
-    ...constants,
-    ...helpers,
-    ...queries,
-    ...types,
+module.exports = {
+    presets: [
+        ["@babel/preset-env", { targets: { node: "current" } }],
+        "@babel/preset-typescript",
+    ],
 };
-
-export default playStationApi;

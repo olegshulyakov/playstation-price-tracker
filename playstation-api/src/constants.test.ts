@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-import * as types from "./types";
-import * as constants from "./constants";
-import * as queries from "./queries";
-import * as helpers from "./helpers";
+import * as PlayStationApiConstants from "./constants";
 
-export { types, constants, queries, helpers };
-
-const playStationApi = {
-    ...constants,
-    ...helpers,
-    ...queries,
-    ...types,
-};
-
-export default playStationApi;
+test("Test constants", () => {
+    expect(PlayStationApiConstants.DEFAULT_FETCH_SIZE).toBe(25);
+    expect(PlayStationApiConstants.DEFAULT_SEARCH_SIZE).toBe(5);
+    expect(PlayStationApiConstants.SORT_DIRECTIONS.ASC).toBe("asc");
+    expect(PlayStationApiConstants.SORT_DIRECTIONS.DESC).toBe("desc");
+    expect(PlayStationApiConstants.REGIONS.length).toBe(59);
+});
