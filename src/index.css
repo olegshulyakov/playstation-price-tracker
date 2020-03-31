@@ -28,9 +28,9 @@
     --img-preview-side-small: 10rem;
     --img-search: 4rem;
     --img-search-small: 2rem;
-    --price-default: #fff;
-    --price-sale: orangered;
-    --price-ps-plus: gold;
+    --price-default: #6c757d;
+    --price-sale: #dc3545;
+    --price-ps-plus: #ffc107;
     --transition-speed: 600ms;
 }
 

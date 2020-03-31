@@ -67,8 +67,8 @@ const GamePreviewBadge = styled.span`
 `;
 
 const GamePreviewDefaultPrice = styled.span`
-    background-color: var(--bg-secondary);
-    color: var(--price-default);
+    background-color: var(--price-default);
+    color: var(--text-secondary);
 
     width: 100%;
     text-align: center;
@@ -85,8 +85,8 @@ const GamePreviewDefaultPrice = styled.span`
 `;
 
 const GamePreviewSalePrice = styled.span`
-    background-color: var(--bg-secondary);
-    color: var(--price-sale);
+    background-color: var(--price-sale);
+    color: var(--text-secondary);
 
     width: 100%;
     text-align: center;
@@ -103,8 +103,8 @@ const GamePreviewSalePrice = styled.span`
 `;
 
 const GamePreviewPsPlusPrice = styled.span`
-    background-color: var(--bg-secondary);
-    color: var(--price-ps-plus);
+    background-color: var(--price-ps-plus);
+    color: var(--text-secondary);
     margin-top: 0.05rem;
 
     width: 100%;
