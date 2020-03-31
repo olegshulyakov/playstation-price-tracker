@@ -38,9 +38,9 @@ ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={() => <App/>}/>
-                <Route path="/about" exact component={() => <About/>}/>
-                <Route path="/game/:cusa" component={() => <GameDetail/>}/>
+                <Route path="/" exact component={() => <App />} />
+                <Route path="/about" exact component={() => <About />} />
+                <Route path="/game/:cusa" component={() => <GameDetail />} />
             </Switch>
         </BrowserRouter>
     </Provider>,

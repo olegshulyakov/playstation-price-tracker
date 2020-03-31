@@ -63,5 +63,5 @@ a.link {
 }
 
 .dropdown-toggle::after {
-  display:none;
+    display: none;
 }

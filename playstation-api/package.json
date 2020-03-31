@@ -1,55 +1,55 @@
 {
-  "name": "playstation-api",
-  "version": "1.0.0",
-  "description": "Playstation API for JavaScript/Typescript",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "deprecated": false,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/olegshulyakov/game-price-tracker/playstation-api"
-  },
-  "author": "Oleg Shulyakov",
-  "license": "MIT",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "clean": "rimraf dist",
-    "lint": "tslint -p tsconfig.json -c tslint.json --fix",
-    "test": "jest",
-    "build": "npm run clean && npm run lint && tsc -d"
-  },
-  "peerDependencies": {
-    "tslint": "^6.1.0",
-    "tslint-config-airbnb": "^5.11.2",
-    "typescript": "^3.8.3"
-  },
-  "dependencies": {
-    "node-fetch": "^2.6.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
-    "@babel/preset-typescript": "^7.9.0",
-    "@types/jest": "^25.1.4",
-    "babel-jest": "^25.2.4",
-    "jest": "^25.2.4",
-    "rimraf": "^3.0.2",
-    "tslint": "^6.1.0",
-    "tslint-config-airbnb": "^5.11.2",
-    "typescript": "^3.8.3"
-  },
-  "prettier": {
-    "printWidth": 250,
-    "tabWidth": 4,
-    "useTabs": false,
-    "semi": true,
-    "singleQuote": false,
-    "trailingComma": "all",
-    "bracketSpacing": true,
-    "arrowParens": "always",
-    "endOfLine": "auto"
-  }
+    "name": "playstation-api",
+    "version": "1.0.0",
+    "description": "Playstation API for JavaScript/Typescript",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "deprecated": false,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/olegshulyakov/game-price-tracker/playstation-api"
+    },
+    "author": "Oleg Shulyakov",
+    "license": "MIT",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "clean": "rimraf dist",
+        "lint": "tslint -p tsconfig.json -c tslint.json --fix",
+        "test": "jest",
+        "build": "npm run clean && npm run lint && tsc -d"
+    },
+    "peerDependencies": {
+        "tslint": "^6.1.0",
+        "tslint-config-airbnb": "^5.11.2",
+        "typescript": "^3.8.3"
+    },
+    "dependencies": {
+        "node-fetch": "^2.6.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.0",
+        "@babel/preset-typescript": "^7.9.0",
+        "@types/jest": "^25.1.4",
+        "babel-jest": "^25.2.4",
+        "jest": "^25.2.4",
+        "rimraf": "^3.0.2",
+        "tslint": "^6.1.0",
+        "tslint-config-airbnb": "^5.11.2",
+        "typescript": "^3.8.3"
+    },
+    "prettier": {
+        "printWidth": 250,
+        "tabWidth": 4,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": false,
+        "trailingComma": "all",
+        "bracketSpacing": true,
+        "arrowParens": "always",
+        "endOfLine": "auto"
+    }
 }

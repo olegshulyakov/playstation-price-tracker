@@ -8,14 +8,14 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "index.js",
-        libraryTarget: 'umd',
-        library: 'playstation-api',
-        umdNamedDefine: true
+        libraryTarget: "umd",
+        library: "playstation-api",
+        umdNamedDefine: true,
     },
     resolve: {
         extensions: [".ts", ".js"],
     },
-    devtool: 'source-map',
+    devtool: "source-map",
     module: {
         rules: [
             {

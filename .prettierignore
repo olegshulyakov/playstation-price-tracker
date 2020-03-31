@@ -3,6 +3,7 @@ build
 .firebase
 .idea
 .vscode
+*.lock
 
 *.xml
 
