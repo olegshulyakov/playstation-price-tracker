@@ -16,7 +16,7 @@
 
 import "./GameDetail.css";
 import React from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { GAME } from "../store/keys";
@@ -33,6 +33,11 @@ const GameDetailContainer = styled.div`
     height: 100%;
     width: 100%;
     margin: 0;
+    padding: 0.5rem 0.5rem 3rem;
+
+    @media screen and (min-width: 600px) {
+        padding: 3rem 1rem 0.5rem;
+    }
 `;
 
 const GameDetailGrid = styled.div`
@@ -169,8 +174,15 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
         }
 
         return (
+            <>
+            <Header isSearchEnabled={true}/>
             <GameDetailContainer>
-                <Header isSearchEnabled={true}/>
+                <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item"><Link to="/">Home</Link></li>
+                        <li className="breadcrumb-item active" aria-current="page">{game.name}</li>
+                    </ol>
+                </nav>
                 <GameDetailGrid>
                     <HiddenDesktop>
                         <GameDetailMediaCard region={this.props.region} game={game}/>
@@ -211,6 +223,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                 </GameDetailGrid>
                 <Footer/>
             </GameDetailContainer>
+            </>
         );
     }
 }
