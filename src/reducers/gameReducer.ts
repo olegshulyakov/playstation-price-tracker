@@ -15,52 +15,41 @@
  */
 
 import { CLEAR_GAMES_STORE, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP, SEARCH_GAMES } from "../actions/types";
-import { GAMES, PREVIEWS, STORE } from "../store/keys";
 import { arrayToMap, mapToArray } from "../services/converter";
 
 const initialState: PlaystationStore = {
     info: undefined,
-    previews: undefined,
+    previews: [],
 };
 
 export default (state = initialState, action: any) => {
     switch (action.type) {
         case FETCH_GAMES_COUNT:
-            localStorage.setItem(STORE, JSON.stringify(action.info));
-
             return {
                 ...state,
                 info: action.info,
-            } as PlaystationStore;
+            };
 
         case FETCH_PREVIEW_MAP:
             const previewsMap = arrayToMap(state.previews);
-
             for (let i = 0; i < action.games.length; i++) {
                 const game = action.games[i];
                 previewsMap.set(game.id, game);
             }
 
             const previews = mapToArray(previewsMap);
-
-            localStorage.removeItem(PREVIEWS);
-            localStorage.setItem(PREVIEWS, JSON.stringify(previews));
-
             return {
                 ...state,
                 previews: previews,
-            } as PlaystationStore;
+            };
 
         case CLEAR_GAMES_STORE:
-            localStorage.removeItem(STORE);
-            localStorage.removeItem(GAMES);
-
             return {
                 info: undefined,
                 games: undefined,
                 map: undefined,
                 search: undefined,
-            } as PlaystationStore;
+            };
 
         case SEARCH_GAMES:
             const map = new Map();
@@ -76,7 +65,7 @@ export default (state = initialState, action: any) => {
             return {
                 ...state,
                 search: array,
-            } as PlaystationStore;
+            };
 
         default:
             return state;

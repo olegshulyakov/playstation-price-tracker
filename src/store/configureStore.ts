@@ -14,46 +14,14 @@
  * limitations under the License.
  */
 
-import { createStore, applyMiddleware, StoreEnhancer, compose, Middleware } from "redux";
+import { applyMiddleware, compose, createStore, Middleware, StoreEnhancer } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import rootReducer from "../reducers";
-import { REGIONS, REGION, STORE, PREVIEWS } from "./keys";
-
-let persistedRegions = undefined;
-try {
-    const str = localStorage.getItem(REGIONS);
-    persistedRegions = JSON.parse(str!);
-} catch (e) {}
-
-let persistedRegion = undefined;
-try {
-    const str = localStorage.getItem(REGION);
-    persistedRegion = JSON.parse(str!);
-} catch (e) {}
-
-let persistedStoreInfo = undefined;
-try {
-    const str = localStorage.getItem(STORE);
-    persistedStoreInfo = JSON.parse(str!);
-} catch (e) {}
-
-let persistedGamePreviews = undefined;
-try {
-    const str = localStorage.getItem(PREVIEWS);
-    persistedGamePreviews = JSON.parse(str!);
-} catch (e) {}
-
-const initialStoreState: PlaystationStore = {
-    info: persistedStoreInfo,
-    previews: persistedGamePreviews,
-};
-
-const initialState: ReduxStoreState = {
-    region: { regions: persistedRegions, current: persistedRegion } as RegionState,
-    store: initialStoreState,
-};
+import { ROOT } from "./keys";
 
 const middlewares: Middleware[] = [thunkMiddleware];
 if (process.env.NODE_ENV === "development") {
@@ -75,6 +43,15 @@ if (process.env.NODE_ENV === "development") {
     composedEnhancers = compose(...enhancers);
 }
 
-const store = createStore(rootReducer, initialState, composedEnhancers);
+const persistConfig = {
+    key: ROOT,
+    storage,
+    blacklist: ["store"],
+};
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = createStore(persistedReducer, composedEnhancers);
+const persistor = persistStore(store);
+
+export { store, persistor };

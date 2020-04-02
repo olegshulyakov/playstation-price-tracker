@@ -21,11 +21,12 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import store from "./store/configureStore";
+import { persistor, store } from "./store/configureStore";
 import { APP_VERSION } from "./store/keys";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import About from "./pages/About";
 import GameDetail from "./pages/GameDetail";
+import { PersistGate } from "redux-persist/integration/react";
 
 const previousAppVersion = localStorage.getItem(APP_VERSION);
 const appVersion = `${process.env.REACT_APP_VERSION}`;
@@ -36,13 +37,15 @@ localStorage.setItem(APP_VERSION, appVersion);
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <Switch>
-                <Route path="/" exact component={() => <App />} />
-                <Route path="/about" exact component={() => <About />} />
-                <Route path="/game/:cusa" component={() => <GameDetail />} />
-            </Switch>
-        </BrowserRouter>
+        <PersistGate loading={null} persistor={persistor}>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/" exact component={() => <App />} />
+                    <Route path="/about" exact component={() => <About />} />
+                    <Route path="/game/:cusa" component={() => <GameDetail />} />
+                </Switch>
+            </BrowserRouter>
+        </PersistGate>
     </Provider>,
     document.getElementById("root"),
 );

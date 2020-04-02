@@ -15,26 +15,32 @@
  */
 
 import { CLEAR_REGION, FETCH_REGIONS, SELECT_REGION } from "../actions/types";
-import { REGION, REGIONS } from "../store/keys";
+import { REGIONS } from "../store/keys";
 import * as PlaystationApi from "playstation-api";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 const initialState: RegionState = {
-    regions: [],
+    regions: PlaystationApi.constants.REGIONS,
     current: undefined,
 };
 
-export default (state = initialState, action: any) => {
+const reducer = (state = initialState, action: any) => {
     switch (action.type) {
         case FETCH_REGIONS:
-            localStorage.setItem(REGIONS, JSON.stringify(action.regions));
             return { ...state, regions: action.regions };
         case SELECT_REGION:
-            localStorage.setItem(REGION, JSON.stringify(action.region));
             return { ...state, current: action.region as PlaystationApi.types.PlaystationRegion };
         case CLEAR_REGION:
-            localStorage.removeItem(REGION);
             return { ...state, current: null };
         default:
             return state;
     }
 };
+
+const regionPersistConfig = {
+    key: REGIONS,
+    storage: storage,
+};
+
+export default persistReducer(regionPersistConfig, reducer);
