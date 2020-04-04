@@ -18,13 +18,15 @@ import { logger } from "../Logger";
 import { getRegions } from "../../services/Firebase";
 import { sleep } from "../Sleep";
 import { RegionGrabber } from "./RegionGrabber";
+import {firestore} from "firebase";
+import Firestore = firestore.Firestore;
 
 const FIREBASE_REGION_PERIOD = 300000;
 
 export class Grabber {
-    private readonly db: FirebaseFirestore.Firestore;
+    private readonly db: Firestore;
 
-    constructor(db: FirebaseFirestore.Firestore) {
+    constructor(db: Firestore) {
         this.db = db;
     }
 

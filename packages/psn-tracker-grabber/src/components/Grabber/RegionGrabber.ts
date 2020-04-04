@@ -17,24 +17,28 @@
 import { logger } from "../Logger";
 import { queryPsStore } from "../../services/Playstation";
 import { sleep } from "../Sleep";
+import {firestore} from "firebase";
+import Firestore = firestore.Firestore;
+import WriteBatch = firestore.WriteBatch;
+import DocumentReference = firestore.DocumentReference;
 
 const BATCH_MAX_SIZE = 100; // should be less 500
 const FIREBASE_BATCH_PERIOD = 1000;
 
 export class RegionGrabber {
-    private readonly db: FirebaseFirestore.Firestore;
+    private readonly db: Firestore;
     private readonly region: any;
     private counter: number = 0;
     private latestTimestamp: number;
-    private batch: FirebaseFirestore.WriteBatch | undefined = undefined;
+    private batch: WriteBatch | undefined = undefined;
 
-    constructor(db: FirebaseFirestore.Firestore, region: any) {
+    constructor(db: Firestore, region: any) {
         this.db = db;
         this.region = region;
         this.latestTimestamp = this.region.timestamp ? this.region.timestamp : 0;
     }
 
-    addBatch(ref: FirebaseFirestore.DocumentReference, doc: any) {
+    addBatch(ref: DocumentReference, doc: any) {
         if (!this.batch) {
             this.batch = this.db.batch();
         }

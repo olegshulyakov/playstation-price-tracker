@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 import * as admin from "firebase-admin";
+import {firestore} from "firebase";
+import Firestore = firestore.Firestore;
 
 export const getFirestore = (serviceAccount: any) => {
     admin.initializeApp({
@@ -24,7 +26,7 @@ export const getFirestore = (serviceAccount: any) => {
     return admin.firestore();
 };
 
-export const getRegions = async (db: FirebaseFirestore.Firestore) => {
+export const getRegions = async (db: Firestore) => {
     const query = await db
         .collection("regions")
         .orderBy("name", "asc")
@@ -39,7 +41,7 @@ export const getRegions = async (db: FirebaseFirestore.Firestore) => {
     return regions;
 };
 
-export const getGames = async (db: FirebaseFirestore.Firestore, region: any) => {
+export const getGames = async (db: Firestore, region: any) => {
     const query = await db
         .collection("regions")
         .doc(`${region.language}-${region.country}`)

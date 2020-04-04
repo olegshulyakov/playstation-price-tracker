@@ -10,7 +10,7 @@
     ]
   },
   "hosting": {
-    "public": "build",
+    "public": "packages/psn-tracker-app/build",
     "ignore": [
       "firebase.json",
       "**/.*",

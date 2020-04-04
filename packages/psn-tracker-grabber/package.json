@@ -1,5 +1,5 @@
 {
-    "name": "grabber",
+    "name": "psn-tracker-grabber",
     "version": "1.0.0",
     "description": "",
     "license": "Apache-2.0",
@@ -7,10 +7,11 @@
     "author": "Oleg Shulyakov",
     "scripts": {
         "lint": "tslint --project tsconfig.json",
-        "build": "webpack",
+        "build": "tsc",
         "start": "npm run build && node ./build/index.js"
     },
     "dependencies": {
+        "firebase": "^7.13.2",
         "firebase-admin": "^8.10.0",
         "node-fetch": "^2.6.0",
         "webpack": "^4.42.0",
