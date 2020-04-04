@@ -2,7 +2,10 @@
   "name": "psn-tracker",
   "version": "1.0.0",
   "description": "PSN games tracker project",
-  "repository": "https://github.com/olegshulyakov/game-price-monitor.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olegshulyakov/game-price-tracker"
+  },
   "author": "Oleg Shulyakov <olegshulyakov@users.noreply.github.com>",
   "license": "Apache-2.0",
   "private": true,

@@ -3,10 +3,6 @@
     "version": "2020.03.29",
     "license": "Apache-2.0",
     "private": true,
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/olegshulyakov/game-price-tracker"
-    },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.27",
         "@fortawesome/free-brands-svg-icons": "^5.12.1",
