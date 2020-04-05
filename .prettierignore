@@ -1,9 +1,24 @@
-build
+**/build
+**/dist
 **/node_modules
+
 .firebase
+.firebaserc
+firestore.rules
+storage.rules
+
 .idea
 .vscode
+
+.gitignore
+.npmignore
+.eslintignore
+.prettierignore
+.editorconfig
+.yarnrc
 *.lock
+
+.DS_Store
 
 *.xml
 
@@ -12,3 +27,5 @@ build
 *.png
 *.svg
 *.log
+
+.env*
