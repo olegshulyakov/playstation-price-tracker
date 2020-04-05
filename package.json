@@ -1,24 +1,41 @@
 {
-  "name": "psn-tracker",
-  "version": "1.0.0",
-  "description": "PSN games tracker project",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/olegshulyakov/game-price-tracker"
-  },
-  "author": "Oleg Shulyakov <olegshulyakov@users.noreply.github.com>",
-  "license": "Apache-2.0",
-  "private": true,
-  "scripts": {
-    "clean": "rimraf packages/**/dist",
-    "bootstrap": "lerna clean --yes && lerna bootstrap -- --no-optional --use-workspaces",
-    "build": "yarn workspaces run build"
-  },
-  "workspaces": [
-    "packages/*"
-  ],
-  "dependencies": {
-    "lerna": "^3.20.2",
-    "rimraf": "^3.0.2"
-  }
+    "name": "psn-tracker",
+    "version": "1.0.0",
+    "description": "PSN games tracker project",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/olegshulyakov/game-price-tracker"
+    },
+    "author": "Oleg Shulyakov <olegshulyakov@users.noreply.github.com>",
+    "license": "Apache-2.0",
+    "private": true,
+    "scripts": {
+        "clean": "rimraf packages/**/dist",
+        "bootstrap": "lerna clean --yes && lerna bootstrap -- --no-optional --use-workspaces",
+        "build": "yarn workspaces run build",
+        "prettier": "prettier --write '**/*.*'",
+        "deploy": "firebase deploy"
+    },
+    "workspaces": [
+        "packages/*"
+    ],
+    "devDependencies": {
+        "lerna": "^3.20.2",
+        "prettier": "^2.0.2",
+        "rimraf": "^3.0.2"
+    },
+    "prettier": {
+        "printWidth": 120,
+        "tabWidth": 4,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": false,
+        "jsxSingleQuote": false,
+        "trailingComma": "all",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": false,
+        "arrowParens": "always",
+        "vueIndentScriptAndStyle": true,
+        "endOfLine": "auto"
+    }
 }
