@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as admin from "firebase-admin";
-import { firestore } from "firebase";
+import { credential, firestore, initializeApp } from "firebase-admin";
 import Firestore = firestore.Firestore;
 
 export const getFirestore = (serviceAccount: any) => {
-    admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
+    initializeApp({
+        credential: credential.cert(serviceAccount),
         databaseURL: "https://psn-tracker.firebaseio.com",
     });
 
-    return admin.firestore();
+    return firestore();
 };
 
 export const getRegions = async (db: Firestore) => {

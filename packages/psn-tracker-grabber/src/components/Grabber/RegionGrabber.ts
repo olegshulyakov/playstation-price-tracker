@@ -17,7 +17,7 @@
 import { logger } from "../Logger";
 import { queryPsStore } from "../../services/Playstation";
 import { sleep } from "../Sleep";
-import { firestore } from "firebase";
+import { firestore } from "firebase-admin";
 import Firestore = firestore.Firestore;
 import WriteBatch = firestore.WriteBatch;
 import DocumentReference = firestore.DocumentReference;
