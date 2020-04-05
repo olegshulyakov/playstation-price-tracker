@@ -18,7 +18,7 @@ import React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
-import LanguageMenu from "../LanguageMenu";
+import LanguageMenu from "./LanguageMenu";
 import { Nav } from "react-bootstrap";
 
 interface HeaderProps extends RouteComponentProps {

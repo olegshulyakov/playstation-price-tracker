@@ -33,7 +33,7 @@ interface GameDetailAttributeCardProps {
     values: string[];
 }
 
-export default class GameDetailAttributeCard extends React.Component<GameDetailAttributeCardProps> {
+export default class AttributeCard extends React.Component<GameDetailAttributeCardProps> {
     render() {
         if (!this.props.attribute || !this.props.values || this.props.values.length === 0) {
             return <></>;

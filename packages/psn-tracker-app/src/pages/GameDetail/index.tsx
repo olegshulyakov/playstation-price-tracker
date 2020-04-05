@@ -23,8 +23,8 @@ import { GAME } from "../../store/keys";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import GameDetailMediaCard from "../../components/GameDetailMediaCard";
-import GameDetailAttributeCard from "../../components/GameDetailAttributeCard";
+import MediaCard from "./MediaCard";
+import AttributeCard from "./AttributeCard";
 import * as PlaystationApi from "playstation-api";
 
 const GameDetailContainer = styled.div`
@@ -189,7 +189,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                     </nav>
                     <GameDetailGrid>
                         <HiddenDesktop>
-                            <GameDetailMediaCard region={this.props.region} game={game} />
+                            <MediaCard region={this.props.region} game={game} />
                         </HiddenDesktop>
 
                         <div>
@@ -216,13 +216,13 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                         </div>
 
                         <HiddenMobile>
-                            <GameDetailMediaCard region={this.props.region} game={game} />
+                            <MediaCard region={this.props.region} game={game} />
                             <SpaceElement />
-                            <GameDetailAttributeCard attribute="Platforms" values={[...platforms.keys()]} />
+                            <AttributeCard attribute="Platforms" values={[...platforms.keys()]} />
                             <SpaceElement />
-                            <GameDetailAttributeCard attribute="Audio" values={[...voices.keys()]} />
+                            <AttributeCard attribute="Audio" values={[...voices.keys()]} />
                             <SpaceElement />
-                            <GameDetailAttributeCard attribute="Subtitles" values={[...subtitles.keys()]} />
+                            <AttributeCard attribute="Subtitles" values={[...subtitles.keys()]} />
                         </HiddenMobile>
                     </GameDetailGrid>
                     <Footer />

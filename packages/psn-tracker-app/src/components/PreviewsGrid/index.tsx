@@ -19,7 +19,7 @@ import { Container } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroller";
 import styled from "styled-components";
 import * as PlaystationApi from "playstation-api";
-import GamePreview from "../GamePreview";
+import GamePreview from "./GamePreview";
 
 const StoreGrid = styled.div`
     display: grid;
