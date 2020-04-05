@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {getFirestore} from "./services/Firebase";
+import { getFirestore } from "./services/Firebase";
 import { Grabber } from "./components/Grabber";
 
 const serviceAccount = require("../serviceAccountKey.json");

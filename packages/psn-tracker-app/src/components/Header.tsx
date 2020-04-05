@@ -61,7 +61,7 @@ class Header extends React.Component<HeaderProps> {
     render() {
         return (
             <HeaderContainer>
-                <FontAwesomeIcon style={{ margin: "0 0.5rem 0 0.5rem" }} icon={faPlaystation} size="2x"/>
+                <FontAwesomeIcon style={{ margin: "0 0.5rem 0 0.5rem" }} icon={faPlaystation} size="2x" />
                 <HeaderTitle
                     className="App-title"
                     onClick={() => {
@@ -70,13 +70,9 @@ class Header extends React.Component<HeaderProps> {
                 >
                     PSN tracker
                 </HeaderTitle>
-                {this.props.isSearchEnabled ? (
-                    <Search/>
-                ) : (
-                    <></>
-                )}
+                {this.props.isSearchEnabled ? <Search /> : <></>}
 
-                {this.props.isLanguageEnabled ? <LanguageMenu/> : <></>}
+                {this.props.isLanguageEnabled ? <LanguageMenu /> : <></>}
             </HeaderContainer>
         );
     }

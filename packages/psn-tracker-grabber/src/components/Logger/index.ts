@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import {createLogger, format, transports} from "winston";
+import { createLogger, format, transports } from "winston";
 
-const myFormat = format.printf(({level, message, timestamp}) => {
+const myFormat = format.printf(({ level, message, timestamp }) => {
     return `${timestamp} ${level.toUpperCase()}: ${message}`;
 });
 
 export const logger = createLogger({
     level: "debug",
     format: format.combine(format.timestamp(), myFormat),
-    transports: [new transports.Console(), new transports.File({filename: "grabber.log"})],
+    transports: [new transports.Console(), new transports.File({ filename: "grabber.log" })],
 });

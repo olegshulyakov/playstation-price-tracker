@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import fetch from "node-fetch";
-import {logger} from "../../components/Logger";
+import { logger } from "../../components/Logger";
 
 export const queryPsStore = async (region: any, cusa: string, size: number = 0, start: number = 0) => {
     logger.debug(`[${region.name}] Quering cusa=${cusa}, start=${start}, size=${size}`);

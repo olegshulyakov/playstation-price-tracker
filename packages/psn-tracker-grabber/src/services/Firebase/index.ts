@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import * as admin from "firebase-admin";
-import {firestore} from "firebase";
+import { firestore } from "firebase";
 import Firestore = firestore.Firestore;
 
 export const getFirestore = (serviceAccount: any) => {
@@ -27,10 +27,7 @@ export const getFirestore = (serviceAccount: any) => {
 };
 
 export const getRegions = async (db: Firestore) => {
-    const query = await db
-        .collection("regions")
-        .orderBy("name", "asc")
-        .get();
+    const query = await db.collection("regions").orderBy("name", "asc").get();
     if (!query || query.docs.length === 0) return undefined;
 
     const regions = [];
@@ -42,11 +39,7 @@ export const getRegions = async (db: Firestore) => {
 };
 
 export const getGames = async (db: Firestore, region: any) => {
-    const query = await db
-        .collection("regions")
-        .doc(`${region.language}-${region.country}`)
-        .collection("games")
-        .get();
+    const query = await db.collection("regions").doc(`${region.language}-${region.country}`).collection("games").get();
 
     const map = new Map<string, any>();
     if (!query || query.docs.length === 0) return map;

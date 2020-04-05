@@ -74,9 +74,9 @@ export const clearGamesStore = () => async (dispatch: Function) => {
     dispatch({ type: CLEAR_GAMES_STORE });
 };
 
-export const searchGames = (region: PlaystationApi.types.PlaystationRegion,
-                            searchString: string
-) => async (dispatch: Function) => {
+export const searchGames = (region: PlaystationApi.types.PlaystationRegion, searchString: string) => async (
+    dispatch: Function,
+) => {
     if (!region || !region.name) {
         console.warn("No region specified.");
         return;

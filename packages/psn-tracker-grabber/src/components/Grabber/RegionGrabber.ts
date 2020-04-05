@@ -17,7 +17,7 @@
 import { logger } from "../Logger";
 import { queryPsStore } from "../../services/Playstation";
 import { sleep } from "../Sleep";
-import {firestore} from "firebase";
+import { firestore } from "firebase";
 import Firestore = firestore.Firestore;
 import WriteBatch = firestore.WriteBatch;
 import DocumentReference = firestore.DocumentReference;
@@ -88,7 +88,7 @@ export class RegionGrabber {
         const total = info.total_results;
         let start = 0;
         while (start < total) {
-            const size = (start + BATCH_MAX_SIZE) <= total ? BATCH_MAX_SIZE : total - start;
+            const size = start + BATCH_MAX_SIZE <= total ? BATCH_MAX_SIZE : total - start;
             const gamesJson = await queryPsStore(this.region, this.region.root, size, start);
 
             if (!gamesJson || !gamesJson.links || gamesJson.links.length === 0) {
@@ -110,9 +110,7 @@ export class RegionGrabber {
 
     async updateRegion() {
         this.region.timestamp = this.latestTimestamp;
-        const regionRef = this.db
-            .collection("regions")
-            .doc(`${this.region.language}-${this.region.country}`);
+        const regionRef = this.db.collection("regions").doc(`${this.region.language}-${this.region.country}`);
         this.addBatch(regionRef, this.region);
         await this.commitBatch();
     }
@@ -123,5 +121,5 @@ export class RegionGrabber {
         await this.loadGames(info);
         await this.updateRegion();
         logger.info(`[${this.region.name}] Finish processing`);
-    };
+    }
 }

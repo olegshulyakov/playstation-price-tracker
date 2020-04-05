@@ -140,10 +140,7 @@ class GamePreview extends React.Component<GamePreviewProps> {
 
     redirectToPsStore(event: any) {
         event.preventDefault();
-        window.open(
-            PlaystationApi.helpers.getStoreGameLink(this.props.region, this.props.game.id),
-            "_blank",
-        );
+        window.open(PlaystationApi.helpers.getStoreGameLink(this.props.region, this.props.game.id), "_blank");
     }
 
     render() {

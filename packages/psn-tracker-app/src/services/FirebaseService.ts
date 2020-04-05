@@ -54,16 +54,13 @@ try {
 }
 
 export const getRegions = async (): Promise<PlaystationApi.types.PlaystationRegion[]> => {
-    const querySnapshot = await firestore
-        .collection("regions")
-        .orderBy("name", "asc")
-        .get();
+    const querySnapshot = await firestore.collection("regions").orderBy("name", "asc").get();
     if (querySnapshot.empty) {
         return [];
     }
 
     const regions: PlaystationApi.types.PlaystationRegion[] = [];
-    querySnapshot.forEach(function(doc) {
+    querySnapshot.forEach(function (doc) {
         const data = doc.data();
         // console.debug(doc.id, " => ", data);
         const region = {

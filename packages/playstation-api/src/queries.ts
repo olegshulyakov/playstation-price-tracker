@@ -44,15 +44,15 @@ export async function query(region: PlaystationRegion, cusa: string, size: numbe
 }
 
 export async function getGameInfo(region: PlaystationRegion, cusa: string): Promise<PlaystationGameResponse> {
-    return await query(region, cusa, 0) as PlaystationGameResponse;
+    return (await query(region, cusa, 0)) as PlaystationGameResponse;
 }
 
 export async function getStoreInfo(region: PlaystationRegion): Promise<PlaystationResponse> {
-    return await query(region, region.root, 0) as PlaystationResponse;
+    return (await query(region, region.root, 0)) as PlaystationResponse;
 }
 
 export async function getGamesList(region: PlaystationRegion, size: number = DEFAULT_FETCH_SIZE, start: number = 0): Promise<PlaystationGameResponse[]> {
-    const json = await query(region, region.root, size, start) as PlaystationResponse;
+    const json = (await query(region, region.root, size, start)) as PlaystationResponse;
     return json.links;
 }
 

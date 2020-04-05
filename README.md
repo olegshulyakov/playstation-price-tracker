@@ -10,24 +10,20 @@ This project is a try to prettify Playstation store UI with modern technologies.
 
 ## Development
 
+We are using [Yarn](https://yarnpkg.com/) and [Lerna](https://lerna.js.org/) to manage all sub-projects.
+
 ### Setup
 
-Install required dependencies
-
-| NPM | Yarn |
-| ------------- |:-------------:|
-| ```npm install --no-optional --no-fund --no-audit``` | ```yarn install --check-files --ignore-optional``` |
+Install required dependencies `yarn bootstrap`.
 
 ### Build
 
-To bundle application
-
-| NPM | Yarn |
-| ------------- |:-------------:|
-| ```npm run build``` | ```yarn build``` |
+To bundle application `yarn build`.
 
 ### Launch
 
-| NPM | Yarn |
-| ------------- |:-------------:|
-| ```npm start``` | ```yarn start``` |
+#### Web
+```
+cd packages/psn-tracker-app
+yarn start
+```

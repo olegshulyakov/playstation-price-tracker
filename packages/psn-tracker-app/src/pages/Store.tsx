@@ -68,7 +68,6 @@ interface StoreProps {
 }
 
 class Store extends React.Component<StoreProps> {
-
     constructor(props: StoreProps) {
         super(props);
         this.loadNextPage = this.loadNextPage.bind(this);
@@ -76,7 +75,11 @@ class Store extends React.Component<StoreProps> {
     }
 
     hasMoreItems() {
-        return !(!this.props.store.info || !this.props.store.previews || this.props.store.previews.length >= this.props.store.info.total_results);
+        return !(
+            !this.props.store.info ||
+            !this.props.store.previews ||
+            this.props.store.previews.length >= this.props.store.info.total_results
+        );
     }
 
     loadNextPage(nextPage: number) {
@@ -94,7 +97,7 @@ class Store extends React.Component<StoreProps> {
         const games = this.props.store.previews.slice().map((item) => {
             return (
                 <StoreGridItem key={"game-preview-" + item.key}>
-                    <GamePreview region={this.props.region} game={item.game}/>
+                    <GamePreview region={this.props.region} game={item.game} />
                 </StoreGridItem>
             );
         });
@@ -103,15 +106,16 @@ class Store extends React.Component<StoreProps> {
 
         return (
             <StoreContainer>
-                <InfiniteScroll key={"infinite-scroll"}
-                                hasMore={this.hasMoreItems()}
-                                initialLoad={true}
-                                isReverse={false}
-                                loadMore={this.loadNextPage}
-                                pageStart={0}
-                                threshold={threshold}
-                                useCapture={false}
-                                useWindow={true}
+                <InfiniteScroll
+                    key={"infinite-scroll"}
+                    hasMore={this.hasMoreItems()}
+                    initialLoad={true}
+                    isReverse={false}
+                    loadMore={this.loadNextPage}
+                    pageStart={0}
+                    threshold={threshold}
+                    useCapture={false}
+                    useWindow={true}
                 >
                     <StoreGrid>{games}</StoreGrid>
                 </InfiniteScroll>

@@ -75,7 +75,7 @@ class Search extends React.Component<SearchProps> {
                     this.props.history.push({ pathname: "/game/" + item.id, state: item.url });
                 }}
             >
-                <SearchImage src={item.image} alt={item.name} title={item.name}/>
+                <SearchImage src={item.image} alt={item.name} title={item.name} />
                 {item.name} {item.display_price}
             </Dropdown.Item>
         );
@@ -86,25 +86,24 @@ class Search extends React.Component<SearchProps> {
         const dropType = window.innerWidth < 600 ? "up" : "down";
 
         return (
-            <Dropdown key="search"
-                      alignRight={true}
-                      drop={dropType}
-                      style={{ flexGrow: 1, textAlign: "end" }}>
-                <Dropdown.Toggle id="search-input"
-                                 key="search-toggle"
-                                 style={{
-                                     border: 0,
-                                     backgroundColor: "transparent",
-                                 }}>
-                    <SearchInput key="search-input"
-                                 type="text"
-                                 placeholder="Search here..."
-                                 onChange={e => this.handleInputChange(e)}/>
+            <Dropdown key="search" alignRight={true} drop={dropType} style={{ flexGrow: 1, textAlign: "end" }}>
+                <Dropdown.Toggle
+                    id="search-input"
+                    key="search-toggle"
+                    style={{
+                        border: 0,
+                        backgroundColor: "transparent",
+                    }}
+                >
+                    <SearchInput
+                        key="search-input"
+                        type="text"
+                        placeholder="Search here..."
+                        onChange={(e) => this.handleInputChange(e)}
+                    />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu key="search-menu"
-                               alignRight={true}
-                               flip={true}>
+                <Dropdown.Menu key="search-menu" alignRight={true} flip={true}>
                     {games}
                 </Dropdown.Menu>
             </Dropdown>

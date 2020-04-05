@@ -151,7 +151,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
         const game = this.state.game;
         if (!this.state.isLoaded || !game || !game.name || !game.images) {
-            return <LoadingSpinner msg={<p>Loading game information...</p>}/>;
+            return <LoadingSpinner msg={<p>Loading game information...</p>} />;
         }
 
         const gameLink = PlaystationApi.helpers.getStoreGameLink(this.props.region, game.id);
@@ -175,54 +175,58 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
         return (
             <>
-            <Header isSearchEnabled={true}/>
-            <GameDetailContainer>
-                <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                        <li className="breadcrumb-item active" aria-current="page">{game.name}</li>
-                    </ol>
-                </nav>
-                <GameDetailGrid>
-                    <HiddenDesktop>
-                        <GameDetailMediaCard region={this.props.region} game={game}/>
-                    </HiddenDesktop>
+                <Header isSearchEnabled={true} />
+                <GameDetailContainer>
+                    <nav aria-label="breadcrumb">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item">
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li className="breadcrumb-item active" aria-current="page">
+                                {game.name}
+                            </li>
+                        </ol>
+                    </nav>
+                    <GameDetailGrid>
+                        <HiddenDesktop>
+                            <GameDetailMediaCard region={this.props.region} game={game} />
+                        </HiddenDesktop>
 
-                    <div>
-                        <GameDetailTitle
-                            onClick={() => {
-                                window.open(gameLink, "_blank");
-                            }}
-                        >
-                            {game.name}
-                            {game.content_rating?.url ? (
-                                <img
-                                    src={game.content_rating?.url}
-                                    loading="eager"
-                                    alt="rating"
-                                    height="45px"
-                                    width="45px"
-                                />
-                            ) : (
-                                <></>
-                            )}
-                        </GameDetailTitle>
+                        <div>
+                            <GameDetailTitle
+                                onClick={() => {
+                                    window.open(gameLink, "_blank");
+                                }}
+                            >
+                                {game.name}
+                                {game.content_rating?.url ? (
+                                    <img
+                                        src={game.content_rating?.url}
+                                        loading="eager"
+                                        alt="rating"
+                                        height="45px"
+                                        width="45px"
+                                    />
+                                ) : (
+                                    <></>
+                                )}
+                            </GameDetailTitle>
 
-                        <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }}/>
-                    </div>
+                            <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }} />
+                        </div>
 
-                    <HiddenMobile>
-                        <GameDetailMediaCard region={this.props.region} game={game}/>
-                        <SpaceElement/>
-                        <GameDetailAttributeCard attribute="Platforms" values={[...platforms.keys()]}/>
-                        <SpaceElement/>
-                        <GameDetailAttributeCard attribute="Audio" values={[...voices.keys()]}/>
-                        <SpaceElement/>
-                        <GameDetailAttributeCard attribute="Subtitles" values={[...subtitles.keys()]}/>
-                    </HiddenMobile>
-                </GameDetailGrid>
-                <Footer/>
-            </GameDetailContainer>
+                        <HiddenMobile>
+                            <GameDetailMediaCard region={this.props.region} game={game} />
+                            <SpaceElement />
+                            <GameDetailAttributeCard attribute="Platforms" values={[...platforms.keys()]} />
+                            <SpaceElement />
+                            <GameDetailAttributeCard attribute="Audio" values={[...voices.keys()]} />
+                            <SpaceElement />
+                            <GameDetailAttributeCard attribute="Subtitles" values={[...subtitles.keys()]} />
+                        </HiddenMobile>
+                    </GameDetailGrid>
+                    <Footer />
+                </GameDetailContainer>
             </>
         );
     }

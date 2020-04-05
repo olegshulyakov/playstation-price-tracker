@@ -19,7 +19,9 @@ interface CountryCodeCallBack {
 }
 
 export const getAddress = async (pos: Position): Promise<string> => {
-    const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`);
+    const resp = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`,
+    );
     const json = await resp.json();
     if (!json.address || !json.address.country_code) return "";
 
@@ -28,9 +30,9 @@ export const getAddress = async (pos: Position): Promise<string> => {
 
 export const getCountryCode = (callback: CountryCodeCallBack) => {
     if (!navigator || !navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(pos => {
+    navigator.geolocation.getCurrentPosition((pos) => {
         getAddress(pos)
-            .then(country_code => callback(country_code))
-            .catch(e => console.error(e));
+            .then((country_code) => callback(country_code))
+            .catch((e) => console.error(e));
     });
 };

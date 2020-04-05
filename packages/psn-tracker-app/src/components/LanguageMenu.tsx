@@ -65,19 +65,21 @@ class LanguageMenu extends React.Component<LanguageMenuProps> {
 
         return (
             <Dropdown>
-                <Dropdown.Toggle id="language-menu" size="sm" style={{
-                    marginRight: "0.25rem",
-                    border: 0,
-                    color: "var(--text-secondary)",
-                    backgroundColor: "transparent",
-                    fontSize: "0.8rem",
-                }}>
-                    <FontAwesomeIcon icon={faLanguage} size="2x"/>
+                <Dropdown.Toggle
+                    id="language-menu"
+                    size="sm"
+                    style={{
+                        marginRight: "0.25rem",
+                        border: 0,
+                        color: "var(--text-secondary)",
+                        backgroundColor: "transparent",
+                        fontSize: "0.8rem",
+                    }}
+                >
+                    <FontAwesomeIcon icon={faLanguage} size="2x" />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                    {regions}
-                </Dropdown.Menu>
+                <Dropdown.Menu>{regions}</Dropdown.Menu>
             </Dropdown>
         );
     }

@@ -56,10 +56,7 @@ interface GameDetailMediaCardProps {
 
 export default class GameDetailMediaCard extends React.Component<GameDetailMediaCardProps> {
     redirectToPsStore() {
-        window.open(
-            PlaystationApi.helpers.getStoreGameLink(this.props.region, this.props.game.id),
-            "_blank",
-        );
+        window.open(PlaystationApi.helpers.getStoreGameLink(this.props.region, this.props.game.id), "_blank");
     }
 
     render() {
