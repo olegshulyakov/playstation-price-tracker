@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Oleg Shulyakov
+ * Copyright (c) 2020. Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { selectRegion } from "../actions/regionActions";
-import { clearGamesStore } from "../actions/gameActions";
-import { getCountryCode } from "../services/GeoLocation";
+import { selectRegion } from "../../actions/regionActions";
+import { clearGamesStore } from "../../actions/gameActions";
+import { getCountryCode } from "../../services/GeoLocation";
 import * as PlaystationApi from "playstation-api";
-
-const SelectRegionContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2.5rem 1rem 0.5rem;
-`;
+import { Container } from "react-bootstrap";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
 const SelectRegionGrid = styled.div`
     min-height: 0;
@@ -65,7 +62,7 @@ const SelectRegionName = styled.p`
     text-align: center;
 `;
 
-export interface SelectRegionProps extends RegionState {
+export interface SelectRegionProps extends RegionState, RouteComponentProps {
     selectRegion: Function;
     clearGamesStore: Function;
 }
@@ -83,6 +80,12 @@ class SelectRegion extends React.Component<SelectRegionProps> {
                 this.props.selectRegion(region);
             }
         });
+    }
+
+    componentDidUpdate(prevProps: Readonly<SelectRegionProps>, prevState: Readonly<{}>, snapshot?: any): void {
+        if (this.props.current) {
+            this.props.history.push("/");
+        }
     }
 
     renderRegion(region: PlaystationApi.types.PlaystationRegion) {
@@ -103,18 +106,23 @@ class SelectRegion extends React.Component<SelectRegionProps> {
     render() {
         const regions = this.props.regions.map((region) => this.renderRegion(region));
         return (
-            <SelectRegionContainer>
-                <SelectRegionHeader>Please select your country / region</SelectRegionHeader>
-                <SelectRegionGrid>{regions}</SelectRegionGrid>
-            </SelectRegionContainer>
+            <>
+                <Header />
+                <Container fluid>
+                    <SelectRegionHeader>Please select your country / region</SelectRegionHeader>
+                    <SelectRegionGrid>{regions}</SelectRegionGrid>
+                </Container>
+                <Footer />
+            </>
         );
     }
 }
 
 const mapStateToProps = (state: ReduxStoreState) =>
     ({ regions: state.region.regions, current: state.region.current } as RegionState);
-
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
     selectRegion: selectRegion,
     clearGamesStore: clearGamesStore,
-})(SelectRegion);
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SelectRegion));

@@ -19,9 +19,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`
-    position: static;
-    z-index: 1;
-    bottom: 0;
+    margin-top: auto;
     width: 100%;
     display: flex;
     flex-shrink: 0;

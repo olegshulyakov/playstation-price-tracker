@@ -29,7 +29,7 @@ interface RegionState {
 interface PlaystationStore {
     info?: PlaystationObject;
     previews?: PreviewGamesMapItem[];
-    search?: PlaystationItemPreview[];
+    search?: PreviewGamesMapItem[];
 }
 
 interface GameDetailState {
@@ -39,7 +39,7 @@ interface GameDetailState {
 
 interface PreviewGamesMapItem {
     key: string;
-    game: PlaystationObject;
+    game: PlaystationItemPreview;
 }
 
 interface PreviewGamesMap extends Readonly<Map<string, PlaystationItemPreview>> {}

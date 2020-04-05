@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Oleg Shulyakov
+ * Copyright (c) 2020. Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import "./GameDetail.css";
+import "./index.css";
 import React from "react";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { GAME } from "../store/keys";
-import LoadingSpinner from "../components/LoadingSpinner";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import GameDetailMediaCard from "../components/GameDetailMediaCard";
-import GameDetailAttributeCard from "../components/GameDetailAttributeCard";
+import { GAME } from "../../store/keys";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import GameDetailMediaCard from "../../components/GameDetailMediaCard";
+import GameDetailAttributeCard from "../../components/GameDetailAttributeCard";
 import * as PlaystationApi from "playstation-api";
 
 const GameDetailContainer = styled.div`
@@ -175,7 +175,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
         return (
             <>
-                <Header isSearchEnabled={true} />
+                <Header />
                 <GameDetailContainer>
                     <nav aria-label="breadcrumb">
                         <ol className="breadcrumb">

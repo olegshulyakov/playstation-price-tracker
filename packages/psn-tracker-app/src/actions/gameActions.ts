@@ -83,7 +83,11 @@ export const searchGames = (region: PlaystationApi.types.PlaystationRegion, sear
     }
     console.debug(`Searching games for ${region.name}. string=[${searchString}]`);
     try {
-        const json = await PlaystationApi.queries.search(region, searchString);
+        const json = await PlaystationApi.queries.search(
+            region,
+            searchString,
+            PlaystationApi.constants.DEFAULT_FETCH_SIZE,
+        );
         if (!json) {
             return;
         }

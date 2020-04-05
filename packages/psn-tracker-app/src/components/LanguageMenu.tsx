@@ -71,7 +71,7 @@ class LanguageMenu extends React.Component<LanguageMenuProps> {
                     style={{
                         marginRight: "0.25rem",
                         border: 0,
-                        color: "var(--text-secondary)",
+                        color: "var(--text-primary)",
                         backgroundColor: "transparent",
                         fontSize: "0.8rem",
                     }}
