@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Oleg Shulyakov
+ * Copyright (c) 2020. Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,112 +15,9 @@
  */
 
 import React from "react";
+import { Card } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import styled from "styled-components";
 import * as PlaystationApi from "playstation-api";
-
-const GamePreviewContainer = styled.div`
-    cursor: pointer;
-    display: inline-flex;
-    flex-direction: column;
-    position: relative;
-    vertical-align: middle;
-    border-radius: 0.25rem;
-
-    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
-        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-`;
-
-const GamePreviewImage = styled.img`
-    min-height: var(--img-preview-side-small);
-    min-width: var(--img-preview-side-small);
-    max-height: var(--img-preview-side-small);
-    max-width: var(--img-preview-side-small);
-
-    @media (min-width: 600px) {
-        border-radius: 0.25rem;
-        min-height: var(--img-preview-side);
-        min-width: var(--img-preview-side);
-        max-height: var(--img-preview-side);
-        max-width: var(--img-preview-side);
-    }
-`;
-
-const GamePreviewBadge = styled.span`
-    right: 0;
-    bottom: 0;
-    display: flex;
-    position: absolute;
-    flex-wrap: wrap;
-    align-items: center;
-    align-content: center;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 0.1rem;
-    margin-right: 0.1rem;
-
-    @media (min-width: 600px) {
-        margin-bottom: 0.25rem;
-        margin-right: 0.25rem;
-    }
-`;
-
-const GamePreviewDefaultPrice = styled.span`
-    background-color: var(--price-default);
-    color: var(--text-secondary);
-
-    width: 100%;
-    text-align: center;
-    padding: 0.1rem 0.1rem 0.1rem 0.1rem;
-    border-radius: 0.5rem;
-    letter-spacing: -1px;
-    white-space: nowrap;
-    font-weight: 600;
-    font-size: 1.25rem;
-
-    @media (min-width: 600px) {
-        padding: 0.1rem 0.25rem 0.1rem 0.25rem;
-    }
-`;
-
-const GamePreviewSalePrice = styled.span`
-    background-color: var(--price-sale);
-    color: var(--text-secondary);
-
-    width: 100%;
-    text-align: center;
-    padding: 0.1rem 0.1rem 0.1rem 0.1rem;
-    border-radius: 0.5rem;
-    letter-spacing: -1px;
-    white-space: nowrap;
-    font-weight: 600;
-    font-size: 1.25rem;
-
-    @media (min-width: 600px) {
-        padding: 0.1rem 0.25rem 0.1rem 0.25rem;
-    }
-`;
-
-const GamePreviewPsPlusPrice = styled.span`
-    background-color: var(--price-ps-plus);
-    color: var(--text-secondary);
-    margin-top: 0.05rem;
-
-    width: 100%;
-    text-align: center;
-    padding: 0.1rem 0.1rem 0.1rem 0.1rem;
-    border-radius: 0.5rem;
-    letter-spacing: -1px;
-    white-space: nowrap;
-    font-weight: 600;
-    font-size: 1.25rem;
-
-    @media (min-width: 600px) {
-        margin-top: 0.1rem;
-        padding: 0.1rem 0.25rem 0.1rem 0.25rem;
-    }
-`;
 
 export interface GamePreviewProps extends RouteComponentProps {
     region: PlaystationApi.types.PlaystationRegion;
@@ -144,41 +41,42 @@ class GamePreview extends React.Component<GamePreviewProps> {
     }
 
     render() {
-        const prices = [];
-        prices.push(
-            this.props.game.is_sale ? (
-                <GamePreviewSalePrice key={"game-preview-price-" + this.props.game.id}>
-                    {this.props.game.display_price}
-                </GamePreviewSalePrice>
-            ) : (
-                <GamePreviewDefaultPrice key={"game-preview-price-" + this.props.game.id}>
-                    {this.props.game.display_price}
-                </GamePreviewDefaultPrice>
-            ),
+        let price = (
+            <div onClick={this.redirectToPsStore}>
+                <small>{this.props.game.initial_price}</small>
+            </div>
         );
-        if (this.props.game.bonus_price) {
-            prices.push(
-                <GamePreviewPsPlusPrice key={"game-preview-ps-plus-price-" + this.props.game.id}>
-                    {this.props.game.bonus_price}
-                </GamePreviewPsPlusPrice>,
+        if (this.props.game.sale_discount) {
+            price = (
+                <div onClick={this.redirectToPsStore}>
+                    <small className="price-sale"> {this.props.game.sale_discount}% </small>{" "}
+                    <s>
+                        <small>{this.props.game.initial_price}</small>
+                    </s>{" "}
+                    <small>{this.props.game.sale_price}</small>
+                </div>
             );
         }
 
         return (
-            <GamePreviewContainer>
-                <GamePreviewImage
+            <Card className="preview-card">
+                <Card.Img
+                    variant="top"
+                    className="btn p-0"
                     src={this.props.game.image}
                     loading="lazy"
                     alt={this.props.game.name}
                     title={this.props.game.name}
                     placeholder={this.props.game.name}
-                    width={240}
-                    height={240}
                     onClick={() => this.handleGameClick(this.props.game)}
                 />
-
-                <GamePreviewBadge onClick={this.redirectToPsStore}>{prices}</GamePreviewBadge>
-            </GamePreviewContainer>
+                <Card.Body className="p-2 btn" onClick={() => this.handleGameClick(this.props.game)}>
+                    <Card.Title className="m-0 text-left">
+                        <small>{this.props.game.name}</small>
+                    </Card.Title>
+                </Card.Body>
+                <Card.Footer className="text-left p-2">{price}</Card.Footer>
+            </Card>
         );
     }
 }

@@ -65,3 +65,28 @@ a.link {
 .dropdown-toggle::after {
     display: none;
 }
+
+.price-default {
+    background: var(--price-default);
+    color: var(--text-secondary);
+}
+
+.price-sale {
+    background: var(--price-sale);
+    color: var(--text-secondary);
+}
+
+.price-ps-plus {
+    background: var(--price-ps-plus);
+    color: var(--text-secondary);
+}
+
+.preview-card {
+    width: var(--img-preview-side-small);
+}
+
+@media screen and (min-width: 600px) {
+    .preview-card {
+        width: var(--img-preview-side);
+    }
+}

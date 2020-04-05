@@ -18,7 +18,7 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { getCurrentPrice, getInitialPrice, getPsPlusPrice } from "../../services/PlayStationGameService";
+import { getSalePrice, getInitialPrice, getPsPlusPrice } from "../../services/PlayStationGameService";
 import * as PlaystationApi from "playstation-api";
 
 const GameDetailMediaCardContainer = styled.div`
@@ -61,21 +61,21 @@ export default class MediaCard extends React.Component<GameDetailMediaCardProps>
 
     render() {
         const initialPrice = getInitialPrice(this.props.game);
-        const currentPrice = getCurrentPrice(this.props.game);
+        const salePrice = getSalePrice(this.props.game);
         const psPlusPrice = getPsPlusPrice(this.props.game);
 
         const prices: JSX.Element[] = [];
-        if (initialPrice === currentPrice) {
+        if (initialPrice === salePrice) {
             prices.push(
                 <div key={"detail-price-" + this.props.game.id} className="Game-detail-price">
-                    {currentPrice}
+                    {salePrice}
                 </div>,
             );
         } else {
             // price.push(<div className="Game-detail-inactive-price">{initialPrice}</div>);
             prices.push(
                 <div key={"sale-price-" + this.props.game.id} className="Game-detail-sale-price">
-                    {currentPrice}
+                    {salePrice}
                 </div>,
             );
         }

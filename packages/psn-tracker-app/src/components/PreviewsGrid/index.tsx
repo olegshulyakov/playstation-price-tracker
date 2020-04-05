@@ -24,28 +24,14 @@ import GamePreview from "./GamePreview";
 const StoreGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, var(--img-preview-side-small));
-    grid-auto-rows: var(--img-preview-side-small);
+    grid-auto-rows: auto;
     gap: 1rem;
     justify-content: center;
 
     @media screen and (min-width: 600px) {
         grid-template-columns: repeat(auto-fit, var(--img-preview-side));
-        grid-auto-rows: var(--img-preview-side);
+        grid-auto-rows: auto;
         gap: 0.5rem;
-    }
-`;
-
-const StoreGridItem = styled.div`
-    min-height: var(--img-preview-side-small);
-    min-width: var(--img-preview-side-small);
-    max-height: var(--img-preview-side-small);
-    max-width: var(--img-preview-side-small);
-
-    @media screen and (min-width: 600px) {
-        min-height: var(--img-preview-side);
-        min-width: var(--img-preview-side);
-        max-height: var(--img-preview-side);
-        max-width: var(--img-preview-side);
     }
 `;
 
@@ -68,11 +54,7 @@ class PreviewsGrid extends React.Component<PreviewsGridProps> {
 
     render() {
         const items = this.props.games.slice().map((item) => {
-            return (
-                <StoreGridItem key={"game-preview-" + item.key}>
-                    <GamePreview region={this.props.region} game={item.game} />
-                </StoreGridItem>
-            );
+            return <GamePreview key={"game-preview-" + item.key} region={this.props.region} game={item.game} />;
         });
 
         const threshold = window.screen.height;

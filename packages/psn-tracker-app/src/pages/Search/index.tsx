@@ -62,12 +62,12 @@ class Search extends React.Component<SearchProps> {
                 <Container fluid>
                     <Form>
                         <Col xs={4} className="mx-auto pt-2 pb-2">
-                        <FormControl
-                            key="search-input"
-                            type="text"
-                            placeholder="Start typing..."
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => this.handleInputChange(e)}
-                        />
+                            <FormControl
+                                key="search-input"
+                                type="text"
+                                placeholder="Start typing..."
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => this.handleInputChange(e)}
+                            />
                         </Col>
                     </Form>
 

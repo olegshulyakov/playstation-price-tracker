@@ -64,7 +64,7 @@ class Discounts extends React.Component<DiscountsProps> {
         }
 
         const list = this.props.store.previews.slice().filter((item) => {
-            return item.game.is_sale;
+            return item.game.sale_discount !== undefined;
         });
 
         return (

@@ -42,15 +42,13 @@ interface PreviewGamesMapItem {
     game: PlaystationItemPreview;
 }
 
-interface PreviewGamesMap extends Readonly<Map<string, PlaystationItemPreview>> {}
-
 type PlaystationItemPreview = {
     id: string;
     name: string;
     image: string;
     url: string;
     timestamp: number;
-    display_price: string;
-    bonus_price?: string;
-    is_sale: boolean;
+    initial_price: string;
+    sale_price?: string;
+    sale_discount?: number;
 };
