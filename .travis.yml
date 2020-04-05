@@ -1,5 +1,13 @@
 language: node_js
+cache:
+  yarn: true
 node_js:
-    - 13
+  - "node"
+  - "lts/*"
+before_install:
+  - npm install -g yarn
+  - npm install -g lerna
 install:
-    - npm install --no-optional
+  - yarn bootstrap
+script:
+  - yarn build
