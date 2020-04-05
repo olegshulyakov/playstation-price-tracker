@@ -15,7 +15,7 @@
  */
 
 import React, { ChangeEvent } from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container, Form, FormControl } from "react-bootstrap";
 import { connect } from "react-redux";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import * as PlaystationApi from "playstation-api";
@@ -60,15 +60,16 @@ class Search extends React.Component<SearchProps> {
             <>
                 <Header isLanguageEnabled={true} />
                 <Container fluid>
-                    <div className="col-4 mx-auto pt-2 pb-2">
-                        <input
+                    <Form>
+                        <Col xs={4} className="mx-auto pt-2 pb-2">
+                        <FormControl
                             key="search-input"
-                            className="form-control text-center"
                             type="text"
                             placeholder="Start typing..."
-                            onChange={(e) => this.handleInputChange(e)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => this.handleInputChange(e)}
                         />
-                    </div>
+                        </Col>
+                    </Form>
 
                     <PreviewsGrid
                         region={this.props.region}
