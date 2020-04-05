@@ -23,6 +23,7 @@ To bundle application `yarn build`.
 ### Launch
 
 #### Web
+
 ```
 cd packages/psn-tracker-app
 yarn start

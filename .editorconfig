@@ -2,23 +2,14 @@ root = true
 
 [*]
 charset = utf-8
+indent_size = 4
+indent_style = space
 trim_trailing_whitespace = true
-
-[{src/**.tsx, public/*.html}]
-indent_style = space
-indent_size = 4
 insert_final_newline = true
 
-[src/**.css]
-indent_style = space
+[.travis.yml]
 indent_size = 2
-insert_final_newline = true
+insert_final_newline = false
 
-[*.json]
-indent_style = space
-indent_size = 4
-insert_final_newline = true
-
-[*.yml]
-indent_style = space
-indent_size = 2
+[.yarnrc]
+insert_final_newline = false
