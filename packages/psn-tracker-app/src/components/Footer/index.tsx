@@ -42,7 +42,10 @@ export default class Footer extends React.Component {
                     About
                 </Link>
                 {". "}
-                Version: <b>{process.env.REACT_APP_VERSION}</b>
+                <a className="link" href="https://github.com/olegshulyakov/game-price-tracker" target="_blank">
+                    GitHub
+                </a>
+                {". "} Version: <b>{process.env.REACT_APP_VERSION}</b>
             </FooterContainer>
         );
     }
