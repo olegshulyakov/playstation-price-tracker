@@ -16,8 +16,10 @@
 
 import "./index.css";
 import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import * as PlaystationApi from "playstation-api";
 import styled from "styled-components";
 import { GAME } from "../../store/keys";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -25,43 +27,6 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import MediaCard from "./MediaCard";
 import AttributeCard from "./AttributeCard";
-import * as PlaystationApi from "playstation-api";
-
-const GameDetailContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0.5rem 0.5rem 3rem;
-
-    @media screen and (min-width: 600px) {
-        padding: 3rem 1rem 0.5rem;
-    }
-`;
-
-const GameDetailGrid = styled.div`
-    display: grid;
-    gap: 0;
-    background-color: var(--br-card);
-    justify-content: center;
-    grid-template-columns: auto;
-    grid-template-rows: auto auto;
-    padding: 0.5rem 0.5rem 3rem;
-
-    @media screen and (min-width: 600px) {
-        grid-template-columns: auto 15rem;
-        grid-template-rows: auto;
-        gap: 1rem;
-        padding: 3rem 2rem 1rem;
-    }
-
-    @media screen and (min-width: 1280px) {
-        gap: 3rem;
-        margin: 0 5rem;
-        box-shadow: var(--box-shadow-card);
-    }
-`;
 
 const GameDetailTitle = styled.h3`
     margin: 0;
@@ -151,7 +116,7 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
         const game = this.state.game;
         if (!this.state.isLoaded || !game || !game.name || !game.images) {
-            return <LoadingSpinner msg={<p>Loading game information...</p>} />;
+            return <LoadingSpinner msg={<p>Loading game information...</p>}/>;
         }
 
         const gameLink = PlaystationApi.helpers.getStoreGameLink(this.props.region, game.id);
@@ -175,8 +140,8 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
 
         return (
             <>
-                <Header />
-                <GameDetailContainer>
+                <Header/>
+                <Container>
                     <nav aria-label="breadcrumb">
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item">
@@ -187,12 +152,14 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                             </li>
                         </ol>
                     </nav>
-                    <GameDetailGrid>
-                        <HiddenDesktop>
-                            <MediaCard region={this.props.region} game={game} />
-                        </HiddenDesktop>
+                    <Row>
+                        <Col xs={12} sm={0} md={0} lg={0} xl={0}>
+                            <HiddenDesktop>
+                                <MediaCard region={this.props.region} game={game}/>
+                            </HiddenDesktop>
+                        </Col>
 
-                        <div>
+                        <Col xs={12} sm={9} md={9} lg={9} xl={9}>
                             <GameDetailTitle
                                 onClick={() => {
                                     window.open(gameLink, "_blank");
@@ -212,21 +179,23 @@ class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
                                 )}
                             </GameDetailTitle>
 
-                            <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }} />
-                        </div>
+                            <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }}/>
+                        </Col>
 
-                        <HiddenMobile>
-                            <MediaCard region={this.props.region} game={game} />
-                            <SpaceElement />
-                            <AttributeCard attribute="Platforms" values={[...platforms.keys()]} />
-                            <SpaceElement />
-                            <AttributeCard attribute="Audio" values={[...voices.keys()]} />
-                            <SpaceElement />
-                            <AttributeCard attribute="Subtitles" values={[...subtitles.keys()]} />
-                        </HiddenMobile>
-                    </GameDetailGrid>
-                    <Footer />
-                </GameDetailContainer>
+                        <Col xs={0} sm={3} md={3} lg={3} xl={3}>
+                            <HiddenMobile>
+                                <MediaCard region={this.props.region} game={game}/>
+                                <SpaceElement/>
+                                <AttributeCard attribute="Platforms" values={[...platforms.keys()]}/>
+                                <SpaceElement/>
+                                <AttributeCard attribute="Audio" values={[...voices.keys()]}/>
+                                <SpaceElement/>
+                                <AttributeCard attribute="Subtitles" values={[...subtitles.keys()]}/>
+                            </HiddenMobile>
+                        </Col>
+                    </Row>
+                </Container>
+                <Footer/>
             </>
         );
     }

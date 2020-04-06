@@ -19,7 +19,7 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
     --text-primary: #000;
     --text-secondary: #fff;
-    --bg-primary: #f7f7f7;
+    --bg-primary: #fff;
     --bg-secondary: rgba(0, 0, 0, 0.8);
     --br-card: #fff;
     --box-shadow-card: 0px 0.125rem 0.06rem -0.06rem rgba(0, 0, 0, 0.2), 0px 0.06rem 0.06rem 0px rgba(0, 0, 0, 0.14),
