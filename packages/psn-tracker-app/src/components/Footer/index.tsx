@@ -19,9 +19,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`
-    position: static;
-    z-index: 1;
-    bottom: 0;
+    margin-top: auto;
     width: 100%;
     display: flex;
     flex-shrink: 0;
@@ -44,7 +42,13 @@ export default class Footer extends React.Component {
                     About
                 </Link>
                 {". "}
-                Version: <b>{process.env.REACT_APP_VERSION}</b>
+                <a className="link"
+                   href="https://github.com/olegshulyakov/game-price-tracker"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    GitHub
+                </a>
+                {". "} Version: <b>{process.env.REACT_APP_VERSION}</b>
             </FooterContainer>
         );
     }

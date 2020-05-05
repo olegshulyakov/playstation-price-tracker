@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Oleg Shulyakov
+ * Copyright (c) 2020. Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
-import { selectRegion } from "../actions/regionActions";
-import { clearGamesStore } from "../actions/gameActions";
+import { selectRegion } from "../../actions/regionActions";
+import { clearGamesStore } from "../../actions/gameActions";
 import { Dropdown } from "react-bootstrap";
 import * as PlaystationApi from "playstation-api";
 
@@ -71,7 +71,7 @@ class LanguageMenu extends React.Component<LanguageMenuProps> {
                     style={{
                         marginRight: "0.25rem",
                         border: 0,
-                        color: "var(--text-secondary)",
+                        color: "var(--text-primary)",
                         backgroundColor: "transparent",
                         fontSize: "0.8rem",
                     }}

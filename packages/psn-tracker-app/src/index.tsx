@@ -16,17 +16,22 @@
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
+import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { Provider } from "react-redux";
 import { persistor, store } from "./store/configureStore";
 import { APP_VERSION } from "./store/keys";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import About from "./pages/About";
 import GameDetail from "./pages/GameDetail";
-import { PersistGate } from "redux-persist/integration/react";
+import Search from "./pages/Search";
+import Discounts from "./pages/Discounts";
+import AllGames from "./pages/AllGames";
+import WishList from "./pages/Wishlist";
+import SelectRegion from "./pages/SelectRegion";
 
 const previousAppVersion = localStorage.getItem(APP_VERSION);
 const appVersion = `${process.env.REACT_APP_VERSION}`;
@@ -41,6 +46,11 @@ ReactDOM.render(
             <BrowserRouter>
                 <Switch>
                     <Route path="/" exact component={() => <App />} />
+                    <Route path="/selectregion" exact component={() => <SelectRegion />} />
+                    <Route path="/search" exact component={() => <Search />} />
+                    <Route path="/discounts" exact component={() => <Discounts />} />
+                    <Route path="/allgames" exact component={() => <AllGames />} />
+                    <Route path="/wishlist" exact component={() => <WishList />} />
                     <Route path="/about" exact component={() => <About />} />
                     <Route path="/game/:cusa" component={() => <GameDetail />} />
                 </Switch>

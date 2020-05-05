@@ -16,23 +16,13 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import "./App.css";
-import styled from "styled-components";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Store from "./pages/Store";
-import SelectRegion from "./pages/SelectRegion";
 import { clearGamesStore, fetchGamePreviewsList, fetchStoreInfo } from "./actions/gameActions";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { fetchRegions } from "./actions/regionActions";
 
-const AppContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-`;
-
-interface AppProps extends ReduxStoreState {
+interface AppProps extends ReduxStoreState, RouteComponentProps {
     fetchRegions: Function;
     fetchInfo: Function;
     fetchGames: Function;
@@ -73,6 +63,10 @@ class App extends React.Component<AppProps> {
 
     componentDidUpdate() {
         this.fetchInfo();
+
+        if (this.isLoaded()) {
+            this.props.history.push("/discounts");
+        }
     }
 
     render() {
@@ -81,38 +75,23 @@ class App extends React.Component<AppProps> {
         }
 
         if (!this.props.region.current || !this.props.region.current.name) {
-            return (
-                <AppContainer>
-                    <Header />
-                    <SelectRegion />
-                    <Footer />
-                </AppContainer>
-            );
+            this.props.history.push("/selectregion");
         }
 
-        if (!this.props.store.info || !this.props.store.previews || !this.isLoaded()) {
-            return (
-                <AppContainer>
-                    <LoadingSpinner msg={<p>Loading games...</p>} />
-                </AppContainer>
-            );
+        if (!this.isLoaded()) {
+            return <LoadingSpinner msg={<p>Loading games...</p>} />;
         }
 
-        return (
-            <AppContainer>
-                <Header isSearchEnabled={true} isLanguageEnabled={true} />
-                <Store />
-                <Footer />
-            </AppContainer>
-        );
+        return <></>;
     }
 }
 
 const mapStateToProps = (state: ReduxStoreState) => state;
-
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
     fetchRegions: fetchRegions,
     fetchInfo: fetchStoreInfo,
     fetchGames: fetchGamePreviewsList,
     clearStore: clearGamesStore,
-})(App);
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

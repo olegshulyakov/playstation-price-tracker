@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Oleg Shulyakov
+ * Copyright (c) 2020. Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import playstationClassicIcon from "../assets/playstation-classic.svg";
+import playstationClassicIcon from "../../assets/playstation-classic.svg";
 
 const LoadingScreen = styled.div`
     position: absolute;

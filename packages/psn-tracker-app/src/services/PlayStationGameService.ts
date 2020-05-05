@@ -18,17 +18,18 @@ import * as PlaystationApi from "playstation-api";
 
 export const getGamePreview = (game: PlaystationApi.types.PlaystationGameResponse): PlaystationItemPreview => {
     const image = game.images && game.images[0] ? game.images[0].url : "";
-    const currentPrice = getCurrentPrice(game);
-    const psPlusPrice = getPsPlusPrice(game);
+    const initialPrice = getInitialPrice(game);
+    const salePrice = getSalePrice(game);
+    const saleDiscount = getSaleDiscount(game);
     return {
         id: game.id,
         name: game.name,
         image: image,
         url: game.url,
         timestamp: game.timestamp,
-        display_price: currentPrice,
-        bonus_price: currentPrice === psPlusPrice ? undefined : psPlusPrice,
-        is_sale: PlaystationApi.helpers.isSale(game),
+        initial_price: initialPrice,
+        sale_price: salePrice,
+        sale_discount: saleDiscount,
     } as PlaystationItemPreview;
 };
 
@@ -41,14 +42,24 @@ export const getInitialPrice = (
     return undefined;
 };
 
-export const getCurrentPrice = (
+export const getSalePrice = (
     game: PlaystationApi.types.PlaystationGameResponse | PlaystationApi.types.PlaystationResponse,
 ): string | undefined => {
     const saleDetails = PlaystationApi.helpers.getSaleDetails(game);
     if (saleDetails && saleDetails.display_price) {
         return saleDetails.display_price;
     }
-    return getInitialPrice(game);
+    return undefined;
+};
+
+export const getSaleDiscount = (
+    game: PlaystationApi.types.PlaystationGameResponse | PlaystationApi.types.PlaystationResponse,
+): number | undefined => {
+    const saleDetails = PlaystationApi.helpers.getSaleDetails(game);
+    if (saleDetails && saleDetails.discount) {
+        return saleDetails.discount;
+    }
+    return undefined;
 };
 
 export const getPsPlusPrice = (

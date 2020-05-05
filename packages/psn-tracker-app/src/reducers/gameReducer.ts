@@ -20,6 +20,7 @@ import { arrayToMap, mapToArray } from "../services/converter";
 const initialState: PlaystationStore = {
     info: undefined,
     previews: [],
+    search: [],
 };
 
 export default (state = initialState, action: any) => {
@@ -44,12 +45,7 @@ export default (state = initialState, action: any) => {
             };
 
         case CLEAR_GAMES_STORE:
-            return {
-                info: undefined,
-                games: undefined,
-                map: undefined,
-                search: undefined,
-            };
+            return initialState;
 
         case SEARCH_GAMES:
             const map = new Map();
@@ -57,10 +53,7 @@ export default (state = initialState, action: any) => {
                 map.set(game.id, game);
             }
 
-            const array = [];
-            for (const game of map.values()) {
-                array.push(game);
-            }
+            const array = mapToArray(map);
 
             return {
                 ...state,

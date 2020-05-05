@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Oleg Shulyakov
+ * Copyright (c) 2020. Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { getCurrentPrice, getInitialPrice, getPsPlusPrice } from "../services/PlayStationGameService";
+import { getSalePrice, getInitialPrice, getPsPlusPrice } from "../../services/PlayStationGameService";
 import * as PlaystationApi from "playstation-api";
 
 const GameDetailMediaCardContainer = styled.div`
@@ -54,28 +54,28 @@ interface GameDetailMediaCardProps {
     game: PlaystationApi.types.PlaystationResponse;
 }
 
-export default class GameDetailMediaCard extends React.Component<GameDetailMediaCardProps> {
+export default class MediaCard extends React.Component<GameDetailMediaCardProps> {
     redirectToPsStore() {
         window.open(PlaystationApi.helpers.getStoreGameLink(this.props.region, this.props.game.id), "_blank");
     }
 
     render() {
         const initialPrice = getInitialPrice(this.props.game);
-        const currentPrice = getCurrentPrice(this.props.game);
+        const salePrice = getSalePrice(this.props.game);
         const psPlusPrice = getPsPlusPrice(this.props.game);
 
         const prices: JSX.Element[] = [];
-        if (initialPrice === currentPrice) {
+        if (initialPrice === salePrice) {
             prices.push(
                 <div key={"detail-price-" + this.props.game.id} className="Game-detail-price">
-                    {currentPrice}
+                    {salePrice}
                 </div>,
             );
         } else {
             // price.push(<div className="Game-detail-inactive-price">{initialPrice}</div>);
             prices.push(
                 <div key={"sale-price-" + this.props.game.id} className="Game-detail-sale-price">
-                    {currentPrice}
+                    {salePrice}
                 </div>,
             );
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Oleg Shulyakov
+ * Copyright (c) 2020. Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 
 import React from "react";
 import styled from "styled-components";
-import playstationClassicIcon from "../assets/playstation-classic.svg";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import playstationClassicIcon from "../../assets/playstation-classic.svg";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const AboutContainer = styled.div`
     display: flex;
