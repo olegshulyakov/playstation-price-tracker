@@ -3,6 +3,7 @@
     "version": "2020.03.29",
     "license": "Apache-2.0",
     "private": true,
+    "homepage": "https://olegshulyakov.github.io/game-price-tracker",
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.27",
         "@fortawesome/free-brands-svg-icons": "^5.12.1",
@@ -30,7 +31,9 @@
         "start": "react-scripts start",
         "dist": "react-scripts build",
         "test": "react-scripts test --watchAll=false --ci --passWithNoTests",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "predeploy": "npm run dist",
+        "deploy": "gh-pages -d build"
     },
     "eslintConfig": {
         "parser": "@typescript-eslint/parser",
@@ -120,6 +123,7 @@
         "@types/redux-thunk": "^2.1.0",
         "@types/styled-components": "^5.0.1",
         "eslint-plugin-prettier": "^3.1.2",
+        "gh-pages": "^3.1.0",
         "jest": "^24.9.0",
         "redux-devtools-extension": "^2.13.8"
     }
