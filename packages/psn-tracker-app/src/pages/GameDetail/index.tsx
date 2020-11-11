@@ -58,148 +58,136 @@ const HiddenDesktop = styled.div`
     }
 `;
 
-interface GameDetailProps extends RouteComponentProps<{ cusa: string }> {
+interface Props extends RouteComponentProps<{ cusa: string }>, React.HTMLProps<any> {
     region: PlaystationApi.types.PlaystationRegion;
 }
 
-class GameDetail extends React.Component<GameDetailProps, GameDetailState> {
-    private readonly cusa: string;
-    private readonly url: string;
+const GameDetail: React.FC<Props> = (props: Props) => {
+    const cusa: string = props.match.params.cusa;
+    const url: string = props.location.state ? (props.location.state as string) : "";
+    const [isLoaded, setIsLoaded] = React.useState(false);
+    const [game, setGame] = React.useState<any | undefined>(undefined);
 
-    constructor(props: any) {
-        super(props);
-        this.cusa = this.props.match.params.cusa;
-        this.url = this.props.location.state ? (this.props.location.state as string) : "";
-
-        try {
-            const sessionItem = sessionStorage.getItem(GAME + this.cusa);
-            const game = JSON.parse(sessionItem!) as PlaystationApi.types.PlaystationResponse;
-            // TODO check session item timestamp and clear if old.
-            this.state = {
-                isLoaded: true,
-                game: game,
-            };
-        } catch (e) {
-            this.state = {
-                isLoaded: false,
-                game: undefined,
-            };
-        }
+    try {
+        const sessionItem = sessionStorage.getItem(GAME + cusa);
+        const item = JSON.parse(sessionItem!) as PlaystationApi.types.PlaystationResponse;
+        // TODO check session item timestamp and clear if old.
+        setIsLoaded(true);
+        setGame(item);
+    } catch (e) {
+        setIsLoaded(false);
+        setGame(undefined);
     }
 
-    isCorruptedData(): boolean {
-        return !this.cusa || !this.url;
-    }
+    const isCorruptedData =  !cusa || !url;
 
-    componentDidMount() {
-        if (this.isCorruptedData()) {
+    React.useEffect(() => {
+        if (isCorruptedData) {
             return;
         }
-        if (this.state.isLoaded && this.state.game) {
+        if (isLoaded && game) {
             return;
         }
 
-        fetch(this.url)
+        fetch(url)
             .then((response) => response.json())
             .then((json: any) => {
-                const game = json as PlaystationApi.types.PlaystationResponse;
-                this.setState({ isLoaded: true, game: game });
-                sessionStorage.setItem(GAME + this.cusa, JSON.stringify(game));
+                const item = json as PlaystationApi.types.PlaystationResponse;
+                setIsLoaded(true);
+                setGame(item);
+                sessionStorage.setItem(GAME + cusa, JSON.stringify(game));
             })
-            .catch((e) => console.error(`Cannot load game data, [${this.cusa}].`, e));
+            .catch((e) => console.error(`Cannot load game data, [${cusa}].`, e));
+    }, [cusa, game, url, isCorruptedData, isLoaded]);
+
+    if (isCorruptedData) {
+        return <></>;
     }
 
-    render() {
-        if (this.isCorruptedData()) {
-            return <></>;
-        }
-
-        const game = this.state.game;
-        if (!this.state.isLoaded || !game || !game.name || !game.images) {
-            return <LoadingSpinner msg={<p>Loading game information...</p>}/>;
-        }
-
-        const gameLink = PlaystationApi.helpers.getStoreGameLink(this.props.region, game.id);
-        const platforms = new Set<string>();
-        const voices = new Set<string>();
-        const subtitles = new Set<string>();
-        for (const platform of game.playable_platform) {
-            platforms.add(platform.substring(0, platform.indexOf("™")).toUpperCase());
-        }
-        for (const entitlement of game.default_sku?.entitlements) {
-            entitlement.packages?.map((pkg: PlaystationApi.types.Package) => {
-                platforms.add(pkg.platformName.toUpperCase());
-            });
-            entitlement.voice_language_codes?.map((voice: string) => {
-                voices.add(voice.toUpperCase());
-            });
-            entitlement.subtitle_language_codes?.map((subtitle: string) => {
-                subtitles.add(subtitle.toUpperCase());
-            });
-        }
-
-        return (
-            <>
-                <Header/>
-                <Container>
-                    <nav aria-label="breadcrumb">
-                        <ol className="breadcrumb">
-                            <li className="breadcrumb-item">
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li className="breadcrumb-item active" aria-current="page">
-                                {game.name}
-                            </li>
-                        </ol>
-                    </nav>
-                    <Row>
-                        <Col xs={12} sm={0} md={0} lg={0} xl={0}>
-                            <HiddenDesktop>
-                                <MediaCard region={this.props.region} game={game}/>
-                            </HiddenDesktop>
-                        </Col>
-
-                        <Col xs={12} sm={9} md={9} lg={9} xl={9}>
-                            <GameDetailTitle
-                                onClick={() => {
-                                    window.open(gameLink, "_blank");
-                                }}
-                            >
-                                {game.name}
-                                {game.content_rating?.url ? (
-                                    <img
-                                        src={game.content_rating?.url}
-                                        loading="eager"
-                                        alt="rating"
-                                        height="45px"
-                                        width="45px"
-                                    />
-                                ) : (
-                                    <></>
-                                )}
-                            </GameDetailTitle>
-
-                            <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }}/>
-                        </Col>
-
-                        <Col xs={0} sm={3} md={3} lg={3} xl={3}>
-                            <HiddenMobile>
-                                <MediaCard region={this.props.region} game={game}/>
-                                <SpaceElement/>
-                                <AttributeCard attribute="Platforms" values={[...platforms.keys()]}/>
-                                <SpaceElement/>
-                                <AttributeCard attribute="Audio" values={[...voices.keys()]}/>
-                                <SpaceElement/>
-                                <AttributeCard attribute="Subtitles" values={[...subtitles.keys()]}/>
-                            </HiddenMobile>
-                        </Col>
-                    </Row>
-                </Container>
-                <Footer/>
-            </>
-        );
+    if (!isLoaded || !game || !game.name || !game.images) {
+        return <LoadingSpinner msg={<p>Loading game information...</p>}/>;
     }
-}
+
+    const gameLink = PlaystationApi.helpers.getStoreGameLink(props.region, game.id);
+    const platforms = new Set<string>();
+    const voices = new Set<string>();
+    const subtitles = new Set<string>();
+    for (const platform of game.playable_platform) {
+        platforms.add(platform.substring(0, platform.indexOf("™")).toUpperCase());
+    }
+    for (const entitlement of game.default_sku?.entitlements) {
+        entitlement.packages?.map((pkg: PlaystationApi.types.Package) => {
+            platforms.add(pkg.platformName.toUpperCase());
+        });
+        entitlement.voice_language_codes?.map((voice: string) => {
+            voices.add(voice.toUpperCase());
+        });
+        entitlement.subtitle_language_codes?.map((subtitle: string) => {
+            subtitles.add(subtitle.toUpperCase());
+        });
+    }
+
+    return (
+        <>
+            <Header/>
+            <Container>
+                <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item">
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                            {game.name}
+                        </li>
+                    </ol>
+                </nav>
+                <Row>
+                    <Col xs={12} sm={0} md={0} lg={0} xl={0}>
+                        <HiddenDesktop>
+                            <MediaCard region={props.region} game={game}/>
+                        </HiddenDesktop>
+                    </Col>
+
+                    <Col xs={12} sm={9} md={9} lg={9} xl={9}>
+                        <GameDetailTitle
+                            onClick={() => {
+                                window.open(gameLink, "_blank");
+                            }}
+                        >
+                            {game.name}
+                            {game.content_rating?.url ? (
+                                <img
+                                    src={game.content_rating?.url}
+                                    loading="eager"
+                                    alt="rating"
+                                    height="45px"
+                                    width="45px"
+                                />
+                            ) : (
+                                <></>
+                            )}
+                        </GameDetailTitle>
+
+                        <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }}/>
+                    </Col>
+
+                    <Col xs={0} sm={3} md={3} lg={3} xl={3}>
+                        <HiddenMobile>
+                            <MediaCard region={props.region} game={game}/>
+                            <SpaceElement/>
+                            <AttributeCard attribute="Platforms" values={[...platforms.keys()]}/>
+                            <SpaceElement/>
+                            <AttributeCard attribute="Audio" values={[...voices.keys()]}/>
+                            <SpaceElement/>
+                            <AttributeCard attribute="Subtitles" values={[...subtitles.keys()]}/>
+                        </HiddenMobile>
+                    </Col>
+                </Row>
+            </Container>
+            <Footer/>
+        </>
+    );
+};
 
 const mapStateToProps = (state: ReduxStoreState) => ({ region: state.region.current });
 

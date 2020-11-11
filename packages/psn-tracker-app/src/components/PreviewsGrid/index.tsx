@@ -35,48 +35,41 @@ const StoreGrid = styled.div`
     }
 `;
 
-interface PreviewsGridProps {
+interface Props {
     region: PlaystationApi.types.PlaystationRegion;
     games: PreviewGamesMapItem[];
     hasMoreItems: Function;
     loadNextPage: Function;
 }
 
-class PreviewsGrid extends React.Component<PreviewsGridProps> {
-    constructor(props: PreviewsGridProps) {
-        super(props);
-        this.loadNextPage = this.loadNextPage.bind(this);
-    }
+const PreviewsGrid: React.FC<Props> = (props: Props) => {
+    const loadNextPage = (nextPage: number) => {
+        props.loadNextPage(nextPage);
+    };
 
-    loadNextPage(nextPage: number) {
-        this.props.loadNextPage(nextPage);
-    }
+    const items = props.games.slice().map((item) => {
+        return <GamePreview key={"game-preview-" + item.key} region={props.region} game={item.game}/>;
+    });
 
-    render() {
-        const items = this.props.games.slice().map((item) => {
-            return <GamePreview key={"game-preview-" + item.key} region={this.props.region} game={item.game} />;
-        });
+    const threshold = window.screen.height;
 
-        const threshold = window.screen.height;
-
-        return (
-            <Container fluid>
-                <InfiniteScroll
-                    key={"infinite-scroll"}
-                    hasMore={this.props.hasMoreItems()}
-                    initialLoad={true}
-                    isReverse={false}
-                    loadMore={this.loadNextPage}
-                    pageStart={0}
-                    threshold={threshold}
-                    useCapture={false}
-                    useWindow={true}
-                >
-                    <StoreGrid>{items}</StoreGrid>
-                </InfiniteScroll>
-            </Container>
-        );
-    }
-}
+    return (
+        <Container fluid>
+            <InfiniteScroll
+                key={"infinite-scroll"}
+                hasMore={props.hasMoreItems()}
+                initialLoad={true}
+                isReverse={false}
+                loadMore={loadNextPage}
+                pageStart={0}
+                threshold={threshold}
+                useCapture={false}
+                useWindow={true}
+            >
+                <StoreGrid>{items}</StoreGrid>
+            </InfiniteScroll>
+        </Container>
+    );
+};
 
 export default PreviewsGrid;

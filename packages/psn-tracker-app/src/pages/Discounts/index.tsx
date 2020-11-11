@@ -24,71 +24,65 @@ import Footer from "../../components/Footer";
 import PreviewsGrid from "../../components/PreviewsGrid";
 import { fetchGamePreviewsList } from "../../actions/gameActions";
 
-interface DiscountsProps extends RouteComponentProps {
+interface Props extends RouteComponentProps, React.HTMLProps<any> {
     region: PlaystationApi.types.PlaystationRegion;
     store: PlaystationStore;
     fetchGames: Function;
 }
 
-class Discounts extends React.Component<DiscountsProps> {
-    constructor(props: DiscountsProps) {
-        super(props);
-        this.loadNextPage = this.loadNextPage.bind(this);
-        this.hasMoreItems = this.hasMoreItems.bind(this);
-    }
+const Discounts: React.FC<Props> = (props: Props) => {
 
-    componentDidMount(): void {
-        if (!this.props.store || !this.props.store.previews || this.props.store.previews.length === 0) {
-            this.props.history.push("/");
+    React.useEffect(() => {
+        if (!props.store || !props.store.previews || props.store.previews.length === 0) {
+            props.history.push("/");
         }
-    }
+    }, [props.store]);
 
-    hasMoreItems() {
+    const hasMoreItems = () => {
         return !(
-            !this.props.store.info ||
-            !this.props.store.previews ||
-            this.props.store.previews.length >= this.props.store.info.total_results
+            !props.store.info ||
+            !props.store.previews ||
+            props.store.previews.length >= props.store.info.total_results
         );
-    }
+    };
 
-    loadNextPage(nextPage: number) {
-        if (!this.props.store.info || !this.props.store.previews) {
+    const loadNextPage = (nextPage: number) => {
+        if (!props.store.info || !props.store.previews) {
             return;
         }
-        this.props.fetchGames(this.props.region, this.props.store.info.total_results, this.props.store.previews.length);
+        props.fetchGames(props.region, props.store.info.total_results, props.store.previews.length);
+    };
+
+    if (!props.store || !props.store.previews) {
+        return <></>;
     }
 
-    render() {
-        if (!this.props.store || !this.props.store.previews) {
-            return <></>;
-        }
+    const list = props.store.previews.slice().filter((item) => {
+        return item.game.sale_discount !== undefined;
+    });
 
-        const list = this.props.store.previews.slice().filter((item) => {
-            return item.game.sale_discount !== undefined;
-        });
+    return (
+        <>
+            <Header isLanguageEnabled={true}/>
+            <Container fluid>
+                <PreviewsGrid
+                    region={props.region}
+                    games={list}
+                    hasMoreItems={hasMoreItems}
+                    loadNextPage={loadNextPage}
+                />
+            </Container>
+            <Footer/>
+        </>
+    );
 
-        return (
-            <>
-                <Header isLanguageEnabled={true} />
-                <Container fluid>
-                    <PreviewsGrid
-                        region={this.props.region}
-                        games={list}
-                        hasMoreItems={this.hasMoreItems}
-                        loadNextPage={this.loadNextPage}
-                    />
-                </Container>
-                <Footer />
-            </>
-        );
-    }
-}
+};
 
 const mapStateToProps = (state: ReduxStoreState) =>
     ({
         region: state.region.current,
         store: state.store,
-    } as DiscountsProps);
+    } as Props);
 const mapDispatchToProps = { fetchGames: fetchGamePreviewsList };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Discounts));

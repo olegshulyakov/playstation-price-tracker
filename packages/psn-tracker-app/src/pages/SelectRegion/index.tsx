@@ -62,61 +62,55 @@ const SelectRegionName = styled.p`
     text-align: center;
 `;
 
-export interface SelectRegionProps extends RegionState, RouteComponentProps {
+interface Props extends RegionState, RouteComponentProps, React.HTMLProps<any> {
     selectRegion: Function;
     clearGamesStore: Function;
 }
 
-class SelectRegion extends React.Component<SelectRegionProps> {
-    constructor(props: SelectRegionProps) {
-        super(props);
-        this.renderRegion = this.renderRegion.bind(this);
-    }
+const SelectRegion: React.FC<Props> = (props: Props) => {
 
-    componentDidMount(): void {
+    React.useEffect(() => {
         getCountryCode((country_code: string) => {
-            for (const region of this.props.regions) {
+            for (const region of props.regions) {
                 if (region.country.toLowerCase() !== country_code.toLowerCase()) continue;
-                this.props.selectRegion(region);
+                props.selectRegion(region);
             }
         });
-    }
+    }, []);
 
-    componentDidUpdate(prevProps: Readonly<SelectRegionProps>, prevState: Readonly<{}>, snapshot?: any): void {
-        if (this.props.current) {
-            this.props.history.push("/");
+    React.useEffect(() => {
+        if (props.current) {
+            props.history.push("/");
         }
-    }
+    }, [props.current]);
 
-    renderRegion(region: PlaystationApi.types.PlaystationRegion) {
+    const renderRegion = (region: PlaystationApi.types.PlaystationRegion) => {
         return (
             <SelectRegionCard
                 key={"region-" + region.name}
                 className="SelectRegion-card"
                 onClick={() => {
-                    this.props.clearGamesStore();
-                    this.props.selectRegion(region);
+                    props.clearGamesStore();
+                    props.selectRegion(region);
                 }}
             >
                 <SelectRegionName>{region.name}</SelectRegionName>
             </SelectRegionCard>
         );
-    }
+    };
 
-    render() {
-        const regions = this.props.regions.map((region) => this.renderRegion(region));
-        return (
-            <>
-                <Header />
-                <Container fluid>
-                    <SelectRegionHeader>Please select your country / region</SelectRegionHeader>
-                    <SelectRegionGrid>{regions}</SelectRegionGrid>
-                </Container>
-                <Footer />
-            </>
-        );
-    }
-}
+    const regions = props.regions.map((region) => renderRegion(region));
+    return (
+        <>
+            <Header/>
+            <Container fluid>
+                <SelectRegionHeader>Please select your country / region</SelectRegionHeader>
+                <SelectRegionGrid>{regions}</SelectRegionGrid>
+            </Container>
+            <Footer/>
+        </>
+    );
+};
 
 const mapStateToProps = (state: ReduxStoreState) =>
     ({ regions: state.region.regions, current: state.region.current } as RegionState);

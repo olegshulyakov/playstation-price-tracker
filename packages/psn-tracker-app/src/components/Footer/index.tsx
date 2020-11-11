@@ -34,22 +34,25 @@ const FooterContainer = styled.footer`
     }
 `;
 
-export default class Footer extends React.Component {
-    render() {
-        return (
-            <FooterContainer>
-                <Link className="link" to="/about">
-                    About
-                </Link>
-                {". "}
-                <a className="link"
-                   href="https://github.com/olegshulyakov/game-price-tracker"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                    GitHub
-                </a>
-                {". "} Version: <b>{process.env.REACT_APP_VERSION}</b>
-            </FooterContainer>
-        );
-    }
+interface Props extends React.HTMLProps<any> {
 }
+
+const Footer: React.FC<Props> = (props: Props) => {
+    return (
+        <FooterContainer className={props.className} style={props.style}>
+            <Link className="link" to="/about">
+                About
+            </Link>
+            {". "}
+            <a className="link"
+               href="https://github.com/olegshulyakov/game-price-tracker"
+               target="_blank"
+               rel="noopener noreferrer">
+                GitHub
+            </a>
+            {". "} Version: <b>{process.env.REACT_APP_VERSION}</b>
+        </FooterContainer>
+    );
+};
+
+export default Footer;

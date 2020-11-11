@@ -28,26 +28,26 @@ const Values = styled.p`
     letter-spacing: 0.01071em;
 `;
 
-interface GameDetailAttributeCardProps {
+interface Props extends React.HTMLProps<any> {
     attribute: string;
     values: string[];
 }
 
-export default class AttributeCard extends React.Component<GameDetailAttributeCardProps> {
-    render() {
-        if (!this.props.attribute || !this.props.values || this.props.values.length === 0) {
-            return <></>;
-        }
-
-        return (
-            <>
-                <Title>{this.props.attribute}</Title>
-                <Values>
-                    {this.props.values?.map((value: string) => {
-                        return value + " ";
-                    })}
-                </Values>
-            </>
-        );
+const AttributeCard: React.FC<Props> = (props: Props) => {
+    if (!props.attribute || !props.values || props.values.length === 0) {
+        return <></>;
     }
-}
+
+    return (
+        <>
+            <Title>{props.attribute}</Title>
+            <Values>
+                {props.values?.map((value: string) => {
+                    return value + " ";
+                })}
+            </Values>
+        </>
+    );
+};
+
+export default AttributeCard;

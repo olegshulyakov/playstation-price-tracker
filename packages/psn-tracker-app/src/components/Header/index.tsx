@@ -21,71 +21,69 @@ import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 import LanguageMenu from "./LanguageMenu";
 import { Nav } from "react-bootstrap";
 
-interface HeaderProps extends RouteComponentProps {
+interface Props extends RouteComponentProps, React.HTMLProps<any> {
     isLanguageEnabled?: boolean;
 }
 
-class Header extends React.Component<HeaderProps> {
-    render() {
-        return (
-            <header className="d-flex flex-column flex-md-row align-items-center bg-white border-bottom shadow-sm p-1">
-                <FontAwesomeIcon
-                    style={{ margin: "0 0.5rem 0 0.5rem" }}
-                    icon={faPlaystation}
-                    size="2x"
-                    onClick={() => {
-                        this.props.history.push("/");
-                    }}
-                />
+const Header: React.FC<Props> = (props: Props) => {
+    return (
+        <header className="d-flex flex-column flex-md-row align-items-center bg-white border-bottom shadow-sm p-1">
+            <FontAwesomeIcon
+                style={{ margin: "0 0.5rem 0 0.5rem" }}
+                icon={faPlaystation}
+                size="2x"
+                onClick={() => {
+                    props.history.push("/");
+                }}
+            />
 
-                <Nav className="justify-content-center mr-auto" defaultActiveKey="/">
-                    <Nav.Item>
-                        <Nav.Link
-                            className="text-dark"
-                            onClick={() => {
-                                this.props.history.push("/search");
-                            }}
-                        >
-                            Search
-                        </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link
-                            className="text-dark"
-                            onClick={() => {
-                                this.props.history.push("/discounts");
-                            }}
-                        >
-                            Discounts
-                        </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link
-                            className="text-dark"
-                            onClick={() => {
-                                this.props.history.push("/allgames");
-                            }}
-                        >
-                            All Games
-                        </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link
-                            className="text-dark"
-                            disabled
-                            onClick={() => {
-                                this.props.history.push("/wishlist");
-                            }}
-                        >
-                            Wishlist
-                        </Nav.Link>
-                    </Nav.Item>
-                </Nav>
+            <Nav className="justify-content-center mr-auto" defaultActiveKey="/">
+                <Nav.Item>
+                    <Nav.Link
+                        className="text-dark"
+                        onClick={() => {
+                            props.history.push("/search");
+                        }}
+                    >
+                        Search
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link
+                        className="text-dark"
+                        onClick={() => {
+                            props.history.push("/discounts");
+                        }}
+                    >
+                        Discounts
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link
+                        className="text-dark"
+                        onClick={() => {
+                            props.history.push("/allgames");
+                        }}
+                    >
+                        All Games
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link
+                        className="text-dark"
+                        disabled
+                        onClick={() => {
+                            props.history.push("/wishlist");
+                        }}
+                    >
+                        Wishlist
+                    </Nav.Link>
+                </Nav.Item>
+            </Nav>
 
-                {this.props.isLanguageEnabled ? <LanguageMenu /> : <></>}
-            </header>
-        );
-    }
-}
+            {props.isLanguageEnabled ? <LanguageMenu/> : <></>}
+        </header>
+    );
+};
 
 export default withRouter(Header);

@@ -24,71 +24,72 @@ import Footer from "../../components/Footer";
 import PreviewsGrid from "../../components/PreviewsGrid";
 import { searchGames } from "../../actions/gameActions";
 
-interface SearchProps extends RouteComponentProps {
+interface Props extends RouteComponentProps, React.HTMLProps<any> {
     region: PlaystationApi.types.PlaystationRegion;
     store: PlaystationStore;
     searchGames: Function;
 }
 
-class Search extends React.Component<SearchProps> {
-    componentDidMount(): void {
-        if (!this.props.store) {
-            this.props.history.push("/");
+const Search: React.FC<Props> = (props: Props) => {
+    React.useEffect(() => {
+        if (!props.store) {
+            props.history.push("/");
         }
-    }
+    }, [props.store]);
 
-    hasMoreItems() {
+    const hasMoreItems = () => {
         return false;
-    }
+    };
 
-    loadNextPage(nextPage: number) {}
+    const loadNextPage = (nextPage: number) => {
+    };
 
-    handleInputChange(e: ChangeEvent<HTMLInputElement>) {
-        if (!e.target || !this.props.region) return;
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target || !props.region) return;
         const query = e.target.value;
         if (!query || query.length <= 3 || query[query.length - 1] === " ") return;
 
-        this.props.searchGames(this.props.region, query);
+        props.searchGames(props.region, query);
+    };
+
+
+    if (!props.store || !props.store.search) {
+        return <></>;
     }
 
-    render() {
-        if (!this.props.store || !this.props.store.search) {
-            return <></>;
-        }
+    return (
+        <>
+            <Header isLanguageEnabled={true}/>
+            <Container fluid>
+                <Form>
+                    <Col xs={4} className="mx-auto pt-2 pb-2">
+                        <FormControl
+                            key="search-input"
+                            type="text"
+                            placeholder="Start typing..."
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+                        />
+                    </Col>
+                </Form>
 
-        return (
-            <>
-                <Header isLanguageEnabled={true} />
-                <Container fluid>
-                    <Form>
-                        <Col xs={4} className="mx-auto pt-2 pb-2">
-                            <FormControl
-                                key="search-input"
-                                type="text"
-                                placeholder="Start typing..."
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => this.handleInputChange(e)}
-                            />
-                        </Col>
-                    </Form>
+                <PreviewsGrid
+                    region={props.region}
+                    games={props.store.search}
+                    hasMoreItems={hasMoreItems}
+                    loadNextPage={loadNextPage}
+                />
+            </Container>
+            <Footer/>
+        </>
+    );
 
-                    <PreviewsGrid
-                        region={this.props.region}
-                        games={this.props.store.search}
-                        hasMoreItems={this.hasMoreItems}
-                        loadNextPage={this.loadNextPage}
-                    />
-                </Container>
-                <Footer />
-            </>
-        );
-    }
-}
+};
 
 const mapStateToProps = (state: ReduxStoreState) =>
     ({
         region: state.region.current,
         store: state.store,
-    } as SearchProps);
+    });
 const mapDispatchToProps = { searchGames: searchGames };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search));

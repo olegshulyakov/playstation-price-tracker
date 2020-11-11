@@ -22,69 +22,63 @@ import { clearGamesStore, fetchGamePreviewsList, fetchStoreInfo } from "./action
 import LoadingSpinner from "./components/LoadingSpinner";
 import { fetchRegions } from "./actions/regionActions";
 
-interface AppProps extends ReduxStoreState, RouteComponentProps {
+interface Props extends ReduxStoreState, RouteComponentProps, React.HTMLProps<any> {
     fetchRegions: Function;
     fetchInfo: Function;
     fetchGames: Function;
     clearStore: Function;
 }
 
-class App extends React.Component<AppProps> {
-    isLoaded() {
-        return !(!this.props.store.info || !this.props.store.previews);
-    }
+const App: React.FC<Props> = (props: Props) => {
+    const isLoaded = !(!props.store.info || !props.store.previews);
 
-    fetchInfo() {
-        if (!this.props.region.current) {
+    const fetchInfo = () => {
+        if (!props.region.current) {
             return;
         }
 
-        if (!this.props.store.info) {
-            const region = this.props.region.current;
-            this.props.fetchInfo(region);
+        if (!props.store.info) {
+            const region = props.region.current;
+            props.fetchInfo(region);
             return;
         }
 
-        if (!this.isLoaded()) {
-            this.props.fetchGames(this.props.region.current, this.props.store.info.total_results);
+        if (!isLoaded) {
+            props.fetchGames(props.region.current, props.store.info.total_results);
         }
+    };
+
+    React.useEffect(() => {
+        if (!props.region.regions || props.region.regions.length === 0) {
+            props.fetchRegions();
+        }
+
+        if (!isLoaded) {
+            props.clearStore();
+        }
+        fetchInfo();
+    }, []);
+
+    React.useEffect(() => {
+        if (isLoaded) {
+            props.history.push("/discounts");
+        }
+    }, [isLoaded, props.store]);
+
+    if (!props.region.regions || props.region.regions.length === 0) {
+        return <LoadingSpinner/>;
     }
 
-    componentDidMount() {
-        if (!this.props.region.regions || this.props.region.regions.length === 0) {
-            this.props.fetchRegions();
-        }
-
-        if (!this.isLoaded()) {
-            this.props.clearStore();
-        }
-        this.fetchInfo();
+    if (!props.region.current || !props.region.current.name) {
+        props.history.push("/selectregion");
     }
 
-    componentDidUpdate() {
-        this.fetchInfo();
-
-        if (this.isLoaded()) {
-            this.props.history.push("/discounts");
-        }
+    if (!isLoaded) {
+        return <LoadingSpinner msg={<p>Loading games...</p>}/>;
     }
 
-    render() {
-        if (!this.props.region.regions || this.props.region.regions.length === 0) {
-            return <LoadingSpinner />;
-        }
-
-        if (!this.props.region.current || !this.props.region.current.name) {
-            this.props.history.push("/selectregion");
-        }
-
-        if (!this.isLoaded()) {
-            return <LoadingSpinner msg={<p>Loading games...</p>} />;
-        }
-
-        return <></>;
-    }
-}
+    return <></>;
+};
 
 const mapStateToProps = (state: ReduxStoreState) => state;
 const mapDispatchToProps = {

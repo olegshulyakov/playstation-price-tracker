@@ -23,26 +23,21 @@ import { clearGamesStore } from "../../actions/gameActions";
 import { Dropdown } from "react-bootstrap";
 import * as PlaystationApi from "playstation-api";
 
-interface LanguageMenuProps extends RegionState {
+interface Props extends RegionState, React.HTMLProps<any> {
     selectRegion: Function;
     clearGamesStore: Function;
 }
 
-class LanguageMenu extends React.Component<LanguageMenuProps> {
-    constructor(props: LanguageMenuProps) {
-        super(props);
-        this.renderRegion = this.renderRegion.bind(this);
-        this.onSelectRegion = this.onSelectRegion.bind(this);
-    }
+const LanguageMenu: React.FC<Props> = (props: Props) => {
 
-    onSelectRegion(region: PlaystationApi.types.PlaystationRegion) {
-        this.props.clearGamesStore();
-        this.props.selectRegion(region);
-    }
+    const onSelectRegion = (region: PlaystationApi.types.PlaystationRegion) => {
+        props.clearGamesStore();
+        props.selectRegion(region);
+    };
 
-    renderRegion(region: PlaystationApi.types.PlaystationRegion) {
+    const renderRegion = (region: PlaystationApi.types.PlaystationRegion) => {
         let styledName;
-        if (!this.props.current || this.props.current.name !== region.name) {
+        if (!props.current || props.current.name !== region.name) {
             styledName = region.name;
         } else {
             styledName = <b>{region.name}</b>;
@@ -52,38 +47,36 @@ class LanguageMenu extends React.Component<LanguageMenuProps> {
             <Dropdown.Item
                 key={"dropdown-region-" + region.name}
                 onClick={() => {
-                    this.onSelectRegion(region);
+                    onSelectRegion(region);
                 }}
             >
                 {styledName}
             </Dropdown.Item>
         );
-    }
+    };
 
-    render() {
-        const regions = this.props.regions.map((region) => this.renderRegion(region));
+    const regions = props.regions.map((region) => renderRegion(region));
 
-        return (
-            <Dropdown>
-                <Dropdown.Toggle
-                    id="language-menu"
-                    size="sm"
-                    style={{
-                        marginRight: "0.25rem",
-                        border: 0,
-                        color: "var(--text-primary)",
-                        backgroundColor: "transparent",
-                        fontSize: "0.8rem",
-                    }}
-                >
-                    <FontAwesomeIcon icon={faLanguage} size="2x" />
-                </Dropdown.Toggle>
+    return (
+        <Dropdown>
+            <Dropdown.Toggle
+                id="language-menu"
+                size="sm"
+                style={{
+                    marginRight: "0.25rem",
+                    border: 0,
+                    color: "var(--text-primary)",
+                    backgroundColor: "transparent",
+                    fontSize: "0.8rem",
+                }}
+            >
+                <FontAwesomeIcon icon={faLanguage} size="2x"/>
+            </Dropdown.Toggle>
 
-                <Dropdown.Menu>{regions}</Dropdown.Menu>
-            </Dropdown>
-        );
-    }
-}
+            <Dropdown.Menu>{regions}</Dropdown.Menu>
+        </Dropdown>
+    );
+};
 
 const mapStateToProps = (state: ReduxStoreState) =>
     ({ current: state.region.current, regions: state.region.regions } as RegionState);

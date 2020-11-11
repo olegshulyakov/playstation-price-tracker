@@ -51,17 +51,16 @@ const LoadingProgressMessage = styled.div`
     align-self: center;
 `;
 
-interface LoadingSpinnerProps {
+interface Props extends React.HTMLProps<any> {
     msg?: JSX.Element;
 }
 
-export default class LoadingSpinner extends React.Component<LoadingSpinnerProps> {
-    render() {
-        return (
-            <LoadingScreen>
-                <LoadingLogo src={playstationClassicIcon} alt="Loading" />
-                <LoadingProgressMessage>{this.props.msg ? this.props.msg : ""}</LoadingProgressMessage>
-            </LoadingScreen>
-        );
-    }
-}
+const LoadingSpinner: React.FC<Props> = (props: Props) => {
+    return (
+        <LoadingScreen>
+            <LoadingLogo src={playstationClassicIcon} alt="Loading"/>
+            <LoadingProgressMessage>{props.msg ? props.msg : ""}</LoadingProgressMessage>
+        </LoadingScreen>
+    );
+};
+export default LoadingSpinner;

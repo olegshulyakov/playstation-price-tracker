@@ -19,66 +19,58 @@ import { Card } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import * as PlaystationApi from "playstation-api";
 
-export interface GamePreviewProps extends RouteComponentProps {
+export interface Props extends RouteComponentProps, React.HTMLProps<any> {
     region: PlaystationApi.types.PlaystationRegion;
     game: PlaystationItemPreview;
 }
 
-class GamePreview extends React.Component<GamePreviewProps> {
-    constructor(props: GamePreviewProps) {
-        super(props);
-        this.handleGameClick = this.handleGameClick.bind(this);
-        this.redirectToPsStore = this.redirectToPsStore.bind(this);
-    }
+const GamePreview: React.FC<Props> = (props: Props) => {
+    const handleGameClick = (game: PlaystationItemPreview) => {
+        props.history.push({ pathname: "/game/" + game.id, state: game.url });
+    };
 
-    handleGameClick(game: PlaystationItemPreview) {
-        this.props.history.push({ pathname: "/game/" + game.id, state: game.url });
-    }
-
-    redirectToPsStore(event: any) {
+    const redirectToPsStore = (event: any) => {
         event.preventDefault();
-        window.open(PlaystationApi.helpers.getStoreGameLink(this.props.region, this.props.game.id), "_blank");
-    }
+        window.open(PlaystationApi.helpers.getStoreGameLink(props.region, props.game.id), "_blank");
+    };
 
-    render() {
-        let price = (
-            <div onClick={this.redirectToPsStore}>
-                <small>{this.props.game.initial_price}</small>
+    let price = (
+        <div onClick={redirectToPsStore}>
+            <small>{props.game.initial_price}</small>
+        </div>
+    );
+    if (props.game.sale_discount) {
+        price = (
+            <div onClick={redirectToPsStore}>
+                <small className="price-sale"> {props.game.sale_discount}% </small>{" "}
+                <s>
+                    <small>{props.game.initial_price}</small>
+                </s>{" "}
+                <small>{props.game.sale_price}</small>
             </div>
         );
-        if (this.props.game.sale_discount) {
-            price = (
-                <div onClick={this.redirectToPsStore}>
-                    <small className="price-sale"> {this.props.game.sale_discount}% </small>{" "}
-                    <s>
-                        <small>{this.props.game.initial_price}</small>
-                    </s>{" "}
-                    <small>{this.props.game.sale_price}</small>
-                </div>
-            );
-        }
-
-        return (
-            <Card className="preview-card">
-                <Card.Img
-                    variant="top"
-                    className="btn p-0"
-                    src={this.props.game.image}
-                    loading="lazy"
-                    alt={this.props.game.name}
-                    title={this.props.game.name}
-                    placeholder={this.props.game.name}
-                    onClick={() => this.handleGameClick(this.props.game)}
-                />
-                <Card.Body className="p-2 btn" onClick={() => this.handleGameClick(this.props.game)}>
-                    <Card.Title className="m-0 text-left">
-                        <small>{this.props.game.name}</small>
-                    </Card.Title>
-                </Card.Body>
-                <Card.Footer className="text-left p-2">{price}</Card.Footer>
-            </Card>
-        );
     }
-}
+
+    return (
+        <Card className="preview-card">
+            <Card.Img
+                variant="top"
+                className="btn p-0"
+                src={props.game.image}
+                loading="lazy"
+                alt={props.game.name}
+                title={props.game.name}
+                placeholder={props.game.name}
+                onClick={() => handleGameClick(props.game)}
+            />
+            <Card.Body className="p-2 btn" onClick={() => handleGameClick(props.game)}>
+                <Card.Title className="m-0 text-left">
+                    <small>{props.game.name}</small>
+                </Card.Title>
+            </Card.Body>
+            <Card.Footer className="text-left p-2">{price}</Card.Footer>
+        </Card>
+    );
+};
 
 export default withRouter(GamePreview);

@@ -18,7 +18,7 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { getSalePrice, getInitialPrice, getPsPlusPrice } from "../../services/PlayStationGameService";
+import { getInitialPrice, getPsPlusPrice, getSalePrice } from "../../services/PlayStationGameService";
 import * as PlaystationApi from "playstation-api";
 
 const GameDetailMediaCardContainer = styled.div`
@@ -49,66 +49,66 @@ const GameDetailMediaCardPrices = styled.div`
     }
 `;
 
-interface GameDetailMediaCardProps {
+interface Props extends React.HTMLProps<any> {
     region: PlaystationApi.types.PlaystationRegion;
     game: PlaystationApi.types.PlaystationResponse;
 }
 
-export default class MediaCard extends React.Component<GameDetailMediaCardProps> {
-    redirectToPsStore() {
-        window.open(PlaystationApi.helpers.getStoreGameLink(this.props.region, this.props.game.id), "_blank");
-    }
+const MediaCard: React.FC<Props> = (props: Props) => {
+    const redirectToPsStore = () => {
+        window.open(PlaystationApi.helpers.getStoreGameLink(props.region, props.game.id), "_blank");
+    };
 
-    render() {
-        const initialPrice = getInitialPrice(this.props.game);
-        const salePrice = getSalePrice(this.props.game);
-        const psPlusPrice = getPsPlusPrice(this.props.game);
+    const initialPrice = getInitialPrice(props.game);
+    const salePrice = getSalePrice(props.game);
+    const psPlusPrice = getPsPlusPrice(props.game);
 
-        const prices: JSX.Element[] = [];
-        if (initialPrice === salePrice) {
-            prices.push(
-                <div key={"detail-price-" + this.props.game.id} className="Game-detail-price">
-                    {salePrice}
-                </div>,
-            );
-        } else {
-            // price.push(<div className="Game-detail-inactive-price">{initialPrice}</div>);
-            prices.push(
-                <div key={"sale-price-" + this.props.game.id} className="Game-detail-sale-price">
-                    {salePrice}
-                </div>,
-            );
-        }
-
-        if (psPlusPrice) {
-            prices.push(
-                <div key={"ps-plus-price-" + this.props.game.id} className="Game-detail-ps-plus-price">
-                    {psPlusPrice}
-                </div>,
-            );
-        }
-
-        return (
-            <GameDetailMediaCardContainer onClick={this.redirectToPsStore.bind(this)}>
-                <GameDetailMediaCardImage
-                    loading="lazy"
-                    src={PlaystationApi.helpers.getPreviewImage(this.props.game)}
-                    title={this.props.game.name}
-                    placeholder={this.props.game.name}
-                    width={240}
-                    height={240}
-                />
-
-                <GameDetailMediaCardPrices>
-                    <FontAwesomeIcon
-                        key={"shopping-cart-" + this.props.game.id}
-                        icon={faShoppingCart}
-                        size="1x"
-                        style={{ marginRight: "0.25rem" }}
-                    />
-                    {prices}
-                </GameDetailMediaCardPrices>
-            </GameDetailMediaCardContainer>
+    const prices: JSX.Element[] = [];
+    if (initialPrice === salePrice) {
+        prices.push(
+            <div key={"detail-price-" + props.game.id} className="Game-detail-price">
+                {salePrice}
+            </div>,
+        );
+    } else {
+        // price.push(<div className="Game-detail-inactive-price">{initialPrice}</div>);
+        prices.push(
+            <div key={"sale-price-" + props.game.id} className="Game-detail-sale-price">
+                {salePrice}
+            </div>,
         );
     }
-}
+
+    if (psPlusPrice) {
+        prices.push(
+            <div key={"ps-plus-price-" + props.game.id} className="Game-detail-ps-plus-price">
+                {psPlusPrice}
+            </div>,
+        );
+    }
+
+    return (
+        <GameDetailMediaCardContainer onClick={redirectToPsStore}>
+            <GameDetailMediaCardImage
+                loading="lazy"
+                src={PlaystationApi.helpers.getPreviewImage(props.game)}
+                title={props.game.name}
+                placeholder={props.game.name}
+                width={240}
+                height={240}
+            />
+
+            <GameDetailMediaCardPrices>
+                <FontAwesomeIcon
+                    key={"shopping-cart-" + props.game.id}
+                    icon={faShoppingCart}
+                    size="1x"
+                    style={{ marginRight: "0.25rem" }}
+                />
+                {prices}
+            </GameDetailMediaCardPrices>
+        </GameDetailMediaCardContainer>
+    );
+};
+
+export default MediaCard;

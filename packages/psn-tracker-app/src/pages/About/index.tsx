@@ -43,77 +43,78 @@ const ExternalLink = styled.a`
     text-decoration: none;
 `;
 
-class About extends React.Component {
-    render() {
-        return (
-            <AboutContainer>
-                <Header />
-                <AboutContent>
-                    <h3>About page</h3>
+interface Props extends React.HTMLProps<any> {
+}
 
-                    <p className="description">{process.env.REACT_APP_WEBSITE_DESCRIPTION}</p>
+const About: React.FC<Props> = (props: Props) => {
+    return (
+        <AboutContainer className={props.className} style={props.style}>
+            <Header/>
+            <AboutContent>
+                <h3>About page</h3>
 
-                    <p className="thanks">We want to thanks people who helped on work with this resource.</p>
+                <p className="description">{process.env.REACT_APP_WEBSITE_DESCRIPTION}</p>
 
-                    <p className="technologies">
-                        <b>Technology stack:</b>
-                    </p>
-                    <ul>
-                        <li>
-                            <ExternalLink href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">
-                                React
-                            </ExternalLink>
-                        </li>
-                        <li>
-                            <ExternalLink href="https://redux.js.org/" target="_blank" rel="noopener noreferrer">
-                                Redux
-                            </ExternalLink>
-                        </li>
-                        <li>
-                            <ExternalLink
-                                href="https://styled-components.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Styled Components
-                            </ExternalLink>
-                        </li>
-                        <li>
-                            <ExternalLink href="https://material-ui.com/" target="_blank" rel="noopener noreferrer">
-                                Material UI
-                            </ExternalLink>
-                        </li>
-                        <li>
-                            <ExternalLink href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">
-                                Font Awesome
-                            </ExternalLink>
-                        </li>
-                    </ul>
-                    <p>
-                        <b>Attribution:</b>
-                    </p>
-                    <p>
-                        <img src={playstationClassicIcon} height={16} width={16} alt="Playstation Classic icon" />{" "}
-                        Classic Playstation Icon is made by{" "}
+                <p className="thanks">We want to thanks people who helped on work with this resource.</p>
+
+                <p className="technologies">
+                    <b>Technology stack:</b>
+                </p>
+                <ul>
+                    <li>
+                        <ExternalLink href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">
+                            React
+                        </ExternalLink>
+                    </li>
+                    <li>
+                        <ExternalLink href="https://redux.js.org/" target="_blank" rel="noopener noreferrer">
+                            Redux
+                        </ExternalLink>
+                    </li>
+                    <li>
                         <ExternalLink
-                            href="https://www.flaticon.com/authors/freepik"
+                            href="https://styled-components.com/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Freepik
-                        </ExternalLink>{" "}
-                        from{" "}
-                        <ExternalLink href="https://www.flaticon.com/" target="_blank" rel="noopener noreferrer">
-                            Flaticon
+                            Styled Components
                         </ExternalLink>
-                        .
-                    </p>
-                </AboutContent>
+                    </li>
+                    <li>
+                        <ExternalLink href="https://material-ui.com/" target="_blank" rel="noopener noreferrer">
+                            Material UI
+                        </ExternalLink>
+                    </li>
+                    <li>
+                        <ExternalLink href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">
+                            Font Awesome
+                        </ExternalLink>
+                    </li>
+                </ul>
+                <p>
+                    <b>Attribution:</b>
+                </p>
+                <p>
+                    <img src={playstationClassicIcon} height={16} width={16} alt="Playstation Classic icon"/>{" "}
+                    Classic Playstation Icon is made by{" "}
+                    <ExternalLink
+                        href="https://www.flaticon.com/authors/freepik"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Freepik
+                    </ExternalLink>{" "}
+                    from{" "}
+                    <ExternalLink href="https://www.flaticon.com/" target="_blank" rel="noopener noreferrer">
+                        Flaticon
+                    </ExternalLink>
+                    .
+                </p>
+            </AboutContent>
 
-                <Footer />
-            </AboutContainer>
-        );
-    }
-}
+            <Footer/>
+        </AboutContainer>
+    );
+};
 
 export default About;

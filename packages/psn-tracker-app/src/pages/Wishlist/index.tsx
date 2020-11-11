@@ -21,17 +21,16 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { withRouter } from "react-router-dom";
 
-class WishList extends React.Component {
-    render() {
-        return (
-            <>
-                <Header isLanguageEnabled={true} />
-                <Container fluid></Container>
-                <Footer />
-            </>
-        );
-    }
-}
+const WishList: React.FC<any> = (props: any) => {
+    return (
+        <>
+            <Header isLanguageEnabled={true}/>
+            <Container fluid></Container>
+            <Footer/>
+        </>
+    );
+
+};
 
 const mapStateToProps = null;
 const mapDispatchToProps = null;
