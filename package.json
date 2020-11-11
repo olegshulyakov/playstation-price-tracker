@@ -12,7 +12,8 @@
     "scripts": {
         "clean": "rimraf packages/**/dist",
         "bootstrap": "lerna clean --yes && lerna bootstrap -- --no-optional --use-workspaces",
-        "build": "yarn workspaces run build",
+        "dist": "lerna run dist --stream",
+        "build": "yarn clean && yarn bootstrap && yarn dist",
         "prettier": "prettier --write '**/*.*'",
         "deploy": "firebase deploy"
     },

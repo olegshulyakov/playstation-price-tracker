@@ -7,7 +7,7 @@
     "author": "Oleg Shulyakov",
     "scripts": {
         "lint": "tslint --project tsconfig.json",
-        "build": "tsc",
+        "dist": "tsc -d",
         "start": "npm run build && node ./build/index.js"
     },
     "dependencies": {
