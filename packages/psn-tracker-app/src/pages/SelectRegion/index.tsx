@@ -68,7 +68,6 @@ interface Props extends RegionState, RouteComponentProps, React.HTMLProps<any> {
 }
 
 const SelectRegion: React.FC<Props> = (props: Props) => {
-
     React.useEffect(() => {
         getCountryCode((country_code: string) => {
             for (const region of props.regions) {
@@ -102,12 +101,12 @@ const SelectRegion: React.FC<Props> = (props: Props) => {
     const regions = props.regions.map((region) => renderRegion(region));
     return (
         <>
-            <Header/>
+            <Header />
             <Container fluid>
                 <SelectRegionHeader>Please select your country / region</SelectRegionHeader>
                 <SelectRegionGrid>{regions}</SelectRegionGrid>
             </Container>
-            <Footer/>
+            <Footer />
         </>
     );
 };

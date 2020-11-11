@@ -52,14 +52,13 @@ const AllGames: React.FC<Props> = (props: Props) => {
         props.fetchGames(props.region, props.store.info.total_results, props.store.previews.length);
     };
 
-
     if (!props.store || !props.store.previews) {
         return <></>;
     }
 
     return (
         <>
-            <Header isLanguageEnabled={true}/>
+            <Header isLanguageEnabled={true} />
             <Container fluid>
                 <PreviewsGrid
                     region={props.region}
@@ -68,17 +67,15 @@ const AllGames: React.FC<Props> = (props: Props) => {
                     loadNextPage={loadNextPage}
                 />
             </Container>
-            <Footer/>
+            <Footer />
         </>
     );
-
 };
 
-const mapStateToProps = (state: ReduxStoreState) =>
-    ({
-        region: state.region.current,
-        store: state.store,
-    });
+const mapStateToProps = (state: ReduxStoreState) => ({
+    region: state.region.current,
+    store: state.store,
+});
 const mapDispatchToProps = { fetchGames: fetchGamePreviewsList };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllGames));

@@ -48,7 +48,7 @@ const PreviewsGrid: React.FC<Props> = (props: Props) => {
     };
 
     const items = props.games.slice().map((item) => {
-        return <GamePreview key={"game-preview-" + item.key} region={props.region} game={item.game}/>;
+        return <GamePreview key={"game-preview-" + item.key} region={props.region} game={item.game} />;
     });
 
     const threshold = window.screen.height;

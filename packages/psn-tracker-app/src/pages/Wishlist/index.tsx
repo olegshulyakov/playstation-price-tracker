@@ -24,12 +24,11 @@ import { withRouter } from "react-router-dom";
 const WishList: React.FC<any> = (props: any) => {
     return (
         <>
-            <Header isLanguageEnabled={true}/>
+            <Header isLanguageEnabled={true} />
             <Container fluid></Container>
-            <Footer/>
+            <Footer />
         </>
     );
-
 };
 
 const mapStateToProps = null;

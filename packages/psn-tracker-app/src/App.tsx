@@ -66,7 +66,7 @@ const App: React.FC<Props> = (props: Props) => {
     }, [isLoaded, props.store]);
 
     if (!props.region.regions || props.region.regions.length === 0) {
-        return <LoadingSpinner/>;
+        return <LoadingSpinner />;
     }
 
     if (!props.region.current || !props.region.current.name) {
@@ -74,7 +74,7 @@ const App: React.FC<Props> = (props: Props) => {
     }
 
     if (!isLoaded) {
-        return <LoadingSpinner msg={<p>Loading games...</p>}/>;
+        return <LoadingSpinner msg={<p>Loading games...</p>} />;
     }
 
     return <></>;

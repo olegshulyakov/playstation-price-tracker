@@ -79,7 +79,7 @@ const GameDetail: React.FC<Props> = (props: Props) => {
         setGame(undefined);
     }
 
-    const isCorruptedData =  !cusa || !url;
+    const isCorruptedData = !cusa || !url;
 
     React.useEffect(() => {
         if (isCorruptedData) {
@@ -105,7 +105,7 @@ const GameDetail: React.FC<Props> = (props: Props) => {
     }
 
     if (!isLoaded || !game || !game.name || !game.images) {
-        return <LoadingSpinner msg={<p>Loading game information...</p>}/>;
+        return <LoadingSpinner msg={<p>Loading game information...</p>} />;
     }
 
     const gameLink = PlaystationApi.helpers.getStoreGameLink(props.region, game.id);
@@ -129,7 +129,7 @@ const GameDetail: React.FC<Props> = (props: Props) => {
 
     return (
         <>
-            <Header/>
+            <Header />
             <Container>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
@@ -144,7 +144,7 @@ const GameDetail: React.FC<Props> = (props: Props) => {
                 <Row>
                     <Col xs={12} sm={0} md={0} lg={0} xl={0}>
                         <HiddenDesktop>
-                            <MediaCard region={props.region} game={game}/>
+                            <MediaCard region={props.region} game={game} />
                         </HiddenDesktop>
                     </Col>
 
@@ -168,23 +168,23 @@ const GameDetail: React.FC<Props> = (props: Props) => {
                             )}
                         </GameDetailTitle>
 
-                        <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }}/>
+                        <GameDetailDescription dangerouslySetInnerHTML={{ __html: game.long_desc }} />
                     </Col>
 
                     <Col xs={0} sm={3} md={3} lg={3} xl={3}>
                         <HiddenMobile>
-                            <MediaCard region={props.region} game={game}/>
-                            <SpaceElement/>
-                            <AttributeCard attribute="Platforms" values={[...platforms.keys()]}/>
-                            <SpaceElement/>
-                            <AttributeCard attribute="Audio" values={[...voices.keys()]}/>
-                            <SpaceElement/>
-                            <AttributeCard attribute="Subtitles" values={[...subtitles.keys()]}/>
+                            <MediaCard region={props.region} game={game} />
+                            <SpaceElement />
+                            <AttributeCard attribute="Platforms" values={[...platforms.keys()]} />
+                            <SpaceElement />
+                            <AttributeCard attribute="Audio" values={[...voices.keys()]} />
+                            <SpaceElement />
+                            <AttributeCard attribute="Subtitles" values={[...subtitles.keys()]} />
                         </HiddenMobile>
                     </Col>
                 </Row>
             </Container>
-            <Footer/>
+            <Footer />
         </>
     );
 };

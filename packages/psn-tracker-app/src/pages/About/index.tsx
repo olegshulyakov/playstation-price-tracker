@@ -43,13 +43,12 @@ const ExternalLink = styled.a`
     text-decoration: none;
 `;
 
-interface Props extends React.HTMLProps<any> {
-}
+interface Props extends React.HTMLProps<any> {}
 
 const About: React.FC<Props> = (props: Props) => {
     return (
         <AboutContainer className={props.className} style={props.style}>
-            <Header/>
+            <Header />
             <AboutContent>
                 <h3>About page</h3>
 
@@ -72,11 +71,7 @@ const About: React.FC<Props> = (props: Props) => {
                         </ExternalLink>
                     </li>
                     <li>
-                        <ExternalLink
-                            href="https://styled-components.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
+                        <ExternalLink href="https://styled-components.com/" target="_blank" rel="noopener noreferrer">
                             Styled Components
                         </ExternalLink>
                     </li>
@@ -95,8 +90,8 @@ const About: React.FC<Props> = (props: Props) => {
                     <b>Attribution:</b>
                 </p>
                 <p>
-                    <img src={playstationClassicIcon} height={16} width={16} alt="Playstation Classic icon"/>{" "}
-                    Classic Playstation Icon is made by{" "}
+                    <img src={playstationClassicIcon} height={16} width={16} alt="Playstation Classic icon" /> Classic
+                    Playstation Icon is made by{" "}
                     <ExternalLink
                         href="https://www.flaticon.com/authors/freepik"
                         target="_blank"
@@ -112,7 +107,7 @@ const About: React.FC<Props> = (props: Props) => {
                 </p>
             </AboutContent>
 
-            <Footer/>
+            <Footer />
         </AboutContainer>
     );
 };

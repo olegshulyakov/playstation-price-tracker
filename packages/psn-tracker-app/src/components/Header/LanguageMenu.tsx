@@ -29,7 +29,6 @@ interface Props extends RegionState, React.HTMLProps<any> {
 }
 
 const LanguageMenu: React.FC<Props> = (props: Props) => {
-
     const onSelectRegion = (region: PlaystationApi.types.PlaystationRegion) => {
         props.clearGamesStore();
         props.selectRegion(region);
@@ -70,7 +69,7 @@ const LanguageMenu: React.FC<Props> = (props: Props) => {
                     fontSize: "0.8rem",
                 }}
             >
-                <FontAwesomeIcon icon={faLanguage} size="2x"/>
+                <FontAwesomeIcon icon={faLanguage} size="2x" />
             </Dropdown.Toggle>
 
             <Dropdown.Menu>{regions}</Dropdown.Menu>

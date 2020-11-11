@@ -41,8 +41,7 @@ const Search: React.FC<Props> = (props: Props) => {
         return false;
     };
 
-    const loadNextPage = (nextPage: number) => {
-    };
+    const loadNextPage = (nextPage: number) => {};
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.target || !props.region) return;
@@ -52,14 +51,13 @@ const Search: React.FC<Props> = (props: Props) => {
         props.searchGames(props.region, query);
     };
 
-
     if (!props.store || !props.store.search) {
         return <></>;
     }
 
     return (
         <>
-            <Header isLanguageEnabled={true}/>
+            <Header isLanguageEnabled={true} />
             <Container fluid>
                 <Form>
                     <Col xs={4} className="mx-auto pt-2 pb-2">
@@ -79,17 +77,15 @@ const Search: React.FC<Props> = (props: Props) => {
                     loadNextPage={loadNextPage}
                 />
             </Container>
-            <Footer/>
+            <Footer />
         </>
     );
-
 };
 
-const mapStateToProps = (state: ReduxStoreState) =>
-    ({
-        region: state.region.current,
-        store: state.store,
-    });
+const mapStateToProps = (state: ReduxStoreState) => ({
+    region: state.region.current,
+    store: state.store,
+});
 const mapDispatchToProps = { searchGames: searchGames };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search));

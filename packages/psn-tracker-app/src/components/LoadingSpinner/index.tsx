@@ -58,7 +58,7 @@ interface Props extends React.HTMLProps<any> {
 const LoadingSpinner: React.FC<Props> = (props: Props) => {
     return (
         <LoadingScreen>
-            <LoadingLogo src={playstationClassicIcon} alt="Loading"/>
+            <LoadingLogo src={playstationClassicIcon} alt="Loading" />
             <LoadingProgressMessage>{props.msg ? props.msg : ""}</LoadingProgressMessage>
         </LoadingScreen>
     );

@@ -31,7 +31,6 @@ interface Props extends RouteComponentProps, React.HTMLProps<any> {
 }
 
 const Discounts: React.FC<Props> = (props: Props) => {
-
     React.useEffect(() => {
         if (!props.store || !props.store.previews || props.store.previews.length === 0) {
             props.history.push("/");
@@ -63,7 +62,7 @@ const Discounts: React.FC<Props> = (props: Props) => {
 
     return (
         <>
-            <Header isLanguageEnabled={true}/>
+            <Header isLanguageEnabled={true} />
             <Container fluid>
                 <PreviewsGrid
                     region={props.region}
@@ -72,10 +71,9 @@ const Discounts: React.FC<Props> = (props: Props) => {
                     loadNextPage={loadNextPage}
                 />
             </Container>
-            <Footer/>
+            <Footer />
         </>
     );
-
 };
 
 const mapStateToProps = (state: ReduxStoreState) =>

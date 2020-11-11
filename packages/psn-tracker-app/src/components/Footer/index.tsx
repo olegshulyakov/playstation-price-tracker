@@ -34,8 +34,7 @@ const FooterContainer = styled.footer`
     }
 `;
 
-interface Props extends React.HTMLProps<any> {
-}
+interface Props extends React.HTMLProps<any> {}
 
 const Footer: React.FC<Props> = (props: Props) => {
     return (
@@ -44,10 +43,12 @@ const Footer: React.FC<Props> = (props: Props) => {
                 About
             </Link>
             {". "}
-            <a className="link"
-               href="https://github.com/olegshulyakov/game-price-tracker"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a
+                className="link"
+                href="https://github.com/olegshulyakov/game-price-tracker"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 GitHub
             </a>
             {". "} Version: <b>{process.env.REACT_APP_VERSION}</b>

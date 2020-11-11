@@ -81,7 +81,7 @@ const Header: React.FC<Props> = (props: Props) => {
                 </Nav.Item>
             </Nav>
 
-            {props.isLanguageEnabled ? <LanguageMenu/> : <></>}
+            {props.isLanguageEnabled ? <LanguageMenu /> : <></>}
         </header>
     );
 };
