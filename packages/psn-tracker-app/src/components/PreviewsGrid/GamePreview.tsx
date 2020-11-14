@@ -51,12 +51,14 @@ const GamePreview: React.FC<Props> = (props: Props) => {
         );
     }
 
+    const imageLink = PlaystationApi.queries.getGameImageLink(props.region, props.game.id, 256, 256); // props.game.image;
+
     return (
         <Card className="preview-card">
             <Card.Img
                 variant="top"
                 className="btn p-0"
-                src={props.game.image}
+                src={imageLink}
                 loading="lazy"
                 alt={props.game.name}
                 title={props.game.name}
