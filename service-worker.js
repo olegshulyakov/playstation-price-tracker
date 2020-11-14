@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/game-price-tracker/precache-manifest.7453a456fadc4d9175f6f74e0f51db59.js"
+  "/game-price-tracker/precache-manifest.b07170d4fb5714d98bf855269b0a7eb0.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,21 +1,26 @@
 {
   "files": {
-    "main.css": "/game-price-tracker/static/css/main.19824d04.chunk.css",
-    "main.js": "/game-price-tracker/static/js/main.08a9fe98.chunk.js",
+    "main.css": "/game-price-tracker/static/css/main.1a8713d6.chunk.css",
+    "main.js": "/game-price-tracker/static/js/main.2af168cb.chunk.js",
+    "main.js.map": "/game-price-tracker/static/js/main.2af168cb.chunk.js.map",
     "runtime-main.js": "/game-price-tracker/static/js/runtime-main.d0811e63.js",
-    "static/css/2.090590db.chunk.css": "/game-price-tracker/static/css/2.090590db.chunk.css",
-    "static/js/2.0f88151f.chunk.js": "/game-price-tracker/static/js/2.0f88151f.chunk.js",
+    "runtime-main.js.map": "/game-price-tracker/static/js/runtime-main.d0811e63.js.map",
+    "static/css/2.99a2b36c.chunk.css": "/game-price-tracker/static/css/2.99a2b36c.chunk.css",
+    "static/js/2.fc63b7d4.chunk.js": "/game-price-tracker/static/js/2.fc63b7d4.chunk.js",
+    "static/js/2.fc63b7d4.chunk.js.map": "/game-price-tracker/static/js/2.fc63b7d4.chunk.js.map",
     "index.html": "/game-price-tracker/index.html",
-    "precache-manifest.7453a456fadc4d9175f6f74e0f51db59.js": "/game-price-tracker/precache-manifest.7453a456fadc4d9175f6f74e0f51db59.js",
+    "precache-manifest.b07170d4fb5714d98bf855269b0a7eb0.js": "/game-price-tracker/precache-manifest.b07170d4fb5714d98bf855269b0a7eb0.js",
     "service-worker.js": "/game-price-tracker/service-worker.js",
-    "static/js/2.0f88151f.chunk.js.LICENSE.txt": "/game-price-tracker/static/js/2.0f88151f.chunk.js.LICENSE.txt",
+    "static/css/2.99a2b36c.chunk.css.map": "/game-price-tracker/static/css/2.99a2b36c.chunk.css.map",
+    "static/css/main.1a8713d6.chunk.css.map": "/game-price-tracker/static/css/main.1a8713d6.chunk.css.map",
+    "static/js/2.fc63b7d4.chunk.js.LICENSE.txt": "/game-price-tracker/static/js/2.fc63b7d4.chunk.js.LICENSE.txt",
     "static/media/playstation-classic.svg": "/game-price-tracker/static/media/playstation-classic.402fbb90.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.d0811e63.js",
-    "static/css/2.090590db.chunk.css",
-    "static/js/2.0f88151f.chunk.js",
-    "static/css/main.19824d04.chunk.css",
-    "static/js/main.08a9fe98.chunk.js"
+    "static/css/2.99a2b36c.chunk.css",
+    "static/js/2.fc63b7d4.chunk.js",
+    "static/css/main.1a8713d6.chunk.css",
+    "static/js/main.2af168cb.chunk.js"
   ]
 }
