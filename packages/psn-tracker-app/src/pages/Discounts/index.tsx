@@ -32,10 +32,10 @@ interface Props extends RouteComponentProps, React.HTMLProps<any> {
 
 const Discounts: React.FC<Props> = (props: Props) => {
     React.useEffect(() => {
-        if (!props.store || !props.store.previews || props.store.previews.length === 0) {
+        if (!props.region || !props.store || !props.store.info || !props.store.info.total_results) {
             props.history.push("/");
         }
-    }, [props.store]);
+    }, []);
 
     const hasMoreItems = () => {
         return !(

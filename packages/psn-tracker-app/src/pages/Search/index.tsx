@@ -35,7 +35,7 @@ const Search: React.FC<Props> = (props: Props) => {
         if (!props.store) {
             props.history.push("/");
         }
-    }, [props.store]);
+    }, []);
 
     const hasMoreItems = () => {
         return false;

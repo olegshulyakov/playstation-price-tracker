@@ -98,7 +98,7 @@ const GameDetail: React.FC<Props> = (props: Props) => {
                 sessionStorage.setItem(GAME + cusa, JSON.stringify(game));
             })
             .catch((e) => console.error(`Cannot load game data, [${cusa}].`, e));
-    }, [cusa, game, url, isCorruptedData, isLoaded]);
+    }, []);
 
     if (isCorruptedData) {
         return <></>;

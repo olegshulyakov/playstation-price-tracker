@@ -30,7 +30,7 @@ interface Props extends ReduxStoreState, RouteComponentProps, React.HTMLProps<an
 }
 
 const App: React.FC<Props> = (props: Props) => {
-    const isLoaded = !(!props.store.info || !props.store.previews);
+    const isLoaded = props.store.info && props.store.previews;
 
     const fetchInfo = () => {
         if (!props.region.current) {
@@ -42,28 +42,20 @@ const App: React.FC<Props> = (props: Props) => {
             props.fetchInfo(region);
             return;
         }
-
-        if (!isLoaded) {
-            props.fetchGames(props.region.current, props.store.info.total_results);
-        }
     };
 
     React.useEffect(() => {
         if (!props.region.regions || props.region.regions.length === 0) {
             props.fetchRegions();
         }
+    }, []);
 
+    React.useEffect(() => {
         if (!isLoaded) {
             props.clearStore();
         }
         fetchInfo();
-    }, []);
-
-    React.useEffect(() => {
-        if (isLoaded) {
-            props.history.push("/discounts");
-        }
-    }, [isLoaded, props.store]);
+    }, [props.region.current]);
 
     if (!props.region.regions || props.region.regions.length === 0) {
         return <LoadingSpinner />;
@@ -76,6 +68,7 @@ const App: React.FC<Props> = (props: Props) => {
     if (!isLoaded) {
         return <LoadingSpinner msg={<p>Loading games...</p>} />;
     }
+    props.history.push("/discounts");
 
     return <></>;
 };
