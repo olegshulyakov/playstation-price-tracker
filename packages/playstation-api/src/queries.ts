@@ -57,7 +57,7 @@ export async function getGamesList(region: PlaystationRegion, size: number = DEF
 }
 
 export function getGameImageLink(region: PlaystationRegion, cusa: string, width: number = 240, height: number = 240): string {
-    return `${baseUrl}/titlecontainer/${region.country}/${region.language}/999/${cusa}/image?w=${width}&h=${height}`;
+    return `${baseUrl}/container/${region.country}/${region.language}/999/${cusa}/image?w=${width}&h=${height}`;
 }
 
 export async function search(region: PlaystationRegion, searchString: string, size: number = DEFAULT_SEARCH_SIZE): Promise<PlaystationResponse> {
