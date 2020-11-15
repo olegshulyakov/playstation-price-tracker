@@ -21,7 +21,6 @@
         "packages/*"
     ],
     "devDependencies": {
-        "firebase": "^7.13.2",
         "lerna": "^3.20.2",
         "prettier": "^2.0.2",
         "rimraf": "^3.0.2"

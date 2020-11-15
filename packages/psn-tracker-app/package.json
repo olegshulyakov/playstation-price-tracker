@@ -11,7 +11,6 @@
         "@fortawesome/free-solid-svg-icons": "^5.12.1",
         "@fortawesome/react-fontawesome": "^0.1.9",
         "bootstrap": "^4.4.1",
-        "firebase": "^7.10.0",
         "playstation-api": "1.0.0",
         "react": "^16.13.1",
         "react-bootstrap": "^1.0.0-beta.17",
