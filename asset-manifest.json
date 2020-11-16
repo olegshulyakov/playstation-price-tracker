@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "./static/css/main.2e9e6f81.chunk.css",
-    "main.js": "./static/js/main.6818c137.chunk.js",
-    "runtime-main.js": "./static/js/runtime-main.e97ab756.js",
-    "static/css/2.090590db.chunk.css": "./static/css/2.090590db.chunk.css",
-    "static/js/2.b650bb6f.chunk.js": "./static/js/2.b650bb6f.chunk.js",
-    "index.html": "./index.html",
-    "precache-manifest.7a950bee7eb34529b5f2b00f79918c1a.js": "./precache-manifest.7a950bee7eb34529b5f2b00f79918c1a.js",
-    "service-worker.js": "./service-worker.js",
-    "static/js/2.b650bb6f.chunk.js.LICENSE.txt": "./static/js/2.b650bb6f.chunk.js.LICENSE.txt",
-    "static/media/playstation-classic.svg": "./static/media/playstation-classic.402fbb90.svg"
+    "main.css": "https://olegshulyakov.github.io/game-price-tracker/static/css/main.2e9e6f81.chunk.css",
+    "main.js": "https://olegshulyakov.github.io/game-price-tracker/static/js/main.61be901f.chunk.js",
+    "runtime-main.js": "https://olegshulyakov.github.io/game-price-tracker/static/js/runtime-main.83b001b4.js",
+    "static/css/2.090590db.chunk.css": "https://olegshulyakov.github.io/game-price-tracker/static/css/2.090590db.chunk.css",
+    "static/js/2.cb3790de.chunk.js": "https://olegshulyakov.github.io/game-price-tracker/static/js/2.cb3790de.chunk.js",
+    "index.html": "https://olegshulyakov.github.io/game-price-tracker/index.html",
+    "precache-manifest.4e5965b4dcab62adcf1804c8e11d1fb0.js": "https://olegshulyakov.github.io/game-price-tracker/precache-manifest.4e5965b4dcab62adcf1804c8e11d1fb0.js",
+    "service-worker.js": "https://olegshulyakov.github.io/game-price-tracker/service-worker.js",
+    "static/js/2.cb3790de.chunk.js.LICENSE.txt": "https://olegshulyakov.github.io/game-price-tracker/static/js/2.cb3790de.chunk.js.LICENSE.txt",
+    "static/media/playstation-classic.svg": "https://olegshulyakov.github.io/game-price-tracker/static/media/playstation-classic.402fbb90.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.e97ab756.js",
+    "static/js/runtime-main.83b001b4.js",
     "static/css/2.090590db.chunk.css",
-    "static/js/2.b650bb6f.chunk.js",
+    "static/js/2.cb3790de.chunk.js",
     "static/css/main.2e9e6f81.chunk.css",
-    "static/js/main.6818c137.chunk.js"
+    "static/js/main.61be901f.chunk.js"
   ]
 }
