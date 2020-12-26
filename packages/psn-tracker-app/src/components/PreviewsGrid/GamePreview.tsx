@@ -25,9 +25,9 @@ export interface Props extends RouteComponentProps, React.HTMLProps<any> {
 }
 
 const GamePreview: React.FC<Props> = (props: Props) => {
-    const handleGameClick = (game: PlaystationItemPreview) => {
+    /*const handleGameClick = (game: PlaystationItemPreview) => {
         props.history.push({ pathname: "/game/" + game.id, state: game.url });
-    };
+    };*/
 
     const redirectToPsStore = (event: any) => {
         event.preventDefault();
@@ -51,7 +51,8 @@ const GamePreview: React.FC<Props> = (props: Props) => {
         );
     }
 
-    const imageLink = PlaystationApi.queries.getGameImageLink(props.region, props.game.id, 256, 256); // props.game.image;
+    // const imageLink = PlaystationApi.queries.getGameImageLink(props.region, props.game.id, 256, 256); // props.game.image;
+    const imageLink = props.game.image;
 
     return (
         <Card className="preview-card">
@@ -63,9 +64,9 @@ const GamePreview: React.FC<Props> = (props: Props) => {
                 alt={props.game.name}
                 title={props.game.name}
                 placeholder={props.game.name}
-                onClick={() => handleGameClick(props.game)}
+                onClick={redirectToPsStore}
             />
-            <Card.Body className="p-2 btn" onClick={() => handleGameClick(props.game)}>
+            <Card.Body className="p-2 btn" onClick={redirectToPsStore}>
                 <Card.Title className="m-0 text-left">
                     <small>{props.game.name}</small>
                 </Card.Title>
