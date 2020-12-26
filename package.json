@@ -13,9 +13,10 @@
         "clean": "rimraf packages/**/dist",
         "bootstrap": "lerna clean --yes && lerna bootstrap -- --no-optional --use-workspaces",
         "dist": "lerna run dist --stream",
-        "build": "yarn clean && yarn bootstrap && yarn dist",
+        "build": "npm run clean && npm run bootstrap && npm run dist",
         "prettier": "prettier --write '**/*.*'",
-        "deploy": "firebase deploy"
+        "predeploy": "npm run build",
+        "deploy": "lerna run deploy --scope psn-tracker-app"
     },
     "workspaces": [
         "packages/*"
