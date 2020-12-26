@@ -61,7 +61,7 @@ export const fetchGamePreviewsList = (
             return;
         }
         const previews = links.map((link) => {
-            return getGamePreview(link);
+            return getGamePreview(region, link);
         });
         dispatch({ type: FETCH_PREVIEW_MAP, games: previews });
     } catch (e) {
@@ -93,7 +93,7 @@ export const searchGames = (region: PlaystationApi.types.PlaystationRegion, sear
         }
 
         const previews = json.links.map((link) => {
-            return getGamePreview(link);
+            return getGamePreview(region, link);
         });
         dispatch({ type: SEARCH_GAMES, games: previews });
     } catch (e) {

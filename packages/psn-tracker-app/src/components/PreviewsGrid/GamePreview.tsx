@@ -51,7 +51,6 @@ const GamePreview: React.FC<Props> = (props: Props) => {
         );
     }
 
-    // const imageLink = PlaystationApi.queries.getGameImageLink(props.region, props.game.id, 256, 256); // props.game.image;
     const imageLink = props.game.image;
 
     return (

@@ -16,8 +16,8 @@
 
 import * as PlaystationApi from "playstation-api";
 
-export const getGamePreview = (game: PlaystationApi.types.PlaystationGameResponse): PlaystationItemPreview => {
-    const image = game.images && game.images[0] ? game.images[0].url : "";
+export const getGamePreview = (region: PlaystationApi.types.PlaystationRegion, game: PlaystationApi.types.PlaystationGameResponse): PlaystationItemPreview => {
+    const image = game.images && game.images.length > 0 && game.images[0].type === 1 ? game.images[0].url : PlaystationApi.queries.getGameImageLink(region, game.id, 240, 240);
     const initialPrice = getInitialPrice(game);
     const salePrice = getSalePrice(game);
     const saleDiscount = getSaleDiscount(game);
