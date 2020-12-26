@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/olegshulyakov/game-price-tracker.svg?branch=master)](https://travis-ci.org/olegshulyakov/game-price-tracker)
 
-Live [Demo](https://psn-tracker-web.app)
+Live [Demo](https://olegshulyakov.github.io/game-price-tracker/)
 
 ## Description
 
