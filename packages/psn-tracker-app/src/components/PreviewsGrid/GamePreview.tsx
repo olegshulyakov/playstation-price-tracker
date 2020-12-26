@@ -34,31 +34,23 @@ const GamePreview: React.FC<Props> = (props: Props) => {
         window.open(PlaystationApi.helpers.getStoreGameLink(props.region, props.game.id), "_blank");
     };
 
-    let price = (
-        <div onClick={redirectToPsStore}>
-            <small>{props.game.initial_price}</small>
-        </div>
+    const priceEl = <small>{props.game.initial_price}</small>;
+    const discountPriceEl = (
+        <>
+            <small className="price-sale" style={{margin: "auto 0.5rem auto 0"}}>
+                {props.game.sale_discount}%
+            </small>
+            <s style={{margin: "auto 0.5rem auto 0"}}>{priceEl}</s>
+            <small>{props.game.sale_price}</small>
+        </>
     );
-    if (props.game.sale_discount) {
-        price = (
-            <div onClick={redirectToPsStore}>
-                <small className="price-sale"> {props.game.sale_discount}% </small>{" "}
-                <s>
-                    <small>{props.game.initial_price}</small>
-                </s>{" "}
-                <small>{props.game.sale_price}</small>
-            </div>
-        );
-    }
-
-    const imageLink = props.game.image;
 
     return (
         <Card className="preview-card">
             <Card.Img
                 variant="top"
                 className="btn p-0"
-                src={imageLink}
+                src={props.game.image}
                 loading="lazy"
                 alt={props.game.name}
                 title={props.game.name}
@@ -70,7 +62,13 @@ const GamePreview: React.FC<Props> = (props: Props) => {
                     <small>{props.game.name}</small>
                 </Card.Title>
             </Card.Body>
-            <Card.Footer className="text-left p-2">{price}</Card.Footer>
+            <Card.Footer className="text-left p-2">
+                <div onClick={redirectToPsStore}>
+                    {
+                        props.game.sale_discount ? discountPriceEl : priceEl
+                    }
+                </div>
+            </Card.Footer>
         </Card>
     );
 };
