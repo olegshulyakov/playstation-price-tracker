@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3e1a1a8f9797ffa60a1aae8dd0fdb558",
+    "revision": "d29fbcfe5c58aa86ec7de96bef4fa31e",
     "url": "/game-price-tracker/index.html"
   },
   {
-    "revision": "d2124a89c72732028bf1",
+    "revision": "0d92560d134b6ab39d3f",
     "url": "/game-price-tracker/static/css/2.090590db.chunk.css"
   },
   {
-    "revision": "a34b631ee1a60fcbeadf",
-    "url": "/game-price-tracker/static/css/main.2e9e6f81.chunk.css"
+    "revision": "e21bd9e3a8b9a28d7ab3",
+    "url": "/game-price-tracker/static/css/main.14bfaace.chunk.css"
   },
   {
-    "revision": "d2124a89c72732028bf1",
-    "url": "/game-price-tracker/static/js/2.632ae6d2.chunk.js"
+    "revision": "0d92560d134b6ab39d3f",
+    "url": "/game-price-tracker/static/js/2.e5dce958.chunk.js"
   },
   {
     "revision": "434eeea35bf11e3d22931f972c8fbb4c",
-    "url": "/game-price-tracker/static/js/2.632ae6d2.chunk.js.LICENSE.txt"
+    "url": "/game-price-tracker/static/js/2.e5dce958.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a34b631ee1a60fcbeadf",
-    "url": "/game-price-tracker/static/js/main.680e6dbc.chunk.js"
+    "revision": "e21bd9e3a8b9a28d7ab3",
+    "url": "/game-price-tracker/static/js/main.856e09fa.chunk.js"
   },
   {
     "revision": "d68fc54b6920870dcee4",

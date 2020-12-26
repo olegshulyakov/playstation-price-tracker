@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/game-price-tracker/static/css/main.2e9e6f81.chunk.css",
-    "main.js": "/game-price-tracker/static/js/main.680e6dbc.chunk.js",
+    "main.css": "/game-price-tracker/static/css/main.14bfaace.chunk.css",
+    "main.js": "/game-price-tracker/static/js/main.856e09fa.chunk.js",
     "runtime-main.js": "/game-price-tracker/static/js/runtime-main.d0811e63.js",
     "static/css/2.090590db.chunk.css": "/game-price-tracker/static/css/2.090590db.chunk.css",
-    "static/js/2.632ae6d2.chunk.js": "/game-price-tracker/static/js/2.632ae6d2.chunk.js",
+    "static/js/2.e5dce958.chunk.js": "/game-price-tracker/static/js/2.e5dce958.chunk.js",
     "index.html": "/game-price-tracker/index.html",
-    "precache-manifest.8d09887af85192df8a9902c8e9dfd77f.js": "/game-price-tracker/precache-manifest.8d09887af85192df8a9902c8e9dfd77f.js",
+    "precache-manifest.0d6f35e2694ddb60b352381c7492a32c.js": "/game-price-tracker/precache-manifest.0d6f35e2694ddb60b352381c7492a32c.js",
     "service-worker.js": "/game-price-tracker/service-worker.js",
-    "static/js/2.632ae6d2.chunk.js.LICENSE.txt": "/game-price-tracker/static/js/2.632ae6d2.chunk.js.LICENSE.txt",
+    "static/js/2.e5dce958.chunk.js.LICENSE.txt": "/game-price-tracker/static/js/2.e5dce958.chunk.js.LICENSE.txt",
     "static/media/playstation-classic.svg": "/game-price-tracker/static/media/playstation-classic.402fbb90.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.d0811e63.js",
     "static/css/2.090590db.chunk.css",
-    "static/js/2.632ae6d2.chunk.js",
-    "static/css/main.2e9e6f81.chunk.css",
-    "static/js/main.680e6dbc.chunk.js"
+    "static/js/2.e5dce958.chunk.js",
+    "static/css/main.14bfaace.chunk.css",
+    "static/js/main.856e09fa.chunk.js"
   ]
 }
