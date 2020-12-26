@@ -18,6 +18,8 @@ import { CLEAR_GAMES_STORE, CLEAR_REGION, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP, 
 import { getGamePreview } from "../services/PlayStationGameService";
 import * as PlaystationApi from "playstation-api";
 
+const fetchSize = 100; //PlaystationApi.constants.DEFAULT_FETCH_SIZE;
+
 export const fetchStoreInfo = (region: PlaystationApi.types.PlaystationRegion) => async (dispatch: Function) => {
     if (!region || !region.name) {
         console.warn("No region specified.");
@@ -41,7 +43,7 @@ export const fetchGamePreviewsList = (
     region: PlaystationApi.types.PlaystationRegion,
     total: number,
     start: number = 0,
-    size: number = PlaystationApi.constants.DEFAULT_FETCH_SIZE,
+    size: number = fetchSize,
 ) => async (dispatch: Function) => {
     if (!region || !region.name) {
         console.warn("No region specified.");
@@ -74,7 +76,7 @@ export const clearGamesStore = () => async (dispatch: Function) => {
     dispatch({ type: CLEAR_GAMES_STORE });
 };
 
-export const searchGames = (region: PlaystationApi.types.PlaystationRegion, searchString: string) => async (
+export const searchGames = (region: PlaystationApi.types.PlaystationRegion, searchString: string, size: number = fetchSize) => async (
     dispatch: Function,
 ) => {
     if (!region || !region.name) {
@@ -86,7 +88,7 @@ export const searchGames = (region: PlaystationApi.types.PlaystationRegion, sear
         const json = await PlaystationApi.queries.search(
             region,
             searchString,
-            PlaystationApi.constants.DEFAULT_FETCH_SIZE,
+            size,
         );
         if (!json) {
             return;
