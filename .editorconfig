@@ -1,15 +1,49 @@
 root = true
 
 [*]
-charset = utf-8
-indent_size = 4
 indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
 trim_trailing_whitespace = true
+insert_final_newline = false
+max_line_length = 150
+
+[*.{md, markdown,txt}]
+trim_trailing_whitespace = false
+
+[*.{sh, yml, yaml, json}]
+indent_size = 2
 insert_final_newline = true
 
-[*.yml]
-indent_size = 2
-insert_final_newline = false
+[*.{bat, ps1}]
+indent_style = tab
+end_of_line = crlf
 
-[.yarnrc]
-insert_final_newline = false
+[*.{html, css, scss, less}]
+indent_size = 2
+
+[*.go]
+indent_style = tab
+indent_size = 8
+
+[*.sql]
+indent_size = tab
+end_of_line = crlf
+insert_final_newline = true
+
+[{Makefile, *.mk}]
+indent_size = tab
+trim_trailing_whitespace = false
+
+[*.patch.*]
+trim_trailing_whitespace = false
+
+[**.min.*]
+indent_style = unset
+indent_size = unset
+end_of_line = unset
+charset = unset
+trim_trailing_whitespace = unset
+insert_final_newline = unset
+max_line_length = unset
