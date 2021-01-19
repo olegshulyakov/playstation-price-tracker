@@ -1,8 +1,8 @@
 # 🕹 Welcome to **PSN Tracker** project!
 
-[![Build Status](https://travis-ci.org/olegshulyakov/game-price-tracker.svg?branch=master)](https://travis-ci.org/olegshulyakov/game-price-tracker)
+[![Build Status](https://travis-ci.org/olegshulyakov/playstation-price-tracker.svg?branch=master)](https://travis-ci.org/olegshulyakov/game-price-tracker)
 
-Live [Demo](https://olegshulyakov.github.io/game-price-tracker/)
+Live [Demo](https://olegshulyakov.github.io/playstation-price-tracker/)
 
 ## Description
 

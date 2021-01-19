@@ -45,7 +45,7 @@ const Footer: React.FC<Props> = (props: Props) => {
             {". "}
             <a
                 className="link"
-                href="https://github.com/olegshulyakov/game-price-tracker"
+                href="https://github.com/olegshulyakov/playstation-price-tracker"
                 target="_blank"
                 rel="noopener noreferrer"
             >
