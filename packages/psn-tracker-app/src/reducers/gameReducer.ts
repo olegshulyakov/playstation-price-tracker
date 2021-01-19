@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CLEAR_GAMES_STORE, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP, SEARCH_GAMES } from "../actions/types";
+import { CLEAR_GAMES_STORE, CLEAR_PREVIEW_LIST, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP, SEARCH_GAMES } from "../actions/types";
 import { arrayToMap, mapToArray } from "../services/converter";
 
 const initialState: PlaystationStore = {
@@ -46,6 +46,12 @@ export default (state = initialState, action: any) => {
 
         case CLEAR_GAMES_STORE:
             return initialState;
+
+        case CLEAR_PREVIEW_LIST:
+            return {
+                ...state,
+                previews: []
+            };
 
         case SEARCH_GAMES:
             const map = new Map();

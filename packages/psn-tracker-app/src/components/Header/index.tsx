@@ -15,14 +15,16 @@
  */
 
 import React from "react";
+import { Nav } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
 import LanguageMenu from "./LanguageMenu";
-import { Nav } from "react-bootstrap";
+import Search from "../Search";
 
 interface Props extends RouteComponentProps, React.HTMLProps<any> {
     isLanguageEnabled?: boolean;
+    isSearchEnabled?: boolean;
 }
 
 const Header: React.FC<Props> = (props: Props) => {
@@ -38,7 +40,7 @@ const Header: React.FC<Props> = (props: Props) => {
             />
 
             <Nav className="justify-content-center mr-auto" defaultActiveKey="/">
-                <Nav.Item>
+                {/*<Nav.Item>
                     <Nav.Link
                         className="text-dark"
                         onClick={() => {
@@ -47,7 +49,7 @@ const Header: React.FC<Props> = (props: Props) => {
                     >
                         Search
                     </Nav.Link>
-                </Nav.Item>
+                </Nav.Item>*/}
                 <Nav.Item>
                     <Nav.Link
                         className="text-dark"
@@ -79,9 +81,10 @@ const Header: React.FC<Props> = (props: Props) => {
                         Wishlist
                     </Nav.Link>
                 </Nav.Item>
+                {props.isSearchEnabled ? <Nav.Item><Search/></Nav.Item> : <></>}
             </Nav>
 
-            {props.isLanguageEnabled ? <LanguageMenu /> : <></>}
+            {props.isLanguageEnabled ? <LanguageMenu/> : <></>}
         </header>
     );
 };

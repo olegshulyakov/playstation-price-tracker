@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Oleg Shulyakov
+ * Copyright (c) 2021. Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,58 +14,41 @@
  * limitations under the License.
  */
 
-import React, { ChangeEvent } from "react";
-import { Container } from "react-bootstrap";
-import { connect } from "react-redux";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import React, { ChangeEvent } from "react";
 import * as PlaystationApi from "playstation-api";
-import {Header, Footer, PreviewsGrid, Search as SearchComponent} from "../../components";
+import { Form, FormControl } from "react-bootstrap";
 import { searchGames } from "../../actions/gameActions";
+import { connect } from "react-redux";
 
 interface Props extends RouteComponentProps, React.HTMLProps<any> {
     region: PlaystationApi.types.PlaystationRegion;
-    store: PlaystationStore;
     searchGames: Function;
 }
 
 const Search: React.FC<Props> = (props: Props) => {
-    React.useEffect(() => {
-        if (!props.store) {
-            props.history.push("/");
-        }
-    }, []);
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target || !props.region) return;
+        const query = e.target.value;
+        if (!query || query.length <= 3 || query[query.length - 1] === " ") return;
 
-    const hasMoreItems = () => {
-        return false;
+        props.searchGames(props.region, query);
     };
 
-    const loadNextPage = (nextPage: number) => {};
-
-    if (!props.store || !props.store.search) {
-        return <></>;
-    }
-
     return (
-        <>
-            <Header isLanguageEnabled={true} />
-            <Container fluid>
-                <SearchComponent/>
-
-                <PreviewsGrid
-                    region={props.region}
-                    games={props.store.search}
-                    hasMoreItems={hasMoreItems}
-                    loadNextPage={loadNextPage}
-                />
-            </Container>
-            <Footer />
-        </>
+        <Form className={props.className} style={props.style}>
+            <FormControl
+                key="search-input"
+                type="text"
+                placeholder="Search"
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+            />
+        </Form>
     );
 };
 
 const mapStateToProps = (state: ReduxStoreState) => ({
     region: state.region.current,
-    store: state.store,
 });
 const mapDispatchToProps = { searchGames: searchGames };
 

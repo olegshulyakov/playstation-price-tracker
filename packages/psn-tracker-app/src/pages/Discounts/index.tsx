@@ -62,7 +62,7 @@ const Discounts: React.FC<Props> = (props: Props) => {
 
     return (
         <>
-            <Header isLanguageEnabled={true} />
+            <Header isLanguageEnabled={true} isSearchEnabled={true} />
             <Container fluid>
                 <PreviewsGrid
                     region={props.region}

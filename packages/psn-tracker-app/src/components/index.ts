@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Oleg Shulyakov
+ * Copyright (c) 2021. Oleg Shulyakov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export const FETCH_REGIONS = "FETCH_REGIONS";
-export const SELECT_REGION = "SELECT_REGION";
-export const CLEAR_REGION = "CLEAR_REGION";
 
-export const FETCH_GAMES_COUNT = "FETCH_GAMES_COUNT";
-export const FETCH_GAMES_LIST = "FETCH_GAMES_LIST";
-export const FETCH_PREVIEW_MAP = "FETCH_PREVIEW_MAP";
-export const CLEAR_GAMES_STORE = "CLEAR_GAMES_STORE";
-export const CLEAR_PREVIEW_LIST = "CLEAR_PREVIEW_LIST";
-export const SEARCH_GAMES = "SEARCH_GAMES";
+import Header from "./Header";
+import Footer from "./Footer";
+import LoadingSpinner from "./LoadingSpinner";
+import PreviewsGrid from "./PreviewsGrid";
+import Search from "./Search";
+
+export {
+    Header,
+    Footer,
+    LoadingSpinner,
+    PreviewsGrid,
+    Search
+}
