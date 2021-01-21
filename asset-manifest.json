@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/game-price-tracker/static/css/main.14bfaace.chunk.css",
-    "main.js": "/game-price-tracker/static/js/main.856e09fa.chunk.js",
-    "runtime-main.js": "/game-price-tracker/static/js/runtime-main.d0811e63.js",
-    "static/css/2.090590db.chunk.css": "/game-price-tracker/static/css/2.090590db.chunk.css",
-    "static/js/2.e5dce958.chunk.js": "/game-price-tracker/static/js/2.e5dce958.chunk.js",
-    "index.html": "/game-price-tracker/index.html",
-    "precache-manifest.0d6f35e2694ddb60b352381c7492a32c.js": "/game-price-tracker/precache-manifest.0d6f35e2694ddb60b352381c7492a32c.js",
-    "service-worker.js": "/game-price-tracker/service-worker.js",
-    "static/js/2.e5dce958.chunk.js.LICENSE.txt": "/game-price-tracker/static/js/2.e5dce958.chunk.js.LICENSE.txt",
-    "static/media/playstation-classic.svg": "/game-price-tracker/static/media/playstation-classic.402fbb90.svg"
+    "main.css": "/playstation-price-tracker/static/css/main.14bfaace.chunk.css",
+    "main.js": "/playstation-price-tracker/static/js/main.c2025aa6.chunk.js",
+    "runtime-main.js": "/playstation-price-tracker/static/js/runtime-main.b21dfb78.js",
+    "static/css/2.090590db.chunk.css": "/playstation-price-tracker/static/css/2.090590db.chunk.css",
+    "static/js/2.3c2d98ae.chunk.js": "/playstation-price-tracker/static/js/2.3c2d98ae.chunk.js",
+    "index.html": "/playstation-price-tracker/index.html",
+    "precache-manifest.8b01b367839bf9d30ffa5d2c2e569b22.js": "/playstation-price-tracker/precache-manifest.8b01b367839bf9d30ffa5d2c2e569b22.js",
+    "service-worker.js": "/playstation-price-tracker/service-worker.js",
+    "static/js/2.3c2d98ae.chunk.js.LICENSE.txt": "/playstation-price-tracker/static/js/2.3c2d98ae.chunk.js.LICENSE.txt",
+    "static/media/playstation-classic.svg": "/playstation-price-tracker/static/media/playstation-classic.402fbb90.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.d0811e63.js",
+    "static/js/runtime-main.b21dfb78.js",
     "static/css/2.090590db.chunk.css",
-    "static/js/2.e5dce958.chunk.js",
+    "static/js/2.3c2d98ae.chunk.js",
     "static/css/main.14bfaace.chunk.css",
-    "static/js/main.856e09fa.chunk.js"
+    "static/js/main.c2025aa6.chunk.js"
   ]
 }
