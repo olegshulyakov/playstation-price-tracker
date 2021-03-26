@@ -13,19 +13,13 @@
     "git.rebaseWhenSync": true,
     "editor.formatOnPaste": true,
     "workbench.editor.enablePreview": false,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "workbench.editor.enablePreviewFromQuickOpen": false,
-
-    // Toggle from command palette as needed.
+    "eslint.validate": [
+        "javascript",
+        "typescript",
+    ],
     "gitlens.codeLens.enabled": false,
     "gitlens.currentLine.enabled": false,
-
-    // Keep source control tools in same view.
-    "gitlens.views.compare.location": "scm",
-    "gitlens.views.fileHistory.location": "scm",
-    "gitlens.views.lineHistory.location": "scm",
-    "gitlens.views.repositories.location": "scm",
-    "gitlens.views.search.location": "scm",
     "npm.packageManager": "yarn"
 }

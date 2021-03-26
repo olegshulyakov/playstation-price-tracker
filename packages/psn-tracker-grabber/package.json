@@ -6,7 +6,7 @@
     "main": "build/index.js",
     "author": "Oleg Shulyakov",
     "scripts": {
-        "lint": "tslint --project tsconfig.json",
+        "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx src",
         "dist": "tsc -d",
         "start": "npm run build && node ./build/index.js"
     },
@@ -19,8 +19,10 @@
     },
     "devDependencies": {
         "@types/node-fetch": "^2.5.5",
+        "@typescript-eslint/eslint-plugin": "^4.19.0",
+        "@typescript-eslint/parser": "^4.19.0",
         "awesome-typescript-loader": "^5.2.1",
-        "tslint": "^6.1.0",
+        "eslint": "^7.22.0",
         "typescript": "^3.8.3",
         "webpack-cli": "^3.3.11"
     },
