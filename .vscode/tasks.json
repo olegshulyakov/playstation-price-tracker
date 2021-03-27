@@ -25,11 +25,13 @@
             "group": "build"
         },
         {
-            "label": "Start server",
+            "label": "Web: Start server",
             "type": "npm",
             "script": "start",
-            "problemMatcher": [],
-            "group": "none"
+            "options": {
+                "cwd": "${workspaceRoot}/packages/psn-tracker-app"
+            },
+            "problemMatcher": []
         },
         {
             "label": "Run tests",
@@ -65,7 +67,7 @@
             "type": "shell",
             "command": "npm run build",
             "options": {
-                "cwd": "${workspaceRoot}/grabber"
+                "cwd": "${workspaceRoot}/packages/psn-tracker-grabber"
             },
             "problemMatcher": [
                 "$eslint-stylish",
@@ -77,7 +79,7 @@
             "type": "shell",
             "command": "npm start",
             "options": {
-                "cwd": "${workspaceRoot}/grabber"
+                "cwd": "${workspaceRoot}/packages/psn-tracker-grabber"
             },
             "dependsOn": "Grabber: Build",
             "problemMatcher": []
