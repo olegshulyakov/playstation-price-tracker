@@ -17,23 +17,9 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroller";
-import styled from "styled-components";
 import * as PlaystationApi from "playstation-api";
 import GamePreview from "./GamePreview";
-
-const StoreGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, var(--img-preview-side-small));
-    grid-auto-rows: auto;
-    gap: 1rem;
-    justify-content: center;
-
-    @media screen and (min-width: 600px) {
-        grid-template-columns: repeat(auto-fit, var(--img-preview-side));
-        grid-auto-rows: auto;
-        gap: 0.5rem;
-    }
-`;
+import { StoreGrid } from "./styles";
 
 interface Props {
     region: PlaystationApi.types.PlaystationRegion;

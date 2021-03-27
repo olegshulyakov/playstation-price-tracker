@@ -15,18 +15,7 @@
  */
 
 import React from "react";
-import styled from "styled-components";
-
-const Title = styled.span`
-    margin: 0;
-    letter-spacing: 0.02857em;
-    text-transform: uppercase;
-`;
-
-const Values = styled.p`
-    margin: 0;
-    letter-spacing: 0.01071em;
-`;
+import { AttributeTitle, AttributeValues } from "./styles";
 
 interface Props extends React.HTMLProps<any> {
     attribute: string;
@@ -40,12 +29,12 @@ const AttributeCard: React.FC<Props> = (props: Props) => {
 
     return (
         <>
-            <Title>{props.attribute}</Title>
-            <Values>
+            <AttributeTitle>{props.attribute}</AttributeTitle>
+            <AttributeValues>
                 {props.values?.map((value: string) => {
                     return value + " ";
                 })}
-            </Values>
+            </AttributeValues>
         </>
     );
 };

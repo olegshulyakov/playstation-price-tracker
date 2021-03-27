@@ -15,33 +15,10 @@
  */
 
 import React from "react";
-import styled from "styled-components";
 import playstationClassicIcon from "../../assets/playstation-classic.svg";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-
-const AboutContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-`;
-
-const AboutContent = styled.div`
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 2.5rem;
-
-    @media (min-width: 600px) {
-        padding-top: 2.5rem;
-        padding-bottom: 1rem;
-    }
-`;
-
-const ExternalLink = styled.a`
-    color: #07c;
-    text-decoration: none;
-`;
+import { AboutContainer, AboutContent, ExternalLink } from "./styles";
 
 interface Props extends React.HTMLProps<any> {}
 

@@ -15,39 +15,11 @@
  */
 
 import React from "react";
-import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { getInitialPrice, getPsPlusPrice, getSalePrice } from "../../services/PlayStationGameService";
 import * as PlaystationApi from "playstation-api";
-
-const GameDetailMediaCardContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-`;
-
-const GameDetailMediaCardImage = styled.img`
-    width: 240px;
-    height: 240px;
-    align-self: center;
-    border-radius: 0.25rem;
-    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
-        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-`;
-
-const GameDetailMediaCardPrices = styled.div`
-    display: flex;
-    flex-direction: row;
-    padding: 0.5rem 0;
-    align-items: center;
-    font-size: 2rem;
-
-    @media (min-width: 600px) {
-        font-size: 1rem;
-    }
-`;
+import { GameDetailMediaCardContainer, GameDetailMediaCardImage, GameDetailMediaCardPrices } from "./styles";
 
 interface Props extends React.HTMLProps<any> {
     region: PlaystationApi.types.PlaystationRegion;

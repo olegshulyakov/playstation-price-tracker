@@ -15,41 +15,8 @@
  */
 
 import React from "react";
-import styled, { keyframes } from "styled-components";
 import playstationClassicIcon from "../../assets/playstation-classic.svg";
-
-const LoadingScreen = styled.div`
-    position: absolute;
-    top: 30%;
-    min-width: 100%;
-    display: flex;
-    flex-direction: column;
-`;
-
-const rotateLogoAnimation = keyframes`
-    from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-        `;
-
-const LoadingLogo = styled.img`
-    align-self: center;
-    height: 20vh;
-    pointer-events: none;
-    animation-name: ${rotateLogoAnimation};
-    animation-duration: 0.9s;
-    animation-timing-function: ease-in-out;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    animation-direction: normal;
-`;
-
-const LoadingProgressMessage = styled.div`
-    align-self: center;
-`;
+import { LoadingScreen, LoadingLogo, LoadingProgressMessage } from "./styles";
 
 interface Props extends React.HTMLProps<any> {
     msg?: JSX.Element;

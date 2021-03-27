@@ -20,43 +20,13 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as PlaystationApi from "playstation-api";
-import styled from "styled-components";
 import { GAME } from "../../store/keys";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import MediaCard from "./MediaCard";
 import AttributeCard from "./AttributeCard";
-
-const GameDetailTitle = styled.h3`
-    margin: 0;
-    font-size: 3rem;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-weight: 400;
-    line-height: 1.167;
-    letter-spacing: 0;
-    cursor: pointer;
-`;
-
-const GameDetailDescription = styled.div`
-    font-size: 0.9rem;
-`;
-
-const SpaceElement = styled.div`
-    height: 0.5rem;
-`;
-
-const HiddenMobile = styled.div`
-    @media screen and (max-width: 600px) {
-        display: none;
-    }
-`;
-
-const HiddenDesktop = styled.div`
-    @media screen and (min-width: 600px) {
-        display: none;
-    }
-`;
+import { HiddenDesktop, GameDetailTitle, GameDetailDescription, HiddenMobile, SpaceElement } from "./styles";
 
 interface Props extends RouteComponentProps<{ cusa: string }>, React.HTMLProps<any> {
     region: PlaystationApi.types.PlaystationRegion;
