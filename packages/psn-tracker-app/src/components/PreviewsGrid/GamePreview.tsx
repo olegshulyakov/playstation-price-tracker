@@ -18,32 +18,22 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import * as PlaystationApi from "playstation-api";
+import { DiscountContainer, DiscountPriceContainer, GamePreviewFooterContainer, GamePreviewPlatformContainer, GamePreviewPlatformName, Price, PriceWithoutDiscount, SaleDiscount } from "./styles";
 
 export interface Props extends RouteComponentProps, React.HTMLProps<any> {
     region: PlaystationApi.types.PlaystationRegion;
     game: PlaystationItemPreview;
 }
 
-const GamePreview: React.FC<Props> = (props: Props) => {
+const GamePreview: React.FC<Props> = ( props: Props ) => {
     /*const handleGameClick = (game: PlaystationItemPreview) => {
         props.history.push({ pathname: "/game/" + game.id, state: game.url });
     };*/
 
-    const redirectToPsStore = (event: any) => {
+    const redirectToPsStore = ( event: any ) => {
         event.preventDefault();
-        window.open(PlaystationApi.helpers.getStoreGameLink(props.region, props.game.id), "_blank");
+        window.open( PlaystationApi.helpers.getStoreGameLink( props.region, props.game.id ), "_blank" );
     };
-
-    const priceEl = <small>{props.game.initial_price}</small>;
-    const discountPriceEl = (
-        <>
-            <small className="price-sale" style={{margin: "auto 0.5rem auto 0"}}>
-                {props.game.sale_discount}%
-            </small>
-            <s style={{margin: "auto 0.5rem auto 0"}}>{priceEl}</s>
-            <small>{props.game.sale_price}</small>
-        </>
-    );
 
     return (
         <Card className="preview-card">
@@ -63,14 +53,32 @@ const GamePreview: React.FC<Props> = (props: Props) => {
                 </Card.Title>
             </Card.Body>
             <Card.Footer className="text-left p-2">
-                <div onClick={redirectToPsStore}>
-                    {
-                        props.game.sale_discount ? discountPriceEl : priceEl
-                    }
-                </div>
+                <GamePreviewFooterContainer onClick={redirectToPsStore}>
+                    <GamePreviewPlatformContainer>
+                        {props.game.playable_platform.map( platform => <GamePreviewPlatformName>{platform}</GamePreviewPlatformName> )}
+                    </GamePreviewPlatformContainer>
+
+                    {!props.game.sale_discount && ( <Price>{props.game.initial_price}</Price> )}
+
+                    {props.game.sale_discount && (
+                        <DiscountContainer>
+                            <SaleDiscount>
+                                {props.game.sale_discount}%
+                            </SaleDiscount>
+
+                            <DiscountPriceContainer>
+                                <PriceWithoutDiscount>
+                                    <Price>{props.game.initial_price}</Price>
+                                </PriceWithoutDiscount>
+
+                                <Price>{props.game.sale_price}</Price>
+                            </DiscountPriceContainer>
+                        </DiscountContainer>
+                    )}
+                </GamePreviewFooterContainer>
             </Card.Footer>
         </Card>
     );
 };
 
-export default withRouter(GamePreview);
+export default withRouter( GamePreview );

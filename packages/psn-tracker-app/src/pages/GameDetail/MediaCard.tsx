@@ -23,20 +23,20 @@ import { GameDetailMediaCardContainer, GameDetailMediaCardImage, GameDetailMedia
 
 interface Props extends React.HTMLProps<any> {
     region: PlaystationApi.types.PlaystationRegion;
-    game: PlaystationApi.types.PlaystationResponse;
+    game: PlaystationApi.types.PlaystationGameResponse;
 }
 
-const MediaCard: React.FC<Props> = (props: Props) => {
+const MediaCard: React.FC<Props> = ( props: Props ) => {
     const redirectToPsStore = () => {
-        window.open(PlaystationApi.helpers.getStoreGameLink(props.region, props.game.id), "_blank");
+        window.open( PlaystationApi.helpers.getStoreGameLink( props.region, props.game.id ), "_blank" );
     };
 
-    const initialPrice = getInitialPrice(props.game);
-    const salePrice = getSalePrice(props.game);
-    const psPlusPrice = getPsPlusPrice(props.game);
+    const initialPrice = getInitialPrice( props.game );
+    const salePrice = getSalePrice( props.game );
+    const psPlusPrice = getPsPlusPrice( props.game );
 
     const prices: JSX.Element[] = [];
-    if (initialPrice === salePrice) {
+    if ( initialPrice === salePrice ) {
         prices.push(
             <div key={"detail-price-" + props.game.id} className="Game-detail-price">
                 {salePrice}
@@ -51,7 +51,7 @@ const MediaCard: React.FC<Props> = (props: Props) => {
         );
     }
 
-    if (psPlusPrice) {
+    if ( psPlusPrice ) {
         prices.push(
             <div key={"ps-plus-price-" + props.game.id} className="Game-detail-ps-plus-price">
                 {psPlusPrice}
@@ -63,7 +63,7 @@ const MediaCard: React.FC<Props> = (props: Props) => {
         <GameDetailMediaCardContainer onClick={redirectToPsStore}>
             <GameDetailMediaCardImage
                 loading="lazy"
-                src={PlaystationApi.helpers.getPreviewImage(props.game)}
+                src={PlaystationApi.helpers.getPreviewImage( props.game )}
                 title={props.game.name}
                 placeholder={props.game.name}
                 width={240}

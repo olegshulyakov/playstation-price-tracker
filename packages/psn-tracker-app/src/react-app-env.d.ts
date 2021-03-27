@@ -51,4 +51,5 @@ type PlaystationItemPreview = {
     initial_price: string;
     sale_price?: string;
     sale_discount?: number;
+    playable_platform: string[];
 };
