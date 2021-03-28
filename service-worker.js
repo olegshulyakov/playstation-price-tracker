@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/playstation-price-tracker/precache-manifest.9ff3a1f119593a03c18505b2e840ce89.js"
+  "/playstation-price-tracker/precache-manifest.8f09167868ef343c97d082170ceca962.js"
 );
 
 self.addEventListener('message', (event) => {

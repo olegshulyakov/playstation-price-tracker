@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "402c54d26625a01ed4832ea2297afbba",
+    "revision": "8c0d99d2af05ce9ae941f65e33f1e672",
     "url": "/playstation-price-tracker/index.html"
   },
   {
-    "revision": "f6698f02be0dff0c5369",
+    "revision": "d4ad3179227713751bfc",
     "url": "/playstation-price-tracker/static/css/2.090590db.chunk.css"
   },
   {
-    "revision": "037a67eda581ca2f31fe",
+    "revision": "14e998b10ef32355f34f",
     "url": "/playstation-price-tracker/static/css/main.14bfaace.chunk.css"
   },
   {
-    "revision": "f6698f02be0dff0c5369",
-    "url": "/playstation-price-tracker/static/js/2.39923a99.chunk.js"
+    "revision": "d4ad3179227713751bfc",
+    "url": "/playstation-price-tracker/static/js/2.4ebe7666.chunk.js"
   },
   {
     "revision": "9f36583424cf900ca3e6c23446e83813",
-    "url": "/playstation-price-tracker/static/js/2.39923a99.chunk.js.LICENSE.txt"
+    "url": "/playstation-price-tracker/static/js/2.4ebe7666.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "037a67eda581ca2f31fe",
-    "url": "/playstation-price-tracker/static/js/main.d90f4b99.chunk.js"
+    "revision": "14e998b10ef32355f34f",
+    "url": "/playstation-price-tracker/static/js/main.34081c55.chunk.js"
   },
   {
     "revision": "5ca9d1a20c4756d14c5e",

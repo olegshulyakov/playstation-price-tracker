@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/playstation-price-tracker/static/css/main.14bfaace.chunk.css",
-    "main.js": "/playstation-price-tracker/static/js/main.d90f4b99.chunk.js",
+    "main.js": "/playstation-price-tracker/static/js/main.34081c55.chunk.js",
     "runtime-main.js": "/playstation-price-tracker/static/js/runtime-main.b21dfb78.js",
     "static/css/2.090590db.chunk.css": "/playstation-price-tracker/static/css/2.090590db.chunk.css",
-    "static/js/2.39923a99.chunk.js": "/playstation-price-tracker/static/js/2.39923a99.chunk.js",
+    "static/js/2.4ebe7666.chunk.js": "/playstation-price-tracker/static/js/2.4ebe7666.chunk.js",
     "index.html": "/playstation-price-tracker/index.html",
-    "precache-manifest.9ff3a1f119593a03c18505b2e840ce89.js": "/playstation-price-tracker/precache-manifest.9ff3a1f119593a03c18505b2e840ce89.js",
+    "precache-manifest.8f09167868ef343c97d082170ceca962.js": "/playstation-price-tracker/precache-manifest.8f09167868ef343c97d082170ceca962.js",
     "service-worker.js": "/playstation-price-tracker/service-worker.js",
-    "static/js/2.39923a99.chunk.js.LICENSE.txt": "/playstation-price-tracker/static/js/2.39923a99.chunk.js.LICENSE.txt",
+    "static/js/2.4ebe7666.chunk.js.LICENSE.txt": "/playstation-price-tracker/static/js/2.4ebe7666.chunk.js.LICENSE.txt",
     "static/media/playstation-classic.svg": "/playstation-price-tracker/static/media/playstation-classic.402fbb90.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.b21dfb78.js",
     "static/css/2.090590db.chunk.css",
-    "static/js/2.39923a99.chunk.js",
+    "static/js/2.4ebe7666.chunk.js",
     "static/css/main.14bfaace.chunk.css",
-    "static/js/main.d90f4b99.chunk.js"
+    "static/js/main.34081c55.chunk.js"
   ]
 }
