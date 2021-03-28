@@ -1,6 +1,6 @@
 {
     "name": "psn-tracker-app",
-    "version": "2020.11.14",
+    "version": "2020.03.27",
     "license": "Apache-2.0",
     "private": true,
     "homepage": "https://olegshulyakov.github.io/playstation-price-tracker",
@@ -11,7 +11,7 @@
         "@fortawesome/free-solid-svg-icons": "^5.12.1",
         "@fortawesome/react-fontawesome": "^0.1.9",
         "bootstrap": "^4.4.1",
-        "playstation-api": "1.0.1",
+        "playstation-api": "*",
         "react": "^16.13.1",
         "react-bootstrap": "^1.0.0-beta.17",
         "react-dom": "^16.13.1",
