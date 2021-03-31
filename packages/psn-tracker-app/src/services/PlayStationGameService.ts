@@ -64,7 +64,7 @@ const getPlatforms = ( game: PlaystationApi.types.PlaystationGameResponse ) => {
 
     const platforms = new Set();
     entitlements.forEach( e => {
-        if ( !e.packages || e.packages.length == 0 ) return;
+        if ( !e.packages || e.packages.length === 0 ) return;
 
         e.packages.forEach( p => {
             platforms.add( p.platformName.replace( "™", "" ) );
