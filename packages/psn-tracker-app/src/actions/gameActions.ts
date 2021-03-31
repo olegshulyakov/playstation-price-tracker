@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CLEAR_GAMES_STORE, CLEAR_REGION, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP, SEARCH_GAMES } from "./types";
+import { CLEAR_GAMES_STORE, CLEAR_REGION, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP } from "./types";
 import { getGamePreview } from "../services/PlayStationGameService";
 import * as PlaystationApi from "playstation-api";
 
@@ -93,7 +93,7 @@ export const searchGames = ( region: PlaystationApi.types.PlaystationRegion, sea
         const previews = links
             .map( link => getGamePreview( region, link ) )
             .filter( r => r.playable_platform && r.playable_platform.length > 0 );
-        dispatch( { type: SEARCH_GAMES, games: previews } );
+        dispatch( { type: FETCH_PREVIEW_MAP, games: previews } );
     } catch ( e ) {
         console.error( "Cannot fetch games.", e );
     }

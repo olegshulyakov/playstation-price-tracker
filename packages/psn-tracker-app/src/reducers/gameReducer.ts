@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CLEAR_GAMES_STORE, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP, SEARCH_GAMES } from "../actions/types";
+import { CLEAR_GAMES_STORE, FETCH_GAMES_COUNT, FETCH_PREVIEW_MAP } from "../actions/types";
 import { arrayToMap, mapToArray } from "../services/converter";
 
 const initialState: PlaystationStore = {
@@ -23,8 +23,8 @@ const initialState: PlaystationStore = {
     search: [],
 };
 
-export default (state = initialState, action: any) => {
-    switch (action.type) {
+export default ( state = initialState, action: any ) => {
+    switch ( action.type ) {
         case FETCH_GAMES_COUNT:
             return {
                 ...state,
@@ -32,13 +32,13 @@ export default (state = initialState, action: any) => {
             };
 
         case FETCH_PREVIEW_MAP:
-            const previewsMap = arrayToMap(state.previews);
-            for (let i = 0; i < action.games.length; i++) {
+            const previewsMap = arrayToMap( state.previews );
+            for ( let i = 0; i < action.games.length; i++ ) {
                 const game = action.games[i];
-                previewsMap.set(game.id, game);
+                previewsMap.set( game.id, game );
             }
 
-            const previews = mapToArray(previewsMap);
+            const previews = mapToArray( previewsMap );
             return {
                 ...state,
                 previews: previews,
@@ -46,19 +46,6 @@ export default (state = initialState, action: any) => {
 
         case CLEAR_GAMES_STORE:
             return initialState;
-
-        case SEARCH_GAMES:
-            const map = new Map();
-            for (const game of action.games) {
-                map.set(game.id, game);
-            }
-
-            const array = mapToArray(map);
-
-            return {
-                ...state,
-                search: array,
-            };
 
         default:
             return state;

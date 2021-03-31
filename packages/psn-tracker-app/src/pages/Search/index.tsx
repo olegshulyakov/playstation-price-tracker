@@ -31,7 +31,7 @@ const Search: React.FC<Props> = ( { store, history }: Props ) => {
         }
     }, [] );
 
-    if ( !store || !store.search ) {
+    if ( !store || !store.previews ) {
         return <></>;
     }
 
@@ -42,7 +42,7 @@ const Search: React.FC<Props> = ( { store, history }: Props ) => {
             <SearchComponent />
 
             <PreviewsGrid
-                games={store.search}
+                games={store.previews}
                 hasMoreItems={() => false}
                 loadNextPage={( nextPage: number ) => { }}
             />
