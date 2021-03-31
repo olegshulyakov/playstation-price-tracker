@@ -25,53 +25,53 @@ export interface Props extends RouteComponentProps, React.HTMLProps<any> {
     game: PlaystationItemPreview;
 }
 
-const GamePreview: React.FC<Props> = ( props: Props ) => {
+const GamePreview: React.FC<Props> = ( { region, game }: Props ) => {
     /*const handleGameClick = (game: PlaystationItemPreview) => {
         props.history.push({ pathname: "/game/" + game.id, state: game.url });
     };*/
 
     const redirectToPsStore = ( event: any ) => {
         event.preventDefault();
-        window.open( PlaystationApi.helpers.getStoreGameLink( props.region, props.game.id ), "_blank" );
+        window.open( PlaystationApi.helpers.getStoreGameLink( region, game.id ), "_blank" );
     };
 
     return (
-        <Card className="preview-card">
+        <Card key={game.id} className="preview-card">
             <Card.Img
                 variant="top"
                 className="btn p-0"
-                src={props.game.image}
+                src={game.image}
                 loading="lazy"
-                alt={props.game.name}
-                title={props.game.name}
-                placeholder={props.game.name}
+                alt={game.name}
+                title={game.name}
+                placeholder={game.name}
                 onClick={redirectToPsStore}
             />
             <Card.Body className="p-2 btn" onClick={redirectToPsStore}>
                 <Card.Title className="m-0 text-left">
-                    <small>{props.game.name}</small>
+                    <small>{game.name}</small>
                 </Card.Title>
             </Card.Body>
             <Card.Footer className="text-left p-2">
                 <GamePreviewFooterContainer onClick={redirectToPsStore}>
                     <GamePreviewPlatformContainer>
-                        {props.game.playable_platform.map( platform => <GamePreviewPlatformName>{platform}</GamePreviewPlatformName> )}
+                        {game.playable_platform.map( platform => <GamePreviewPlatformName key={platform}>{platform}</GamePreviewPlatformName> )}
                     </GamePreviewPlatformContainer>
 
-                    {!props.game.sale_discount && ( <Price>{props.game.initial_price}</Price> )}
+                    {!game.sale_discount && ( <Price>{game.initial_price}</Price> )}
 
-                    {props.game.sale_discount && (
+                    {game.sale_discount && (
                         <DiscountContainer>
                             <SaleDiscount>
-                                {props.game.sale_discount}%
+                                {game.sale_discount}%
                             </SaleDiscount>
 
                             <DiscountPriceContainer>
                                 <PriceWithoutDiscount>
-                                    <Price>{props.game.initial_price}</Price>
+                                    <Price>{game.initial_price}</Price>
                                 </PriceWithoutDiscount>
 
-                                <Price>{props.game.sale_price}</Price>
+                                <Price>{game.sale_price}</Price>
                             </DiscountPriceContainer>
                         </DiscountContainer>
                     )}
