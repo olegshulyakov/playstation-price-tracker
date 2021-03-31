@@ -14,44 +14,24 @@
  * limitations under the License.
  */
 
-import React, { ChangeEvent } from "react";
-import { Col, Form, FormControl } from "react-bootstrap";
-import { connect } from "react-redux";
+import React from "react";
+import { connect, ConnectedProps } from "react-redux";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import * as PlaystationApi from "playstation-api";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import PreviewsGrid from "../../components/PreviewsGrid";
-import { searchGames } from "../../actions/gameActions";
+import SearchComponent from "../../components/Search";
 
-interface Props extends RouteComponentProps, React.HTMLProps<any> {
-    region: PlaystationApi.types.PlaystationRegion;
-    store: PlaystationStore;
-    searchGames: Function;
-}
+interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> { }
 
-const Search: React.FC<Props> = ( props: Props ) => {
+const Search: React.FC<Props> = ( { region, store, history }: Props ) => {
     React.useEffect( () => {
-        if ( !props.store ) {
-            props.history.push( "/" );
+        if ( !store ) {
+            history.push( "/" );
         }
     }, [] );
 
-    const hasMoreItems = () => {
-        return false;
-    };
-
-    const loadNextPage = ( nextPage: number ) => { };
-
-    const handleInputChange = ( e: ChangeEvent<HTMLInputElement> ) => {
-        if ( !e.target || !props.region ) return;
-        const query = e.target.value;
-        if ( !query || query.length <= 3 || query[query.length - 1] === " " ) return;
-
-        props.searchGames( props.region, query );
-    };
-
-    if ( !props.store || !props.store.search ) {
+    if ( !store || !store.search ) {
         return <></>;
     }
 
@@ -59,22 +39,13 @@ const Search: React.FC<Props> = ( props: Props ) => {
         <>
             <Header isLanguageEnabled={true} />
 
-            <Form>
-                <Col xs={4} className="mx-auto pt-2 pb-2">
-                    <FormControl
-                        key="search-input"
-                        type="text"
-                        placeholder="Start typing..."
-                        onChange={( e: ChangeEvent<HTMLInputElement> ) => handleInputChange( e )}
-                    />
-                </Col>
-            </Form>
+            <SearchComponent />
 
             <PreviewsGrid
-                region={props.region}
-                games={props.store.search}
-                hasMoreItems={hasMoreItems}
-                loadNextPage={loadNextPage}
+                region={region}
+                games={store.search}
+                hasMoreItems={() => false}
+                loadNextPage={( nextPage: number ) => { }}
             />
 
             <Footer />
@@ -86,6 +57,7 @@ const mapStateToProps = ( state: ReduxStoreState ) => ( {
     region: state.region.current,
     store: state.store,
 } );
-const mapDispatchToProps = { searchGames: searchGames };
 
-export default withRouter( connect( mapStateToProps, mapDispatchToProps )( Search ) );
+const connector = connect( mapStateToProps );
+type PropsFromRedux = ConnectedProps<typeof connector>;
+export default withRouter( connector( Search ) );
