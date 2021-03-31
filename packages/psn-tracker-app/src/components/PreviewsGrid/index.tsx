@@ -15,7 +15,6 @@
  */
 
 import React from "react";
-import { Container } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroller";
 import * as PlaystationApi from "playstation-api";
 import GamePreview from "./GamePreview";
@@ -24,37 +23,31 @@ import { StoreGrid } from "./styles";
 interface Props {
     region: PlaystationApi.types.PlaystationRegion;
     games: PreviewGamesMapItem[];
-    hasMoreItems: Function;
-    loadNextPage: Function;
+    hasMoreItems: () => boolean;
+    loadNextPage: ( nextPage: number ) => void;
 }
 
-const PreviewsGrid: React.FC<Props> = (props: Props) => {
-    const loadNextPage = (nextPage: number) => {
-        props.loadNextPage(nextPage);
-    };
-
-    const items = props.games.slice().map((item) => {
-        return <GamePreview key={"game-preview-" + item.key} region={props.region} game={item.game} />;
-    });
+const PreviewsGrid: React.FC<Props> = ( { region, games, hasMoreItems, loadNextPage }: Props ) => {
+    const items = games.slice().map( ( item ) => {
+        return <GamePreview key={"game-preview-" + item.key} region={region} game={item.game} />;
+    } );
 
     const threshold = window.screen.height;
 
     return (
-        <Container fluid>
-            <InfiniteScroll
-                key={"infinite-scroll"}
-                hasMore={props.hasMoreItems()}
-                initialLoad={true}
-                isReverse={false}
-                loadMore={loadNextPage}
-                pageStart={0}
-                threshold={threshold}
-                useCapture={false}
-                useWindow={true}
-            >
-                <StoreGrid>{items}</StoreGrid>
-            </InfiniteScroll>
-        </Container>
+        <InfiniteScroll
+            key="infinite-scroll"
+            hasMore={hasMoreItems()}
+            initialLoad={true}
+            isReverse={false}
+            loadMore={loadNextPage}
+            pageStart={0}
+            threshold={threshold}
+            useCapture={false}
+            useWindow={true}
+        >
+            <StoreGrid>{items}</StoreGrid>
+        </InfiniteScroll>
     );
 };
 

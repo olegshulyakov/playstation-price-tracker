@@ -17,7 +17,6 @@
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { Container } from "react-bootstrap";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import PreviewsGrid from "../../components/PreviewsGrid";
@@ -58,14 +57,14 @@ const AllGames: React.FC<Props> = ( { region, store, fetchGames, filter, history
     return (
         <>
             <Header isLanguageEnabled={true} />
-            <Container fluid>
-                <PreviewsGrid
-                    region={region}
-                    games={list}
-                    hasMoreItems={hasMoreItems}
-                    loadNextPage={loadNextPage}
-                />
-            </Container>
+
+            <PreviewsGrid
+                region={region}
+                games={list}
+                hasMoreItems={hasMoreItems}
+                loadNextPage={loadNextPage}
+            />
+
             <Footer />
         </>
     );
