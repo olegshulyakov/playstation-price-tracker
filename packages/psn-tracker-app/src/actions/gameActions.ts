@@ -20,22 +20,22 @@ import * as PlaystationApi from "playstation-api";
 
 const fetchSize = 100; //PlaystationApi.constants.DEFAULT_FETCH_SIZE;
 
-export const fetchStoreInfo = (region: PlaystationApi.types.PlaystationRegion) => async (dispatch: Function) => {
-    if (!region || !region.name) {
-        console.warn("No region specified.");
+export const fetchStoreInfo = ( region: PlaystationApi.types.PlaystationRegion ) => async ( dispatch: Function ) => {
+    if ( !region || !region.name ) {
+        console.warn( "No region specified." );
         return;
     }
 
-    console.debug(`Fetching store info for [${region.name}]`);
+    console.debug( `Fetching store info for [${ region.name }]` );
     try {
-        const storeInfo = await PlaystationApi.queries.getStoreInfo(region);
-        if (PlaystationApi.queries.isQueryFailed(storeInfo)) {
-            dispatch({ type: CLEAR_REGION });
+        const storeInfo = await PlaystationApi.queries.getStoreInfo( region );
+        if ( PlaystationApi.queries.isQueryFailed( storeInfo ) ) {
+            dispatch( { type: CLEAR_REGION } );
             return;
         }
-        dispatch({ type: FETCH_GAMES_COUNT, info: storeInfo });
-    } catch (e) {
-        console.error(`Cannot fetch store information [${region.name}].`, e);
+        dispatch( { type: FETCH_GAMES_COUNT, info: storeInfo } );
+    } catch ( e ) {
+        console.error( `Cannot fetch store information [${ region.name }].`, e );
     }
 };
 
@@ -44,61 +44,57 @@ export const fetchGamePreviewsList = (
     total: number,
     start: number = 0,
     size: number = fetchSize,
-) => async (dispatch: Function) => {
-    if (!region || !region.name) {
-        console.warn("No region specified.");
+) => async ( dispatch: Function ) => {
+    if ( !region || !region.name ) {
+        console.warn( "No region specified." );
         return;
     }
 
-    if (start > total) {
-        console.debug(`Fetched all game previews for ${region.name}`);
+    if ( start > total ) {
+        console.debug( `Fetched all game previews for ${ region.name }` );
         return;
     }
 
-    console.debug(`Fetching game previews for ${region.name}. total=${total} start=${start}, size=${size}`);
+    console.debug( `Fetching game previews for ${ region.name }. total=${ total } start=${ start }, size=${ size }` );
 
     try {
-        const links = await PlaystationApi.queries.getGamesList(region, size, start);
-        if (!links) {
-            return;
-        }
-        const previews = links.map((link) => {
-            return getGamePreview(region, link);
-        });
-        dispatch({ type: FETCH_PREVIEW_MAP, games: previews });
-    } catch (e) {
-        console.error("Cannot fetch games.", e);
+        const links: PlaystationApi.types.PlaystationGameResponse[] = await PlaystationApi.queries.getGamesList( region, size, start );
+        if ( !links ) return;
+
+        const previews = links.map( link => getGamePreview( region, link ) )
+            .filter( r => r.playable_platform && r.playable_platform.length > 0 );
+        dispatch( { type: FETCH_PREVIEW_MAP, games: previews } );
+    } catch ( e ) {
+        console.error( "Cannot fetch games.", e );
     }
 };
 
-export const clearGamesStore = () => async (dispatch: Function) => {
-    console.debug("Clearing games store");
-    dispatch({ type: CLEAR_GAMES_STORE });
+export const clearGamesStore = () => async ( dispatch: Function ) => {
+    console.debug( "Clearing games store" );
+    dispatch( { type: CLEAR_GAMES_STORE } );
 };
 
-export const searchGames = (region: PlaystationApi.types.PlaystationRegion, searchString: string, size: number = fetchSize) => async (
+export const searchGames = ( region: PlaystationApi.types.PlaystationRegion, searchString: string, size: number = fetchSize ) => async (
     dispatch: Function,
 ) => {
-    if (!region || !region.name) {
-        console.warn("No region specified.");
+    if ( !region || !region.name ) {
+        console.warn( "No region specified." );
         return;
     }
-    console.debug(`Searching games for ${region.name}. string=[${searchString}]`);
+    console.debug( `Searching games for ${ region.name }. string=[${ searchString }]` );
     try {
-        const json = await PlaystationApi.queries.search(
+        const links: PlaystationApi.types.PlaystationGameResponse[] = await PlaystationApi.queries.search(
             region,
             searchString,
             size,
         );
-        if (!json) {
-            return;
-        }
+        if ( !links ) return;
 
-        const previews = json.links.map((link) => {
-            return getGamePreview(region, link);
-        });
-        dispatch({ type: SEARCH_GAMES, games: previews });
-    } catch (e) {
-        console.error("Cannot fetch games.", e);
+        const previews = links
+            .map( link => getGamePreview( region, link ) )
+            .filter( r => r.playable_platform && r.playable_platform.length > 0 );
+        dispatch( { type: SEARCH_GAMES, games: previews } );
+    } catch ( e ) {
+        console.error( "Cannot fetch games.", e );
     }
 };
