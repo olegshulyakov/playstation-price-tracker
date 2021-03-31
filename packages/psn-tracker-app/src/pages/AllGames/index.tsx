@@ -22,10 +22,9 @@ import Footer from "../../components/Footer";
 import PreviewsGrid from "../../components/PreviewsGrid";
 import { fetchGamePreviewsList } from "../../actions/gameActions";
 
-interface OwnProps {
+interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> {
     filter?: ( item: PreviewGamesMapItem ) => boolean;
-}
-interface Props extends OwnProps, PropsFromRedux, RouteComponentProps, React.HTMLProps<any> { };
+};
 
 const AllGames: React.FC<Props> = ( { region, store, fetchGames, filter, history }: Props ) => {
     React.useEffect( () => {
@@ -59,7 +58,6 @@ const AllGames: React.FC<Props> = ( { region, store, fetchGames, filter, history
             <Header isLanguageEnabled={true} />
 
             <PreviewsGrid
-                region={region}
                 games={list}
                 hasMoreItems={hasMoreItems}
                 loadNextPage={loadNextPage}

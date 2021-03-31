@@ -16,20 +16,18 @@
 
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
-import * as PlaystationApi from "playstation-api";
 import GamePreview from "./GamePreview";
 import { StoreGrid } from "./styles";
 
 interface Props {
-    region: PlaystationApi.types.PlaystationRegion;
     games: PreviewGamesMapItem[];
     hasMoreItems: () => boolean;
     loadNextPage: ( nextPage: number ) => void;
 }
 
-const PreviewsGrid: React.FC<Props> = ( { region, games, hasMoreItems, loadNextPage }: Props ) => {
+const PreviewsGrid: React.FC<Props> = ( { games, hasMoreItems, loadNextPage }: Props ) => {
     const items = games.slice().map( ( item ) => {
-        return <GamePreview key={"game-preview-" + item.key} region={region} game={item.game} />;
+        return <GamePreview key={"game-preview-" + item.key} game={item.game} />;
     } );
 
     const threshold = window.screen.height;

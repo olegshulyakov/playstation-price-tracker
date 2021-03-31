@@ -24,7 +24,7 @@ import SearchComponent from "../../components/Search";
 
 interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> { }
 
-const Search: React.FC<Props> = ( { region, store, history }: Props ) => {
+const Search: React.FC<Props> = ( { store, history }: Props ) => {
     React.useEffect( () => {
         if ( !store ) {
             history.push( "/" );
@@ -42,7 +42,6 @@ const Search: React.FC<Props> = ( { region, store, history }: Props ) => {
             <SearchComponent />
 
             <PreviewsGrid
-                region={region}
                 games={store.search}
                 hasMoreItems={() => false}
                 loadNextPage={( nextPage: number ) => { }}
@@ -54,7 +53,6 @@ const Search: React.FC<Props> = ( { region, store, history }: Props ) => {
 };
 
 const mapStateToProps = ( state: ReduxStoreState ) => ( {
-    region: state.region.current,
     store: state.store,
 } );
 

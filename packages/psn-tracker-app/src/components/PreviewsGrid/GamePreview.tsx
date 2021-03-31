@@ -15,13 +15,13 @@
  */
 
 import React from "react";
+import { connect, ConnectedProps } from "react-redux";
 import { Card } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import * as PlaystationApi from "playstation-api";
 import { DiscountContainer, DiscountPriceContainer, GamePreviewFooterContainer, GamePreviewPlatformContainer, GamePreviewPlatformName, Price, PriceWithoutDiscount, SaleDiscount } from "./styles";
 
-export interface Props extends RouteComponentProps, React.HTMLProps<any> {
-    region: PlaystationApi.types.PlaystationRegion;
+export interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> {
     game: PlaystationItemPreview;
 }
 
@@ -81,4 +81,9 @@ const GamePreview: React.FC<Props> = ( { region, game }: Props ) => {
     );
 };
 
-export default withRouter( GamePreview );
+const mapStateToProps = ( state: ReduxStoreState ) => ( {
+    region: state.region.current
+} );
+const connector = connect( mapStateToProps );
+type PropsFromRedux = ConnectedProps<typeof connector>;
+export default withRouter( connector( GamePreview ) );
