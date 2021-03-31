@@ -15,70 +15,72 @@
  */
 
 import React from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import "./App.css";
-import { clearGamesStore, fetchGamePreviewsList, fetchStoreInfo } from "./actions/gameActions";
+import { clearGamesStore, fetchStoreInfo } from "./actions/gameActions";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { fetchRegions } from "./actions/regionActions";
 
-interface Props extends ReduxStoreState, RouteComponentProps, React.HTMLProps<any> {
-    fetchRegions: Function;
-    fetchInfo: Function;
-    fetchGames: Function;
-    clearStore: Function;
-}
+interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> { }
 
-const App: React.FC<Props> = (props: Props) => {
-    const isLoaded = props.store.info && props.store.previews;
+const App: React.FC<Props> = ( { region, store, fetchRegions, fetchStoreInfo, clearGamesStore, history }: Props ) => {
+    const isLoaded = store.info && store.previews;
 
     const fetchInfo = () => {
-        if (!props.region.current) {
+        if ( !region.current ) {
             return;
         }
 
-        if (!props.store.info) {
-            const region = props.region.current;
-            props.fetchInfo(region);
+        if ( !store.info ) {
+            fetchStoreInfo( region.current );
             return;
         }
     };
 
-    React.useEffect(() => {
-        if (!props.region.regions || props.region.regions.length === 0) {
-            props.fetchRegions();
+    React.useEffect( () => {
+        if ( !region.regions || region.regions.length === 0 ) {
+            fetchRegions();
         }
-    }, []);
+    }, [] );
 
-    React.useEffect(() => {
-        if (!isLoaded) {
-            props.clearStore();
+    React.useEffect( () => {
+        if ( !isLoaded ) {
+            clearGamesStore();
         }
         fetchInfo();
-    }, [props.region.current]);
+    }, [region.current] );
 
-    if (!props.region.regions || props.region.regions.length === 0) {
+    if ( !region.regions || region.regions.length === 0 ) {
         return <LoadingSpinner />;
     }
 
-    if (!props.region.current || !props.region.current.name) {
-        props.history.push("/selectregion");
+    if ( !region.current || !region.current.name ) {
+        history.push( "/selectregion" );
     }
 
-    if (!isLoaded) {
+    if ( !isLoaded ) {
         return <LoadingSpinner msg={<p>Loading games...</p>} />;
     }
-    props.history.push("/discounts");
+    history.push( "/discounts" );
 
     return <></>;
 };
 
-const mapStateToProps = (state: ReduxStoreState) => state;
+const mapStateToProps = ( state: ReduxStoreState ) => (
+    {
+        region: state.region,
+        store: state.store,
+    }
+);
+
 const mapDispatchToProps = {
-    fetchRegions: fetchRegions,
-    fetchInfo: fetchStoreInfo,
-    fetchGames: fetchGamePreviewsList,
-    clearStore: clearGamesStore,
+    fetchRegions,
+    fetchStoreInfo,
+    clearGamesStore,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+const connector = connect( mapStateToProps, mapDispatchToProps );
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default withRouter( connector( App ) );

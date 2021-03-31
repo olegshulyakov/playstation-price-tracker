@@ -15,17 +15,18 @@
  */
 
 import React from "react";
-import { connect } from "react-redux";
-import { Container } from "react-bootstrap";
+import { connect, ConnectedProps } from "react-redux";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { withRouter } from "react-router-dom";
 
-const WishList: React.FC<any> = (props: any) => {
+interface Props extends PropsFromRedux, React.HTMLProps<any> { }
+
+const WishList: React.FC<any> = ( props: Props ) => {
     return (
         <>
             <Header isLanguageEnabled={true} />
-            <Container fluid></Container>
+
             <Footer />
         </>
     );
@@ -33,5 +34,7 @@ const WishList: React.FC<any> = (props: any) => {
 
 const mapStateToProps = null;
 const mapDispatchToProps = null;
+const connector = connect();
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(WishList));
+export default withRouter( connector( WishList ) );

@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { selectRegion } from "../../actions/regionActions";
@@ -23,38 +23,13 @@ import { clearGamesStore } from "../../actions/gameActions";
 import { Dropdown } from "react-bootstrap";
 import * as PlaystationApi from "playstation-api";
 
-interface Props extends RegionState, React.HTMLProps<any> {
-    selectRegion: Function;
-    clearGamesStore: Function;
-}
+interface Props extends PropsFromRedux, React.HTMLProps<any> { }
 
-const LanguageMenu: React.FC<Props> = (props: Props) => {
-    const onSelectRegion = (region: PlaystationApi.types.PlaystationRegion) => {
-        props.clearGamesStore();
-        props.selectRegion(region);
+const LanguageMenu: React.FC<Props> = ( { currentRegion, regions, selectRegion, clearGamesStore }: Props ) => {
+    const onSelectRegion = ( region: PlaystationApi.types.PlaystationRegion ) => {
+        clearGamesStore();
+        selectRegion( region );
     };
-
-    const renderRegion = (region: PlaystationApi.types.PlaystationRegion) => {
-        let styledName;
-        if (!props.current || props.current.name !== region.name) {
-            styledName = region.name;
-        } else {
-            styledName = <b>{region.name}</b>;
-        }
-
-        return (
-            <Dropdown.Item
-                key={"dropdown-region-" + region.name}
-                onClick={() => {
-                    onSelectRegion(region);
-                }}
-            >
-                {styledName}
-            </Dropdown.Item>
-        );
-    };
-
-    const regions = props.regions.map((region) => renderRegion(region));
 
     return (
         <Dropdown>
@@ -72,12 +47,31 @@ const LanguageMenu: React.FC<Props> = (props: Props) => {
                 <FontAwesomeIcon icon={faLanguage} size="2x" />
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>{regions}</Dropdown.Menu>
+            <Dropdown.Menu>
+                {regions.map( ( region ) => (
+                    <Dropdown.Item
+                        key={"dropdown-region-" + region.name}
+                        onClick={() => {
+                            onSelectRegion( region );
+                        }}
+                    >
+                        {!currentRegion || currentRegion.name !== region.name ? region.name : <b>{region.name}</b>}
+                    </Dropdown.Item>
+                ) )}
+            </Dropdown.Menu>
         </Dropdown>
     );
 };
 
-const mapStateToProps = (state: ReduxStoreState) =>
-    ({ current: state.region.current, regions: state.region.regions } as RegionState);
+const mapStateToProps = ( state: ReduxStoreState ) => (
+    {
+        currentRegion: state.region.current,
+        regions: state.region.regions
+    }
+);
 
-export default connect(mapStateToProps, { selectRegion: selectRegion, clearGamesStore: clearGamesStore })(LanguageMenu);
+const mapDispatchToProps = { selectRegion, clearGamesStore };
+const connector = connect( mapStateToProps, mapDispatchToProps );
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector( LanguageMenu );
