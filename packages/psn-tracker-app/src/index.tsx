@@ -28,17 +28,16 @@ import { APP_VERSION } from "./store/keys";
 import About from "./pages/About";
 import GameDetail from "./pages/GameDetail";
 import Search from "./pages/Search";
-import Discounts from "./pages/Discounts";
 import AllGames from "./pages/AllGames";
 import WishList from "./pages/Wishlist";
 import SelectRegion from "./pages/SelectRegion";
 
-const previousAppVersion = localStorage.getItem(APP_VERSION);
-const appVersion = `${process.env.REACT_APP_VERSION}`;
-if (previousAppVersion && previousAppVersion !== appVersion) {
+const previousAppVersion = localStorage.getItem( APP_VERSION );
+const appVersion = `${ process.env.REACT_APP_VERSION }`;
+if ( previousAppVersion && previousAppVersion !== appVersion ) {
     localStorage.clear();
 }
-localStorage.setItem(APP_VERSION, appVersion);
+localStorage.setItem( APP_VERSION, appVersion );
 
 ReactDOM.render(
     <Provider store={store}>
@@ -48,7 +47,7 @@ ReactDOM.render(
                     <Route path="/" exact component={() => <App />} />
                     <Route path="/selectregion" exact component={() => <SelectRegion />} />
                     <Route path="/search" exact component={() => <Search />} />
-                    <Route path="/discounts" exact component={() => <Discounts />} />
+                    <Route path="/discounts" exact component={() => <AllGames filter={( item: PreviewGamesMapItem ) => item.game.sale_discount !== undefined} />} />
                     <Route path="/allgames" exact component={() => <AllGames />} />
                     <Route path="/wishlist" exact component={() => <WishList />} />
                     <Route path="/about" exact component={() => <About />} />
@@ -57,7 +56,7 @@ ReactDOM.render(
             </Router>
         </PersistGate>
     </Provider>,
-    document.getElementById("root"),
+    document.getElementById( "root" ),
 );
 
 // If you want your app to work offline and load faster, you can change
