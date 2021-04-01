@@ -26,36 +26,36 @@ interface Props extends React.HTMLProps<any> {
     game: PlaystationApi.types.PlaystationGameResponse;
 }
 
-const MediaCard: React.FC<Props> = ( props: Props ) => {
+const MediaCard: React.FC<Props> = (props: Props) => {
     const redirectToPsStore = () => {
-        window.open( PlaystationApi.helpers.getStoreGameLink( props.region, props.game.id ), "_blank" );
+        window.open(PlaystationApi.helpers.getStoreGameLink(props.region, props.game.id), "_blank");
     };
 
-    const initialPrice = getInitialPrice( props.game );
-    const salePrice = getSalePrice( props.game );
-    const psPlusPrice = getPsPlusPrice( props.game );
+    const initialPrice = getInitialPrice(props.game);
+    const salePrice = getSalePrice(props.game);
+    const psPlusPrice = getPsPlusPrice(props.game);
 
     const prices: JSX.Element[] = [];
-    if ( initialPrice === salePrice ) {
+    if (initialPrice === salePrice) {
         prices.push(
             <div key={"detail-price-" + props.game.id} className="Game-detail-price">
                 {salePrice}
-            </div>,
+            </div>
         );
     } else {
         // price.push(<div className="Game-detail-inactive-price">{initialPrice}</div>);
         prices.push(
             <div key={"sale-price-" + props.game.id} className="Game-detail-sale-price">
                 {salePrice}
-            </div>,
+            </div>
         );
     }
 
-    if ( psPlusPrice ) {
+    if (psPlusPrice) {
         prices.push(
             <div key={"ps-plus-price-" + props.game.id} className="Game-detail-ps-plus-price">
                 {psPlusPrice}
-            </div>,
+            </div>
         );
     }
 
@@ -63,7 +63,7 @@ const MediaCard: React.FC<Props> = ( props: Props ) => {
         <GameDetailMediaCardContainer onClick={redirectToPsStore}>
             <GameDetailMediaCardImage
                 loading="lazy"
-                src={PlaystationApi.helpers.getPreviewImage( props.game )}
+                src={PlaystationApi.helpers.getPreviewImage(props.game)}
                 title={props.game.name}
                 placeholder={props.game.name}
                 width={240}
@@ -71,12 +71,7 @@ const MediaCard: React.FC<Props> = ( props: Props ) => {
             />
 
             <GameDetailMediaCardPrices>
-                <FontAwesomeIcon
-                    key={"shopping-cart-" + props.game.id}
-                    icon={faShoppingCart}
-                    size="1x"
-                    style={{ marginRight: "0.25rem" }}
-                />
+                <FontAwesomeIcon key={"shopping-cart-" + props.game.id} icon={faShoppingCart} size="1x" style={{ marginRight: "0.25rem" }} />
                 {prices}
             </GameDetailMediaCardPrices>
         </GameDetailMediaCardContainer>

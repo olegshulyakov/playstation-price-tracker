@@ -105,21 +105,21 @@ export type Facets = {
 
 export type Attributes = {
     facets: Facets;
-    next: any[];
+    next: unknown[];
 };
 
 export type Eligibility = {
     id: string;
     operand: string;
     operator: string;
-    rightOperand?: any;
+    rightOperand?: unknown;
     name: string;
-    description?: any;
-    entitlement_type?: any;
-    drms: any[];
+    description?: unknown;
+    entitlement_type?: unknown;
+    drms: unknown[];
 };
 
-export type MediaProp = {};
+export type MediaProp = unknown;
 
 export type Drm = {
     drm_category_type: number;
@@ -139,14 +139,14 @@ export type Metadata = {
 export type Package = {
     platformId: number;
     platformName: string;
-    size: any;
+    size: unknown;
 };
 
 export type Entitlement = {
-    description?: any;
+    description?: unknown;
     drms: Drm[];
     duration: number;
-    durationOverrideTypeId?: any;
+    durationOverrideTypeId?: unknown;
     exp_after_first_use: number;
     feature_type_id: number;
     id: string;
@@ -235,40 +235,40 @@ export type PlaystationGameResponse = {
     restricted: boolean;
     revision: number;
     short_name: string;
-    timestamp: any;
+    timestamp: unknown;
     top_category: string;
     url: string;
     provider_name: string;
     parent_name: string;
 };
 
-export type Metadata2 = {};
+export type Metadata2 = unknown;
 
 export type SceneLayout = {
     id: number;
     catalogEntryId: string;
     storeFrontId: number;
     templateId: number;
-    subScenes: any[];
+    subScenes: unknown[];
     storeTypeId: number;
 };
 
 export type PlaystationWidget = {
-    name?: any;
+    name?: unknown;
     id: number;
-    tag?: any;
-    width?: any;
-    height?: any;
-    offsetX?: any;
-    offsetY?: any;
+    tag?: unknown;
+    width?: unknown;
+    height?: unknown;
+    offsetX?: unknown;
+    offsetY?: unknown;
     order: string;
     locationWidgetId: number;
-    nsx_space?: any;
+    nsx_space?: unknown;
 };
 
 export type PlaystationLocation = {
     id: number;
-    name?: any;
+    name?: unknown;
     width: string;
     height: string;
     offsetX: string;
@@ -280,7 +280,7 @@ export type Extra = {
     templateExtraId: number;
     width: number;
     height: number;
-    name?: any;
+    name?: unknown;
     key: string;
 };
 
@@ -288,7 +288,7 @@ export type TemplateDef = {
     name: string;
     id: number;
     storeTypeId: number;
-    imageUrl?: any;
+    imageUrl?: unknown;
     locations: PlaystationLocation[];
     extras: Extra[];
 };
@@ -302,17 +302,17 @@ export type PlaystationResponse = {
     dob_required: boolean;
     default_sku?: DefaultSku;
     id: string;
-    images: any[];
+    images: unknown[];
     links: PlaystationGameResponse[];
     long_desc: string;
     metadata: Metadata2;
     name: string;
-    promomedia: any[];
+    promomedia: unknown[];
     restricted: boolean;
     revision: number;
     scene_layout: SceneLayout;
     size: number;
-    sku_links: any[];
+    sku_links: unknown[];
     sort_default: string;
     sort_default_direction: string;
     start: number;

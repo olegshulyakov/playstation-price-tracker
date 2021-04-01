@@ -4,22 +4,39 @@
         "**/build": true,
         "**/node_modules": true
     },
-    "editor.wordWrapColumn": 120,
     "search.exclude": {
         "**/build": true,
         "**/node_modules": true
     },
     "git.fetchOnPull": true,
     "git.rebaseWhenSync": true,
-    "editor.formatOnPaste": true,
-    "workbench.editor.enablePreview": false,
-    "editor.formatOnSave": true,
-    "workbench.editor.enablePreviewFromQuickOpen": false,
-    "eslint.validate": [
-        "javascript",
-        "typescript",
-    ],
     "gitlens.codeLens.enabled": false,
     "gitlens.currentLine.enabled": false,
-    "npm.packageManager": "yarn"
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "[javascript, typescript, typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "vscode.css-language-features"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[json, jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+    ],
+    "eslint.packageManager": "yarn",
+    "npm.packageManager": "yarn",
 }

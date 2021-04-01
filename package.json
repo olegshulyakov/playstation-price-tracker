@@ -14,7 +14,6 @@
         "bootstrap": "lerna clean --yes && lerna bootstrap -- --no-optional --use-workspaces",
         "dist": "lerna run dist --stream",
         "build": "npm run clean && npm run bootstrap && npm run dist",
-        "prettier": "prettier --write '**/*.*'",
         "predeploy": "npm run build",
         "deploy": "lerna run deploy --scope psn-tracker-app"
     },
@@ -23,20 +22,6 @@
     ],
     "devDependencies": {
         "lerna": "^3.20.2",
-        "prettier": "^2.0.2",
         "rimraf": "^3.0.2"
-    },
-    "prettier": {
-        "printWidth": 120,
-        "useTabs": false,
-        "semi": true,
-        "singleQuote": false,
-        "jsxSingleQuote": false,
-        "trailingComma": "all",
-        "bracketSpacing": true,
-        "jsxBracketSameLine": false,
-        "arrowParens": "always",
-        "vueIndentScriptAndStyle": true,
-        "endOfLine": "auto"
     }
 }

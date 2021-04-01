@@ -59,11 +59,7 @@ export class RegionGrabber {
             throw new Error(`[${this.region.name}] Cannot get store info`);
         }
 
-        const storeRef = this.db
-            .collection("regions")
-            .doc(`${this.region.language}-${this.region.country}`)
-            .collection("games")
-            .doc(info.id);
+        const storeRef = this.db.collection("regions").doc(`${this.region.language}-${this.region.country}`).collection("games").doc(info.id);
         this.addBatch(storeRef, info);
 
         return info;
@@ -74,11 +70,7 @@ export class RegionGrabber {
             return;
         }
 
-        const gameRef = this.db
-            .collection("regions")
-            .doc(`${this.region.language}-${this.region.country}`)
-            .collection("games")
-            .doc(game.id);
+        const gameRef = this.db.collection("regions").doc(`${this.region.language}-${this.region.country}`).collection("games").doc(game.id);
         this.addBatch(gameRef, game);
         this.latestTimestamp = game.timestamp;
     }

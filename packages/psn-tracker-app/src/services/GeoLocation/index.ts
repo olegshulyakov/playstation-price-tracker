@@ -19,9 +19,7 @@ interface CountryCodeCallBack {
 }
 
 export const getAddress = async (pos: Position): Promise<string> => {
-    const resp = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`,
-    );
+    const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`);
     const json = await resp.json();
     if (!json.address || !json.address.country_code) return "";
 

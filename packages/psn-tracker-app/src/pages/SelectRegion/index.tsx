@@ -24,23 +24,23 @@ import Footer from "../../components/Footer";
 import Region from "./Region";
 import { SelectRegionHeader, SelectRegionGrid } from "./styles";
 
-interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> { }
+interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> {}
 
-const SelectRegion: React.FC<Props> = ( { regions, current, selectRegion, history }: Props ) => {
-    React.useEffect( () => {
-        getCountryCode( ( country_code: string ) => {
-            for ( const region of regions ) {
-                if ( region.country.toLowerCase() !== country_code.toLowerCase() ) continue;
-                selectRegion( region );
+const SelectRegion: React.FC<Props> = ({ regions, current, selectRegion, history }: Props) => {
+    React.useEffect(() => {
+        getCountryCode((country_code: string) => {
+            for (const region of regions) {
+                if (region.country.toLowerCase() !== country_code.toLowerCase()) continue;
+                selectRegion(region);
             }
-        } );
-    }, [] );
+        });
+    }, []);
 
-    React.useEffect( () => {
-        if ( current ) {
-            history.push( "/" );
+    React.useEffect(() => {
+        if (current) {
+            history.push("/");
         }
-    }, [current] );
+    }, [current]);
 
     return (
         <>
@@ -48,24 +48,26 @@ const SelectRegion: React.FC<Props> = ( { regions, current, selectRegion, histor
 
             <SelectRegionHeader>Please select your country / region</SelectRegionHeader>
 
-            <SelectRegionGrid>{regions.map( ( region ) => <Region region={region} /> )}</SelectRegionGrid>
+            <SelectRegionGrid>
+                {regions.map((region) => (
+                    <Region key={region.name} region={region} />
+                ))}
+            </SelectRegionGrid>
 
             <Footer />
         </>
     );
 };
 
-const mapStateToProps = ( state: ReduxStoreState ) => (
-    {
-        regions: state.region.regions,
-        current: state.region.current
-    }
-);
+const mapStateToProps = (state: ReduxStoreState) => ({
+    regions: state.region.regions,
+    current: state.region.current,
+});
 const mapDispatchToProps = {
-    selectRegion
+    selectRegion,
 };
 
-const connector = connect( mapStateToProps, mapDispatchToProps );
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default withRouter( connector( SelectRegion ) );
+export default withRouter(connector(SelectRegion));

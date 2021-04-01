@@ -23,8 +23,8 @@ const initialState: PlaystationStore = {
     search: [],
 };
 
-export default ( state = initialState, action: any ) => {
-    switch ( action.type ) {
+export default (state = initialState, action: any) => {
+    switch (action.type) {
         case FETCH_GAMES_COUNT:
             return {
                 ...state,
@@ -32,13 +32,12 @@ export default ( state = initialState, action: any ) => {
             };
 
         case FETCH_PREVIEW_MAP:
-            const previewsMap = arrayToMap( state.previews );
-            for ( let i = 0; i < action.games.length; i++ ) {
-                const game = action.games[i];
-                previewsMap.set( game.id, game );
+            const previewsMap = arrayToMap(state.previews);
+            for (const game of action.games) {
+                previewsMap.set(game.id, game);
             }
 
-            const previews = mapToArray( previewsMap );
+            const previews = mapToArray(previewsMap);
             return {
                 ...state,
                 previews: previews,

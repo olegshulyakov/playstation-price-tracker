@@ -67,13 +67,8 @@ const About: React.FC<Props> = (props: Props) => {
                     <b>Attribution:</b>
                 </p>
                 <p>
-                    <img src={playstationClassicIcon} height={16} width={16} alt="Playstation Classic icon" /> Classic
-                    Playstation Icon is made by{" "}
-                    <ExternalLink
-                        href="https://www.flaticon.com/authors/freepik"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                    <img src={playstationClassicIcon} height={16} width={16} alt="Playstation Classic icon" /> Classic Playstation Icon is made by{" "}
+                    <ExternalLink href="https://www.flaticon.com/authors/freepik" target="_blank" rel="noopener noreferrer">
                         Freepik
                     </ExternalLink>{" "}
                     from{" "}

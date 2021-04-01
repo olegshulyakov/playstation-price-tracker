@@ -9,27 +9,27 @@ interface Props extends PropsFromRedux {
     region: PlaystationApi.types.PlaystationRegion;
 }
 
-const Region: React.FC<Props> = ( { region, selectRegion, clearGamesStore }: Props ) => {
+const Region: React.FC<Props> = ({ region, selectRegion, clearGamesStore }: Props) => {
     return (
         <SelectRegionCard
             key={"region-" + region.name}
             className="SelectRegion-card"
             onClick={() => {
                 clearGamesStore();
-                selectRegion( region );
+                selectRegion(region);
             }}
         >
             <SelectRegionName>{region.name}</SelectRegionName>
         </SelectRegionCard>
     );
-}
+};
 
 const mapDispatchToProps = {
     selectRegion,
     clearGamesStore,
 };
 
-const connector = connect( null, mapDispatchToProps );
+const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default connector( Region );
+export default connector(Region);

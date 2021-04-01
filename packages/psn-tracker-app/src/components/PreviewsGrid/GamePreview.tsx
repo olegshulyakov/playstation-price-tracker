@@ -19,20 +19,29 @@ import { connect, ConnectedProps } from "react-redux";
 import { Card } from "react-bootstrap";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import * as PlaystationApi from "playstation-api";
-import { DiscountContainer, DiscountPriceContainer, GamePreviewFooterContainer, GamePreviewPlatformContainer, GamePreviewPlatformName, Price, PriceWithoutDiscount, SaleDiscount } from "./styles";
+import {
+    DiscountContainer,
+    DiscountPriceContainer,
+    GamePreviewFooterContainer,
+    GamePreviewPlatformContainer,
+    GamePreviewPlatformName,
+    Price,
+    PriceWithoutDiscount,
+    SaleDiscount,
+} from "./styles";
 
 export interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> {
     game: PlaystationItemPreview;
 }
 
-const GamePreview: React.FC<Props> = ( { region, game }: Props ) => {
+const GamePreview: React.FC<Props> = ({ region, game }: Props) => {
     /*const handleGameClick = (game: PlaystationItemPreview) => {
         props.history.push({ pathname: "/game/" + game.id, state: game.url });
     };*/
 
-    const redirectToPsStore = ( event: any ) => {
+    const redirectToPsStore = (event: any) => {
         event.preventDefault();
-        window.open( PlaystationApi.helpers.getStoreGameLink( region, game.id ), "_blank" );
+        window.open(PlaystationApi.helpers.getStoreGameLink(region, game.id), "_blank");
     };
 
     return (
@@ -55,16 +64,16 @@ const GamePreview: React.FC<Props> = ( { region, game }: Props ) => {
             <Card.Footer className="text-left p-2">
                 <GamePreviewFooterContainer onClick={redirectToPsStore}>
                     <GamePreviewPlatformContainer>
-                        {game.playable_platform.map( platform => <GamePreviewPlatformName key={platform}>{platform}</GamePreviewPlatformName> )}
+                        {game.playable_platform.map((platform) => (
+                            <GamePreviewPlatformName key={platform}>{platform}</GamePreviewPlatformName>
+                        ))}
                     </GamePreviewPlatformContainer>
 
-                    {!game.sale_discount && ( <Price>{game.initial_price}</Price> )}
+                    {!game.sale_discount && <Price>{game.initial_price}</Price>}
 
                     {game.sale_discount && (
                         <DiscountContainer>
-                            <SaleDiscount>
-                                {game.sale_discount}%
-                            </SaleDiscount>
+                            <SaleDiscount>{game.sale_discount}%</SaleDiscount>
 
                             <DiscountPriceContainer>
                                 <PriceWithoutDiscount>
@@ -81,9 +90,9 @@ const GamePreview: React.FC<Props> = ( { region, game }: Props ) => {
     );
 };
 
-const mapStateToProps = ( state: ReduxStoreState ) => ( {
-    region: state.region.current
-} );
-const connector = connect( mapStateToProps );
+const mapStateToProps = (state: ReduxStoreState) => ({
+    region: state.region.current,
+});
+const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-export default withRouter( connector( GamePreview ) );
+export default withRouter(connector(GamePreview));

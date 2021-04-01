@@ -126,13 +126,7 @@ const GameDetail: React.FC<Props> = (props: Props) => {
                         >
                             {game.name}
                             {game.content_rating?.url ? (
-                                <img
-                                    src={game.content_rating?.url}
-                                    loading="eager"
-                                    alt="rating"
-                                    height="45px"
-                                    width="45px"
-                                />
+                                <img src={game.content_rating?.url} loading="eager" alt="rating" height="45px" width="45px" />
                             ) : (
                                 <></>
                             )}

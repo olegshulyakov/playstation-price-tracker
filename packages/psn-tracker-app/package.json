@@ -23,76 +23,16 @@
         "redux-logger": "^3.0.6",
         "redux-persist": "^6.0.0",
         "redux-thunk": "^2.3.0",
-        "styled-components": "^5.0.1",
-        "typescript": "^3.8.3"
+        "styled-components": "^5.0.1"
     },
     "scripts": {
         "start": "react-scripts start",
         "dist": "react-scripts build",
+        "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx src --fix",
         "test": "react-scripts test --watchAll=false --ci --passWithNoTests",
         "eject": "react-scripts eject",
         "predeploy": "npm run dist",
         "deploy": "gh-pages -d build"
-    },
-    "eslintConfig": {
-        "parser": "@typescript-eslint/parser",
-        "extends": [
-            "react-app",
-            "plugin:@typescript-eslint/recommended",
-            "plugin:prettier/recommended",
-            "plugin:eslint-comments/recommended",
-            "plugin:import/errors",
-            "plugin:import/warnings",
-            "plugin:import/typescript",
-            "plugin:jest/recommended"
-        ],
-        "env": {
-            "browser": true,
-            "jest": true
-        },
-        "plugins": [
-            "react",
-            "@typescript-eslint",
-            "jsx-a11y",
-            "import",
-            "prettier",
-            "jest",
-            "eslint-comments"
-        ],
-        "rules": {
-            "@typescript-eslint/indent": "off",
-            "@typescript-eslint/explicit-function-return-type": "off",
-            "@typescript-eslint/no-explicit-any": "off",
-            "@typescript-eslint/camelcase": "off",
-            "react/jsx-filename-extension": [
-                1,
-                {
-                    "extensions": [
-                        ".js",
-                        ".jsx",
-                        ".ts",
-                        ".tsx"
-                    ]
-                }
-            ],
-            "react/prop-types": "off",
-            "react/button-has-type": "off",
-            "import/extensions": "off",
-            "import/prefer-default-export": "off",
-            "import/no-extraneous-dependencies": [
-                "error",
-                {
-                    "devDependencies": [
-                        "config-overrides.js",
-                        "src/setupTests.ts",
-                        "src/**/*.test.{ts,tsx}"
-                    ]
-                }
-            ],
-            "prettier/prettier": [
-                "error"
-            ]
-        }
     },
     "browserslist": {
         "production": [
@@ -121,9 +61,16 @@
         "@types/redux-logger": "^3.0.7",
         "@types/redux-thunk": "^2.1.0",
         "@types/styled-components": "^5.0.1",
-        "eslint-plugin-prettier": "^3.1.2",
+        "@typescript-eslint/eslint-plugin": "^4.20.0",
+        "@typescript-eslint/parser": "^4.20.0",
         "gh-pages": "^3.1.0",
+        "eslint": "^7.23.0",
+        "eslint-config-prettier": "^8.1.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-prettier": "^3.3.1",
         "jest": "^24.9.0",
-        "redux-devtools-extension": "^2.13.8"
+        "prettier": "^2.2.1",
+        "redux-devtools-extension": "^2.13.8",
+        "typescript": "^3.8.3"
     }
 }

@@ -16,11 +16,17 @@
 
 import * as PlaystationApi from "playstation-api";
 
-export const getGamePreview = ( region: PlaystationApi.types.PlaystationRegion, game: PlaystationApi.types.PlaystationGameResponse ): PlaystationItemPreview => {
-    const image = game.images && game.images.length > 0 && game.images[0].type === 1 ? game.images[0].url : PlaystationApi.queries.getGameImageLink( region, game.id, 240, 240 );
-    const initialPrice = getInitialPrice( game );
-    const salePrice = getSalePrice( game );
-    const saleDiscount = getSaleDiscount( game );
+export const getGamePreview = (
+    region: PlaystationApi.types.PlaystationRegion,
+    game: PlaystationApi.types.PlaystationGameResponse
+): PlaystationItemPreview => {
+    const image =
+        game.images && game.images.length > 0 && game.images[0].type === 1
+            ? game.images[0].url
+            : PlaystationApi.queries.getGameImageLink(region, game.id, 240, 240);
+    const initialPrice = getInitialPrice(game);
+    const salePrice = getSalePrice(game);
+    const saleDiscount = getSaleDiscount(game);
     return {
         id: game.id,
         name: game.name,
@@ -30,45 +36,44 @@ export const getGamePreview = ( region: PlaystationApi.types.PlaystationRegion, 
         initial_price: initialPrice,
         sale_price: salePrice,
         sale_discount: saleDiscount,
-        playable_platform: getPlatforms( game )
+        playable_platform: getPlatforms(game),
     } as PlaystationItemPreview;
 };
 
-export const getInitialPrice = ( game: PlaystationApi.types.PlaystationGameResponse ): string | undefined => {
-    if ( !game.default_sku ) return undefined;
+export const getInitialPrice = (game: PlaystationApi.types.PlaystationGameResponse): string | undefined => {
+    if (!game.default_sku) return undefined;
     return game.default_sku.display_price;
 };
 
-export const getSalePrice = ( game: PlaystationApi.types.PlaystationGameResponse ): string | undefined => {
-    const saleDetails = PlaystationApi.helpers.getSaleDetails( game );
-    if ( !saleDetails || !saleDetails.display_price ) return undefined;
+export const getSalePrice = (game: PlaystationApi.types.PlaystationGameResponse): string | undefined => {
+    const saleDetails = PlaystationApi.helpers.getSaleDetails(game);
+    if (!saleDetails || !saleDetails.display_price) return undefined;
     return saleDetails.display_price;
-
 };
 
-export const getSaleDiscount = ( game: PlaystationApi.types.PlaystationGameResponse ): number | undefined => {
-    const saleDetails = PlaystationApi.helpers.getSaleDetails( game );
-    if ( !saleDetails || !saleDetails.discount ) return undefined;
+export const getSaleDiscount = (game: PlaystationApi.types.PlaystationGameResponse): number | undefined => {
+    const saleDetails = PlaystationApi.helpers.getSaleDetails(game);
+    if (!saleDetails || !saleDetails.discount) return undefined;
     return saleDetails.discount;
 };
 
-export const getPsPlusPrice = ( game: PlaystationApi.types.PlaystationGameResponse ): string | undefined => {
-    const saleDetails = PlaystationApi.helpers.getSaleDetails( game );
-    if ( !saleDetails || !saleDetails.bonus_display_price ) return undefined;
+export const getPsPlusPrice = (game: PlaystationApi.types.PlaystationGameResponse): string | undefined => {
+    const saleDetails = PlaystationApi.helpers.getSaleDetails(game);
+    if (!saleDetails || !saleDetails.bonus_display_price) return undefined;
     return saleDetails.bonus_display_price;
 };
 
-const getPlatforms = ( game: PlaystationApi.types.PlaystationGameResponse ) => {
+const getPlatforms = (game: PlaystationApi.types.PlaystationGameResponse) => {
     const entitlements = game?.default_sku?.entitlements;
-    if ( !entitlements ) return [];
+    if (!entitlements) return [];
 
     const platforms = new Set();
-    entitlements.forEach( e => {
-        if ( !e.packages || e.packages.length === 0 ) return;
+    entitlements.forEach((e) => {
+        if (!e.packages || e.packages.length === 0) return;
 
-        e.packages.forEach( p => {
-            platforms.add( p.platformName.replace( "™", "" ) );
-        } );
-    } );
+        e.packages.forEach((p) => {
+            platforms.add(p.platformName.replace("™", ""));
+        });
+    });
     return [...platforms].sort();
-}
+};

@@ -18,13 +18,6 @@
             "group": "none"
         },
         {
-            "label": "Format code",
-            "type": "npm",
-            "script": "prettier",
-            "problemMatcher": [],
-            "group": "build"
-        },
-        {
             "label": "Web: Start server",
             "type": "npm",
             "script": "start",

@@ -22,57 +22,55 @@ import { clearGamesStore, fetchStoreInfo } from "./actions/gameActions";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { fetchRegions } from "./actions/regionActions";
 
-interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> { }
+interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> {}
 
-const App: React.FC<Props> = ( { region, store, fetchRegions, fetchStoreInfo, clearGamesStore, history }: Props ) => {
+const App: React.FC<Props> = ({ region, store, fetchRegions, fetchStoreInfo, clearGamesStore, history }: Props) => {
     const isLoaded = store.info && store.previews;
 
     const fetchInfo = () => {
-        if ( !region.current ) {
+        if (!region.current) {
             return;
         }
 
-        if ( !store.info ) {
-            fetchStoreInfo( region.current );
+        if (!store.info) {
+            fetchStoreInfo(region.current);
             return;
         }
     };
 
-    React.useEffect( () => {
-        if ( !region.regions || region.regions.length === 0 ) {
+    React.useEffect(() => {
+        if (!region.regions || region.regions.length === 0) {
             fetchRegions();
         }
-    }, [] );
+    }, []);
 
-    React.useEffect( () => {
-        if ( !isLoaded ) {
+    React.useEffect(() => {
+        if (!isLoaded) {
             clearGamesStore();
         }
         fetchInfo();
-    }, [region.current] );
+    }, [region.current]);
 
-    if ( !region.regions || region.regions.length === 0 ) {
+    if (!region.regions || region.regions.length === 0) {
         return <LoadingSpinner />;
     }
 
-    if ( !region.current || !region.current.name ) {
-        history.push( "/selectregion" );
+    if (!region.current || !region.current.name) {
+        history.push("/selectregion");
     }
 
-    if ( !isLoaded ) {
+    if (!isLoaded) {
         return <LoadingSpinner msg={<p>Loading games...</p>} />;
     }
-    history.push( "/discounts" );
+    history.push("/discounts");
 
     return <></>;
 };
 
-const mapStateToProps = ( state: ReduxStoreState ) => (
-    {
-        region: state.region,
-        store: state.store,
-    }
-);
+const mapStateToProps = (state: ReduxStoreState) => ({
+    region: state.region,
+    store: state.store,
+});
 
 const mapDispatchToProps = {
     fetchRegions,
@@ -80,7 +78,7 @@ const mapDispatchToProps = {
     clearGamesStore,
 };
 
-const connector = connect( mapStateToProps, mapDispatchToProps );
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default withRouter( connector( App ) );
+export default withRouter(connector(App));

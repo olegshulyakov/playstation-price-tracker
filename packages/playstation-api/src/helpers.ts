@@ -20,7 +20,7 @@ export function getStoreGameLink(region: PlaystationRegion, cusa: string): strin
     return `https://store.playstation.com/${region.language}-${region.country}/product/${cusa}`;
 }
 
-export function getPreviewImage(game: PlaystationGameResponse | PlaystationResponse): string {
+export function getPreviewImage(game: PlaystationGameResponse): string {
     return game.images[0].url;
 }
 

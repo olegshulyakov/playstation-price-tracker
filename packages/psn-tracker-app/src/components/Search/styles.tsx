@@ -17,7 +17,7 @@ export const SearchContainer = styled.div`
     }
 `;
 
-export const SearchCrossIcon = styled( FontAwesomeIcon )`
+export const SearchCrossIcon = styled(FontAwesomeIcon)`
     position: relative;
     right: 1.5em;
     top: 0.7em;

@@ -22,16 +22,16 @@ import Footer from "../../components/Footer";
 import PreviewsGrid from "../../components/PreviewsGrid";
 import SearchComponent from "../../components/Search";
 
-interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> { }
+interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> {}
 
-const Search: React.FC<Props> = ( { store, history }: Props ) => {
-    React.useEffect( () => {
-        if ( !store ) {
-            history.push( "/" );
+const Search: React.FC<Props> = ({ store, history }: Props) => {
+    React.useEffect(() => {
+        if (!store) {
+            history.push("/");
         }
-    }, [] );
+    }, []);
 
-    if ( !store || !store.previews ) {
+    if (!store || !store.previews) {
         return <></>;
     }
 
@@ -41,21 +41,17 @@ const Search: React.FC<Props> = ( { store, history }: Props ) => {
 
             <SearchComponent />
 
-            <PreviewsGrid
-                games={store.previews}
-                hasMoreItems={() => false}
-                loadNextPage={( nextPage: number ) => { }}
-            />
+            <PreviewsGrid games={store.previews} hasMoreItems={() => false} loadNextPage={(nextPage: number) => {}} />
 
             <Footer />
         </>
     );
 };
 
-const mapStateToProps = ( state: ReduxStoreState ) => ( {
+const mapStateToProps = (state: ReduxStoreState) => ({
     store: state.store,
-} );
+});
 
-const connector = connect( mapStateToProps );
+const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-export default withRouter( connector( Search ) );
+export default withRouter(connector(Search));

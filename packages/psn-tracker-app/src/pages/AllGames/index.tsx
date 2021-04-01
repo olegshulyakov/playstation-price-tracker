@@ -23,60 +23,50 @@ import PreviewsGrid from "../../components/PreviewsGrid";
 import { fetchGamePreviewsList } from "../../actions/gameActions";
 
 interface Props extends PropsFromRedux, RouteComponentProps, React.HTMLProps<any> {
-    filter?: ( item: PreviewGamesMapItem ) => boolean;
-};
+    filter?: (item: PreviewGamesMapItem) => boolean;
+}
 
-const AllGames: React.FC<Props> = ( { region, store, fetchGames, filter, history }: Props ) => {
-    React.useEffect( () => {
-        if ( !region || !store || !store.info || !store.info.total_results ) {
-            history.push( "/" );
+const AllGames: React.FC<Props> = ({ region, store, fetchGames, filter, history }: Props) => {
+    React.useEffect(() => {
+        if (!region || !store || !store.info || !store.info.total_results) {
+            history.push("/");
         }
-    }, [] );
+    }, []);
 
     const hasMoreItems = () => {
-        return !(
-            !store.info ||
-            !store.previews ||
-            store.previews.length >= store.info.total_results
-        );
+        return !(!store.info || !store.previews || store.previews.length >= store.info.total_results);
     };
 
-    const loadNextPage = ( nextPage: number ) => {
-        if ( !store.info || !store.previews ) {
+    const loadNextPage = (nextPage: number) => {
+        if (!store.info || !store.previews) {
             return;
         }
-        fetchGames( region, store.info.total_results, store.previews.length );
+        fetchGames(region, store.info.total_results, store.previews.length);
     };
 
-    if ( !store || !store.previews ) {
+    if (!store || !store.previews) {
         return <></>;
     }
 
-    const list = filter ? store.previews.slice().filter( ( item ) => filter( item ) ) : store.previews.slice();
+    const list = filter ? store.previews.slice().filter((item) => filter(item)) : store.previews.slice();
     return (
         <>
             <Header isLanguageEnabled={true} />
 
-            <PreviewsGrid
-                games={list}
-                hasMoreItems={hasMoreItems}
-                loadNextPage={loadNextPage}
-            />
+            <PreviewsGrid games={list} hasMoreItems={hasMoreItems} loadNextPage={loadNextPage} />
 
             <Footer />
         </>
     );
 };
 
-const mapStateToProps = ( state: ReduxStoreState ) => (
-    {
-        region: state.region.current,
-        store: state.store,
-    }
-);
+const mapStateToProps = (state: ReduxStoreState) => ({
+    region: state.region.current,
+    store: state.store,
+});
 const mapDispatchToProps = { fetchGames: fetchGamePreviewsList };
 
-const connector = connect( mapStateToProps, mapDispatchToProps );
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default withRouter( connector( AllGames ) );
+export default withRouter(connector(AllGames));

@@ -22,13 +22,13 @@ import { StoreGrid } from "./styles";
 interface Props {
     games: PreviewGamesMapItem[];
     hasMoreItems: () => boolean;
-    loadNextPage: ( nextPage: number ) => void;
+    loadNextPage: (nextPage: number) => void;
 }
 
-const PreviewsGrid: React.FC<Props> = ( { games, hasMoreItems, loadNextPage }: Props ) => {
-    const items = games.slice().map( ( item ) => {
+const PreviewsGrid: React.FC<Props> = ({ games, hasMoreItems, loadNextPage }: Props) => {
+    const items = games.slice().map((item) => {
         return <GamePreview key={"game-preview-" + item.key} game={item.game} />;
-    } );
+    });
 
     const threshold = window.screen.height;
 

@@ -27,12 +27,7 @@ const Footer: React.FC<Props> = (props: Props) => {
                 About
             </Link>
             {". "}
-            <a
-                className="link"
-                href="https://github.com/olegshulyakov/playstation-price-tracker"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
+            <a className="link" href="https://github.com/olegshulyakov/playstation-price-tracker" target="_blank" rel="noopener noreferrer">
                 GitHub
             </a>
             {". "} Version: <b>{process.env.REACT_APP_VERSION}</b>

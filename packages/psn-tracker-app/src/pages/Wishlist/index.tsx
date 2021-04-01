@@ -15,14 +15,12 @@
  */
 
 import React from "react";
-import { connect, ConnectedProps } from "react-redux";
+import { connect } from "react-redux";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { withRouter } from "react-router-dom";
 
-interface Props extends PropsFromRedux, React.HTMLProps<any> { }
-
-const WishList: React.FC<any> = ( props: Props ) => {
+const WishList: React.FC<any> = () => {
     return (
         <>
             <Header isLanguageEnabled={true} />
@@ -32,9 +30,6 @@ const WishList: React.FC<any> = ( props: Props ) => {
     );
 };
 
-const mapStateToProps = null;
-const mapDispatchToProps = null;
 const connector = connect();
-type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default withRouter( connector( WishList ) );
+export default withRouter(connector(WishList));

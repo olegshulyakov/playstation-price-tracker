@@ -5,26 +5,26 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { clearGamesStore, searchGames } from "../../actions/gameActions";
 import { SearchContainer, SearchCrossIcon } from "./styles";
 
-interface Props extends PropsFromRedux, React.HTMLProps<any> { }
+interface Props extends PropsFromRedux, React.HTMLProps<any> {}
 
-const Search: React.FC<Props> = ( { region, clearGamesStore, searchGames }: Props ) => {
-    const [searchString, setSearchString] = React.useState( "" );
+const Search: React.FC<Props> = ({ region, clearGamesStore, searchGames }: Props) => {
+    const [searchString, setSearchString] = React.useState("");
 
-    if ( !region ) return <></>;
+    if (!region) return <></>;
 
-    const handleInputChange = ( e: ChangeEvent<HTMLInputElement> ) => {
-        if ( !e.target || !region ) return;
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target || !region) return;
         const query = e.target.value;
-        setSearchString( query );
+        setSearchString(query);
 
-        if ( !query || query.length <= 3 || query[query.length - 1] === " " ) return;
+        if (!query || query.length <= 3 || query[query.length - 1] === " ") return;
 
         clearGamesStore();
-        searchGames( region, query );
+        searchGames(region, query);
     };
 
     const handleClearSearch = () => {
-        setSearchString( "" );
+        setSearchString("");
         clearGamesStore();
     };
 
@@ -36,24 +36,20 @@ const Search: React.FC<Props> = ( { region, clearGamesStore, searchGames }: Prop
                     type="text"
                     placeholder="Start typing..."
                     value={searchString}
-                    onChange={( e: ChangeEvent<HTMLInputElement> ) => handleInputChange( e )}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
                 />
 
-                <SearchCrossIcon
-                    icon={faTimes}
-                    size="1x"
-                    onClick={handleClearSearch}
-                />
+                <SearchCrossIcon icon={faTimes} size="1x" onClick={handleClearSearch} />
             </SearchContainer>
         </Form>
-    )
-}
+    );
+};
 
-const mapStateToProps = ( state: ReduxStoreState ) => ( {
-    region: state.region.current
-} );
+const mapStateToProps = (state: ReduxStoreState) => ({
+    region: state.region.current,
+});
 const mapDispatchToProps = { searchGames, clearGamesStore };
-const connector = connect( mapStateToProps, mapDispatchToProps );
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default connector( Search );
+export default connector(Search);

@@ -23,12 +23,12 @@ import { clearGamesStore } from "../../actions/gameActions";
 import { Dropdown } from "react-bootstrap";
 import * as PlaystationApi from "playstation-api";
 
-interface Props extends PropsFromRedux, React.HTMLProps<any> { }
+interface Props extends PropsFromRedux, React.HTMLProps<any> {}
 
-const LanguageMenu: React.FC<Props> = ( { currentRegion, regions, selectRegion, clearGamesStore }: Props ) => {
-    const onSelectRegion = ( region: PlaystationApi.types.PlaystationRegion ) => {
+const LanguageMenu: React.FC<Props> = ({ currentRegion, regions, selectRegion, clearGamesStore }: Props) => {
+    const onSelectRegion = (region: PlaystationApi.types.PlaystationRegion) => {
         clearGamesStore();
-        selectRegion( region );
+        selectRegion(region);
     };
 
     return (
@@ -48,30 +48,28 @@ const LanguageMenu: React.FC<Props> = ( { currentRegion, regions, selectRegion, 
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-                {regions.map( ( region ) => (
+                {regions.map((region) => (
                     <Dropdown.Item
                         key={"dropdown-region-" + region.name}
                         onClick={() => {
-                            onSelectRegion( region );
+                            onSelectRegion(region);
                         }}
                     >
                         {!currentRegion || currentRegion.name !== region.name ? region.name : <b>{region.name}</b>}
                     </Dropdown.Item>
-                ) )}
+                ))}
             </Dropdown.Menu>
         </Dropdown>
     );
 };
 
-const mapStateToProps = ( state: ReduxStoreState ) => (
-    {
-        currentRegion: state.region.current,
-        regions: state.region.regions
-    }
-);
+const mapStateToProps = (state: ReduxStoreState) => ({
+    currentRegion: state.region.current,
+    regions: state.region.regions,
+});
 
 const mapDispatchToProps = { selectRegion, clearGamesStore };
-const connector = connect( mapStateToProps, mapDispatchToProps );
+const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default connector( LanguageMenu );
+export default connector(LanguageMenu);
