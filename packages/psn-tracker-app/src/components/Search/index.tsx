@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { Col, Form, FormControl } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Form, FormControl } from "react-bootstrap";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { clearGamesStore, searchGames } from "../../actions/gameActions";
+import { SearchContainer, SearchCrossIcon } from "./styles";
 
 interface Props extends PropsFromRedux, React.HTMLProps<any> { }
 
@@ -23,9 +23,14 @@ const Search: React.FC<Props> = ( { region, clearGamesStore, searchGames }: Prop
         searchGames( region, query );
     };
 
+    const handleClearSearch = () => {
+        setSearchString( "" );
+        clearGamesStore();
+    };
+
     return (
         <Form>
-            <Col xs={4} className="mx-auto pt-2 pb-2">
+            <SearchContainer>
                 <FormControl
                     key="search-input"
                     type="text"
@@ -33,17 +38,13 @@ const Search: React.FC<Props> = ( { region, clearGamesStore, searchGames }: Prop
                     value={searchString}
                     onChange={( e: ChangeEvent<HTMLInputElement> ) => handleInputChange( e )}
                 />
-                <FontAwesomeIcon
-                    style={{
-                        position: "absolute",
-                        right: "24px",
-                        top: "19px"
-                    }}
+
+                <SearchCrossIcon
                     icon={faTimes}
                     size="1x"
-                    onClick={() => { setSearchString( "" ); clearGamesStore() }}
+                    onClick={handleClearSearch}
                 />
-            </Col>
+            </SearchContainer>
         </Form>
     )
 }
